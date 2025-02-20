@@ -6,7 +6,7 @@
   },
   "vulnerabilities": [
     {
-      "id": "vuln-001",
+      "id": "vuln-0001",
       "author": "Tarek Elsayed",
       "title": "Use-after-free in buffer conversion implementation",
       "vulnerability_type": "memory",
@@ -16,18 +16,54 @@
       "description": "The From implementation for Vec was not properly implemented, returning a vector backed by freed memory. This could lead to memory corruption or be exploited to cause undefined behavior.",
       "code_samples": [
         {
-          "path_to_crate": "vuln-001/simple",
+          "path_to_crate": "vuln-0001/vuln-function",
           "is_vulnerability": true,
           "cwe_type": "CWE-416",
           "vulnerable_functions": {
-            "src/main.rs": "genvec"
+            "src/lib.rs": "fn from(buffer: Buffer) -> Vec<u8>"
           },
           "vulnerable_lines": {
-            "src/main.rs": [3, 5]
+            "src/lib.rs": [95]
           }
         },
         {
-          "path_to_crate": "vuln-001/safe-simple",
+          "path_to_crate": "vuln-0001/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-416",
+          "vulnerable_functions": {
+            "src/buffer.rs": "fn from(buffer: Buffer) -> Vec<u8>"
+          },
+          "vulnerable_lines": {
+            "src/buffer.rs": [195]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0001/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-416",
+          "vulnerable_functions": {
+            "src/buffer.rs": "fn from(buffer: Buffer) -> Vec<u8>"
+          },
+          "vulnerable_lines": {
+            "src/buffer.rs": [195]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0001/complete-code-function",
+          "is_vulnerability": false,
+          "cwe_type": null,
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0001/complete-code-file",
+          "is_vulnerability": false,
+          "cwe_type": null,
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0001/complete-code-crate",
           "is_vulnerability": false,
           "cwe_type": null,
           "vulnerable_functions": {},

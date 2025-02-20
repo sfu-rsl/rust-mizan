@@ -2,5 +2,11 @@
 resolver = "2"
 
 members = [
-    "vuln-0001/vuln-function", 
+    "vuln-0001/vuln-function",
+    "vuln-0001/vuln-file",
+    "vuln-0001/vuln-crate",
+
+    "vuln-0001/complete-code-file",
+    "vuln-0001/complete-code-function",
+    "vuln-0001/complete-code-crate",
 ]
