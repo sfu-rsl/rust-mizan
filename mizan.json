@@ -1,0 +1,39 @@
+{
+  "general_information": {
+    "benchmark_name": "RustMizan",
+    "rust_version": "rustc 1.84.1",
+    "dataset_version": "0.1.0"
+  },
+  "vulnerabilities": [
+    {
+      "id": "vuln-001",
+      "author": "Tarek Elsayed",
+      "title": "Use-after-free in buffer conversion implementation",
+      "vulnerability_type": "memory",
+      "vulnerability_subtypes": ["use-after-free"],
+      "severity": "Critical",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2019-0016.html",
+      "description": "The From implementation for Vec was not properly implemented, returning a vector backed by freed memory. This could lead to memory corruption or be exploited to cause undefined behavior.",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-001/simple",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-416",
+          "vulnerable_functions": {
+            "src/main.rs": "genvec"
+          },
+          "vulnerable_lines": {
+            "src/main.rs": [3, 5]
+          }
+        },
+        {
+          "path_to_crate": "vuln-001/safe-simple",
+          "is_vulnerability": false,
+          "cwe_type": null,
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    }
+  ]
+}
