@@ -32,17 +32,6 @@ cargo build --workspace
 - Create a README File. Include relevant information (CVE ID - Commit references before and after the fix - List of sample variants)
 - Update `mizan.json`
 - Update the dataset folder to mark the vulnerability as done
-  - In case of `rust-memory-safety-bugs`, it's a git submodule so follow these steps
-
-```sh
-cd datasets/rust-memory-safety-bugs
-git add .
-git commit -m "Add vulnerability 002"
-cd ../../
-git add datasets/rust-memory-safety-bugs
-git commit -m "Update submodule for vulnerability 002"
-git push origin <branch>
-```
 
 > [!Note]
 > In some cases, it might be challenging or unrealistic to add the whole crate/module (e.g., when dealing with the standard library). If unsure, please open an issue for discussion.
