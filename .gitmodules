@@ -1,3 +1,0 @@
-[submodule "datasets/rust-memory-safety-bugs"]
-	path = datasets/rust-memory-safety-bugs
-	url = https://github.com/Artisan-Lab/Rust-memory-safety-bugs.git
