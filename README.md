@@ -5,13 +5,7 @@ RustMizan (**ميزانَ**- meaning "scale" in Arabic) is a benchmark designed 
 ## Setup Instructions
 
 1. Clone the repository
-2. Initialize and update the dataset submodule
-
-```sh
-git submodule update --init --recursive
-```
-
-3. Build the project
+2. Build the project
 
 ```sh
 cargo build --workspace
