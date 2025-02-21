@@ -28,23 +28,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "complete-code-crate"
-version = "0.1.0"
-dependencies = [
- "curl",
- "http",
- "json",
-]
-
-[[package]]
-name = "complete-code-file"
-version = "0.1.0"
-
-[[package]]
-name = "complete-code-function"
-version = "0.1.0"
-
-[[package]]
 name = "curl"
 version = "0.4.47"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -73,6 +56,23 @@ dependencies = [
  "vcpkg",
  "windows-sys 0.52.0",
 ]
+
+[[package]]
+name = "fixed-crate"
+version = "0.1.0"
+dependencies = [
+ "curl",
+ "http",
+ "json",
+]
+
+[[package]]
+name = "fixed-file"
+version = "0.1.0"
+
+[[package]]
+name = "fixed-function"
+version = "0.1.0"
 
 [[package]]
 name = "fnv"

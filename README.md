@@ -21,7 +21,7 @@ cargo build --workspace
   - Create a module-only crate by reducing the crate to just the vulnerable module.
   - Create a file-only crate by reducing the code to just the vulnerable file.
   - Create a function-only crate by reducing the code to just the vulnerable function.
-- Generate non-nulnerable ("complete-code") samples
+- Generate non-nulnerable ("fixed") samples
   - Repeat the same process for the code at the fix commit
 - Create a README File. Include relevant information (CVE ID - Commit references before and after the fix - List of sample variants)
 - Update `mizan.json`
