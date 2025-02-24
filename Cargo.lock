@@ -932,6 +932,15 @@ dependencies = [
 [[package]]
 name = "vuln-0002-fixed-file"
 version = "0.1.0"
+dependencies = [
+ "criterion",
+ "crossbeam-utils 0.7.2",
+ "itertools 0.9.0",
+ "num_cpus",
+ "once_cell",
+ "parking_lot",
+ "proptest",
+]
 
 [[package]]
 name = "vuln-0002-fixed-function"
