@@ -95,6 +95,21 @@
           "vulnerable_lines": {
             "src/access.rs": [240, 287]
           }
+        },
+        {
+          "path_to_crate": "vuln-0002/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-416",
+          "vulnerable_functions": {
+            "src/access.rs": [
+              "fn deref(&self) -> &T",
+              "fn load(&self) -> Self::Guard",
+              "impl<T: Clone> Access<T> for Constant<T>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/access.rs": [240, 287]
+          }
         }
       ]
     }
