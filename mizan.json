@@ -70,6 +70,33 @@
           "vulnerable_lines": {}
         }
       ]
+    },
+    {
+      "id": "vuln-0002",
+      "author": "Tarek Elsayed",
+      "title": "Dangling reference in `access::Map` with Constant",
+      "vulnerability_type": "memory",
+      "vulnerability_subtypes": ["use-after-free"],
+      "severity": "High",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0091.html",
+      "description": "Using the `arc_swap::access::Map` with the `Constant` test helper (or with user-provided implementation of the `Access` trait) could sometimes lead to the map returning dangling references.\n\nReplaced by implementation without `unsafe`, at the cost of added `Clone` bound on the closure and small penalty on performance.",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0002/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-416",
+          "vulnerable_functions": {
+            "src/access.rs": [
+              "fn deref(&self) -> &T",
+              "fn load(&self) -> Self::Guard",
+              "impl<T: Clone> Access<T> for Constant<T>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/access.rs": [240, 287]
+          }
+        }
+      ]
     }
   ]
 }
