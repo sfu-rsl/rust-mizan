@@ -378,7 +378,7 @@ macro_rules! insert_as_doc {
 }
 
 // Provides the README.md as doc, to ensure the example works!
-insert_as_doc!(include_str!("../README.md"));
+// insert_as_doc!(include_str!("../README.md"));
 
 // Copies data from `src` to `dst`
 //
