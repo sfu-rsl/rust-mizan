@@ -1,15 +1,14 @@
-# Vulnerability: CVE-2018-209950
+# Vulnerability:  CVE-2020-35916	
 
 | **Information**       | **Details**                                                                                |
 | --------------------- | ------------------------------------------------------------------------------------------ |
-| **CVE**               | [CVE-2019-16881](https://rustsec.org/advisories/RUSTSEC-2019-0022.html)                    |
-| **Commit Before Fix** | [47f1400](https://github.com/gnzlbg/slice_deque/tree/57b1a84138222f5416eeeec33d834af0041c81c2) |
-| **Commit After Fix**  | [8a1f47d](https://github.com/mvdnes/portaudio-rs/pull/21/commits/47f14009f7100d207a52d5a8e6cf2f49a1e8c78d) |
-| **Variants**          | - [fixed-crate](fixed-crate)                                                               |
-|                       | - [fixed-file](fixed-file)                                                                 |
-|                       | - [fixed-function](fixed-function)                                                         |
-|                       | - [vuln-crate](vuln-crate)                                                                 |
-|                       | - [vuln-file](vuln-file)                                                                   |
-|                       | - [vuln-function](vuln-function)                                                           |
+| **CVE**               | [CVE-2020-35916](https://rustsec.org/advisories/RUSTSEC-2020-0073.html)                    |
+| **Commit Before Fix** | [1ec76c](https://github.com/image-rs/image/tree/1ec76c9db1a2551c0a590ff285473f8fc0fd7bc9) |
+| **Commit After Fix**  | [5cbe1e6](https://github.com/image-rs/image/tree/5cbe1e6767d11aff3f14c7ad69a06b04e8d583c7) |
+| **Variants**          | - [fixed-crate3](fixed-crate)                                                               |
+|                       | - [fixed-file3](fixed-file)                                                                 |
+|                       | - [fixed-function3](fixed-function)                                                         |
+|                       | - [vuln-crate3](vuln-crate)                                                                 |
+|                       | - [vuln-file3](vuln-file)                                                                   |
+|                       | - [vuln-function3](vuln-function)                                                           |
 
-**Note:** 

@@ -70,6 +70,72 @@
           "vulnerable_lines": {}
         }
       ]
+    },
+    {
+      "id": "vuln-0003",
+      "author": "Nathan Young",
+      "title": "Mutable reference with immutable provenance",
+      "vulnerability_type": "memory",
+      "vulnerability_subtypes": [],
+      "severity": "Medium",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0073.html",
+      "description": "A mutable reference to a struct was constructed by dereferencing a pointer obtained from slice::as_ptr. Instead, slice::as_mut_ptr should have been called on the mutable slice argument.",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0003/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-400",
+          "vulnerable_functions": {
+            "src/lib.rs": "fn from_slice_mut<T>(slice: &mut [T]) -> *const T"
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [3]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0003/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-400",
+          "vulnerable_functions": {
+            "src/lib.rs": "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [500]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0003/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-400",
+          "vulnerable_functions": {
+            "src/color.rs": "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+          },
+          "vulnerable_lines": {
+            "src/color.rs": [256]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0003/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": null,
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0003/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": null,
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0003/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": null,
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
     }
   ]
 }
