@@ -116,7 +116,7 @@
           "is_vulnerability": true,
           "cwe_type": "CWE-416",
           "vulnerable_functions": {
-            "src/access.rs": [
+            "src/lib.rs": [
               "fn deref(&self) -> &T",
               "fn load(&self) -> Self::Guard",
               "impl<T: Clone> Access<T> for Constant<T>"
@@ -201,8 +201,14 @@
           "path_to_crate": "vuln-0003/vuln-function",
           "is_vulnerability": true,
           "cwe_type": "CWE-119",
-          "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [9]
+          }
         },
         {
           "path_to_crate": "vuln-0003/fixed-crate",
