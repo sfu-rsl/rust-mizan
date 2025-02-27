@@ -977,6 +977,30 @@ name = "vuln-0002-vuln-function"
 version = "0.1.0"
 
 [[package]]
+name = "vuln-0003-fixed-crate"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0003-fixed-file"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0003-fixed-function"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0003-vuln-crate"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0003-vuln-file"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0003-vuln-function"
+version = "0.1.0"
+
+[[package]]
 name = "vuln-crate"
 version = "0.1.0"
 dependencies = [

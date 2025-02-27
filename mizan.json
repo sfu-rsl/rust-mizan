@@ -148,6 +148,21 @@
           "vulnerable_lines": {}
         }
       ]
+    },
+    {
+      "id": "vuln-0003",
+      "author": "Tarek Elsayed",
+      "title": "Vec-to-vec transmutations could lead to heap overflow/corruption",
+      "vulnerability_type": "memory",
+      "vulnerability_subtypes": [
+        "out-of-range access",
+        "buffer overflow",
+        "buffer over-read"
+      ],
+      "severity": "Critical",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2018-0013.html",
+      "description": "Affected versions of this crate switched the length and capacity arguments in the Vec::from_raw_parts() constructor, which could lead to memory corruption or data leakage.\n\nThe flaw was corrected by using the constructor correctly.",
+      "code_samples": []
     }
   ]
 }
