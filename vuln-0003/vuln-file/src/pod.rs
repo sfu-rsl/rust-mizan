@@ -1,5 +1,5 @@
 use self::super::{Error, guarded_transmute_many_permissive, guarded_transmute_many_pedantic, guarded_transmute_pedantic, guarded_transmute_many,
-                  guarded_transmute};
+    guarded_transmute};
 #[cfg(feature = "std")]
 use self::super::{guarded_transmute_vec_permissive, guarded_transmute_vec_pedantic, guarded_transmute_vec};
 
@@ -97,7 +97,7 @@ unsafe impl<T: PodTransmutable> PodTransmutable for [T; 32] {}
 /// # }
 /// ```
 pub fn guarded_transmute_pod<T: PodTransmutable>(bytes: &[u8]) -> Result<T, Error> {
-    unsafe { guarded_transmute(bytes) }
+unsafe { guarded_transmute(bytes) }
 }
 
 /// Transmute a byte slice into a single instance of a POD.
@@ -118,7 +118,7 @@ pub fn guarded_transmute_pod<T: PodTransmutable>(bytes: &[u8]) -> Result<T, Erro
 /// # }
 /// ```
 pub fn guarded_transmute_pod_pedantic<T: PodTransmutable>(bytes: &[u8]) -> Result<T, Error> {
-    unsafe { guarded_transmute_pedantic(bytes) }
+unsafe { guarded_transmute_pedantic(bytes) }
 }
 
 /// Transmute a byte slice into a single instance of a POD.
@@ -140,7 +140,7 @@ pub fn guarded_transmute_pod_pedantic<T: PodTransmutable>(bytes: &[u8]) -> Resul
 /// # }
 /// ```
 pub fn guarded_transmute_pod_many<T: PodTransmutable>(bytes: &[u8]) -> Result<&[T], Error> {
-    unsafe { guarded_transmute_many(bytes) }
+unsafe { guarded_transmute_many(bytes) }
 }
 
 /// View a byte slice as a slice of a POD type.
@@ -154,7 +154,7 @@ pub fn guarded_transmute_pod_many<T: PodTransmutable>(bytes: &[u8]) -> Result<&[
 /// assert_eq!(guarded_transmute_pod_many_permissive::<u16>(&[0x00]), &[]);
 /// ```
 pub fn guarded_transmute_pod_many_permissive<T: PodTransmutable>(bytes: &[u8]) -> &[T] {
-    unsafe { guarded_transmute_many_permissive(bytes) }
+unsafe { guarded_transmute_many_permissive(bytes) }
 }
 
 /// View a byte slice as a slice of POD.
@@ -177,7 +177,7 @@ pub fn guarded_transmute_pod_many_permissive<T: PodTransmutable>(bytes: &[u8]) -
 /// # }
 /// ```
 pub fn guarded_transmute_pod_many_pedantic<T: PodTransmutable>(bytes: &[u8]) -> Result<&[T], Error> {
-    unsafe { guarded_transmute_many_pedantic(bytes) }
+unsafe { guarded_transmute_many_pedantic(bytes) }
 }
 
 /// Trasform a byte vector into a vector of POD.
@@ -209,7 +209,7 @@ pub fn guarded_transmute_pod_many_pedantic<T: PodTransmutable>(bytes: &[u8]) -> 
 /// ```
 #[cfg(feature = "std")]
 pub fn guarded_transmute_pod_vec<T: PodTransmutable>(bytes: Vec<u8>) -> Result<Vec<T>, Error> {
-    unsafe { guarded_transmute_vec(bytes) }
+unsafe { guarded_transmute_vec(bytes) }
 }
 
 /// Trasform a byte vector into a vector of POD.
@@ -240,7 +240,7 @@ pub fn guarded_transmute_pod_vec<T: PodTransmutable>(bytes: Vec<u8>) -> Result<V
 /// ```
 #[cfg(feature = "std")]
 pub fn guarded_transmute_pod_vec_permissive<T: PodTransmutable>(bytes: Vec<u8>) -> Vec<T> {
-    unsafe { guarded_transmute_vec_permissive(bytes) }
+unsafe { guarded_transmute_vec_permissive(bytes) }
 }
 
 /// Trasform a byte vector into a vector of POD.
@@ -267,5 +267,5 @@ pub fn guarded_transmute_pod_vec_permissive<T: PodTransmutable>(bytes: Vec<u8>) 
 /// ```
 #[cfg(feature = "std")]
 pub fn guarded_transmute_pod_vec_pedantic<T: PodTransmutable>(bytes: Vec<u8>) -> Result<Vec<T>, Error> {
-    unsafe { guarded_transmute_vec_pedantic(bytes) }
+unsafe { guarded_transmute_vec_pedantic(bytes) }
 }

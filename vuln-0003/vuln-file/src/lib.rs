@@ -119,9 +119,6 @@ pub use self::pod::{PodTransmutable, guarded_transmute_pod_many_permissive, guar
 #[cfg(feature = "std")]
 pub use self::pod::{guarded_transmute_pod_vec_permissive, guarded_transmute_pod_vec_pedantic, guarded_transmute_pod_vec};
 
-
-
-
 /// Transmute a byte slice into a single instance of a `Copy`able type.
 ///
 /// The byte slice must have at least enough bytes to fill a single instance of a type,
