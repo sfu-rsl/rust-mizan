@@ -256,6 +256,20 @@
           "vulnerable_lines": {
             "src/compact.rs": [110, 144]
           }
+        },
+        {
+          "path_to_crate": "vuln-0004/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-415",
+          "vulnerable_functions": {
+            "src/access.rs": [
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/compact.rs": [110, 144]
+          }
         }
       ]
     }
