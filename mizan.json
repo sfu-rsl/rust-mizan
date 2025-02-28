@@ -242,7 +242,22 @@
       "severity": "High",
       "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0038.html",
       "description": "remove() is not panic-safe and causes double-free when an index larger than the length is provided.",
-      "code_samples": []
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0004/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-415",
+          "vulnerable_functions": {
+            "src/access.rs": [
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/compact.rs": [110, 144]
+          }
+        }
+      ]
     }
   ]
 }
