@@ -193,7 +193,7 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [313],
+            "src/lib.rs": [310],
             "src/to_bytes.rs": [234]
           }
         },

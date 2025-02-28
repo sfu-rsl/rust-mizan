@@ -1,10 +1,12 @@
 //! Functions for transmutation *from* a concrete type *to* bytes.
 
+
 use self::super::PodTransmutable;
 #[cfg(feature = "std")]
 use core::mem::forget;
 use core::mem::size_of;
 use core::slice;
+
 
 /// Transmute a single instance of an arbitrary type into a slice of its bytes.
 ///
@@ -177,6 +179,7 @@ pub fn guarded_transmute_to_bytes_pod<T: PodTransmutable>(from: &T) -> &[u8] {
 pub fn guarded_transmute_to_bytes_pod_many<T: PodTransmutable>(from: &[T]) -> &[u8] {
     unsafe { guarded_transmute_to_bytes_many(from) }
 }
+
 
 /// Transmute a vector of arbitrary types into a vector of their bytes,
 /// using the same memory buffer as the former.

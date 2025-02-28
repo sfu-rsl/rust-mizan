@@ -59,8 +59,10 @@
 //! always ensure that no out of bounds access is attempted, usually by
 //! restricting the output to spatially safe portions of the input.
 
+
 use crate::error::{ErrorReason, GuardError};
 use core::mem::size_of;
+
 
 /// The trait describes types which define boundary checking strategies.
 /// See the [module-level documentation](index.html) for more details.
@@ -73,6 +75,7 @@ pub trait Guard {
     /// which specifies the incompatibility is returned.
     fn check<T>(v: &[u8]) -> Result<(), GuardError>;
 }
+
 
 /// Single value guard: The byte slice must have exactly enough bytes to fill a single
 /// instance of a type.
@@ -91,6 +94,7 @@ impl Guard for SingleValueGuard {
         }
     }
 }
+
 
 /// Pedantic guard: The byte slice must have at least enough bytes to fill a single
 /// instance of a type, and should not have extraneous data.
@@ -116,6 +120,7 @@ impl Guard for PedanticGuard {
     }
 }
 
+
 /// An all-or-nothing guard: The byte slice should not have extraneous data, but can be
 /// empty, unlike `PedanticGuard`.
 pub struct AllOrNothingGuard;
@@ -134,6 +139,7 @@ impl Guard for AllOrNothingGuard {
     }
 }
 
+
 /// A single-or-many guard: The byte slice must have at least enough bytes to fill a single
 /// instance of a type, and extraneous data is ignored.
 pub struct SingleManyGuard;
@@ -151,6 +157,7 @@ impl Guard for SingleManyGuard {
         }
     }
 }
+
 
 /// Permissive guard: The resulting slice would have as many instances of a type as will
 /// fit, rounded down. Therefore, this guard will never yield an error.
