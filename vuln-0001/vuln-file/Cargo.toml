@@ -1,5 +1,5 @@
 [package]
-name = "vuln-file"
+name = "vuln-0001-vuln-file"
 version = "0.1.0"
 edition = "2021"
 

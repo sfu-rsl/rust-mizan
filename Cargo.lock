@@ -261,23 +261,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "37909eebbb50d72f9059c3b6d82c0463f2ff062c9e95845c43a6c9c0355411be"
 
 [[package]]
-name = "fixed-crate"
-version = "0.1.0"
-dependencies = [
- "curl",
- "http",
- "json",
-]
-
-[[package]]
-name = "fixed-file"
-version = "0.1.0"
-
-[[package]]
-name = "fixed-function"
-version = "0.1.0"
-
-[[package]]
 name = "fnv"
 version = "1.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -917,6 +900,40 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
 
 [[package]]
+name = "vuln-0001-fixed-crate"
+version = "0.1.0"
+dependencies = [
+ "curl",
+ "http",
+ "json",
+]
+
+[[package]]
+name = "vuln-0001-fixed-file"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0001-fixed-function"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0001-vuln-crate"
+version = "0.1.0"
+dependencies = [
+ "curl",
+ "http",
+ "json",
+]
+
+[[package]]
+name = "vuln-0001-vuln-file"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0001-vuln-function"
+version = "0.1.0"
+
+[[package]]
 name = "vuln-0002-fixed-crate"
 version = "0.1.0"
 dependencies = [
@@ -998,23 +1015,6 @@ version = "0.1.0"
 
 [[package]]
 name = "vuln-0003-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-crate"
-version = "0.1.0"
-dependencies = [
- "curl",
- "http",
- "json",
-]
-
-[[package]]
-name = "vuln-file"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-function"
 version = "0.1.0"
 
 [[package]]
