@@ -236,7 +236,7 @@
     {
       "id": "vuln-0004",
       "author": "Paul Ngo",
-      "title": "Memory safety issues in compact::Vec",
+      "title": "compact::Vec::remove is not panic-safe",
       "vulnerability_type": "memory",
       "vulnerability_subtypes": ["double-free"],
       "severity": "High",
@@ -276,13 +276,13 @@
           "is_vulnerability": true,
           "cwe_type": "CWE-415",
           "vulnerable_functions": {
-            "src/access.rs": [
+            "src/lib.rs": [
               "fn remove(&mut self, index: usize) -> T",
               "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
             ]
           },
           "vulnerable_lines": {
-            "src/compact.rs": [20, 47]
+            "src/lib.rs": [20, 47]
           }
         }
       ]
