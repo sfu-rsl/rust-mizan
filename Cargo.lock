@@ -1117,10 +1117,18 @@ dependencies = [
 [[package]]
 name = "vuln-0006-fixed-crate"
 version = "0.1.0"
+dependencies = [
+ "bincode",
+ "serde",
+]
 
 [[package]]
 name = "vuln-0006-fixed-file"
 version = "0.1.0"
+dependencies = [
+ "bincode",
+ "serde",
+]
 
 [[package]]
 name = "vuln-0006-fixed-function"
