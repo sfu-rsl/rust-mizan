@@ -82,9 +82,6 @@ pub extern crate alloc;
 #[cfg(any(test, feature = "write"))]
 extern crate std;
 
-#[cfg(test)]
-mod tests;
-
 #[allow(deprecated)]
 use alloc::alloc::{Layout, LayoutErr};
 use alloc::boxed::Box;
