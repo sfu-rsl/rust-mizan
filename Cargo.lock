@@ -1137,6 +1137,10 @@ dependencies = [
 [[package]]
 name = "vuln-0006-vuln-file"
 version = "0.1.0"
+dependencies = [
+ "bincode",
+ "serde",
+]
 
 [[package]]
 name = "vuln-0006-vuln-function"
