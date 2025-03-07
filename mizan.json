@@ -232,6 +232,60 @@
           "vulnerable_lines": {}
         }
       ]
+    },
+    {
+      "id": "vuln-0004",
+      "author": "Paul Ngo",
+      "title": "compact::Vec::remove is not panic-safe",
+      "vulnerability_type": "memory",
+      "vulnerability_subtypes": ["double-free"],
+      "severity": "High",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0038.html",
+      "description": "remove() is not panic-safe and causes double-free when an index larger than the length is provided.",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0004/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-415",
+          "vulnerable_functions": {
+            "src/compact.rs": [
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/compact.rs": [110, 144]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0004/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-415",
+          "vulnerable_functions": {
+            "src/compact.rs": [
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/compact.rs": [110, 144]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0004/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-415",
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [20, 47]
+          }
+        }
+      ]
     }
   ]
 }
