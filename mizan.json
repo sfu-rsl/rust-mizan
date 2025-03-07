@@ -248,7 +248,7 @@
           "is_vulnerability": true,
           "cwe_type": "CWE-415",
           "vulnerable_functions": {
-            "src/access.rs": [
+            "src/compact.rs": [
               "fn remove(&mut self, index: usize) -> T",
               "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
             ]
@@ -262,7 +262,7 @@
           "is_vulnerability": true,
           "cwe_type": "CWE-415",
           "vulnerable_functions": {
-            "src/access.rs": [
+            "src/compact.rs": [
               "fn remove(&mut self, index: usize) -> T",
               "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
             ]
