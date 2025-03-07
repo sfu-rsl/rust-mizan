@@ -8,12 +8,7 @@
     {
       "id": "vuln-0001",
       "author": "Tarek Elsayed",
-      "title": "Use-after-free in buffer conversion implementation",
-      "vulnerability_type": "memory",
-      "vulnerability_subtypes": ["use-after-free"],
-      "severity": "Critical",
       "source_link": "https://rustsec.org/advisories/RUSTSEC-2019-0016.html",
-      "description": "The From implementation for Vec was not properly implemented, returning a vector backed by freed memory. This could lead to memory corruption or be exploited to cause undefined behavior.",
       "code_samples": [
         {
           "path_to_crate": "vuln-0001/vuln-function",
@@ -74,12 +69,7 @@
     {
       "id": "vuln-0002",
       "author": "Tarek Elsayed",
-      "title": "Dangling reference in `access::Map` with Constant",
-      "vulnerability_type": "memory",
-      "vulnerability_subtypes": ["use-after-free"],
-      "severity": "High",
       "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0091.html",
-      "description": "Using the `arc_swap::access::Map` with the `Constant` test helper (or with user-provided implementation of the `Access` trait) could sometimes lead to the map returning dangling references.\n\nReplaced by implementation without `unsafe`, at the cost of added `Clone` bound on the closure and small penalty on performance.",
       "code_samples": [
         {
           "path_to_crate": "vuln-0002/vuln-crate",
@@ -152,16 +142,7 @@
     {
       "id": "vuln-0003",
       "author": "Tarek Elsayed",
-      "title": "Vec-to-vec transmutations could lead to heap overflow/corruption",
-      "vulnerability_type": "memory",
-      "vulnerability_subtypes": [
-        "out-of-range access",
-        "buffer overflow",
-        "buffer over-read"
-      ],
-      "severity": "Critical",
       "source_link": "https://rustsec.org/advisories/RUSTSEC-2018-0013.html",
-      "description": "Affected versions of this crate switched the length and capacity arguments in the Vec::from_raw_parts() constructor, which could lead to memory corruption or data leakage.\n\nThe flaw was corrected by using the constructor correctly.",
       "code_samples": [
         {
           "path_to_crate": "vuln-0003/vuln-crate",
@@ -236,12 +217,7 @@
     {
       "id": "vuln-0004",
       "author": "Paul Ngo",
-      "title": "compact::Vec::remove is not panic-safe",
-      "vulnerability_type": "memory",
-      "vulnerability_subtypes": ["double-free"],
-      "severity": "High",
       "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0038.html",
-      "description": "remove() is not panic-safe and causes double-free when an index larger than the length is provided.",
       "code_samples": [
         {
           "path_to_crate": "vuln-0004/vuln-crate",

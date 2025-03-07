@@ -23,15 +23,7 @@ schema = {
                 "properties": {
                     "id": {"type": "string"},
                     "author": {"type": "string"},
-                    "title": {"type": "string"},
-                    "vulnerability_type": {"type": "string"},
-                    "vulnerability_subtypes": {
-                        "type": "array",
-                        "items": {"type": "string"},
-                    },
-                    "severity": {"type": "string"},
                     "source_link": {"type": "string"},
-                    "description": {"type": "string"},
                     "code_samples": {
                         "type": "array",
                         "items": {
@@ -56,12 +48,7 @@ schema = {
                 "required": [
                     "id",
                     "author",
-                    "title",
-                    "vulnerability_type",
-                    "vulnerability_subtypes",
-                    "severity",
                     "source_link",
-                    "description",
                     "code_samples",
                 ],
             },
