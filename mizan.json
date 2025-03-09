@@ -392,6 +392,94 @@
       ]
     },
     {
+      "id": "vuln-0007",
+      "author": "Paul Ngo",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0038.html",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0007/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-125",
+          "vulnerable_functions": {
+            "src/compact.rs": [
+              "fn with_capacity(capacity: usize) -> Self",
+              "fn push(&mut self, val: T)",
+              "fn parts(&self) -> (usize, usize)",
+              "fn clear(&mut self)",
+              "fn capacity(&self) -> usize",
+              "unsafe fn set_len(&mut self, len: usize)",
+              "fn parts(&self) -> (usize, usize)",
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R",
+              "fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self",
+              "unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> ",
+              "unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>",
+              "impl<T> core::ops::Drop for Vec<T>",
+              "impl<T> From<StdVec<T>> for Vec<T>",
+              "impl<T> From<Vec<T>> for StdVec<T>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/compact.rs": [48, 54, 136, 161, 281, 282, 286, 297]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0007/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-125",
+          "vulnerable_functions": {
+            "src/compact.rs": [
+              "fn with_capacity(capacity: usize) -> Self",
+              "fn push(&mut self, val: T)",
+              "fn parts(&self) -> (usize, usize)",
+              "fn clear(&mut self)",
+              "fn capacity(&self) -> usize",
+              "unsafe fn set_len(&mut self, len: usize)",
+              "fn parts(&self) -> (usize, usize)",
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R",
+              "fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self",
+              "unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> ",
+              "unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>",
+              "impl<T> core::ops::Drop for Vec<T>",
+              "impl<T> From<StdVec<T>> for Vec<T>",
+              "impl<T> From<Vec<T>> for StdVec<T>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/compact.rs": [48, 54, 136, 161, 281, 282, 286, 297]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0007/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-125",
+          "vulnerable_functions": {
+            "src/compact.rs": [
+              "fn with_capacity(capacity: usize) -> Self",
+              "fn push(&mut self, val: T)",
+              "fn parts(&self) -> (usize, usize)",
+              "fn clear(&mut self)",
+              "fn capacity(&self) -> usize",
+              "unsafe fn set_len(&mut self, len: usize)",
+              "fn parts(&self) -> (usize, usize)",
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R",
+              "fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self",
+              "unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> ",
+              "unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>",
+              "impl<T> core::ops::Drop for Vec<T>",
+              "impl<T> From<StdVec<T>> for Vec<T>",
+              "impl<T> From<Vec<T>> for StdVec<T>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [33, 39, 105, 130, 173, 174, 178, 189]
+          }
+        }
+      ]
+    },
+    {
       "id": "vuln-0015",
       "author": "Tarek Elsayed",
       "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0034.html",
