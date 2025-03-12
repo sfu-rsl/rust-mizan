@@ -1,16 +1,19 @@
 #![no_std]
 
+#[doc(hidden)]
 pub extern crate alloc;
 
+#[allow(deprecated)]
 use alloc::alloc::{Layout, LayoutErr};
-use core::fmt;
 use core::hint::unreachable_unchecked;
-use core::iter::IntoIterator;
+use core::iter::{repeat, FromIterator, FusedIterator, IntoIterator};
 use core::mem;
 use core::mem::MaybeUninit;
-use core::ops::Range;
-use core::ptr;
+use core::ops::{self, Range, RangeBounds};
+use core::ptr::{self, NonNull};
+use core::slice::{self, SliceIndex};
 
+/// `panic!()` in debug builds, optimization hint in release.
 macro_rules! debug_unreachable {
     () => {
         debug_unreachable!("entered unreachable code")
@@ -24,22 +27,16 @@ macro_rules! debug_unreachable {
     };
 }
 
+/// Error type for APIs with fallible heap allocation
 #[derive(Debug)]
 pub enum CollectionAllocErr {
+    /// Overflow `usize::MAX` or other error during size computation
     CapacityOverflow,
-    AllocErr { layout: Layout },
-}
-
-impl fmt::Display for CollectionAllocErr {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "Allocation error: {:?}", self)
-    }
-}
-
-impl From<LayoutErr> for CollectionAllocErr {
-    fn from(_: LayoutErr) -> Self {
-        CollectionAllocErr::CapacityOverflow
-    }
+    /// The allocator return an error
+    AllocErr {
+        /// The layout that was passed to the allocator
+        layout: Layout,
+    },
 }
 
 fn infallible<T>(result: Result<T, CollectionAllocErr>) -> T {
@@ -50,6 +47,8 @@ fn infallible<T>(result: Result<T, CollectionAllocErr>) -> T {
     }
 }
 
+/// FIXME: use `Layout::array` when we require a Rust version where it’s stable
+/// https://github.com/rust-lang/rust/issues/55724
 fn layout_array<T>(n: usize) -> Result<Layout, CollectionAllocErr> {
     let size = mem::size_of::<T>()
         .checked_mul(n)
@@ -59,6 +58,7 @@ fn layout_array<T>(n: usize) -> Result<Layout, CollectionAllocErr> {
 }
 
 unsafe fn deallocate<T>(ptr: *mut T, capacity: usize) {
+    // This unwrap should succeed since the same did when allocating.
     let layout = layout_array::<T>(capacity).unwrap();
     alloc::alloc::dealloc(ptr as *mut u8, layout)
 }
@@ -107,45 +107,89 @@ impl<A: Array> SmallVecData<A> {
     }
 }
 
-pub unsafe trait Array {
-    type Item;
-    fn size() -> usize;
-}
+unsafe impl<A: Array + Send> Send for SmallVecData<A> {}
+unsafe impl<A: Array + Sync> Sync for SmallVecData<A> {}
 
+/// A `Vec`-like container that can store a small number of elements inline.
+///
+/// `SmallVec` acts like a vector, but can store a limited amount of data inline within the
+/// `SmallVec` struct rather than in a separate allocation.  If the data exceeds this limit, the
+/// `SmallVec` will "spill" its data onto the heap, allocating a new buffer to hold it.
+///
+/// The amount of data that a `SmallVec` can store inline depends on its backing store. The backing
+/// store can be any type that implements the `Array` trait; usually it is a small fixed-sized
+/// array.  For example a `SmallVec<[u64; 8]>` can hold up to eight 64-bit integers inline.
+///
+/// ## Example
+///
+/// ```rust
+/// use smallvec::SmallVec;
+/// let mut v = SmallVec::<[u8; 4]>::new(); // initialize an empty vector
+///
+/// // The vector can hold up to 4 items without spilling onto the heap.
+/// v.extend(0..4);
+/// assert_eq!(v.len(), 4);
+/// assert!(!v.spilled());
+///
+/// // Pushing another element will force the buffer to spill:
+/// v.push(4);
+/// assert_eq!(v.len(), 5);
+/// assert!(v.spilled());
+/// ```
 pub struct SmallVec<A: Array> {
+    // The capacity field is used to determine which of the storage variants is active:
+    // If capacity <= Self::inline_capacity() then the inline variant is used and capacity holds the current length of the vector (number of elements actually in use).
+    // If capacity > Self::inline_capacity() then the heap variant is used and capacity holds the size of the memory allocation.
     capacity: usize,
     data: SmallVecData<A>,
 }
 
 impl<A: Array> SmallVec<A> {
-    #[inline]
-    pub fn new() -> SmallVec<A> {
-        assert!(
-            mem::size_of::<A>() == A::size() * mem::size_of::<A::Item>()
-                && mem::align_of::<A>() >= mem::align_of::<A::Item>()
-        );
-        SmallVec {
-            capacity: 0,
-            data: SmallVecData::from_inline(MaybeUninit::uninit()),
-        }
+    /// Sets the length of a vector.
+    ///
+    /// This will explicitly set the size of the vector, without actually
+    /// modifying its buffers, so it is up to the caller to ensure that the
+    /// vector is actually the specified size.
+    pub unsafe fn set_len(&mut self, new_len: usize) {
+        let (_, len_ptr, _) = self.triple_mut();
+        *len_ptr = new_len;
     }
 
+    /// The maximum number of elements this vector can hold inline
+    #[inline]
     fn inline_capacity() -> usize {
         if mem::size_of::<A::Item>() > 0 {
             A::size()
         } else {
+            // For zero-size items code like `ptr.add(offset)` always returns the same pointer.
+            // Therefore all items are at the same address,
+            // and any array size has capacity for infinitely many items.
+            // The capacity is limited by the bit width of the length field.
+            //
+            // `Vec` also does this:
+            // https://github.com/rust-lang/rust/blob/1.44.0/src/liballoc/raw_vec.rs#L186
+            //
+            // In our case, this also ensures that a smallvec of zero-size items never spills,
+            // and we never try to allocate zero bytes which `std::alloc::alloc` disallows.
             core::usize::MAX
         }
     }
 
+    /// The maximum number of elements this vector can hold inline
+    #[inline]
     pub fn inline_size(&self) -> usize {
         Self::inline_capacity()
     }
 
-    pub fn len(&self) -> usize {
-        self.triple().1
+    /// The number of items the vector can hold without reallocating
+    #[inline]
+    pub fn capacity(&self) -> usize {
+        self.triple().2
     }
 
+    /// Returns a tuple with (data ptr, len, capacity)
+    /// Useful to get all SmallVec properties with a single check of the current storage variant.
+    #[inline]
     fn triple(&self) -> (*const A::Item, usize, usize) {
         unsafe {
             if self.spilled() {
@@ -157,6 +201,8 @@ impl<A: Array> SmallVec<A> {
         }
     }
 
+    /// Returns a tuple with (data ptr, len ptr, capacity)
+    #[inline]
     fn triple_mut(&mut self) -> (*mut A::Item, &mut usize, usize) {
         unsafe {
             if self.spilled() {
@@ -172,35 +218,31 @@ impl<A: Array> SmallVec<A> {
         }
     }
 
+    /// Returns `true` if the data has spilled into a separate heap-allocated buffer.
+    #[inline]
     pub fn spilled(&self) -> bool {
         self.capacity > Self::inline_capacity()
     }
 
-    unsafe fn set_len(&mut self, new_len: usize) {
-        let (_, len_ptr, _) = self.triple_mut();
-        *len_ptr = new_len;
-    }
-
-    pub fn as_mut_ptr(&mut self) -> *mut A::Item {
-        self.triple_mut().0
-    }
-
-    pub fn reserve(&mut self, additional: usize) {
-        infallible(self.try_reserve(additional))
-    }
-
-    pub fn try_reserve(&mut self, additional: usize) -> Result<(), CollectionAllocErr> {
-        let (_, &mut len, cap) = self.triple_mut();
-        if cap - len >= additional {
-            return Ok(());
+    /// Append an item to the vector.
+    #[inline]
+    pub fn push(&mut self, value: A::Item) {
+        unsafe {
+            let (mut ptr, mut len, cap) = self.triple_mut();
+            if *len == cap {
+                self.reserve(1);
+                let &mut (heap_ptr, ref mut heap_len) = self.data.heap_mut();
+                ptr = heap_ptr;
+                len = heap_len;
+            }
+            ptr::write(ptr.add(*len), value);
+            *len += 1;
         }
-        let new_cap = len
-            .checked_add(additional)
-            .and_then(usize::checked_next_power_of_two)
-            .ok_or(CollectionAllocErr::CapacityOverflow)?;
-        self.try_grow(new_cap)
     }
 
+    /// Re-allocate to set the capacity to `max(new_cap, inline_size())`.
+    ///
+    /// Panics if `new_cap` is less than the vector's length
     pub fn try_grow(&mut self, new_cap: usize) -> Result<(), CollectionAllocErr> {
         unsafe {
             let (ptr, &mut len, cap) = self.triple_mut();
@@ -216,17 +258,21 @@ impl<A: Array> SmallVec<A> {
                 deallocate(ptr, cap);
             } else if new_cap != cap {
                 let layout = layout_array::<A::Item>(new_cap)?;
+                debug_assert!(layout.size() > 0);
                 let new_alloc;
                 if unspilled {
-                    new_alloc = ptr::NonNull::new(alloc::alloc::alloc(layout))
+                    new_alloc = NonNull::new(alloc::alloc::alloc(layout))
                         .ok_or(CollectionAllocErr::AllocErr { layout })?
                         .cast()
                         .as_ptr();
                     ptr::copy_nonoverlapping(ptr, new_alloc, len);
                 } else {
+                    // This should never fail since the same succeeded
+                    // when previously allocating `ptr`.
                     let old_layout = layout_array::<A::Item>(cap)?;
+
                     let new_ptr = alloc::alloc::realloc(ptr as *mut u8, old_layout, layout.size());
-                    new_alloc = ptr::NonNull::new(new_ptr)
+                    new_alloc = NonNull::new(new_ptr)
                         .ok_or(CollectionAllocErr::AllocErr { layout })?
                         .cast()
                         .as_ptr();
@@ -238,43 +284,53 @@ impl<A: Array> SmallVec<A> {
         }
     }
 
-    pub fn extend<I: IntoIterator<Item = A::Item>>(&mut self, iterable: I) {
-        let mut iter = iterable.into_iter();
-        let (lower_size_bound, _) = iter.size_hint();
-        self.reserve(lower_size_bound);
+    /// Reserve capacity for `additional` more elements to be inserted.
+    ///
+    /// May reserve more space to avoid frequent reallocations.
+    ///
+    /// Panics if the capacity computation overflows `usize`.
+    #[inline]
+    pub fn reserve(&mut self, additional: usize) {
+        infallible(self.try_reserve(additional))
+    }
+
+    /// Reserve capacity for `additional` more elements to be inserted.
+    ///
+    /// May reserve more space to avoid frequent reallocations.
+    pub fn try_reserve(&mut self, additional: usize) -> Result<(), CollectionAllocErr> {
+        // prefer triple_mut() even if triple() would work
+        // so that the optimizer removes duplicated calls to it
+        // from callers like insert()
+        let (_, &mut len, cap) = self.triple_mut();
+        if cap - len >= additional {
+            return Ok(());
+        }
+        let new_cap = len
+            .checked_add(additional)
+            .and_then(usize::checked_next_power_of_two)
+            .ok_or(CollectionAllocErr::CapacityOverflow)?;
+        self.try_grow(new_cap)
+    }
+
+    /// Insert an element at position `index`, shifting all elements after it to the right.
+    ///
+    /// Panics if `index` is out of bounds.
+    pub fn insert(&mut self, index: usize, element: A::Item) {
+        self.reserve(1);
 
         unsafe {
-            let (ptr, len_ptr, cap) = self.triple_mut();
-            let mut len = SetLenOnDrop::new(len_ptr);
-            while len.get() < cap {
-                if let Some(out) = iter.next() {
-                    ptr::write(ptr.add(len.get()), out);
-                    len.increment_len(1);
-                } else {
-                    return;
-                }
-            }
-        }
-
-        for elem in iter {
-            self.push(elem);
+            let (mut ptr, len_ptr, _) = self.triple_mut();
+            let len = *len_ptr;
+            assert!(index <= len);
+            *len_ptr = len + 1;
+            ptr = ptr.add(index);
+            ptr::copy(ptr, ptr.add(1), len - index);
+            ptr::write(ptr, element);
         }
     }
 
-    pub fn push(&mut self, value: A::Item) {
-        unsafe {
-            let (mut ptr, mut len, cap) = self.triple_mut();
-            if *len == cap {
-                self.reserve(1);
-                let &mut (heap_ptr, ref mut heap_len) = self.data.heap_mut();
-                ptr = heap_ptr;
-                len = heap_len;
-            }
-            ptr::write(ptr.add(*len), value);
-            *len += 1;
-        }
-    }
-
+    /// Insert multiple elements at position `index`, shifting all following elements toward the
+    /// back.
     pub fn insert_many<I: IntoIterator<Item = A::Item>>(&mut self, index: usize, iterable: I) {
         let iter = iterable.into_iter();
         if index == self.len() {
@@ -282,8 +338,8 @@ impl<A: Array> SmallVec<A> {
         }
 
         let (lower_size_bound, _) = iter.size_hint();
-        assert!(lower_size_bound <= core::isize::MAX as usize);
-        assert!(index + lower_size_bound >= index);
+        assert!(lower_size_bound <= core::isize::MAX as usize); // Ensure offset is indexable
+        assert!(index + lower_size_bound >= index); // Protect against overflow
         self.reserve(lower_size_bound);
 
         unsafe {
@@ -292,8 +348,10 @@ impl<A: Array> SmallVec<A> {
             let start = self.as_mut_ptr();
             let mut ptr = start.add(index);
 
+            // Move the trailing elements.
             ptr::copy(ptr, ptr.add(lower_size_bound), old_len - index);
 
+            // In case the iterator panics, don't double-drop the items we just copied above.
             self.set_len(0);
             let mut guard = DropOnPanic {
                 start,
@@ -305,6 +363,7 @@ impl<A: Array> SmallVec<A> {
             for element in iter {
                 let mut cur = ptr.add(num_added);
                 if num_added >= lower_size_bound {
+                    // Iterator provided more elements than the hint.  Move trailing items again.
                     self.reserve(1);
                     let start = self.as_mut_ptr();
                     ptr = start.add(index);
@@ -322,6 +381,7 @@ impl<A: Array> SmallVec<A> {
             mem::forget(guard);
 
             if num_added < lower_size_bound {
+                // Iterator provided fewer elements than the hint
                 ptr::copy(
                     ptr.add(lower_size_bound),
                     ptr.add(num_added),
@@ -352,18 +412,72 @@ impl<A: Array> SmallVec<A> {
     }
 }
 
-impl<A: Array> Default for SmallVec<A> {
-    fn default() -> SmallVec<A> {
-        SmallVec::new()
+impl<A: Array> ops::Deref for SmallVec<A> {
+    type Target = [A::Item];
+    #[inline]
+    fn deref(&self) -> &[A::Item] {
+        unsafe {
+            let (ptr, len, _) = self.triple();
+            slice::from_raw_parts(ptr, len)
+        }
     }
 }
 
+impl<A: Array> ops::DerefMut for SmallVec<A> {
+    #[inline]
+    fn deref_mut(&mut self) -> &mut [A::Item] {
+        unsafe {
+            let (ptr, &mut len, _) = self.triple_mut();
+            slice::from_raw_parts_mut(ptr, len)
+        }
+    }
+}
+
+impl<A: Array> Extend<A::Item> for SmallVec<A> {
+    fn extend<I: IntoIterator<Item = A::Item>>(&mut self, iterable: I) {
+        let mut iter = iterable.into_iter();
+        let (lower_size_bound, _) = iter.size_hint();
+        self.reserve(lower_size_bound);
+
+        unsafe {
+            let (ptr, len_ptr, cap) = self.triple_mut();
+            let mut len = SetLenOnDrop::new(len_ptr);
+            while len.get() < cap {
+                if let Some(out) = iter.next() {
+                    ptr::write(ptr.add(len.get()), out);
+                    len.increment_len(1);
+                } else {
+                    return;
+                }
+            }
+        }
+
+        for elem in iter {
+            self.push(elem);
+        }
+    }
+}
+
+unsafe impl<A: Array> Send for SmallVec<A> where A::Item: Send {}
+
+/// Types that can be used as the backing store for a SmallVec
+pub unsafe trait Array {
+    /// The type of the array's elements.
+    type Item;
+    /// Returns the number of items the array can hold.
+    fn size() -> usize;
+}
+
+/// Set the length of the vec when the `SetLenOnDrop` value goes out of scope.
+///
+/// Copied from https://github.com/rust-lang/rust/pull/36355
 struct SetLenOnDrop<'a> {
     len: &'a mut usize,
     local_len: usize,
 }
 
 impl<'a> SetLenOnDrop<'a> {
+    #[inline]
     fn new(len: &'a mut usize) -> Self {
         SetLenOnDrop {
             local_len: *len,
@@ -371,24 +485,13 @@ impl<'a> SetLenOnDrop<'a> {
         }
     }
 
+    #[inline]
     fn get(&self) -> usize {
         self.local_len
     }
 
+    #[inline]
     fn increment_len(&mut self, increment: usize) {
         self.local_len += increment;
-    }
-}
-
-impl<'a> Drop for SetLenOnDrop<'a> {
-    fn drop(&mut self) {
-        *self.len = self.local_len;
-    }
-}
-
-unsafe impl<T> Array for [T; 1] {
-    type Item = T;
-    fn size() -> usize {
-        1
     }
 }
