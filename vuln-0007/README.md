@@ -95,6 +95,8 @@ https://github.com/maciejhirsz/ordnung/issues/8
    This was remarked by the reporter as not a real security threat, as the code will scream and panic in the debug 
    build; however, they note it is still a soundness issue, since it allows undefined behavior in safe Rust code.
 
+   If it's not meant for 32-bit systems, it shouldn't compile on 32-bit systems.
+
 2. Allocator layout mismatch in 64-bit build with large capacity.
     
     ```rust
@@ -154,6 +156,10 @@ https://github.com/maciejhirsz/ordnung/issues/8
     ```rust
     let _ = Vec::<u8>::with_capacity((1 << 32) + 4);
     ```
+   
+    Although the use cases for the crate talk about the maps being for <= 100 items, there is still bounds checking
+    being done elsewhere in the crate. (And even if there wasn't bounds checking in the first place, there still 
+    should be, as the intention of it being for small sizes is not enforced anywhere.)
 3. Creating a reference that points to an invalid value is already an undefined behavior, even if it is not 
 dereferenced. The [T] field is not directly used anywhere in the `compact` module
 
