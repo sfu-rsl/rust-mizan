@@ -1166,6 +1166,14 @@ dependencies = [
 [[package]]
 name = "vuln-0018-fixed-file"
 version = "0.1.0"
+dependencies = [
+ "arbitrary",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
 
 [[package]]
 name = "vuln-0018-fixed-function"
