@@ -1190,6 +1190,9 @@ dependencies = [
 [[package]]
 name = "vuln-0018-vuln-function"
 version = "0.1.0"
+dependencies = [
+ "typenum",
+]
 
 [[package]]
 name = "wait-timeout"

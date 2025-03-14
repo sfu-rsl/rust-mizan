@@ -299,24 +299,20 @@
           },
           "vulnerable_lines": {
             "src/ring_buffer/mod.rs": [259, 262],
-            "src/sized_chunk/mod.rs": [157, 160]
+            "src/sized_chunk/mod.rs": [154, 157]
           }
         },
         {
           "path_to_crate": "vuln-0018/vuln-function",
           "is_vulnerability": true,
           "cwe_type": "CWE-129",
-          "vulnerable_functions": {
-            "src/ring_buffer/mod.rs": [
-              "pub fn unit(value: A) -> Self"
-            ],
-            "src/sized_chunk/mod.rs": [
+         "vulnerable_functions": {
+            "src/lib.rs": [
               "pub fn unit(value: A) -> Self"
             ]
           },
           "vulnerable_lines": {
-            "src/ring_buffer/mod.rs": [259, 262],
-            "src/sized_chunk/mod.rs": [157, 160]
+            "src/lib.rs": [27, 30]
           }
         },
         {
