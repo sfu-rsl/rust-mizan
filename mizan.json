@@ -408,19 +408,21 @@
               "fn clear(&mut self)",
               "fn capacity(&self) -> usize",
               "unsafe fn set_len(&mut self, len: usize)",
-              "fn parts(&self) -> (usize, usize)",
               "fn remove(&mut self, index: usize) -> T",
               "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R",
               "fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self",
               "unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> ",
               "unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>",
               "impl<T> core::ops::Drop for Vec<T>",
+              "fn drop(&mut self)",
               "impl<T> From<StdVec<T>> for Vec<T>",
-              "impl<T> From<Vec<T>> for StdVec<T>"
+              "fn from(stdvec: StdVec<T>) -> Self",
+              "impl<T> From<Vec<T>> for StdVec<T>",
+              "fn from(vec: Vec<T>) -> Self"
             ]
           },
           "vulnerable_lines": {
-            "src/compact.rs": [48, 54, 136, 161, 281, 282, 286, 297]
+            "src/compact.rs": [48, 54, 111, 136, 161, 281, 282, 286, 297]
           }
         },
         {
@@ -435,19 +437,21 @@
               "fn clear(&mut self)",
               "fn capacity(&self) -> usize",
               "unsafe fn set_len(&mut self, len: usize)",
-              "fn parts(&self) -> (usize, usize)",
               "fn remove(&mut self, index: usize) -> T",
               "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R",
               "fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self",
               "unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> ",
               "unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>",
               "impl<T> core::ops::Drop for Vec<T>",
+              "fn drop(&mut self)",
               "impl<T> From<StdVec<T>> for Vec<T>",
-              "impl<T> From<Vec<T>> for StdVec<T>"
+              "fn from(stdvec: StdVec<T>) -> Self",
+              "impl<T> From<Vec<T>> for StdVec<T>",
+              "fn from(vec: Vec<T>) -> Self"
             ]
           },
           "vulnerable_lines": {
-            "src/compact.rs": [48, 54, 136, 161, 281, 282, 286, 297]
+            "src/compact.rs": [48, 54, 111, 136, 161, 281, 282, 286, 297]
           }
         },
         {
@@ -462,19 +466,21 @@
               "fn clear(&mut self)",
               "fn capacity(&self) -> usize",
               "unsafe fn set_len(&mut self, len: usize)",
-              "fn parts(&self) -> (usize, usize)",
               "fn remove(&mut self, index: usize) -> T",
               "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R",
               "fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self",
               "unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> ",
               "unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>",
               "impl<T> core::ops::Drop for Vec<T>",
+              "fn drop(&mut self)",
               "impl<T> From<StdVec<T>> for Vec<T>",
-              "impl<T> From<Vec<T>> for StdVec<T>"
+              "fn from(stdvec: StdVec<T>) -> Self",
+              "impl<T> From<Vec<T>> for StdVec<T>",
+              "fn from(vec: Vec<T>) -> Self"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [33, 39, 105, 130, 173, 174, 178, 189]
+            "src/lib.rs": [33, 39, 105, 111, 130, 173, 174, 178, 189]
           }
         }
       ]
