@@ -1178,6 +1178,9 @@ dependencies = [
 [[package]]
 name = "vuln-0018-fixed-function"
 version = "0.1.0"
+dependencies = [
+ "typenum",
+]
 
 [[package]]
 name = "vuln-0018-vuln-crate"
