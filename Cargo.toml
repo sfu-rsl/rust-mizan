@@ -30,4 +30,12 @@ members = [
     "vuln-0004/vuln-function",
     "vuln-0004/vuln-file",
     "vuln-0004/vuln-crate",
+    
+    "vuln-0018/vuln-crate",
+    "vuln-0018/vuln-file",
+    "vuln-0018/vuln-function",
+    
+    "vuln-0018/fixed-crate",
+    "vuln-0018/fixed-file",
+    "vuln-0018/fixed-function",
 ]
