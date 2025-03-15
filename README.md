@@ -15,13 +15,15 @@ cargo build --workspace
 
 - Identify a vulnerability from the `datasets/` folder.
 - Create a folder to contain all Rust crates (code samples). Name it sequentially after the last reported vulnerability in the repo.
-- Identify the commits where the code was vulnerable and where it was fixed.
+- Identify the commits where the code was vulnerable and where it was fixed. Only include fixes that are peer-reviewed or accepted 
+  by the community (i.e., fixes that [RustSec](https://rustsec.org/) has officially marked as patched). Some vulnerabilities might
+  not have any fixes.
 - Generate vulnerable code samples
   - Copy the entire crate into its own crate inside the new folder
   - Create a module-only crate by reducing the crate to just the vulnerable module.
   - Create a file-only crate by reducing the code to just the vulnerable file.
   - Create a function-only crate by reducing the code to just the vulnerable function.
-- Generate non-nulnerable ("fixed") samples
+- Generate non-vulnerable ("fixed") samples, if a valid fix exists (see above for what counts as valid)
   - Repeat the same process for the code at the fix commit
 - Create a README File. Include relevant information (CVE ID - Commit references before and after the fix - List of sample variants)
 - Update `mizan.json`
