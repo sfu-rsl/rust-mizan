@@ -70,8 +70,7 @@ pub fn encode_config<T: ?Sized + AsRef<[u8]>>(input: &T, config: Config) -> Stri
 // calculate the base64 encoded string size, including padding
 fn encoded_size(bytes_len: usize, config: Config) -> Option<usize> {
     let printing_output_chars = bytes_len
-
-    .checked_add(2)
+        .checked_add(2)
         .map(|x| x / 3)
         .and_then(|x| x.checked_mul(4));
     //TODO this is subtly wrong but in a not dangerous way
