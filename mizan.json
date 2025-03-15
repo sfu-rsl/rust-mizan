@@ -273,12 +273,8 @@
           "is_vulnerability": true,
           "cwe_type": "CWE-129",
           "vulnerable_functions": {
-            "src/ring_buffer/mod.rs": [
-              "pub fn unit(value: A) -> Self"
-            ],
-            "src/sized_chunk/mod.rs": [
-              "pub fn unit(value: A) -> Self"
-            ]
+            "src/ring_buffer/mod.rs": ["pub fn unit(value: A) -> Self"],
+            "src/sized_chunk/mod.rs": ["pub fn unit(value: A) -> Self"]
           },
           "vulnerable_lines": {
             "src/ring_buffer/mod.rs": [259, 262],
@@ -290,12 +286,8 @@
           "is_vulnerability": true,
           "cwe_type": "CWE-129",
           "vulnerable_functions": {
-            "src/ring_buffer/mod.rs": [
-              "pub fn unit(value: A) -> Self"
-            ],
-            "src/sized_chunk/mod.rs": [
-              "pub fn unit(value: A) -> Self"
-            ]
+            "src/ring_buffer/mod.rs": ["pub fn unit(value: A) -> Self"],
+            "src/sized_chunk/mod.rs": ["pub fn unit(value: A) -> Self"]
           },
           "vulnerable_lines": {
             "src/ring_buffer/mod.rs": [259, 262],
@@ -306,10 +298,8 @@
           "path_to_crate": "vuln-0018/vuln-function",
           "is_vulnerability": true,
           "cwe_type": "CWE-129",
-         "vulnerable_functions": {
-            "src/lib.rs": [
-              "pub fn unit(value: A) -> Self"
-            ]
+          "vulnerable_functions": {
+            "src/lib.rs": ["pub fn unit(value: A) -> Self"]
           },
           "vulnerable_lines": {
             "src/lib.rs": [27, 30]
@@ -337,7 +327,75 @@
           "vulnerable_lines": {}
         }
       ]
-}
-
+    },
+    {
+      "id": "vuln-0019",
+      "author": "Tarek Elsayed",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0041.html",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0019/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-129",
+          "vulnerable_functions": {
+            "src/ring_buffer/mod.rs": [
+              "pub fn pair(value1: A, value2: A) -> Self"
+            ],
+            "src/sized_chunk/mod.rs": ["pub fn pair(left: A, right: A) -> Self"]
+          },
+          "vulnerable_lines": {
+            "src/ring_buffer/mod.rs": [274, 277, 278],
+            "src/sized_chunk/mod.rs": [170, 173, 174]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0019/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-129",
+          "vulnerable_functions": {
+            "src/ring_buffer/mod.rs": [
+              "pub fn pair(value1: A, value2: A) -> Self"
+            ],
+            "src/sized_chunk/mod.rs": ["pub fn pair(left: A, right: A) -> Self"]
+          },
+          "vulnerable_lines": {
+            "src/ring_buffer/mod.rs": [274, 277, 278],
+            "src/sized_chunk/mod.rs": [167, 170, 171]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0019/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-129",
+          "vulnerable_functions": {
+            "src/lib.rs": ["pub fn unit(value: A) -> Self"]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [27, 30, 31]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0019/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": null,
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0019/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": null,
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0019/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": null,
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    }
   ]
 }

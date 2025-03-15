@@ -1214,6 +1214,68 @@ dependencies = [
 ]
 
 [[package]]
+name = "vuln-0019-fixed-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "vuln-0019-fixed-file"
+version = "0.1.0"
+dependencies = [
+ "arbitrary",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "vuln-0019-fixed-function"
+version = "0.1.0"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "vuln-0019-vuln-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "vuln-0019-vuln-file"
+version = "0.1.0"
+dependencies = [
+ "arbitrary",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "vuln-0019-vuln-function"
+version = "0.1.0"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
 name = "wait-timeout"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
