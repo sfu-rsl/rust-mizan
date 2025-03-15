@@ -273,7 +273,7 @@
           "is_vulnerability": true,
           "cwe_type": "CWE-400",
           "vulnerable_functions": {
-            "src/lib.rs": "fn from_slice_mut<T>(slice: &mut [T]) -> *const T"
+            "src/lib.rs": "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
           },
           "vulnerable_lines": {
             "src/lib.rs": [24]
@@ -287,7 +287,7 @@
             "src/color.rs": "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
           },
           "vulnerable_lines": {
-            "src/color.rs": [254]
+            "src/color.rs": [256]
           }
         },
         {
@@ -298,7 +298,7 @@
             "src/color.rs": "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
           },
           "vulnerable_lines": {
-            "src/color.rs": [254]
+            "src/color.rs": [256]
           }
         },
         {
