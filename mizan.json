@@ -390,6 +390,109 @@
           "vulnerable_lines": {}
         }
       ]
+    },
+    {
+      "id": "vuln-0015",
+      "author": "Tarek Elsayed",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0034.html",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0015/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-362",
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "unsafe impl<T> Sync for Array<T>{}",
+              "unsafe impl<T> Send for Array<T>{}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [45, 46]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0015/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-362",
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "unsafe impl<T> Sync for Array<T>{}",
+              "unsafe impl<T> Send for Array<T>{}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [6, 7]
+          }
+        }
+      ]
+    },
+    {
+      "id": "vuln-0016",
+      "author": "Tarek Elsayed",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0034.html",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0016/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-120",
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn index<'a>(&'a self, idx: usize) -> &'a Self::Output {",
+              "fn index_mut<'a>(&'a mut self, idx: usize) -> &'a mut Self::Output {"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [134, 144]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0016/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-120",
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn index<'a>(&'a self, idx: usize) -> &'a Self::Output {",
+              "fn index_mut<'a>(&'a mut self, idx: usize) -> &'a mut Self::Output {"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [14, 24]
+          }
+        }
+      ]
+    },
+    {
+      "id": "vuln-0017",
+      "author": "Tarek Elsayed",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0034.html",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0017/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-908",
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn new_from_template(size: usize, template: &T) -> Self"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [117, 121]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0017/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-908",
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn new_from_template(size: usize, template: &T) -> Self"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [15, 19]
+          }
+        }
+      ]
     }
   ]
 }
