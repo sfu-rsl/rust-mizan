@@ -1,5 +1,5 @@
 [package]
-name = "vuln-0010-vuln-crate"
+name = "vuln-0010-vuln-function"
 version = "0.1.0"
 edition = "2018"
 
