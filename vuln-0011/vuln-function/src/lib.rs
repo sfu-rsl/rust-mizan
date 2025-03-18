@@ -40,30 +40,6 @@ pub struct Config {
     line_wrap: LineWrap,
 }
 
-///Encode arbitrary octets as base64.
-///Returns a String.
-///
-///# Example
-///
-///```rust
-///extern crate base64;
-///
-///fn main() {
-///    let b64 = base64::encode_config(b"hello world~", base64::STANDARD);
-///    println!("{}", b64);
-///
-///    let b64_url = base64::encode_config(b"hello internet~", base64::URL_SAFE);
-///    println!("{}", b64_url);
-///}
-///```
-pub fn encode_config<T: ?Sized + AsRef<[u8]>>(input: &T, config: Config) -> String {
-    let mut buf = String::with_capacity(encoded_size(input.as_ref().len(), config));
-
-    encode_config_buf(input, config, &mut buf);
-
-    buf
-}
-
 /// calculate the base64 encoded string size, including padding
 fn encoded_size(bytes_len: usize, config: Config) -> usize {
     let rem = bytes_len % 3;
