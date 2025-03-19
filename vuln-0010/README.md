@@ -15,7 +15,7 @@
 ### Vulnerable lines
 
 `TreeFocus` implements `Send` and `Sync` but doesn't enforce it for the type parameter, resulting in `A` being treated 
-as thread-safe even if it's not.
+as thread-safe even if it's not ("smuggled").
 
 ```rust
 #[allow(unsafe_code)]
@@ -26,3 +26,5 @@ unsafe impl<A> Send for TreeFocus<A> {}
 #[cfg(threadsafe)]
 unsafe impl<A> Sync for TreeFocus<A> {}
 ```
+
+Remark: `TreeFocus` is not exposed to end-users.
