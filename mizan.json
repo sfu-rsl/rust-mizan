@@ -556,7 +556,7 @@
         {
           "path_to_crate": "vuln-0010/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": "CWE-662",
+          "cwe_type": "CWE-362",
           "vulnerable_functions": {
             "src/vector/focus.rs": [
               "unsafe impl<A> Send for TreeFocus<A>",
@@ -570,7 +570,7 @@
         {
           "path_to_crate": "vuln-0010/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": "CWE-662",
+          "cwe_type": "CWE-362",
           "vulnerable_functions": {
             "src/vector/focus.rs": [
               "unsafe impl<A> Send for TreeFocus<A>",
@@ -584,7 +584,7 @@
         {
           "path_to_crate": "vuln-0010/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": "CWE-662",
+          "cwe_type": "CWE-362",
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<A> Send for TreeFocus<A>",
