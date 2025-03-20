@@ -422,7 +422,10 @@
             ]
           },
           "vulnerable_lines": {
-            "src/compact.rs": [36, 48, 54, 72, 90, 102, 110, 127, 136, 142, 161, 187, 204, 213, 281, 282, 286, 297]
+            "src/compact.rs": [
+              36, 48, 54, 72, 90, 102, 110, 127, 136, 142, 161, 187, 204, 213,
+              281, 282, 286, 297
+            ]
           }
         },
         {
@@ -451,7 +454,10 @@
             ]
           },
           "vulnerable_lines": {
-            "src/compact.rs": [36, 48, 54, 72, 90, 102, 110, 127, 136, 142, 161, 187, 204, 213, 281, 282, 286, 297]
+            "src/compact.rs": [
+              36, 48, 54, 72, 90, 102, 110, 127, 136, 142, 161, 187, 204, 213,
+              281, 282, 286, 297
+            ]
           }
         },
         {
@@ -480,7 +486,64 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [21, 33, 39, 57, 66, 71, 79, 96, 105, 111, 130, 141, 158, 167, 173, 174, 178, 189]
+            "src/lib.rs": [
+              21, 33, 39, 57, 66, 71, 79, 96, 105, 111, 130, 141, 158, 167, 173,
+              174, 178, 189
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "vuln-0009",
+      "author": "Tarek Elsayed",
+      "title": "Matrix::new() drops uninitialized memory",
+      "vulnerability_type": "memory",
+      "vulnerability_subtypes": ["access/free uninitialized memory"],
+      "severity": "Critical",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0033.html",
+      "description": "`Matrix::new()` internally calls `Matrix::fill_with()` which uses `*ptr = value` pattern to initialize the buffer. This pattern assumes that there is an initialized struct at the address and drops it, which results in dropping of uninitialized struct.",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0009/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-908",
+          "vulnerable_functions": {
+            "src/ds/matrix.rs": [
+              "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
+              "fn fill_with(buf: &mut [T], value: T)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/ds/matrix.rs": [101, 110]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0009/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-908",
+          "vulnerable_functions": {
+            "src/ds/matrix.rs": [
+              "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
+              "fn fill_with(buf: &mut [T], value: T)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/ds/matrix.rs": [101, 110]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0009/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": "CWE-908",
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
+              "fn fill_with(buf: &mut [T], value: T)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [21, 30]
           }
         }
       ]

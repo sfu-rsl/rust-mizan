@@ -1853,6 +1853,45 @@ name = "vuln-0006-vuln-function"
 version = "0.1.0"
 
 [[package]]
+name = "vuln-0007-vuln-crate"
+version = "0.0.1"
+dependencies = [
+ "ahash",
+ "fnv",
+ "rustc-hash",
+]
+
+[[package]]
+name = "vuln-0007-vuln-file"
+version = "0.0.1"
+dependencies = [
+ "ahash",
+ "fnv",
+ "rustc-hash",
+]
+
+[[package]]
+name = "vuln-0007-vuln-function"
+version = "0.0.1"
+dependencies = [
+ "ahash",
+ "fnv",
+ "rustc-hash",
+]
+
+[[package]]
+name = "vuln-0009-vuln-crate"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0009-vuln-file"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0009-vuln-function"
+version = "0.1.0"
+
+[[package]]
 name = "vuln-0015-vuln-crate"
 version = "0.1.0"
 
