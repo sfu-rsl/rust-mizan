@@ -31,7 +31,10 @@ schema = {
                             "properties": {
                                 "path_to_crate": {"type": "string"},
                                 "is_vulnerability": {"type": "boolean"},
-                                "cwe_type": {"type": ["string", "null"]},
+                                "cwe_type": {
+                                    "type": "array",
+                                    "items": {"type": "string"},
+                                },
                                 "vulnerable_functions": {"type": "object"},
                                 "vulnerable_lines": {"type": "object"},
                             },

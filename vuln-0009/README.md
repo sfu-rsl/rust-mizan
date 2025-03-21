@@ -2,7 +2,7 @@
 
 | **Information**       | **Details**                                                                                    |
 | --------------------- | ---------------------------------------------------------------------------------------------- |
-| **CVE**               | [CVE-2020-36432](https://rustsec.org/advisories/RUSTSEC-2020-0033.html)                        |
+| **CVE**               | [CVE-2020-36432](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-36432)                |
 | **Vulnerable Commit** | [a533f2a](https://gitlab.com/dvshapkin/alg-ds/-/tree/a533f2a1520dc1a3688e8bd3a1e7c0b60eb5f3a9) |
 | **Fixed Commit**      | N/A                                                                                            |
 | **Variants**          | - [vuln-crate](vuln-crate)                                                                     |

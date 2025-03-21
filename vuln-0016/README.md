@@ -2,7 +2,7 @@
 
 | **Information**       | **Details**                                                                            |
 | --------------------- | -------------------------------------------------------------------------------------- |
-| **CVE**               | [CVE-2020-35887](https://rustsec.org/advisories/RUSTSEC-2020-0034.html)                |
+| **CVE**               | [CVE-2020-35887](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35887)        |
 | **Vulnerable Commit** | [efa2141](https://github.com/sjep/array/tree/efa214159eaad2abda7b072f278d678f8788c307) |
 | **Fixed Commit**      | None                                                                                   |
 | **Variants**          | - [vuln-crate](vuln-crate)                                                             |
