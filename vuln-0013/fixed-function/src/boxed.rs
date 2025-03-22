@@ -56,24 +56,5 @@ where
 	_order: PhantomData<O>,
 	pointer: BitPtr<T>,
 }
-
-impl<O, T> BitBox<O, T>
-where
-	O: BitOrder,
-	T: BitStore
-{
-	/// Gives read access to the `BitPtr<T>` structure powering the box.
-	///
-	/// # Parameters
-	///
-	/// - `&self`
-	///
-	/// # Returns
-	///
-	/// A copy of the interior `BitPtr<T>`.
-	pub(crate) fn bitptr(&self) -> BitPtr<T> {
-		self.pointer
-	}
-}
 mod api;
 mod traits;

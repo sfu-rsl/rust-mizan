@@ -429,31 +429,6 @@ where M: BitMemory
 	}
 }
 
-/** A multi-bit selector mask.
-
-Unlike [`BitSel`], which enforces a strict one-hot mask encoding, this mask type
-permits any number of bits to be set or unset. This is used to combine batch
-operations in an element.
-
-It is only constructed by accumulating [`BitPos`] or [`BitSel`] values. As
-`BitSel` is only constructed from `BitPos`, and `BitPos` is only constructed
-from [`BitIdx`] and [`BitOrder`], this enforces a chain of responsibility to
-prove that a given multimask is safe.
-
-[`BitIdx`]: struct.BitIdx.html
-[`BitOrder`]: ../order/trait.BitOrder.html
-[`BitPos`]: struct.BitPos.html
-[`BitSel`]: struct.BitSel.html
-**/
-#[repr(transparent)]
-#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
-pub struct BitMask<M>
-where M: BitMemory
-{
-	/// A mask of any number of bits to modify.
-	mask: M,
-}
-
 /** Internal convenience trait for wrapping numbers with appropriate markers.
 
 This trait must only be used on values that are known to be valid for their
