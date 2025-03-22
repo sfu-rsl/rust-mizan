@@ -5,21 +5,7 @@ use crate::{
         BitIdx,
         BitTail,
     },
-    order::BitOrder,
-    slice::BitSlice,
     store::BitStore,
-};
-use core::{
-    fmt::{
-        self,
-        Binary,
-        Debug,
-        Formatter,
-        LowerHex,
-        Octal,
-        UpperHex,
-    },
-    iter::FusedIterator,
 };
 
 #[doc= " Representations of the raw memory domain for a `BitSlice`.\n\nThis structure is produced by [`BitSlice::domain`], and describes the region of\nmemory the `BitSlice` covers in terms of its raw memory elements, rather than\nits bits.\n\nThe aliased references contained in this structure permit the mutation of memory\nobserved by other immutable `&BitSlice` handles. You are responsible for\nmaintaining memory correctness by not using mutating methods on these\nreferences.\n\n# `[T::Mem]` replacement\n\nAs it is unsafe to produce a reference to raw memory, due to runtime alias\nconditions, this type also functions as a replacement for a slice view of the\nbacking memory. It is capable of iterating over the values of the memory store,\nand implements the [`core::fmt`] traits to render the backing store.\n\n[`BitSlice::domain`]: ../slice/struct.BitSlice.html#method.domain\n[`core::fmt`]: //doc.rust-lang.org/corce/fmt\n*"]
