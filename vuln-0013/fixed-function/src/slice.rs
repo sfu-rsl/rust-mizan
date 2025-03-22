@@ -10,9 +10,6 @@ Rust slices, and must never be interchanged except through the provided APIs.
 
 use crate::{
 	access::BitAccess,
-	index::{
-		Indexable,
-	},
 	mem::BitMemory,
 	order::{
 		BitOrder,
@@ -21,7 +18,6 @@ use crate::{
 	pointer::BitPtr,
 	store::BitStore,
 };
-
 use core::marker::PhantomData;
 
 use funty::IsInteger;
@@ -116,51 +112,6 @@ where
 	O: BitOrder,
 	T: BitStore,
 {
-	/// Wraps a `&[T: BitStore]` in a `&BitSlice<O: BitOrder, T>`. The order
-	/// must be specified at the call site. The element type cannot be changed.
-	///
-	/// # Parameters
-	///
-	/// - `src`: The elements over which the new `BitSlice` will operate.
-	///
-	/// # Returns
-	///
-	/// A `BitSlice` representing the original element slice.
-	///
-	/// # Panics
-	///
-	/// The source slice must not exceed the maximum number of elements that a
-	/// `BitSlice` can contain. This value is documented in [`BitPtr`].
-	///
-	/// # Examples
-	///
-	/// ```rust
-	/// use bitvec::prelude::*;
-	///
-	/// let src = [1, 2, 3];
-	/// let bits = BitSlice::<Msb0, u8>::from_slice(&src[..]);
-	/// assert_eq!(bits.len(), 24);
-	/// assert_eq!(bits.as_slice().len(), 3);
-	/// assert!(bits[7]); // src[0] == 0b0000_0001
-	/// assert!(bits[14]); // src[1] == 0b0000_0010
-	/// assert!(bits[22]); // src[2] == 0b0000_0011
-	/// assert!(bits[23]);
-	/// ```
-	///
-	/// [`BitPtr`]: ../pointer/struct.BitPtr.html
-	pub fn from_slice(slice: &[T]) -> &Self {
-		let len = slice.len();
-		assert!(
-			len <= BitPtr::<T>::MAX_ELTS,
-			"BitSlice cannot address {} elements",
-			len,
-		);
-		let bits = len
-			.checked_mul(T::Mem::BITS as usize)
-			.expect("Bit length out of range");
-		BitPtr::new(slice.as_ptr(), 0u8.idx(), bits).into_bitslice()
-	}
-
 	/// Sets a bit at an index, without doing bounds checking.
 	///
 	/// This is generally not recommended; use with caution! For a safe
@@ -227,93 +178,7 @@ where
 	pub(crate) fn bitptr(&self) -> BitPtr<T> {
 		BitPtr::from_bitslice(self)
 	}
-
-	/// Copy a bit from one location in a slice to another.
-	///
-	/// # Parameters
-	///
-	/// - `&mut self`
-	/// - `from`: The index of the bit to be copied.
-	/// - `to`: The index at which the copied bit will be written.
-	///
-	/// # Safety
-	///
-	/// `from` and `to` must be within the bounds of `self`. This is not
-	/// checked.
-	#[inline]
-	pub(crate) unsafe fn copy_unchecked(&mut self, from: usize, to: usize) {
-		self.set_unchecked(to, *self.get_unchecked(from));
-	}
-}
-
-/** Allows a type to be used as a sequence of immutable bits.
-
-# Requirements
-
-This trait can only be implemented by contiguous structures: individual
-fundamentals, and sequences (arrays or slices) of them.
-**/
-pub trait AsBits {
-	/// The underlying fundamental type of the implementor.
-	type Store: BitStore;
-
-	/// Constructs a `BitSlice` reference over data.
-	///
-	/// # Type Parameters
-	///
-	/// - `O: BitOrder`: The `BitOrder` type used to index within the slice.
-	///
-	/// # Parameters
-	///
-	/// - `&self`
-	///
-	/// # Returns
-	///
-	/// A `BitSlice` handle over `self`’s data, using the provided `BitOrder`
-	/// type and using `Self::Store` as the data type.
-	///
-	/// # Examples
-	///
-	/// ```rust
-	/// use bitvec::prelude::*;
-	///
-	/// let src = 8u8;
-	/// let bits = src.bits::<Msb0>();
-	/// assert!(bits[4]);
-	/// ```
-	fn bits<O>(&self) -> &BitSlice<O, Self::Store>
-	where O: BitOrder;
-
-	/// Constructs a mutable `BitSlice` reference over data.
-	///
-	/// # Type Parameters
-	///
-	/// - `O: BitOrder`: The `BitOrder` type used to index within the slice.
-	///
-	/// # Parameters
-	///
-	/// - `&mut self`
-	///
-	/// # Returns
-	///
-	/// A `BitSlice` handle over `self`’s data, using the provided `BitOrder`
-	/// type and using `Self::Store` as the data type.
-	///
-	/// # Examples
-	///
-	/// ```rust
-	/// use bitvec::prelude::*;
-	///
-	/// let mut src = 8u8;
-	/// let bits = src.bits_mut::<Lsb0>();
-	/// assert!(bits[3]);
-	/// *bits.at(3) = false;
-	/// assert!(!bits[3]);
-	/// ```
-	fn bits_mut<O>(&mut self) -> &mut BitSlice<O, Self::Store>
-	where O: BitOrder;
 }
 
 mod api;
-mod ops;
 mod proxy;

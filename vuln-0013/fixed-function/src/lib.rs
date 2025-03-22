@@ -36,20 +36,15 @@ elements as a slice.
 #[cfg(feature = "alloc")]
 extern crate alloc;
 
-#[cfg(feature = "std")]
-extern crate core;
-
 mod access;
-pub mod index;
-pub mod mem;
-pub mod order;
+pub(crate) mod index;
+pub(crate) mod mem;
+pub(crate) mod order;
 mod pointer;
 pub mod prelude;
-pub mod slice;
-pub mod store;
-
+pub(crate) mod slice;
+pub(crate) mod store;
 #[cfg(feature = "alloc")]
-pub mod boxed;
-
+pub(crate) mod boxed;
 #[cfg(feature = "alloc")]
-pub mod vec;
+pub(crate) mod vec;

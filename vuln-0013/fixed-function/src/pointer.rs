@@ -18,11 +18,6 @@ use crate::{
 };
 
 use core::{
-	fmt::{
-		Binary,
-		Debug,
-		Pointer,
-	},
 	marker::PhantomData,
 	ptr::NonNull,
 	slice,
@@ -136,32 +131,24 @@ where T: BitStore
 }
 
 impl<T> From<*const T> for Address<T>
-where T: BitStore
-{
+where
+	T: BitStore {
 	fn from(r: *const T) -> Self {
 		Self { r }
 	}
 }
 
-impl<T> From<&mut T> for Address<T>
-where T: BitStore
-{
-	fn from(w: &mut T) -> Self {
-		Self { w }
-	}
-}
-
 impl<T> From<*mut T> for Address<T>
-where T: BitStore
-{
+where
+	T: BitStore {
 	fn from(w: *mut T) -> Self {
 		Self { w }
 	}
 }
 
 impl<T> From<usize> for Address<T>
-where T: BitStore
-{
+where
+	T: BitStore {
 	fn from(u: usize) -> Self {
 		Self { u }
 	}
@@ -390,80 +377,6 @@ where T: BitStore
 		}
 	}
 
-	/// Creates a new `BitPtr` from its components.
-	///
-	/// # Parameters
-	///
-	/// - `data`: A well-aligned pointer to a storage element.
-	/// - `head`: The bit index of the first live bit in the element under
-	///   `*data`.
-	/// - `bits`: The number of live bits in the region the produced `BitPtr<T>`
-	///   describes.
-	///
-	/// # Returns
-	///
-	/// If `data` is the null pointer, then this function produces the canonical
-	/// empty slice. If `bits` is `0`, then this function produces an
-	/// uninhabited slice at `data`. Otherwise, this produces a `BitPtr<T>`
-	/// structure of the region described by the arguments.
-	///
-	/// # Panics
-	///
-	/// This function panics in the following events:
-	///
-	/// - `data` is not well aligned to `T`’s requirements.
-	/// - `bits` is larger than `Self::MAX_BITS`.
-	/// - `data` and `bits` describe a `[T]` slice which wraps around the edge
-	///   of the memory space.
-	///
-	/// # Safety
-	///
-	/// The caller must provide a `data` pointer and a `bits` counter which
-	/// describe a `[T]` region which is correctly aligned and validly allocated
-	/// in the caller’s memory space. The caller is responsible for ensuring
-	/// that the slice of memory the produced `BitPtr<T>` describes is all
-	/// governable in the caller’s context.
-	pub(crate) fn new(
-		data: impl Into<Address<T>>,
-		head: BitIdx<T::Mem>,
-		bits: usize,
-	) -> Self
-	{
-		let data = data.into();
-
-		//  Null pointers become the empty slice.
-		if data.r().is_null() {
-			return Self::empty();
-		}
-
-		assert!(
-			data.u().trailing_zeros() as usize >= Self::PTR_HEAD_BITS,
-			"BitPtr domain pointer ({:p}) to {} must be aligned to at least {}",
-			data.r(),
-			T::Mem::TYPENAME,
-			Self::PTR_HEAD_BITS,
-		);
-
-		assert!(
-			bits <= Self::MAX_BITS,
-			"BitPtr cannot address {} bits; the maximum is {}",
-			bits,
-			Self::MAX_BITS,
-		);
-
-		let elts = head.span(bits).0;
-		let tail = data.r().wrapping_add(elts);
-		assert!(
-			tail >= data.r(),
-			"BitPtr region cannot wrap the address space: {:p} + {:02X} = {:p}",
-			data.r(),
-			elts,
-			tail,
-		);
-
-		unsafe { Self::new_unchecked(data, head, bits) }
-	}
-
 	/// Creates a new `BitPtr<T>` from its components, without any validity
 	/// checks.
 	///
@@ -567,23 +480,6 @@ where T: BitStore
 		let ptr_head = (ptr & Self::PTR_HEAD_MASK) << Self::LEN_HEAD_BITS;
 		let len_head = self.len & Self::LEN_HEAD_MASK;
 		((ptr_head | len_head) as u8).idx()
-	}
-
-	#[cfg(feature = "alloc")]
-	pub unsafe fn set_head(&mut self, head: BitIdx<T::Mem>) {
-		let head = *head as usize;
-		let mut ptr = self.ptr.as_ptr() as usize;
-
-		//  Erase the head section of the pointer value.
-		ptr &= !Self::PTR_HEAD_MASK;
-		//  Write the pointer section of the head value into the head section.
-		ptr |= head >> Self::LEN_HEAD_BITS;
-		self.ptr = NonNull::new_unchecked(ptr as *mut u8);
-
-		//  Erase the head section of the length value.
-		self.len &= !Self::LEN_HEAD_MASK;
-		//  Write the length section of the head value into the head section.
-		self.len |= head & Self::LEN_HEAD_MASK;
 	}
 
 	/// Counts how many bits are in the domain of a `BitPtr` slice.
@@ -698,25 +594,6 @@ where T: BitStore
 	#[cfg(feature = "alloc")]
 	pub fn as_mut_slice<'a>(&self) -> &'a mut [T] {
 		unsafe { slice::from_raw_parts_mut(self.pointer().w, self.elements()) }
-	}
-
-	/// Accesses the element slice behind the pointer as a shared-mutable slice.
-	///
-	/// # Parameters
-	///
-	/// - `&self`
-	///
-	/// # Returns
-	///
-	/// Standard Rust slice handle over the data governed by this pointer.
-	///
-	/// # Lifetimes
-	///
-	/// - `'a`: Lifetime for which the data behind the pointer is live.
-	#[inline]
-	#[cfg(feature = "alloc")]
-	pub fn as_access_slice<'a>(&self) -> &'a [T::Access] {
-		unsafe { slice::from_raw_parts(self.pointer().a, self.elements()) }
 	}
 
 	/// Converts a `BitSlice` handle into its `BitPtr` representation.

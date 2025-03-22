@@ -83,32 +83,6 @@ pub trait BitStore: seal::Sealed + Sized {
 	memory access system, and these modules will be left alone unless
 	demonstrated to be unsound.
 	*/
-
-	/// Gets the memory element behind this reference, mediated through
-	/// `Self::Access`.
-	///
-	/// # Parameters
-	///
-	/// - `&self`
-	///
-	/// # Returns
-	///
-	/// The current value of the referent element.
-	fn get_elem(&self) -> Self::Mem {
-		unsafe { &*(self as *const Self as *const Self::Access) }.load()
-	}
-
-	/// Sets the memory element behind this reference, mediated through
-	/// `Self::Access`.
-	///
-	/// # Parameters
-	///
-	/// - `&mut self`: Even when aliased, you must have exclusive control of the
-	///   referent element to set it to a new value.
-	/// - `value`: The new value to write into the referent element.
-	fn set_elem(&mut self, value: Self::Mem) {
-		unsafe { &*(self as *mut Self as *mut Self::Access) }.store(value);
-	}
 }
 
 /// Batch implementation of `BitStore` for appropriate types.

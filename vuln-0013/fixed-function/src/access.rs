@@ -16,7 +16,6 @@ builds, or `AtomicT` in atomic builds.
 use crate::{
 	index::{
 		BitIdx,
-		BitMask,
 	},
 	mem::BitMemory,
 	order::BitOrder,
