@@ -13,15 +13,30 @@ use core::ops::{
     ShlAssign,
     ShrAssign,
 };
+use core::slice::SliceIndex;
+use crate::slice::api::BitSliceIndex;
 
-impl<O, T> Index<RangeTo<usize>> for BitSlice<O, T>
+impl<O, T> Index<usize> for BitSlice<O, T>
 where
     O: BitOrder,
-    T: BitStore {
+    T: BitStore,
+{
+    type Output = bool;
+
+    fn index(&self, place: usize) -> &Self::Output {
+        place.index(self)
+    }
+}
+
+impl<O, T> Index<Range<usize>> for BitSlice<O, T>
+where
+    O: BitOrder,
+    T: BitStore,
+{
     type Output = Self;
 
-    fn index(&self, range: RangeTo<usize>) -> &Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    fn index(&self, range: Range<usize>) -> &Self {
+        range.index(self)
     }
 }
 
