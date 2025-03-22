@@ -39,17 +39,6 @@ where
         self.fetch_and(!*O::select(place), Ordering::Relaxed);
     }
 
-    #[doc= " Writes the low bits of the mask into the underlying element."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`"]
-    #[doc= " - `mask`: Any value. The **high** bits of the mask will erase their"]
-    #[doc= "   corresponding bits in `*self`; the **low** bits will preserve their"]
-    #[doc= "   value."]
-    fn clear_bits(&self, mask: BitMask<M>) {
-        self.fetch_and(!*mask, Ordering::Relaxed);
-    }
 
     #[doc= " Set a single bit in an element high."]
     #[doc= ""]
@@ -70,45 +59,6 @@ where
     where
         O: BitOrder {
         self.fetch_or(*O::select(place), Ordering::Relaxed);
-    }
-
-    #[doc= " Writes the high bits of the mask into the underlying element."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`"]
-    #[doc= " - `mask`: Any value. The high bits of the mask will be written into"]
-    #[doc= "   `*self`; the low bits will preserve their value in `*self`."]
-    fn set_bits(&self, mask: BitMask<M>) {
-        self.fetch_or(*mask, Ordering::Relaxed);
-    }
-
-    #[doc= " Invert a single bit in an element."]
-    #[doc= ""]
-    #[doc= " # Type Parameters"]
-    #[doc= ""]
-    #[doc= " - `O`: A `BitOrder` implementation which translates `place` into a"]
-    #[doc= "   usable bit-mask."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`: A shared reference to underlying memory."]
-    #[doc= " - `place`: A semantic bit index in the `self` element."]
-    fn invert_bit<O>(&self, place: BitIdx<M>)
-    where
-        O: BitOrder {
-        self.fetch_xor(*O::select(place), Ordering::Relaxed);
-    }
-
-    #[doc= " Inverts the bits in an element specified by a mask."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`"]
-    #[doc= " - `mask`: Any value. The high bits of the mask will invert their"]
-    #[doc= "   corresponding bits of `*self`; the low bits will have no effect."]
-    fn invert_bits(&self, mask: BitMask<M>) {
-        self.fetch_xor(*mask, Ordering::Relaxed);
     }
 
     #[doc= " Retrieve a single bit from an element."]

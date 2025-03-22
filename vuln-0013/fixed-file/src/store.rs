@@ -25,32 +25,6 @@ pub trait BitStore: seal::Sealed + Sized {
     #[doc= " manipulation."]
     #[doc(hidden)]
     type Threadsafe;
-
-    #[doc= " Gets the memory element behind this reference, mediated through"]
-    #[doc= " `Self::Access`."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`"]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " The current value of the referent element."]
-    fn get_elem(&self) -> Self::Mem {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Sets the memory element behind this reference, mediated through"]
-    #[doc= " `Self::Access`."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&mut self`: Even when aliased, you must have exclusive control of the"]
-    #[doc= "   referent element to set it to a new value."]
-    #[doc= " - `value`: The new value to write into the referent element."]
-    fn set_elem(&mut self, value: Self::Mem) {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
 }
 
 #[doc= " Batch implementation of `BitStore` for appropriate types."]

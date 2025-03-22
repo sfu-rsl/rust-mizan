@@ -106,7 +106,7 @@ impl<T> Clone for Address<T>
 where
     T: BitStore {
     fn clone(&self) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+        Self { u: self.u() }
     }
 }
 

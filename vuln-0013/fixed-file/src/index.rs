@@ -285,16 +285,6 @@ where
     mask: M,
 }
 
-impl<M> Deref for BitMask<M>
-where
-    M: BitMemory {
-    type Target = M;
-
-    fn deref(&self) -> &Self::Target {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
 #[doc= " Internal convenience trait for wrapping numbers with appropriate markers.\n\nThis trait must only be used on values that are known to be valid for their\ncontext. It provides an internal-only shorthand for wrapping integer literals\nand known-good values in marker types.\n\nIt is only implemented on `u8`.\n*"]
 pub(crate) trait Indexable {
     #[doc= " Wraps a value as a `BitIdx<M>`."]
