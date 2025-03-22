@@ -19,35 +19,6 @@ impl<O, T> BitBox<O, T>
 where
     O: BitOrder,
     T: BitStore {
-    #[doc= " Allocates memory on the heap and then places `bits` into it."]
-    #[doc= ""]
-    #[doc= " # API Differences"]
-    #[doc= ""]
-    #[doc= " [`Box::new`] takes a `T` by direct value, and is not implemented as a"]
-    #[doc= " means of cloning slices. As `BitSlice` cannot be held by value, this"]
-    #[doc= " function clones the referent slice region into a new fixed-size heap"]
-    #[doc= " buffer."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " # use bitvec::prelude::*;"]
-    #[doc= " let boxed = BitBox::new(0u8.bits::<Lsb0>());"]
-    #[doc= " ```"]
-    pub(crate) fn new(bits: &BitSlice<O, T>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Constructs a new `Pin<BitBox<O, T>>`."]
-    #[doc= ""]
-    #[doc= " `BitSlice` is always `Unpin`, so this has no actual immobility effect."]
-    pub(crate) fn pin(bits: &BitSlice<O, T>) -> Pin<Self>
-    where
-        O: Unpin,
-        T: Unpin {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
     #[doc= " Constructs a bit box from a raw bit pointer."]
     #[doc= ""]
     #[doc= " After calling this function, the raw pointer is owned by the resulting"]
@@ -90,76 +61,5 @@ where
             _order: PhantomData,
             pointer: BitPtr::from_mut_ptr(raw),
         }
-    }
-
-    #[doc= " Consumes the `BitBox`, returning a wrapped raw pointer."]
-    #[doc= ""]
-    #[doc= " The pointer will be properly aligned and non-null."]
-    #[doc= ""]
-    #[doc= " After calling this function, the caller is responsible for the memory"]
-    #[doc= " previously managed by the `BitBox`. In particular, the caller should"]
-    #[doc= " properly release the memory by converting the pointer back into a"]
-    #[doc= " `BitBox` with the [`BitBox::from_raw`] function, allowing the `BitBox`"]
-    #[doc= " destructor to perform the cleanup."]
-    #[doc= ""]
-    #[doc= " Note: this is an associated function, which means that you have to call"]
-    #[doc= " it as `BitBox::into_raw(b)` instead of `b.into_raw()`. This is to match"]
-    #[doc= " layout with the standard library’s `Box` API; there will never be a name"]
-    #[doc= " conflict with `BitSlice`."]
-    #[doc= ""]
-    #[doc= " # Notes"]
-    #[doc= ""]
-    #[doc= " As with `::from_raw`, the pointer returned by this function must not"]
-    #[doc= " ever have its type or value changed or inspected in any way. It may only"]
-    #[doc= " be held and then passed into `::from_raw` in the future."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " Converting the raw pointer back into a `BitBox` with"]
-    #[doc= " [`BitBox::from_raw`] for automatic cleanup:"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " # use bitvec::prelude::*;"]
-    #[doc= " let b = BitBox::new(0u64.bits::<Msb0>());"]
-    #[doc= " let ptr = BitBox::into_raw(b);"]
-    #[doc= " let b = unsafe { BitBox::<Msb0, _>::from_raw(ptr) };"]
-    #[doc= " ```"]
-    #[doc= ""]
-    #[doc= " [`BitBox::from_raw`]: #method.from_raw"]
-    pub(crate) fn into_raw(b: Self) -> *mut BitSlice<O, T> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Consumes and leaks the `BitBox`, returning a mutable reference,"]
-    #[doc= " `&'a mut BitSlice<O, T>`. Note that the memory region `[T]` must outlive"]
-    #[doc= " the chosen lifetime `'a`."]
-    #[doc= ""]
-    #[doc= " This function is mainly useful for bit regions that live for the"]
-    #[doc= " remainder of the program’s life. Dropping the returned reference will"]
-    #[doc= " cause a memory leak. If this is not acceptable, the reference should"]
-    #[doc= " first be wrapped with the [`BitBox::from_raw`] function, producing a"]
-    #[doc= " `BitBox`. This `BitBox` can then be dropped which will properly"]
-    #[doc= " deallocate the memory."]
-    #[doc= ""]
-    #[doc= " Note: this is an associated function, which means that you have to call"]
-    #[doc= " it as `BitBox::leak(b)` instead of `b.leak()`. This is to match layout"]
-    #[doc= " with the standard library’s `Box` API; there will never be a name"]
-    #[doc= " conflict with `BitSlice`."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " Simple usage:"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " # use bitvec::prelude::*;"]
-    #[doc= " let b = BitBox::new(0u64.bits::<Local>());"]
-    #[doc= " let static_ref: &'static mut BitSlice<Local, u64> = BitBox::leak(b);"]
-    #[doc= " static_ref.set(0, true);"]
-    #[doc= " assert_eq!(static_ref.count_ones(), 1);"]
-    #[doc= " ```"]
-    #[doc= ""]
-    #[doc= " [`BitBox::from_raw`]: #method.from_raw"]
-    pub(crate) fn leak<'a>(self) -> &'a mut BitSlice<O, T> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 }

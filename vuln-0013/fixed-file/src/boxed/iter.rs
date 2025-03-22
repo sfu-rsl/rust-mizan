@@ -57,11 +57,7 @@ where
 impl<O, T> IntoIter<O, T>
 where
     O: BitOrder,
-    T: BitStore {
-    fn iterator(&self) -> <&BitSlice<O, T> as IntoIterator>::IntoIter {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
+    T: BitStore { }
 
 impl<O, T> Iterator for IntoIter<O, T>
 where
