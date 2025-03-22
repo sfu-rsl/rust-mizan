@@ -1,370 +1,295 @@
-/*! `BitBox` structure
-
-This module holds the type for an owned but ungrowable bit sequence. `BitVec` is
-the more appropriate and useful type for most collections.
-!*/
-
+#![doc= " `BitBox` structure\n\nThis module holds the type for an owned but ungrowable bit sequence. `BitVec` is\nthe more appropriate and useful type for most collections.\n!"]
 #![cfg(feature = "alloc")]
 
 use crate::{
-	order::{
-		BitOrder,
-		Local,
-	},
-	pointer::BitPtr,
-	slice::BitSlice,
-	store::BitStore,
-	vec::BitVec,
+    order::{
+        BitOrder,
+        Local,
+    },
+    pointer::BitPtr,
+    slice::BitSlice,
+    store::BitStore,
 };
+use alloc::boxed::Box;
+use core::marker::PhantomData;
 
-use alloc::{
-	boxed::Box,
-	vec::Vec,
-};
-
-use core::{
-	marker::PhantomData,
-	mem,
-};
-
-/** A pointer type for owned bit sequences.
-
-This type is essentially a `&BitSlice` that owns its own memory. It can change
-the contents of its domain, but it cannot change its own domain like `BitVec`
-can. It is useful for fixed-size collections without lifetime tracking.
-
-# Type Parameters
-
-- `O: BitOrder`: An implementor of the [`BitOrder`] trait. This type is used to
-  convert semantic indices into concrete bit positions in elements, and store or
-  retrieve bit values from the storage type.
-- `T: BitStore`: An implementor of the [`BitStore`] trait: `u8`, `u16`, `u32`,
-  or `u64` (64-bit systems only). This is the actual type in memory that the box
-  will use to store data.
-
-# Safety
-
-The `BitBox` handle has the same *size* as standard Rust `Box<[T]>` handles, but
-it is ***extremely binary incompatible*** with them. Attempting to treat
-`BitBox<_, T>` as `Box<[T]>` in any manner except through the provided APIs is
-***catastrophically*** unsafe and unsound.
-
-# Trait Implementations
-
-`BitBox<O, T>` implements all the traits that `BitSlice<O, T>` does, by
-deferring to the `BitSlice` implementation. It also implements conversion traits
-to and from `BitSlice`, and to/from `BitVec`.
-**/
+#[doc= " A pointer type for owned bit sequences.\n\nThis type is essentially a `&BitSlice` that owns its own memory. It can change\nthe contents of its domain, but it cannot change its own domain like `BitVec`\ncan. It is useful for fixed-size collections without lifetime tracking.\n\n# Type Parameters\n\n- `O: BitOrder`: An implementor of the [`BitOrder`] trait. This type is used to\n  convert semantic indices into concrete bit positions in elements, and store or\n  retrieve bit values from the storage type.\n- `T: BitStore`: An implementor of the [`BitStore`] trait: `u8`, `u16`, `u32`,\n  or `u64` (64-bit systems only). This is the actual type in memory that the box\n  will use to store data.\n\n# Safety\n\nThe `BitBox` handle has the same *size* as standard Rust `Box<[T]>` handles, but\nit is ***extremely binary incompatible*** with them. Attempting to treat\n`BitBox<_, T>` as `Box<[T]>` in any manner except through the provided APIs is\n***catastrophically*** unsafe and unsound.\n\n# Trait Implementations\n\n`BitBox<O, T>` implements all the traits that `BitSlice<O, T>` does, by\ndeferring to the `BitSlice` implementation. It also implements conversion traits\nto and from `BitSlice`, and to/from `BitVec`.\n*"]
 #[repr(C)]
 pub struct BitBox<O = Local, T = usize>
 where
-	O: BitOrder,
-	T: BitStore,
-{
-	_order: PhantomData<O>,
-	pointer: BitPtr<T>,
+    O: BitOrder,
+    T: BitStore {
+    _order: PhantomData<O>,
+    pointer: BitPtr<T>,
 }
 
 impl<O, T> BitBox<O, T>
 where
-	O: BitOrder,
-	T: BitStore,
-{
-	/// Constructs an empty boxed bitslice.
-	///
-	/// # Returns
-	///
-	/// An empty `BitBox` at an arbitrary location.
-	///
-	/// # Examples
-	///
-	/// ```rust
-	/// use bitvec::prelude::*;
-	///
-	/// let bb: BitBox = BitBox::empty();
-	/// assert!(bb.is_empty());
-	/// ```
-	pub(crate) fn empty() -> Self {
-		Self {
-			_order: PhantomData,
-			pointer: BitPtr::empty(),
-		}
-	}
+    O: BitOrder,
+    T: BitStore {
+    #[doc= " Constructs an empty boxed bitslice."]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " An empty `BitBox` at an arbitrary location."]
+    #[doc= ""]
+    #[doc= " # Examples"]
+    #[doc= ""]
+    #[doc= " ```rust"]
+    #[doc= " use bitvec::prelude::*;"]
+    #[doc= ""]
+    #[doc= " let bb: BitBox = BitBox::empty();"]
+    #[doc= " assert!(bb.is_empty());"]
+    #[doc= " ```"]
+    pub(crate) fn empty() -> Self {
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    }
 
-	/// Produces a `BitBox` from a single element.
-	///
-	/// # Parameters
-	///
-	/// - `elt`: The source element from which to make the `BitBox`.
-	///
-	/// # Returns
-	///
-	/// A `BitBox` containing the provided element.
-	///
-	/// # Examples
-	///
-	/// ```rust
-	/// use bitvec::prelude::*;
-	///
-	/// let bb: BitBox<Msb0, u16> = BitBox::from_element(!0);
-	/// assert!(bb.all());
-	/// ```
-	pub(crate) fn from_element(elt: T) -> Self {
-		BitSlice::<O, T>::from_element(&elt).into()
-	}
+    #[doc= " Produces a `BitBox` from a single element."]
+    #[doc= ""]
+    #[doc= " # Parameters"]
+    #[doc= ""]
+    #[doc= " - `elt`: The source element from which to make the `BitBox`."]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " A `BitBox` containing the provided element."]
+    #[doc= ""]
+    #[doc= " # Examples"]
+    #[doc= ""]
+    #[doc= " ```rust"]
+    #[doc= " use bitvec::prelude::*;"]
+    #[doc= ""]
+    #[doc= " let bb: BitBox<Msb0, u16> = BitBox::from_element(!0);"]
+    #[doc= " assert!(bb.all());"]
+    #[doc= " ```"]
+    pub(crate) fn from_element(elt: T) -> Self {
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    }
 
-	/// Builds a `BitBox` from a borrowed slice of elements.
-	///
-	/// # Parameters
-	///
-	/// - `slice`: The source slice from which to make the `BitBox`.
-	///
-	/// # Returns
-	///
-	/// A `BitBox` containing the (cloned) provided slice.
-	///
-	/// # Panics
-	///
-	/// This function may panic if the provided slice is longer than the
-	/// `BitBox` can support.
-	///
-	/// # Examples
-	///
-	/// ```rust
-	/// use bitvec::prelude::*;
-	///
-	/// let src = [5, 10];
-	/// let bb: BitBox<Msb0, u8> = BitBox::from_slice(&src[..]);
-	/// assert!(bb[5]);
-	/// assert!(bb[7]);
-	/// assert!(bb[12]);
-	/// assert!(bb[14]);
-	/// ```
-	pub(crate) fn from_slice(slice: &[T]) -> Self {
-		BitVec::from_slice(slice).into_boxed_bitslice()
-	}
+    #[doc= " Builds a `BitBox` from a borrowed slice of elements."]
+    #[doc= ""]
+    #[doc= " # Parameters"]
+    #[doc= ""]
+    #[doc= " - `slice`: The source slice from which to make the `BitBox`."]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " A `BitBox` containing the (cloned) provided slice."]
+    #[doc= ""]
+    #[doc= " # Panics"]
+    #[doc= ""]
+    #[doc= " This function may panic if the provided slice is longer than the"]
+    #[doc= " `BitBox` can support."]
+    #[doc= ""]
+    #[doc= " # Examples"]
+    #[doc= ""]
+    #[doc= " ```rust"]
+    #[doc= " use bitvec::prelude::*;"]
+    #[doc= ""]
+    #[doc= " let src = [5, 10];"]
+    #[doc= " let bb: BitBox<Msb0, u8> = BitBox::from_slice(&src[..]);"]
+    #[doc= " assert!(bb[5]);"]
+    #[doc= " assert!(bb[7]);"]
+    #[doc= " assert!(bb[12]);"]
+    #[doc= " assert!(bb[14]);"]
+    #[doc= " ```"]
+    pub(crate) fn from_slice(slice: &[T]) -> Self {
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    }
 
-	/// Clones a `&BitSlice` into a `BitBox`.
-	///
-	/// # Parameters
-	///
-	/// - `slice`: The bit slice to clone into a bit box.
-	///
-	/// # Returns
-	///
-	/// A `BitBox` containing the same bits as the source slice.
-	///
-	/// # Examples
-	///
-	/// ```rust
-	/// use bitvec::prelude::*;
-	///
-	/// let src = [0u8, !0];
-	/// let bb = BitBox::<Msb0, _>::from_bitslice(src.bits());
-	/// assert_eq!(bb.len(), 16);
-	/// assert!(bb.some());
-	/// ```
-	pub(crate) fn from_bitslice(slice: &BitSlice<O, T>) -> Self {
-		BitVec::from_bitslice(slice).into_boxed_bitslice()
-	}
+    #[doc= " Clones a `&BitSlice` into a `BitBox`."]
+    #[doc= ""]
+    #[doc= " # Parameters"]
+    #[doc= ""]
+    #[doc= " - `slice`: The bit slice to clone into a bit box."]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " A `BitBox` containing the same bits as the source slice."]
+    #[doc= ""]
+    #[doc= " # Examples"]
+    #[doc= ""]
+    #[doc= " ```rust"]
+    #[doc= " use bitvec::prelude::*;"]
+    #[doc= ""]
+    #[doc= " let src = [0u8, !0];"]
+    #[doc= " let bb = BitBox::<Msb0, _>::from_bitslice(src.bits());"]
+    #[doc= " assert_eq!(bb.len(), 16);"]
+    #[doc= " assert!(bb.some());"]
+    #[doc= " ```"]
+    pub(crate) fn from_bitslice(slice: &BitSlice<O, T>) -> Self {
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    }
 
-	/// Produces a `BitBox` from an owned slice of elements.
-	///
-	/// # Parameters
-	///
-	/// - `slice`: The source boxed slice from which to make the `BitBox`.
-	///
-	/// # Returns
-	///
-	/// A `BitBox` governing the same slice that was passed in. This function
-	/// does not reallocate.
-	///
-	/// # Panics
-	///
-	/// This function may panic if the provided slice is longer than the
-	/// `BitBox` can support.
-	///
-	/// # Examples
-	///
-	/// ```rust
-	/// use bitvec::prelude::*;
-	///
-	/// let slice: Box<[u16]> = vec![0, !0].into_boxed_slice();
-	/// let bb = BitBox::<Lsb0, _>::from_boxed_slice(slice);
-	/// assert!(bb.some());
-	/// assert_eq!(bb.len(), 32);
-	/// ```
-	pub(crate) fn from_boxed_slice(boxed: Box<[T]>) -> Self {
-		let len = boxed.len();
-		assert!(
-			len <= BitPtr::<T>::MAX_ELTS,
-			"BitBox cannot address {} elements",
-			len,
-		);
+    #[doc= " Produces a `BitBox` from an owned slice of elements."]
+    #[doc= ""]
+    #[doc= " # Parameters"]
+    #[doc= ""]
+    #[doc= " - `slice`: The source boxed slice from which to make the `BitBox`."]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " A `BitBox` governing the same slice that was passed in. This function"]
+    #[doc= " does not reallocate."]
+    #[doc= ""]
+    #[doc= " # Panics"]
+    #[doc= ""]
+    #[doc= " This function may panic if the provided slice is longer than the"]
+    #[doc= " `BitBox` can support."]
+    #[doc= ""]
+    #[doc= " # Examples"]
+    #[doc= ""]
+    #[doc= " ```rust"]
+    #[doc= " use bitvec::prelude::*;"]
+    #[doc= ""]
+    #[doc= " let slice: Box<[u16]> = vec![0, !0].into_boxed_slice();"]
+    #[doc= " let bb = BitBox::<Lsb0, _>::from_boxed_slice(slice);"]
+    #[doc= " assert!(bb.some());"]
+    #[doc= " assert_eq!(bb.len(), 32);"]
+    #[doc= " ```"]
+    pub(crate) fn from_boxed_slice(boxed: Box<[T]>) -> Self {
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    }
 
-		let bs = BitSlice::<O, T>::from_slice(&boxed[..]);
-		let pointer = bs.bitptr();
-		let out = Self {
-			_order: PhantomData,
-			pointer,
-		};
-		mem::forget(boxed);
-		out
-	}
+    #[doc= " Removes the `BitBox` wrapper from a `Box<[T]>`."]
+    #[doc= ""]
+    #[doc= " # Parameters"]
+    #[doc= ""]
+    #[doc= " - `self`"]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " The `Box<[T]>` underneath `self`."]
+    #[doc= ""]
+    #[doc= " # Examples"]
+    #[doc= ""]
+    #[doc= " ```rust"]
+    #[doc= " use bitvec::prelude::*;"]
+    #[doc= ""]
+    #[doc= " let slice: Box<[u16]> = vec![0, !0].into_boxed_slice();"]
+    #[doc= " let bb = BitBox::<Lsb0, _>::from_boxed_slice(slice);"]
+    #[doc= " assert_eq!(bb.len(), 32);"]
+    #[doc= " let slice = bb.into_boxed_slice();"]
+    #[doc= " assert_eq!(slice.len(), 2);"]
+    #[doc= " ```"]
+    pub(crate) fn into_boxed_slice(self) -> Box<[T]> {
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    }
 
-	/// Removes the `BitBox` wrapper from a `Box<[T]>`.
-	///
-	/// # Parameters
-	///
-	/// - `self`
-	///
-	/// # Returns
-	///
-	/// The `Box<[T]>` underneath `self`.
-	///
-	/// # Examples
-	///
-	/// ```rust
-	/// use bitvec::prelude::*;
-	///
-	/// let slice: Box<[u16]> = vec![0, !0].into_boxed_slice();
-	/// let bb = BitBox::<Lsb0, _>::from_boxed_slice(slice);
-	/// assert_eq!(bb.len(), 32);
-	/// let slice = bb.into_boxed_slice();
-	/// assert_eq!(slice.len(), 2);
-	/// ```
-	pub(crate) fn into_boxed_slice(self) -> Box<[T]> {
-		let slice = self.pointer.as_mut_slice();
-		let (data, elts) = (slice.as_mut_ptr(), slice.len());
-		let out =
-			unsafe { Vec::from_raw_parts(data, elts, elts) }.into_boxed_slice();
-		mem::forget(self);
-		out
-	}
+    #[doc= " Changes the order on a box handle, without changing the data it"]
+    #[doc= " governs."]
+    #[doc= ""]
+    #[doc= " # Parameters"]
+    #[doc= ""]
+    #[doc= " - `self`"]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " An equivalent handle to the same data, with a new order parameter."]
+    pub(crate) fn change_order<P>(self) -> BitBox<P, T>
+    where
+        P: BitOrder {
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    }
 
-	/// Changes the order on a box handle, without changing the data it
-	/// governs.
-	///
-	/// # Parameters
-	///
-	/// - `self`
-	///
-	/// # Returns
-	///
-	/// An equivalent handle to the same data, with a new order parameter.
-	pub(crate) fn change_order<P>(self) -> BitBox<P, T>
-	where P: BitOrder {
-		let bp = self.bitptr();
-		mem::forget(self);
-		unsafe { BitBox::from_raw(bp.as_mut_ptr()) }
-	}
+    #[doc= " Accesses the `BitSlice<O, T>` to which the `BitBox` refers."]
+    #[doc= ""]
+    #[doc= " # Parameters"]
+    #[doc= ""]
+    #[doc= " - `&self`"]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " The slice of bits behind the box."]
+    pub(crate) fn as_bitslice(&self) -> &BitSlice<O, T> {
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    }
 
-	/// Accesses the `BitSlice<O, T>` to which the `BitBox` refers.
-	///
-	/// # Parameters
-	///
-	/// - `&self`
-	///
-	/// # Returns
-	///
-	/// The slice of bits behind the box.
-	pub(crate) fn as_bitslice(&self) -> &BitSlice<O, T> {
-		self.pointer.into_bitslice()
-	}
+    #[doc= " Accesses the `BitSlice<O, T>` to which the `BitBox` refers."]
+    #[doc= ""]
+    #[doc= " # Parameters"]
+    #[doc= ""]
+    #[doc= " - `&mut self`"]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " The slice of bits behind the box."]
+    pub(crate) fn as_mut_bitslice(&mut self) -> &mut BitSlice<O, T> {
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    }
 
-	/// Accesses the `BitSlice<O, T>` to which the `BitBox` refers.
-	///
-	/// # Parameters
-	///
-	/// - `&mut self`
-	///
-	/// # Returns
-	///
-	/// The slice of bits behind the box.
-	pub(crate) fn as_mut_bitslice(&mut self) -> &mut BitSlice<O, T> {
-		self.pointer.into_bitslice_mut()
-	}
+    #[doc= " Accesses the vector’s backing store as an element slice."]
+    #[doc= ""]
+    #[doc= " Unlike `BitSlice`’s method of the same name, this includes the partial"]
+    #[doc= " edges, as `BitBox` forbids fragmentation that leads to contention."]
+    #[doc= ""]
+    #[doc= " # Parameters"]
+    #[doc= ""]
+    #[doc= " - `&self`"]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " The slice of all live elements in the backing storage, including the"]
+    #[doc= " partial edges if present."]
+    pub(crate) fn as_slice(&self) -> &[T] {
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    }
 
-	/// Accesses the vector’s backing store as an element slice.
-	///
-	/// Unlike `BitSlice`’s method of the same name, this includes the partial
-	/// edges, as `BitBox` forbids fragmentation that leads to contention.
-	///
-	/// # Parameters
-	///
-	/// - `&self`
-	///
-	/// # Returns
-	///
-	/// The slice of all live elements in the backing storage, including the
-	/// partial edges if present.
-	pub(crate) fn as_slice(&self) -> &[T] {
-		self.bitptr().as_slice()
-	}
+    #[doc= " Accesses the vector’s backing store as an element slice."]
+    #[doc= ""]
+    #[doc= " Unlike `BitSlice`’s method of the same name, this includes the partial"]
+    #[doc= " edges, as `BitBox` forbids fragmentation that leads to contention."]
+    #[doc= ""]
+    #[doc= " # Parameters"]
+    #[doc= ""]
+    #[doc= " - `&mut self`"]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " The slice of all live elements in the backing storage, including the"]
+    #[doc= " partial edges if present."]
+    pub(crate) fn as_mut_slice(&mut self) -> &mut [T] {
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    }
 
-	/// Accesses the vector’s backing store as an element slice.
-	///
-	/// Unlike `BitSlice`’s method of the same name, this includes the partial
-	/// edges, as `BitBox` forbids fragmentation that leads to contention.
-	///
-	/// # Parameters
-	///
-	/// - `&mut self`
-	///
-	/// # Returns
-	///
-	/// The slice of all live elements in the backing storage, including the
-	/// partial edges if present.
-	pub(crate) fn as_mut_slice(&mut self) -> &mut [T] {
-		self.bitptr().as_mut_slice()
-	}
+    #[doc= " Gives read access to the `BitPtr<T>` structure powering the box."]
+    #[doc= ""]
+    #[doc= " # Parameters"]
+    #[doc= ""]
+    #[doc= " - `&self`"]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " A copy of the interior `BitPtr<T>`."]
+    pub(crate) fn bitptr(&self) -> BitPtr<T> {
+        self.pointer
+    }
 
-	/// Gives read access to the `BitPtr<T>` structure powering the box.
-	///
-	/// # Parameters
-	///
-	/// - `&self`
-	///
-	/// # Returns
-	///
-	/// A copy of the interior `BitPtr<T>`.
-	pub(crate) fn bitptr(&self) -> BitPtr<T> {
-		self.pointer
-	}
-
-	/// Allows a function to access the `Box<[T]>` that the `BitBox` is using
-	/// under the hood.
-	///
-	/// # Parameters
-	///
-	/// - `&self`
-	/// - `func`: A function which works with a borrowed `Box<[T]>` representing
-	///   the actual memory held by the `BitBox`.
-	///
-	/// # Type Parameters
-	///
-	/// - `F: FnOnce(&Box<[T]>) -> R`: A function which borrows a box.
-	/// - `R`: The return value of the function.
-	///
-	/// # Returns
-	///
-	/// The return value of the provided function.
-	fn do_with_box<F, R>(&self, func: F) -> R
-	where F: FnOnce(&Box<[T::Mem]>) -> R {
-		let slice = self.pointer.as_mut_slice();
-		let (data, elts) = (slice.as_mut_ptr(), slice.len());
-		let b = unsafe { Vec::from_raw_parts(data as *mut T::Mem, elts, elts) }
-			.into_boxed_slice();
-		let out = func(&b);
-		mem::forget(b);
-		out
-	}
+    #[doc= " Allows a function to access the `Box<[T]>` that the `BitBox` is using"]
+    #[doc= " under the hood."]
+    #[doc= ""]
+    #[doc= " # Parameters"]
+    #[doc= ""]
+    #[doc= " - `&self`"]
+    #[doc= " - `func`: A function which works with a borrowed `Box<[T]>` representing"]
+    #[doc= "   the actual memory held by the `BitBox`."]
+    #[doc= ""]
+    #[doc= " # Type Parameters"]
+    #[doc= ""]
+    #[doc= " - `F: FnOnce(&Box<[T]>) -> R`: A function which borrows a box."]
+    #[doc= " - `R`: The return value of the function."]
+    #[doc= ""]
+    #[doc= " # Returns"]
+    #[doc= ""]
+    #[doc= " The return value of the provided function."]
+    fn do_with_box<F, R>(&self, func: F) -> R
+    where
+        F: FnOnce(&Box<[T::Mem]>) -> R {
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+    }
 }
-
 mod api;
 mod iter;
 mod ops;
 mod traits;
-
-pub(crate) use api::*;
-pub(crate) use iter::*;
