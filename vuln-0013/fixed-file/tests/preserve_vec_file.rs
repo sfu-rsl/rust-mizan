@@ -20,6 +20,8 @@ fn preserve_vec_file() {
     bv.push(false);
     let mut bv: BitVec<Msb0, u8> = BitVec::with_capacity(2);
     bv.push(false);
+    bv.push(true);
+    bv.push(true);
     let mut bv: BitVec<Local, u8> = BitVec::with_capacity(3);
     bv.push(false);
     let bv = BitVec::<Msb0, u8>::from_element(3);
@@ -52,7 +54,6 @@ fn preserve_vec_file() {
 
     let mut bv = BitVec::<Local, u8>::repeat(false, 1);
     bv.force_align();
-
     {
         let src_base = BitVec::<Msb0, u8>::from_slice(&[182]);
         let src = &src_base[1..7];
@@ -62,12 +63,4 @@ fn preserve_vec_file() {
         bv.force_align();
         // assert_eq!(bv.as_slice()[0], 0x6E);
     }
-
-    /*let src = &bits![Msb0, u8; 1, 0, 1, 1, 0, 1, 1, 0][1 .. 7];
-    assert_eq!(src.len(), 6);
-    let mut bv = src.to_owned();
-    assert_eq!(bv.len(), 6);
-    assert_eq!(bv.as_slice()[0], 0xB6);
-    bv.force_align();
-    assert_eq!(bv.as_slice()[0], 0x6E);*/
 }

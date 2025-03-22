@@ -295,10 +295,6 @@ pub(crate) trait Indexable {
     fn tail<M>(self) -> BitTail<M>
     where
         M: BitMemory;
-    #[doc= " Wraps a value as a `BitPos<M>`."]
-    fn pos<M>(self) -> BitPos<M>
-    where
-        M: BitMemory;
 }
 
 impl Indexable for u8 {
@@ -316,11 +312,5 @@ impl Indexable for u8 {
         unsafe {
             BitTail::<M>::new_unchecked(self)
         }
-    }
-
-    fn pos<M>(self) -> BitPos<M>
-    where
-        M: BitMemory {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 }
