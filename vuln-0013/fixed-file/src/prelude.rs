@@ -5,7 +5,6 @@ This collects the general public API into a single spot for inclusion, as
 !*/
 
 pub use crate::{
-	bits,
 	mem::BitMemory,
 	order::{
 		BitOrder,
@@ -21,8 +20,6 @@ pub use crate::{
 
 #[cfg(feature = "alloc")]
 pub use crate::{
-	bitbox,
-	bitvec,
 	boxed::BitBox,
 	vec::BitVec,
 };

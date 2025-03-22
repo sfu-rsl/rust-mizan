@@ -1,134 +1,154 @@
-#![doc= " Governs access to underlying memory.\n\n`bitvec` allows the logical capability of a program to produce aliased\nreferences to memory elements which may have contended mutation. While `bitvec`\noperations are guaranteed to not observe mutation outside the logical borders of\ntheir domains, the production of aliased mutating access to memory is still\nundefined behavior in the compiler.\n\nAs such, the crate must never produce references, either shared or unique,\nreferences to memory as the bare fundamental types. Instead, this module\ntranslates references to `BitSlice` into references to shared-mutable types as\nappropriate for the crate build configuration: either `Cell` in non-atomic\nbuilds, or `AtomicT` in atomic builds.\n!"]
+/*! Governs access to underlying memory.
+
+`bitvec` allows the logical capability of a program to produce aliased
+references to memory elements which may have contended mutation. While `bitvec`
+operations are guaranteed to not observe mutation outside the logical borders of
+their domains, the production of aliased mutating access to memory is still
+undefined behavior in the compiler.
+
+As such, the crate must never produce references, either shared or unique,
+references to memory as the bare fundamental types. Instead, this module
+translates references to `BitSlice` into references to shared-mutable types as
+appropriate for the crate build configuration: either `Cell` in non-atomic
+builds, or `AtomicT` in atomic builds.
+!*/
 
 use crate::{
-    index::{
-        BitIdx,
-        BitMask,
-    },
-    mem::BitMemory,
-    order::BitOrder,
+	index::{
+		BitIdx,
+		BitMask,
+	},
+	mem::BitMemory,
+	order::BitOrder,
 };
+
 use core::{
-    fmt::Debug,
-    sync::atomic::Ordering,
+	fmt::Debug,
+	sync::atomic::Ordering,
 };
+
 use radium::Radium;
 
-#[doc= " Access interface for shared/mutable memory access.\n\n`&BitSlice` and `&mut BitSlice` contexts must route through their `Access`\nassociated type, which implements this trait, in order to perform *any* access\nto underlying memory. This trait extends the `Radium` element-wise shared\nmutable access with single-bit operations suited for use by `BitSlice`.\n*"]
+/** Access interface for shared/mutable memory access.
+
+`&BitSlice` and `&mut BitSlice` contexts must route through their `Access`
+associated type, which implements this trait, in order to perform *any* access
+to underlying memory. This trait extends the `Radium` element-wise shared
+mutable access with single-bit operations suited for use by `BitSlice`.
+**/
 pub trait BitAccess<M>: Debug + Radium<M> + Sized
-where
-    M: BitMemory {
-    #[doc= " Set a single bit in an element low."]
-    #[doc= ""]
-    #[doc= " `BitAccess::set` calls this when its `value` is `false`; it"]
-    #[doc= " unconditionally writes a `0` bit into the electrical position that"]
-    #[doc= " `place` controls according to the `BitOrder` parameter `O`."]
-    #[doc= ""]
-    #[doc= " # Type Parameters"]
-    #[doc= ""]
-    #[doc= " - `O`: A `BitOrder` implementation which translates `place` into a"]
-    #[doc= "   usable bit-mask."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`: A shared reference to underlying memory."]
-    #[doc= " - `place`: A semantic bit index in the `self` element."]
-    fn clear_bit<O>(&self, place: BitIdx<M>)
-    where
-        O: BitOrder {
-        self.fetch_and(!*O::select(place), Ordering::Relaxed);
-    }
+where M: BitMemory
+{
+	/// Set a single bit in an element low.
+	///
+	/// `BitAccess::set` calls this when its `value` is `false`; it
+	/// unconditionally writes a `0` bit into the electrical position that
+	/// `place` controls according to the `BitOrder` parameter `O`.
+	///
+	/// # Type Parameters
+	///
+	/// - `O`: A `BitOrder` implementation which translates `place` into a
+	///   usable bit-mask.
+	///
+	/// # Parameters
+	///
+	/// - `&self`: A shared reference to underlying memory.
+	/// - `place`: A semantic bit index in the `self` element.
+	fn clear_bit<O>(&self, place: BitIdx<M>)
+	where O: BitOrder {
+		self.fetch_and(!*O::select(place), Ordering::Relaxed);
+	}
 
 
-    #[doc= " Set a single bit in an element high."]
-    #[doc= ""]
-    #[doc= " `BitAccess::set` calls this when its `value` is `true`; it"]
-    #[doc= " unconditionally writes a `1` bit into the electrical position that"]
-    #[doc= " `place` controls according to the `BitOrder` parameter `O`."]
-    #[doc= ""]
-    #[doc= " # Type Parameters"]
-    #[doc= ""]
-    #[doc= " - `O`: A `BitOrder` implementation which translates `place` into a"]
-    #[doc= "   usable bit-mask."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`: A shared reference to underlying memory."]
-    #[doc= " - `place`: A semantic bit index in the `self` element."]
-    fn set_bit<O>(&self, place: BitIdx<M>)
-    where
-        O: BitOrder {
-        self.fetch_or(*O::select(place), Ordering::Relaxed);
-    }
+	/// Set a single bit in an element high.
+	///
+	/// `BitAccess::set` calls this when its `value` is `true`; it
+	/// unconditionally writes a `1` bit into the electrical position that
+	/// `place` controls according to the `BitOrder` parameter `O`.
+	///
+	/// # Type Parameters
+	///
+	/// - `O`: A `BitOrder` implementation which translates `place` into a
+	///   usable bit-mask.
+	///
+	/// # Parameters
+	///
+	/// - `&self`: A shared reference to underlying memory.
+	/// - `place`: A semantic bit index in the `self` element.
+	fn set_bit<O>(&self, place: BitIdx<M>)
+	where O: BitOrder {
+		self.fetch_or(*O::select(place), Ordering::Relaxed);
+	}
 
-    #[doc= " Retrieve a single bit from an element."]
-    #[doc= ""]
-    #[doc= " # Type Parameters"]
-    #[doc= ""]
-    #[doc= " - `O`: A `BitOrder` implementation which translates `place` into a"]
-    #[doc= "   usable bit-mask."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`: A shared reference to underlying memory."]
-    #[doc= " - `place`: A semantic bit index in the `self` element."]
-    #[inline]
-    fn get<O>(&self, place: BitIdx<M>) -> bool
-    where
-        O: BitOrder {
-        BitAccess::load(self) & *O::select(place) != M::ZERO
-    }
+	/// Retrieve a single bit from an element.
+	///
+	/// # Type Parameters
+	///
+	/// - `O`: A `BitOrder` implementation which translates `place` into a
+	///   usable bit-mask.
+	///
+	/// # Parameters
+	///
+	/// - `&self`: A shared reference to underlying memory.
+	/// - `place`: A semantic bit index in the `self` element.
+	#[inline]
+	fn get<O>(&self, place: BitIdx<M>) -> bool
+	where O: BitOrder {
+		BitAccess::load(self) & *O::select(place) != M::ZERO
+	}
 
-    #[doc= " Set a single bit in an element to some value."]
-    #[doc= ""]
-    #[doc= " # Type Parameters"]
-    #[doc= ""]
-    #[doc= " - `O`: A `BitOrder` implementation which translates `place` into a"]
-    #[doc= "   usable bit-mask."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`: A shared reference to underlying memory."]
-    #[doc= " - `place`: A semantic bit index in the `self` element."]
-    #[doc= " - `value`: The value to which the bit controlled by `place` shall be"]
-    #[doc= "   set."]
-    #[inline]
-    fn set<O>(&self, place: BitIdx<M>, value: bool)
-    where
-        O: BitOrder {
-        if value {
-            self.set_bit::<O>(place);
-        } else {
-            self.clear_bit::<O>(place);
-        }
-    }
+	/// Set a single bit in an element to some value.
+	///
+	/// # Type Parameters
+	///
+	/// - `O`: A `BitOrder` implementation which translates `place` into a
+	///   usable bit-mask.
+	///
+	/// # Parameters
+	///
+	/// - `&self`: A shared reference to underlying memory.
+	/// - `place`: A semantic bit index in the `self` element.
+	/// - `value`: The value to which the bit controlled by `place` shall be
+	///   set.
+	#[inline]
+	fn set<O>(&self, place: BitIdx<M>, value: bool)
+	where O: BitOrder {
+		if value {
+			self.set_bit::<O>(place);
+		}
+		else {
+			self.clear_bit::<O>(place);
+		}
+	}
 
-    #[doc= " Read a value out of a contended memory element and into a local scope."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`: A shared reference to underlying memory."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " The value of `*self`. This value is only useful when access is"]
-    #[doc= " uncontended by multiple `BitSlice` regions."]
-    fn load(&self) -> M {
-        Radium::load(self, Ordering::Relaxed)
-    }
+	/// Read a value out of a contended memory element and into a local scope.
+	///
+	/// # Parameters
+	///
+	/// - `&self`: A shared reference to underlying memory.
+	///
+	/// # Returns
+	///
+	/// The value of `*self`. This value is only useful when access is
+	/// uncontended by multiple `BitSlice` regions.
+	fn load(&self) -> M {
+		Radium::load(self, Ordering::Relaxed)
+	}
 
-    #[doc= " Stores a value into a contended memory element."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`: A shared reference to underlying memory."]
-    #[doc= " - `value`: The new value to write into `*self`."]
-    fn store(&self, value: M) {
-        Radium::store(self, value, Ordering::Relaxed)
-    }
+	/// Stores a value into a contended memory element.
+	///
+	/// # Parameters
+	///
+	/// - `&self`: A shared reference to underlying memory.
+	/// - `value`: The new value to write into `*self`.
+	fn store(&self, value: M) {
+		Radium::store(self, value, Ordering::Relaxed)
+	}
 }
 
 impl<M, R> BitAccess<M> for R
 where
-    M: BitMemory,
-    R: Debug + Radium<M> { }
+	M: BitMemory,
+	R: Debug + Radium<M>,
+{
+}
