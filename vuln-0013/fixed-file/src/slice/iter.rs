@@ -12,7 +12,7 @@ use core::{
 
 
 #[doc= " Immutable slice iterator\n\nThis struct is created by the [`iter`] method on [`BitSlice`]s.\n\n# Examples\n\nBasic usage:\n\n```rust\n# use bitvec::prelude::*;\nlet data = 5u8;\nlet bits = data.bits::<Lsb0>();\n\nfor bit in bits[.. 4].iter() {\n  println!(\"{}\", bit);\n}\n```\n\n[`BitSlice`]: struct.BitSlice.html\n[`iter`]: struct.BitSlice.html#method.iter\n*"]
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 pub struct Iter<'a, O, T>
 where
     O: BitOrder,
@@ -54,7 +54,6 @@ where
 }
 
 #[doc= " Mutable slice iterator.\n\nThis struct is created by the [`iter_mut`] method on [`BitSlice`]s.\n\n# API Differences\n\nThis is required to return references marked as aliasing, as you are permitted\nto keep the returned references alive in parallel.\n\n# Examples\n\nBasic usage:\n\n```rust\n# use bitvec::prelude::*;\nlet mut data = 0u8;\nlet bits = data.bits_mut::<Msb0>();\nassert!(bits.not_any());\nfor mut bit in bits.iter_mut() {\n  *bit = true;\n}\nassert!(bits.all());\n```\n\n[`BitSlice`]: struct.BitSlice.html\n[`iter_mut`]: struct.BitSlice.html#method.iter_mut\n*"]
-#[derive(Debug)]
 pub struct IterMut<'a, O, T>
 where
     O: BitOrder,
@@ -64,7 +63,7 @@ where
 }
 
 #[doc= " An iterator over a slice in (non-overlapping) chunks (`width` bits at a\ntime), starting at the beginning of the slice.\n\nWhen the slice length is not evenly divided by the chunk size, the last slice of\nthe iteration will be the remainder.\n\nThis struct is created by the [`chunks`] method on [`BitSlice`]s.\n\n[`BitSlice`]: struct.BitSlice.html\n[`chunks`]: struct.BitSlice.html#method.chunks\n*"]
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 pub(crate) struct Chunks<'a, O, T>
 where
     O: BitOrder,
@@ -106,7 +105,7 @@ where
 }
 
 #[doc= " An iterator over a slice in (non-overlapping) chunks (`width` bits at a\ntime), starting at the beginning of the slice.\n\nWhen the slice length is not evenly divided by the chunk size, the last up to\n`width - 1` bits will be omitted but can be retrieved from the\n[`remainder`] function from the iterator.\n\nThis struct is created by the [`chunks_exact`] method on [`BitSlice`]s.\n\n[`BitSlice`]: struct.BitSlice.html\n[`chunks_exact`]: struct.BitSlice.html#method.chunks_exact\n[`remainder`]: #method.remainder\n*"]
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 pub(crate) struct ChunksExact<'a, O, T>
 where
     O: BitOrder,
@@ -116,7 +115,6 @@ where
 }
 
 #[doc= " An iterator over a slice in (non-ovelapping) mutable chunks (`width` bits at\na time), starting at the beginning of the slice.\n\nWhen the slice length is not evenly divided by the chunk size, the last up to\n`width - 1` elements will be omitted but can be retrieved from the\n[`into_remainder`] function from the iterator.\n\nThis struct is created by the [`chunks_exact_mut`] method on [`BitSlice`]s.\n\n# API Differences\n\nThis is required to return references marked as aliasing, as you are permitted\nto keep the returned references alive in parallel.\n\n[`BitSlice`]: struct.BitSlice.html\n[`chunks_exact_mut`]: struct.BitSlice.html#method.chunks_exact_mut\n[`into_remainder`]: #method.into_remainder\n*"]
-#[derive(Debug)]
 pub(crate) struct ChunksExactMut<'a, O, T>
 where
     O: BitOrder,
@@ -126,7 +124,6 @@ where
 }
 
 #[doc= " An iterator over a slice in (non-overlapping) mutable chunks (`width` bits\nat a time), starting at the beginning of the slice.\n\nWhen the slice length is not evenly divided by the chunk size, the last slice of\nthe iteration will be the remainder.\n\nThis struct is created by the [`chunks_mut`] method on [`BitSlice`]s.\n\n# API Differences\n\nThis is required to return references marked as aliasing, as you are permitted\nto keep the returned references alive in parallel.\n\n[`BitSlice`]: struct.BitSlice.html\n[`chunks_mut`]: struct.BitSlice.html#chunks_mut\n*"]
-#[derive(Debug)]
 pub(crate) struct ChunksMut<'a, O, T>
 where
     O: BitOrder,
@@ -136,7 +133,7 @@ where
 }
 
 #[doc= " An iterator over a slice in (non-overlapping) chunks (`width` bits at a\ntime), starting at the end of the slice.\n\nWhen the slice length is not evenly divided by the chunk size, the last slice of\nthe iteration will be the remainder.\n\nThis struct is created by the [`rchunks`] method on [`BitSlice`]s.\n\n[`BitSlice`]: struct.BitSlice.html\n[`rchunks`]: struct.BitSlice.html#method.rchunks\n*"]
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 pub(crate) struct RChunks<'a, O, T>
 where
     O: BitOrder,
@@ -146,7 +143,7 @@ where
 }
 
 #[doc= " An iterator over a slice in (non-overlapping) chunks (`width` bits\nat a time), starting at the end of the slice.\n\nWhen the slice length is not evenly divided by the chunk size, the last up to\n`width - 1` bits will be omitted but can be retrieved from the [`remainder`]\nfunction from the iterator.\n\nThis struct is created by the [`rchunks_exact`] method on [`BitSlice`]s.\n\n[`BitSlice`]: struct.BitSlice.html\n[`rchunks_exact`]: struct.BitSlice.html#method.rchunks_exact\n[`remainder`]: #method.remainder\n*"]
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 pub(crate) struct RChunksExact<'a, O, T>
 where
     O: BitOrder,
@@ -156,7 +153,6 @@ where
 }
 
 #[doc= " An iterator over a slice in (non-overlapping) mutable chunks (`width` bits\nat a time), starting at the end of the slice.\n\nWhen the slice len is not evenly divided by the chunk size, the last up to\n`width - 1` bits will be omitted but can be retrieved from the\n[`into_remainder`] function from the iterator.\n\nThis struct is created by the [`rchunks_exact_mut`] method on [`BitSlice`]s.\n\n# API Differences\n\nThis is required to return references marked as aliasing, as you are permitted\nto keep the returned references alive in parallel.\n\n[`BitSlice`]: struct.BitSlice.html\n[`into_remainder`]: #method.into_remainder\n[`rchunks_exact_mut`]: struct.BitSlice.html#rchunks_exact_mut\n*"]
-#[derive(Debug)]
 pub(crate) struct RChunksExactMut<'a, O, T>
 where
     O: BitOrder,
@@ -166,7 +162,6 @@ where
 }
 
 #[doc= " An iterator over a slice in (non-overlapping) mutable chunks (`width` bits\nat a time), starting at the end of the slice.\n\nWhen the slice length is not evenly divided by the chunk size, the last slice of\nthe iteration will be the remainder.\n\nThis struct is created by the [`rchunks_mut`] method on [`BitSlice`]s.\n\n# API Differences\n\nThis is required to return references marked as aliasing, as you are permitted\nto keep the returned references alive in parallel.\n\n[`BitSlice`]: struct.BitSlice.html\n[`rchunks_mut`]: struct.BitSlice.html#method.rchunks_mut\n*"]
-#[derive(Debug)]
 pub(crate) struct RChunksMut<'a, O, T>
 where
     O: BitOrder,
@@ -435,7 +430,7 @@ where
 }
 
 #[doc= " An iterator over overlapping subslices of some width.\n\nThis struct is created by the [`windows`] method on [`BitSlice`]s.\n\n[`BitSlice`]: struct.BitSlice.html\n[`windows`]: struct.BitSlice.html#method.windows\n*"]
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 pub(crate) struct Windows<'a, O, T>
 where
     O: BitOrder,
