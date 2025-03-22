@@ -69,7 +69,7 @@ where
 	/// This has the same lifetime as the original slice, and so the iterator
 	/// can continue to be used while this exists.
 	#[inline]
-	pub fn as_bitslice(&self) -> &'a BitSlice<O, T> {
+	pub(crate) fn as_bitslice(&self) -> &'a BitSlice<O, T> {
 		self.inner
 	}
 
@@ -77,7 +77,7 @@ where
 	///
 	/// This has the same rules as `BitSlice::as_slice`.
 	#[inline]
-	pub fn as_slice(&self) -> &'a [T] {
+	pub(crate) fn as_slice(&self) -> &'a [T] {
 		unsafe { &*(self.inner.as_slice() as *const [_] as *const [_]) }
 	}
 
@@ -264,7 +264,7 @@ where
 	/// assert!(bits[0]);
 	/// println!("{}", bits); // [10000000]
 	/// ```
-	pub fn into_bitslice(self) -> &'a mut BitSlice<O, T::Alias> {
+	pub(crate) fn into_bitslice(self) -> &'a mut BitSlice<O, T::Alias> {
 		self.inner
 	}
 
@@ -370,7 +370,7 @@ This struct is created by the [`chunks`] method on [`BitSlice`]s.
 [`chunks`]: struct.BitSlice.html#method.chunks
 **/
 #[derive(Clone, Debug)]
-pub struct Chunks<'a, O, T>
+pub(crate) struct Chunks<'a, O, T>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -486,7 +486,7 @@ This struct is created by the [`chunks_exact`] method on [`BitSlice`]s.
 [`remainder`]: #method.remainder
 **/
 #[derive(Clone, Debug)]
-pub struct ChunksExact<'a, O, T>
+pub(crate) struct ChunksExact<'a, O, T>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -507,7 +507,7 @@ where
 	/// Returns the remainder of the original slice that is not going to be
 	/// returned by the iterator. The returned slice has at most
 	/// `width - 1` bits.
-	pub fn remainder(&self) -> &'a BitSlice<O, T> {
+	pub(crate) fn remainder(&self) -> &'a BitSlice<O, T> {
 		self.extra
 	}
 }
@@ -616,7 +616,7 @@ to keep the returned references alive in parallel.
 [`into_remainder`]: #method.into_remainder
 **/
 #[derive(Debug)]
-pub struct ChunksExactMut<'a, O, T>
+pub(crate) struct ChunksExactMut<'a, O, T>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -637,7 +637,7 @@ where
 	/// Returns the remainder of the original slice that is not going to be
 	/// returned by the iterator. The returned slice has at most
 	/// `width - 1` bits.
-	pub fn into_remainder(self) -> &'a mut BitSlice<O, T::Alias> {
+	pub(crate) fn into_remainder(self) -> &'a mut BitSlice<O, T::Alias> {
 		self.extra
 	}
 }
@@ -744,7 +744,7 @@ to keep the returned references alive in parallel.
 [`chunks_mut`]: struct.BitSlice.html#chunks_mut
 **/
 #[derive(Debug)]
-pub struct ChunksMut<'a, O, T>
+pub(crate) struct ChunksMut<'a, O, T>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -861,7 +861,7 @@ This struct is created by the [`rchunks`] method on [`BitSlice`]s.
 [`rchunks`]: struct.BitSlice.html#method.rchunks
 **/
 #[derive(Clone, Debug)]
-pub struct RChunks<'a, O, T>
+pub(crate) struct RChunks<'a, O, T>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -976,7 +976,7 @@ This struct is created by the [`rchunks_exact`] method on [`BitSlice`]s.
 [`remainder`]: #method.remainder
 **/
 #[derive(Clone, Debug)]
-pub struct RChunksExact<'a, O, T>
+pub(crate) struct RChunksExact<'a, O, T>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -997,7 +997,7 @@ where
 	/// Returns the remainder of the original slice that is not going to be
 	/// returned by the iterator. The returned slice has at most
 	/// `width - 1` bits.
-	pub fn remainder(&self) -> &'a BitSlice<O, T> {
+	pub(crate) fn remainder(&self) -> &'a BitSlice<O, T> {
 		self.extra
 	}
 }
@@ -1107,7 +1107,7 @@ to keep the returned references alive in parallel.
 [`rchunks_exact_mut`]: struct.BitSlice.html#rchunks_exact_mut
 **/
 #[derive(Debug)]
-pub struct RChunksExactMut<'a, O, T>
+pub(crate) struct RChunksExactMut<'a, O, T>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -1128,7 +1128,7 @@ where
 	/// Returns the remainder of the original slice that is not going to be
 	/// returned by the iterator. The returned slice has at most
 	/// `width - 1` bits.
-	pub fn into_remainder(self) -> &'a mut BitSlice<O, T::Alias> {
+	pub(crate) fn into_remainder(self) -> &'a mut BitSlice<O, T::Alias> {
 		self.extra
 	}
 }
@@ -1236,7 +1236,7 @@ to keep the returned references alive in parallel.
 [`rchunks_mut`]: struct.BitSlice.html#method.rchunks_mut
 **/
 #[derive(Debug)]
-pub struct RChunksMut<'a, O, T>
+pub(crate) struct RChunksMut<'a, O, T>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -1361,7 +1361,7 @@ This struct is created by the [`split`] method on [`BitSlice`]s.
 [`split`]: struct.BitSlice.html#method.split
 **/
 #[derive(Clone)]
-pub struct Split<'a, O, T, F>
+pub(crate) struct Split<'a, O, T, F>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -1485,7 +1485,7 @@ to keep the returned references alive in parallel.
 [`BitSlice`]: struct.BitSlice.html
 [`split_mut`]: struct.BitSlice.html#method.split_mut
 **/
-pub struct SplitMut<'a, O, T, F>
+pub(crate) struct SplitMut<'a, O, T, F>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -1618,7 +1618,7 @@ This struct is created by the [`rsplit`] method on [`BitSlice`]s.
 [`rsplit`]: struct.BitSlice.html#rsplit
 **/
 #[derive(Clone)]
-pub struct RSplit<'a, O, T, F>
+pub(crate) struct RSplit<'a, O, T, F>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -1705,7 +1705,7 @@ to keep the returned references alive in parallel.
 [`BitSlice`]: struct.BitSlice.html
 [`rsplit_mut`]: struct.BitSlice.html#rsplit_mut
 **/
-pub struct RSplitMut<'a, O, T, F>
+pub(crate) struct RSplitMut<'a, O, T, F>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -1823,7 +1823,7 @@ This struct is created by the [`splitn`] method on [`BitSlice`]s.
 [`BitSlice`]: struct.BitSlice.html
 [`splitn`]: struct.BitSlice.html#method.splitn
 **/
-pub struct SplitN<'a, O, T, F>
+pub(crate) struct SplitN<'a, O, T, F>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -1860,7 +1860,7 @@ to keep the returned references alive in parallel.
 [`BitSlice`]: struct.BitSlice.html
 [`splitn_mut`]: struct.BitSlice.html#method.splitn_mut
 **/
-pub struct SplitNMut<'a, O, T, F>
+pub(crate) struct SplitNMut<'a, O, T, F>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -1893,7 +1893,7 @@ This struct is created by the [`rsplitn`] method on [`BitSlice`]s.
 [`BitSlice`]: struct.BitSlice.html
 [`rsplitn`]: struct.BitSlice.html#method.rsplitn
 **/
-pub struct RSplitN<'a, O, T, F>
+pub(crate) struct RSplitN<'a, O, T, F>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -1931,7 +1931,7 @@ to keep the returned references alive in parallel.
 [`BitSlice`]: struct.BitSlice.html
 [`rsplitn_mut`]: struct.BitSlice.html#method.rsplitn_mut
 **/
-pub struct RSplitNMut<'a, O, T, F>
+pub(crate) struct RSplitNMut<'a, O, T, F>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -2028,7 +2028,7 @@ This struct is created by the [`windows`] method on [`BitSlice`]s.
 [`windows`]: struct.BitSlice.html#method.windows
 **/
 #[derive(Clone, Debug)]
-pub struct Windows<'a, O, T>
+pub(crate) struct Windows<'a, O, T>
 where
 	O: BitOrder,
 	T: 'a + BitStore,

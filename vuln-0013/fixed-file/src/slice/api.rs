@@ -114,7 +114,7 @@ assert_eq!(bits.len(), 5);
 
 [`from_raw_parts`]: #fn.from_raw_parts
 **/
-pub unsafe fn bits_from_raw_parts<'a, O, T>(
+pub(crate) unsafe fn bits_from_raw_parts<'a, O, T>(
 	data: *const T,
 	head: BitIdx<T::Mem>,
 	bits: usize,
@@ -147,7 +147,7 @@ arguments cause aliasing in the underlying memory positions.
 [`BitOrder`]: ../order/trait.BitOrder.html
 [`bits_from_raw_parts`]: #fn.bits_from_raw_parts
 **/
-pub unsafe fn bits_from_raw_parts_mut<'a, O, T>(
+pub(crate) unsafe fn bits_from_raw_parts_mut<'a, O, T>(
 	data: *mut T,
 	head: BitIdx<T::Mem>,
 	bits: usize,
@@ -166,7 +166,7 @@ copying).
 
 [`core::slice::from_mut`](https://doc.rust-lang.org/core/slice/fn.from_mut.html)
 **/
-pub fn from_mut<O, T>(elt: &mut T) -> &mut BitSlice<O, T>
+pub(crate) fn from_mut<O, T>(elt: &mut T) -> &mut BitSlice<O, T>
 where
 	O: BitOrder,
 	T: BitStore,
@@ -215,7 +215,7 @@ let bitslice = unsafe { bitslice::from_raw_parts::<Msb0, _>(ptr, 1) };
 assert!(bitslice[2]);
 ```
 **/
-pub unsafe fn from_raw_parts<'a, O, T>(
+pub(crate) unsafe fn from_raw_parts<'a, O, T>(
 	data: *const T,
 	len: usize,
 ) -> &'a BitSlice<O, T>
@@ -247,7 +247,7 @@ See `from_raw_parts`.
 
 [`from_raw_parts`]: #fn.from_raw_parts
 **/
-pub unsafe fn from_raw_parts_mut<'a, O, T>(
+pub(crate) unsafe fn from_raw_parts_mut<'a, O, T>(
 	data: *mut T,
 	len: usize,
 ) -> &'a mut BitSlice<O, T>
@@ -265,7 +265,7 @@ copying).
 
 [`core::slice::from_ref`](https://doc.rust-lang.org/core/slice/fn.from_ref.html)
 **/
-pub fn from_ref<O, T>(elt: &T) -> &BitSlice<O, T>
+pub(crate) fn from_ref<O, T>(elt: &T) -> &BitSlice<O, T>
 where
 	O: BitOrder,
 	T: BitStore,
@@ -292,7 +292,7 @@ where
 	/// let bits = 0u8.bits::<Local>();
 	/// assert_eq!(bits.len(), 8);
 	/// ```
-	pub fn len(&self) -> usize {
+	pub(crate) fn len(&self) -> usize {
 		self.bitptr().len()
 	}
 
@@ -311,7 +311,7 @@ where
 	///
 	/// assert!(BitSlice::<Local, usize>::empty().is_empty())
 	/// ```
-	pub fn is_empty(&self) -> bool {
+	pub(crate) fn is_empty(&self) -> bool {
 		self.bitptr().len() == 0
 	}
 
@@ -331,7 +331,7 @@ where
 	/// assert!(BitSlice::<Local, usize>::empty().first().is_none());
 	/// ```
 	#[inline]
-	pub fn first(&self) -> Option<&bool> {
+	pub(crate) fn first(&self) -> Option<&bool> {
 		self.get(0)
 	}
 
@@ -354,7 +354,7 @@ where
 	/// assert_eq!(data, 1u8);
 	/// ```
 	#[inline]
-	pub fn first_mut(&mut self) -> Option<BitMut<O, T>> {
+	pub(crate) fn first_mut(&mut self) -> Option<BitMut<O, T>> {
 		self.get_mut(0)
 	}
 
@@ -372,7 +372,7 @@ where
 	/// }
 	/// ```
 	#[inline]
-	pub fn split_first(&self) -> Option<(&bool, &Self)> {
+	pub(crate) fn split_first(&self) -> Option<(&bool, &Self)> {
 		if self.is_empty() {
 			None
 		}
@@ -408,10 +408,10 @@ where
 	/// assert_eq!(data, 7);
 	/// ```
 	#[inline]
-	//  `pub type Aliased = BitSlice<O, T::Alias>;` is not allowed in inherents,
+	//  `pub(crate) type Aliased = BitSlice<O, T::Alias>;` is not allowed in inherents,
 	//  so this will not be aliased.
 	#[allow(clippy::type_complexity)]
-	pub fn split_first_mut(
+	pub(crate) fn split_first_mut(
 		&mut self,
 	) -> Option<(BitMut<O, T::Alias>, &mut BitSlice<O, T::Alias>)> {
 		if self.is_empty() {
@@ -437,7 +437,7 @@ where
 	/// }
 	/// ```
 	#[inline]
-	pub fn split_last(&self) -> Option<(&bool, &Self)> {
+	pub(crate) fn split_last(&self) -> Option<(&bool, &Self)> {
 		match self.len() {
 			0 => None,
 			len => {
@@ -473,10 +473,10 @@ where
 	/// assert_eq!(data, 128 | 64 | 1);
 	/// ```
 	#[inline]
-	//  `pub type Aliased = BitSlice<O, T::Alias>;` is not allowed in inherents,
+	//  `pub(crate) type Aliased = BitSlice<O, T::Alias>;` is not allowed in inherents,
 	//  so this will not be aliased.
 	#[allow(clippy::type_complexity)]
-	pub fn split_last_mut(
+	pub(crate) fn split_last_mut(
 		&mut self,
 	) -> Option<(BitMut<O, T::Alias>, &mut BitSlice<O, T::Alias>)> {
 		match self.len() {
@@ -499,7 +499,7 @@ where
 	/// assert!(BitSlice::<Local, usize>::empty().last().is_none());
 	/// ```
 	#[inline]
-	pub fn last(&self) -> Option<&bool> {
+	pub(crate) fn last(&self) -> Option<&bool> {
 		match self.len() {
 			0 => None,
 			len => Some(unsafe { self.get_unchecked(len - 1) }),
@@ -519,7 +519,7 @@ where
 	/// }
 	/// assert!(bits[7]);
 	#[inline]
-	pub fn last_mut(&mut self) -> Option<BitMut<O, T>> {
+	pub(crate) fn last_mut(&mut self) -> Option<BitMut<O, T>> {
 		match self.len() {
 			0 => None,
 			len => Some(unsafe { self.get_unchecked_mut(len - 1) }),
@@ -546,7 +546,7 @@ where
 	/// assert!(bits.get(.. 12).is_none());
 	/// ```
 	#[inline]
-	pub fn get<'a, I>(&'a self, index: I) -> Option<I::Immut>
+	pub(crate) fn get<'a, I>(&'a self, index: I) -> Option<I::Immut>
 	where I: BitSliceIndex<'a, O, T> {
 		index.get(self)
 	}
@@ -571,7 +571,7 @@ where
 	///
 	/// [`get`]: #method.get
 	#[inline]
-	pub fn get_mut<'a, I>(&'a mut self, index: I) -> Option<I::Mut>
+	pub(crate) fn get_mut<'a, I>(&'a mut self, index: I) -> Option<I::Mut>
 	where I: BitSliceIndex<'a, O, T> {
 		index.get_mut(self)
 	}
@@ -602,7 +602,7 @@ where
 	///
 	/// [`get`]: #method.get
 	#[inline]
-	pub unsafe fn get_unchecked<'a, I>(&'a self, index: I) -> I::Immut
+	pub(crate) unsafe fn get_unchecked<'a, I>(&'a self, index: I) -> I::Immut
 	where I: BitSliceIndex<'a, O, T> {
 		index.get_unchecked(self)
 	}
@@ -638,7 +638,7 @@ where
 	///
 	/// [`get_mut`]: #method.get_mut
 	#[inline]
-	pub unsafe fn get_unchecked_mut<'a, I>(&'a mut self, index: I) -> I::Mut
+	pub(crate) unsafe fn get_unchecked_mut<'a, I>(&'a mut self, index: I) -> I::Mut
 	where I: BitSliceIndex<'a, O, T> {
 		index.get_unchecked_mut(self)
 	}
@@ -675,7 +675,7 @@ where
 	///
 	/// [`as_mut_ptr`]: #method.as_mut_ptr
 	#[inline]
-	pub fn as_ptr(&self) -> *const T {
+	pub(crate) fn as_ptr(&self) -> *const T {
 		self.bitptr().pointer().r()
 	}
 
@@ -708,7 +708,7 @@ where
 	/// assert!(rest[2]);
 	/// ```
 	#[inline]
-	pub fn as_mut_ptr(&mut self) -> *mut T {
+	pub(crate) fn as_mut_ptr(&mut self) -> *mut T {
 		self.bitptr().pointer().w()
 	}
 
@@ -732,7 +732,7 @@ where
 	/// bits.swap(0, 1);
 	/// assert_eq!(data, 1);
 	/// ```
-	pub fn swap(&mut self, a: usize, b: usize) {
+	pub(crate) fn swap(&mut self, a: usize, b: usize) {
 		let len = self.len();
 		assert!(a < len, "Index {} out of bounds: {}", a, len);
 		assert!(b < len, "Index {} out of bounds: {}", b, len);
@@ -752,7 +752,7 @@ where
 	/// bits[1 ..].reverse();
 	/// assert_eq!(data, 0b1_0011001);
 	/// ```
-	pub fn reverse(&mut self) {
+	pub(crate) fn reverse(&mut self) {
 		/* This is better implemented as a recursive algorithm, but Rust doesn’t
 		yet flatten recursive tail calls into a loop, so it is done manually
 		here.
@@ -788,7 +788,7 @@ where
 	/// assert!(iter.next().is_none());
 	/// ```
 	#[inline]
-	pub fn iter(&self) -> Iter<O, T> {
+	pub(crate) fn iter(&self) -> Iter<O, T> {
 		self.into_iter()
 	}
 
@@ -806,7 +806,7 @@ where
 	/// assert_eq!(data, 3);
 	/// ```
 	#[inline]
-	pub fn iter_mut(&mut self) -> IterMut<O, T> {
+	pub(crate) fn iter_mut(&mut self) -> IterMut<O, T> {
 		self.into_iter()
 	}
 
@@ -840,7 +840,7 @@ where
 	/// let bits = data.bits::<Local>();
 	/// let mut iter = bits[.. 3].windows(4);
 	/// assert!(iter.next().is_none());
-	pub fn windows(&self, width: usize) -> Windows<O, T> {
+	pub(crate) fn windows(&self, width: usize) -> Windows<O, T> {
 		assert_ne!(width, 0, "Window width cannot be zero");
 		super::Windows { inner: self, width }
 	}
@@ -875,7 +875,7 @@ where
 	///
 	/// [`chunks_exact`]: #method.chunks_exact
 	/// [`rchunks`]: #method.rchunks
-	pub fn chunks(&self, chunk_size: usize) -> Chunks<O, T> {
+	pub(crate) fn chunks(&self, chunk_size: usize) -> Chunks<O, T> {
 		assert_ne!(chunk_size, 0, "Chunk width cannot be zero");
 		super::Chunks {
 			inner: self,
@@ -916,7 +916,7 @@ where
 	///
 	/// [`chunks_exact_mut`]: #method.chunks_exact_mut
 	/// [`rchunks_mut`]: #method.rchunks_mut
-	pub fn chunks_mut(&mut self, chunk_size: usize) -> ChunksMut<O, T> {
+	pub(crate) fn chunks_mut(&mut self, chunk_size: usize) -> ChunksMut<O, T> {
 		assert_ne!(chunk_size, 0, "Chunk width cannot be zero");
 		super::ChunksMut {
 			inner: self.alias_mut(),
@@ -958,7 +958,7 @@ where
 	///
 	/// [`chunks`]: #method.chunks
 	/// [`rchunks_exact`]: #method.rchunks_exact
-	pub fn chunks_exact(&self, chunk_size: usize) -> ChunksExact<O, T> {
+	pub(crate) fn chunks_exact(&self, chunk_size: usize) -> ChunksExact<O, T> {
 		assert_ne!(chunk_size, 0, "Chunk width cannot be zero");
 		let len = self.len();
 		let rem = len % chunk_size;
@@ -1011,7 +1011,7 @@ where
 	///
 	/// [`chunks_mut`]: #method.chunks_mut
 	/// [`rchunks_exact_mut`]: #method.rchunks_exact_mut
-	pub fn chunks_exact_mut(
+	pub(crate) fn chunks_exact_mut(
 		&mut self,
 		chunk_size: usize,
 	) -> ChunksExactMut<O, T>
@@ -1058,7 +1058,7 @@ where
 	///
 	/// [`chunks`]: #method.chunks
 	/// [`rchunks_exact`]: #method.rchunks_exact
-	pub fn rchunks(&self, chunk_size: usize) -> RChunks<O, T> {
+	pub(crate) fn rchunks(&self, chunk_size: usize) -> RChunks<O, T> {
 		assert_ne!(chunk_size, 0, "Chunk width cannot be zero");
 		RChunks {
 			inner: self,
@@ -1100,7 +1100,7 @@ where
 	///
 	/// [`chunks_mut`]: #method.chunks_mut
 	/// [`rchunks_exact_mut`]: #method.rchunks_exact_mut
-	pub fn rchunks_mut(&mut self, chunk_size: usize) -> RChunksMut<O, T> {
+	pub(crate) fn rchunks_mut(&mut self, chunk_size: usize) -> RChunksMut<O, T> {
 		assert_ne!(chunk_size, 0, "Chunk width cannot be zero");
 		RChunksMut {
 			inner: self.alias_mut(),
@@ -1143,7 +1143,7 @@ where
 	/// [`chunks`]: #method.chunks
 	/// [`rchunks`]: #method.rchunks
 	/// [`chunks_exact`]: #method.chunks_exact
-	pub fn rchunks_exact(&self, chunk_size: usize) -> RChunksExact<O, T> {
+	pub(crate) fn rchunks_exact(&self, chunk_size: usize) -> RChunksExact<O, T> {
 		assert_ne!(chunk_size, 0, "Chunk width cannot be zero");
 		let (extra, inner) = self.split_at(self.len() % chunk_size);
 		RChunksExact {
@@ -1194,7 +1194,7 @@ where
 	/// [`chunks_mut`]: #method.chunks_mut
 	/// [`rchunks_mut`]: #method.rchunks_mut
 	/// [`chunks_exact_mut`]: #method.chunks_exact_mut
-	pub fn rchunks_exact_mut(
+	pub(crate) fn rchunks_exact_mut(
 		&mut self,
 		chunk_size: usize,
 	) -> RChunksExactMut<O, T>
@@ -1237,7 +1237,7 @@ where
 	/// assert_eq!(left, bits);
 	/// assert!(right.is_empty());
 	/// ```
-	pub fn split_at(&self, mid: usize) -> (&Self, &Self) {
+	pub(crate) fn split_at(&self, mid: usize) -> (&Self, &Self) {
 		let len = self.len();
 		assert!(mid <= len, "Index {} out of bounds: {}", mid, len);
 		unsafe { self.split_at_unchecked(mid) }
@@ -1278,10 +1278,10 @@ where
 	/// assert_eq!(data, 0b0100_1101);
 	/// ```
 	#[inline]
-	//  `pub type Aliased = BitSlice<O, T::Alias>;` is not allowed in inherents,
+	//  `pub(crate) type Aliased = BitSlice<O, T::Alias>;` is not allowed in inherents,
 	//  so this will not be aliased.
 	#[allow(clippy::type_complexity)]
-	pub fn split_at_mut(
+	pub(crate) fn split_at_mut(
 		&mut self,
 		mid: usize,
 	) -> (&mut BitSlice<O, T::Alias>, &mut BitSlice<O, T::Alias>)
@@ -1352,7 +1352,7 @@ where
 	///
 	/// [`slice::split`]: https://doc.rust-lang.org/stable/std/primitive.slice.html#method.split
 	#[inline]
-	pub fn split<F>(&self, func: F) -> Split<'_, O, T, F>
+	pub(crate) fn split<F>(&self, func: F) -> Split<'_, O, T, F>
 	where F: FnMut(usize, &bool) -> bool {
 		Split {
 			inner: self,
@@ -1389,7 +1389,7 @@ where
 	///
 	/// [`slice::split_mut`]: https://doc.rust-lang.org/stable/std/primitive.slice.html#method.split_mut
 	#[inline]
-	pub fn split_mut<F>(&mut self, func: F) -> SplitMut<'_, O, T, F>
+	pub(crate) fn split_mut<F>(&mut self, func: F) -> SplitMut<'_, O, T, F>
 	where F: FnMut(usize, &bool) -> bool {
 		SplitMut {
 			inner: self.alias_mut(),
@@ -1442,7 +1442,7 @@ where
 	///
 	/// [`slice::rsplit`]: https://doc.rust-lang.org/stable/std/primitive.slice.html#method.rsplit
 	#[inline]
-	pub fn rsplit<F>(&self, func: F) -> RSplit<'_, O, T, F>
+	pub(crate) fn rsplit<F>(&self, func: F) -> RSplit<'_, O, T, F>
 	where F: FnMut(usize, &bool) -> bool {
 		RSplit {
 			inner: self.split(func),
@@ -1480,7 +1480,7 @@ where
 	///
 	/// [`slice::rsplit_mut`]: https://doc.rust-lang.org/stable/std/primitive.slice.html#method.rsplit_mut
 	#[inline]
-	pub fn rsplit_mut<F>(&mut self, func: F) -> RSplitMut<'_, O, T, F>
+	pub(crate) fn rsplit_mut<F>(&mut self, func: F) -> RSplitMut<'_, O, T, F>
 	where F: FnMut(usize, &bool) -> bool {
 		RSplitMut {
 			inner: self.split_mut(func),
@@ -1521,7 +1521,7 @@ where
 	///
 	/// [`slice::splitn`]: https://doc.rust-lang.org/stable/std/primitive.slice.html#method.splitn
 	#[inline]
-	pub fn splitn<F>(&self, n: usize, func: F) -> SplitN<'_, O, T, F>
+	pub(crate) fn splitn<F>(&self, n: usize, func: F) -> SplitN<'_, O, T, F>
 	where F: FnMut(usize, &bool) -> bool {
 		SplitN {
 			inner: GenericSplitN {
@@ -1564,7 +1564,7 @@ where
 	///
 	/// [`slice::splitn_mut`]: https://doc.rust-lang.org/stable/std/primitive.slice.html#method.splitn_mut
 	#[inline]
-	pub fn splitn_mut<F>(
+	pub(crate) fn splitn_mut<F>(
 		&mut self,
 		n: usize,
 		func: F,
@@ -1616,7 +1616,7 @@ where
 	///
 	/// [`slice::rsplitn`]: https://doc.rust-lang.org/stable/std/primitive.slice.html#method.rsplitn
 	#[inline]
-	pub fn rsplitn<F>(&self, n: usize, func: F) -> RSplitN<'_, O, T, F>
+	pub(crate) fn rsplitn<F>(&self, n: usize, func: F) -> RSplitN<'_, O, T, F>
 	where F: FnMut(usize, &bool) -> bool {
 		RSplitN {
 			inner: GenericSplitN {
@@ -1660,7 +1660,7 @@ where
 	///
 	/// [`slice::rsplitn_mut`]: https://doc.rust-lang.org/stable/std/primitive.slice.html#method.rsplitn_mut
 	#[inline]
-	pub fn rsplitn_mut<F>(
+	pub(crate) fn rsplitn_mut<F>(
 		&mut self,
 		n: usize,
 		func: F,
@@ -1700,7 +1700,7 @@ where
 	/// does not need to have the same type parameters as the searched slice.
 	///
 	/// [`slice::contains`]: https://doc.rust-lang.org/stable/std/primitive.slice.html#method.contains
-	pub fn contains<P, U>(&self, query: &BitSlice<P, U>) -> bool
+	pub(crate) fn contains<P, U>(&self, query: &BitSlice<P, U>) -> bool
 	where
 		P: BitOrder,
 		U: BitStore,
@@ -1722,7 +1722,7 @@ where
 	/// let bits = data.bits::<Msb0>();
 	/// assert!(bits.starts_with(&data.bits::<Lsb0>()[.. 2]));
 	/// ```
-	pub fn starts_with<P, U>(&self, prefix: &BitSlice<P, U>) -> bool
+	pub(crate) fn starts_with<P, U>(&self, prefix: &BitSlice<P, U>) -> bool
 	where
 		P: BitOrder,
 		U: BitStore,
@@ -1741,7 +1741,7 @@ where
 	/// let bits = data.bits::<Msb0>();
 	/// assert!(bits.ends_with(&data.bits::<Lsb0>()[6 ..]));
 	/// ```
-	pub fn ends_with<P, U>(&self, suffix: &BitSlice<P, U>) -> bool
+	pub(crate) fn ends_with<P, U>(&self, suffix: &BitSlice<P, U>) -> bool
 	where
 		P: BitOrder,
 		U: BitStore,
@@ -1785,7 +1785,7 @@ where
 	/// bits[1 .. 5].rotate_left(1);
 	/// assert_eq!(data, 0b1_1101_000);
 	/// ```
-	pub fn rotate_left(&mut self, mut by: usize) {
+	pub(crate) fn rotate_left(&mut self, mut by: usize) {
 		let len = self.len();
 		assert!(
 			by <= len,
@@ -1861,7 +1861,7 @@ where
 	/// bits[1 .. 5].rotate_right(1);
 	/// assert_eq!(data, 0b1_0111_000);
 	/// ```
-	pub fn rotate_right(&mut self, mut by: usize) {
+	pub(crate) fn rotate_right(&mut self, mut by: usize) {
 		let len = self.len();
 		assert!(
 			by <= len,
@@ -1950,7 +1950,7 @@ where
 	/// ```
 	///
 	/// [`split_at_mut`]: #method.split_at_mut
-	pub fn clone_from_slice<P, U>(&mut self, src: &BitSlice<P, U>)
+	pub(crate) fn clone_from_slice<P, U>(&mut self, src: &BitSlice<P, U>)
 	where
 		P: BitOrder,
 		U: BitStore,
@@ -2015,7 +2015,7 @@ where
 	/// ```
 	///
 	/// [`split_at_mut`]: #method.split_at_mut
-	pub fn copy_from_slice(&mut self, src: &Self) {
+	pub(crate) fn copy_from_slice(&mut self, src: &Self) {
 		self.clone_from_slice(src)
 	}
 
@@ -2071,7 +2071,7 @@ where
 	/// ```
 	///
 	/// [`split_at_mut`]: #method.split_at_mut
-	pub fn swap_with_slice<P, U>(&mut self, other: &mut BitSlice<P, U>)
+	pub(crate) fn swap_with_slice<P, U>(&mut self, other: &mut BitSlice<P, U>)
 	where
 		P: BitOrder,
 		U: BitStore,
@@ -2128,7 +2128,7 @@ where
 	///     }
 	/// }
 	/// ```
-	pub unsafe fn align_to<U>(&self) -> (&Self, &BitSlice<O, U>, &Self)
+	pub(crate) unsafe fn align_to<U>(&self) -> (&Self, &BitSlice<O, U>, &Self)
 	where U: BitStore {
 		let bitptr = self.bitptr();
 		let (l, c, r) = bitptr.as_slice().align_to::<U>();
@@ -2168,7 +2168,7 @@ where
 	/// }
 	/// ```
 	#[inline]
-	pub unsafe fn align_to_mut<U>(
+	pub(crate) unsafe fn align_to_mut<U>(
 		&mut self,
 	) -> (&mut Self, &mut BitSlice<O, U>, &mut Self)
 	where U: BitStore {
@@ -2193,7 +2193,7 @@ where
 	/// ```
 	#[cfg(feature = "alloc")]
 	#[inline]
-	pub fn to_vec(&self) -> BitVec<O, T> {
+	pub(crate) fn to_vec(&self) -> BitVec<O, T> {
 		BitVec::from_bitslice(self)
 	}
 }
@@ -2208,7 +2208,7 @@ There is no tracking issue for `feature(slice_index_methods)`.
 
 [`slice::SliceIndex`]: https://doc.rust-lang.org/stable/core/slice/trait.SliceIndex.html
 **/
-pub trait BitSliceIndex<'a, O, T>
+pub(crate) trait BitSliceIndex<'a, O, T>
 where
 	O: 'a + BitOrder,
 	T: 'a + BitStore,

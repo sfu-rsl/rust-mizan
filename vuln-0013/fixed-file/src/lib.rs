@@ -46,24 +46,24 @@ extern crate serde;
 extern crate serde_test;
 
 #[macro_use]
-pub mod macros;
+pub(crate) mod macros;
 
 mod access;
-pub mod domain;
-pub mod fields;
-pub mod index;
-pub mod mem;
-pub mod order;
+pub(crate) mod domain;
+pub(crate) mod fields;
+pub(crate) mod index;
+pub(crate) mod mem;
+pub(crate) mod order;
 mod pointer;
 pub mod prelude;
-pub mod slice;
-pub mod store;
+pub(crate) mod slice;
+pub(crate) mod store;
 
 #[cfg(feature = "alloc")]
-pub mod boxed;
+pub(crate) mod boxed;
 
 #[cfg(feature = "alloc")]
-pub mod vec;
+pub(crate) mod vec;
 
 #[cfg(feature = "serde")]
 mod serdes;

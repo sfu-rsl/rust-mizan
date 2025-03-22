@@ -62,7 +62,7 @@ use serde::{
 /// A Serde visitor to pull `BitBox` data out of a serialized stream
 #[cfg(feature = "alloc")]
 #[derive(Clone, Copy, Default, Debug)]
-pub struct BitBoxVisitor<'de, O, T>
+pub(crate) struct BitBoxVisitor<'de, O, T>
 where
 	O: BitOrder,
 	T: BitStore + Deserialize<'de>,

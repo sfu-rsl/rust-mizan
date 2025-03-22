@@ -48,7 +48,7 @@ source slice, according to information contained in its pointer.
 - `T`: The storage type of the parent `BitSlice`.
 **/
 #[derive(Debug)]
-pub enum BitDomain<'a, O, T>
+pub(crate) enum BitDomain<'a, O, T>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -229,7 +229,7 @@ where
 
 [`BitDomain`]: enum.BitDomain.html
 **/
-pub enum BitDomainMut<'a, O, T>
+pub(crate) enum BitDomainMut<'a, O, T>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -300,7 +300,7 @@ and implements the [`core::fmt`] traits to render the backing store.
 [`BitSlice::domain`]: ../slice/struct.BitSlice.html#method.domain
 [`core::fmt`]: //doc.rust-lang.org/corce/fmt
 **/
-pub enum Domain<'a, T>
+pub(crate) enum Domain<'a, T>
 where T: 'a + BitStore
 {
 	/// The source `BitSlice` region is in the interior of one element.
@@ -342,7 +342,7 @@ where T: 'a + BitStore
 	/// # Returns
 	///
 	/// An iterator yielding each referent value.
-	pub fn iter(&self) -> DomainIter<'a, T> {
+	pub(crate) fn iter(&self) -> DomainIter<'a, T> {
 		DomainIter { domain: *self }
 	}
 
@@ -589,7 +589,7 @@ impl<T> Copy for Domain<'_, T> where T: BitStore
 
 [`Domain`]: enum.Domain.html
 **/
-pub enum DomainMut<'a, T>
+pub(crate) enum DomainMut<'a, T>
 where T: 'a + BitStore
 {
 	/// Writable version of [`Domain::Enclave`].
@@ -647,7 +647,7 @@ where
 
 /// Element iterator for a `Domain`.
 #[derive(Clone, Copy, Debug, Default)]
-pub struct DomainIter<'a, T>
+pub(crate) struct DomainIter<'a, T>
 where T: 'a + BitStore
 {
 	domain: Domain<'a, T>,

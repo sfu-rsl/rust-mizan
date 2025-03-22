@@ -127,7 +127,7 @@ Because this is a const function, when `bits` is a const-expr, this function can
 be used in array types `[T; elts(len)]`.
 **/
 #[doc(hidden)]
-pub const fn elts<T>(bits: usize) -> usize {
+pub(crate) const fn elts<T>(bits: usize) -> usize {
 	let width = mem::size_of::<T>() * 8;
 	bits / width + (bits % width != 0) as usize
 }

@@ -88,7 +88,7 @@ location in an element to a variable location in the slice.
 Methods should be called as `bits[start .. end].load_or_store()`, where the
 range subslice selects up to but no more than the `U::BITS` element width.
 **/
-pub trait BitField {
+pub(crate) trait BitField {
 	/// Load the sequence of bits from `self` into the least-significant bits of
 	/// an element.
 	///

@@ -110,7 +110,7 @@ impl<M> BitIdx<M>
 where M: BitMemory
 {
 	/// The zero index.
-	pub const ZERO: Self = Self {
+	pub(crate) const ZERO: Self = Self {
 		idx: 0,
 		_ty: PhantomData,
 	};
@@ -126,7 +126,7 @@ where M: BitMemory
 	/// If `idx` is within the range `0 .. M::BITS`, then this returns the index
 	/// value wrapped in the index type; if `idx` exceeds this range, then this
 	/// returns `None`.
-	pub fn new(idx: u8) -> Option<Self> {
+	pub(crate) fn new(idx: u8) -> Option<Self> {
 		if idx >= M::BITS {
 			return None;
 		}
@@ -145,7 +145,7 @@ where M: BitMemory
 	/// If `idx` is outside the range, then the produced value will cause errors
 	/// and memory unsafety when used.
 	#[inline]
-	pub unsafe fn new_unchecked(idx: u8) -> Self {
+	pub(crate) unsafe fn new_unchecked(idx: u8) -> Self {
 		debug_assert!(
 			idx < M::BITS,
 			"Bit index {} cannot exceed type width {}",
@@ -324,7 +324,7 @@ impl<M> BitTail<M>
 where M: BitMemory
 {
 	/// The termination index.
-	pub const END: Self = Self {
+	pub(crate) const END: Self = Self {
 		end: M::BITS,
 		_ty: PhantomData,
 	};
@@ -447,7 +447,7 @@ where M: BitMemory
 	///
 	/// [`::new_unchecked`]: #method.new_unchecked
 	#[inline]
-	pub fn new(pos: u8) -> Self {
+	pub(crate) fn new(pos: u8) -> Self {
 		assert!(
 			pos < M::BITS,
 			"Bit position {} cannot exceed type width {}",
@@ -483,7 +483,7 @@ where M: BitMemory
 	///
 	/// [`::new`]: #method.new
 	#[inline]
-	pub unsafe fn new_unchecked(pos: u8) -> Self {
+	pub(crate) unsafe fn new_unchecked(pos: u8) -> Self {
 		debug_assert!(
 			pos < M::BITS,
 			"Bit position {} cannot exceed type width {}",
@@ -508,7 +508,7 @@ where M: BitMemory
 	///
 	/// A one-hot selector mask with the bit at `*self` set.
 	#[inline]
-	pub fn select(self) -> BitSel<M> {
+	pub(crate) fn select(self) -> BitSel<M> {
 		unsafe { BitSel::new_unchecked(M::ONE << *self) }
 	}
 }
@@ -569,7 +569,7 @@ where M: BitMemory
 	///
 	/// [`::new_unchecked`]: #method.new_unchecked
 	#[inline]
-	pub fn new(sel: M) -> Self {
+	pub(crate) fn new(sel: M) -> Self {
 		assert!(
 			sel.count_ones() == 1,
 			"Masks are required to have exactly one set bit: {:0>1$b}",
@@ -603,7 +603,7 @@ where M: BitMemory
 	///
 	/// [`::new`]: #method.new
 	#[inline]
-	pub unsafe fn new_unchecked(sel: M) -> Self {
+	pub(crate) unsafe fn new_unchecked(sel: M) -> Self {
 		debug_assert!(
 			sel.count_ones() == 1,
 			"Masks are required to have exactly one set bit: {:0>1$b}",
@@ -653,9 +653,9 @@ impl<M> BitMask<M>
 where M: BitMemory
 {
 	/// A full mask.
-	pub const ALL: Self = Self { mask: M::ALL };
+	pub(crate) const ALL: Self = Self { mask: M::ALL };
 	/// An empty mask.
-	pub const ZERO: Self = Self { mask: M::ZERO };
+	pub(crate) const ZERO: Self = Self { mask: M::ZERO };
 
 	/// Wraps a value as a bitmask.
 	///
@@ -671,7 +671,7 @@ where M: BitMemory
 	/// # Returns
 	///
 	/// The `mask` value as a bitmask.
-	pub fn new(mask: M) -> Self {
+	pub(crate) fn new(mask: M) -> Self {
 		Self { mask }
 	}
 }
