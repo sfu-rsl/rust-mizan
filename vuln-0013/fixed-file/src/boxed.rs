@@ -27,46 +27,6 @@ impl<O, T> BitBox<O, T>
 where
     O: BitOrder,
     T: BitStore {
-    #[doc= " Constructs an empty boxed bitslice."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " An empty `BitBox` at an arbitrary location."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " use bitvec::prelude::*;"]
-    #[doc= ""]
-    #[doc= " let bb: BitBox = BitBox::empty();"]
-    #[doc= " assert!(bb.is_empty());"]
-    #[doc= " ```"]
-    pub(crate) fn empty() -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Produces a `BitBox` from a single element."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `elt`: The source element from which to make the `BitBox`."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " A `BitBox` containing the provided element."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " use bitvec::prelude::*;"]
-    #[doc= ""]
-    #[doc= " let bb: BitBox<Msb0, u16> = BitBox::from_element(!0);"]
-    #[doc= " assert!(bb.all());"]
-    #[doc= " ```"]
-    pub(crate) fn from_element(elt: T) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
     #[doc= " Builds a `BitBox` from a borrowed slice of elements."]
     #[doc= ""]
     #[doc= " # Parameters"]
@@ -152,107 +112,6 @@ where
         panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 
-    #[doc= " Removes the `BitBox` wrapper from a `Box<[T]>`."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `self`"]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " The `Box<[T]>` underneath `self`."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " use bitvec::prelude::*;"]
-    #[doc= ""]
-    #[doc= " let slice: Box<[u16]> = vec![0, !0].into_boxed_slice();"]
-    #[doc= " let bb = BitBox::<Lsb0, _>::from_boxed_slice(slice);"]
-    #[doc= " assert_eq!(bb.len(), 32);"]
-    #[doc= " let slice = bb.into_boxed_slice();"]
-    #[doc= " assert_eq!(slice.len(), 2);"]
-    #[doc= " ```"]
-    pub(crate) fn into_boxed_slice(self) -> Box<[T]> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Changes the order on a box handle, without changing the data it"]
-    #[doc= " governs."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `self`"]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " An equivalent handle to the same data, with a new order parameter."]
-    pub(crate) fn change_order<P>(self) -> BitBox<P, T>
-    where
-        P: BitOrder {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Accesses the `BitSlice<O, T>` to which the `BitBox` refers."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`"]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " The slice of bits behind the box."]
-    pub(crate) fn as_bitslice(&self) -> &BitSlice<O, T> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Accesses the `BitSlice<O, T>` to which the `BitBox` refers."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&mut self`"]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " The slice of bits behind the box."]
-    pub(crate) fn as_mut_bitslice(&mut self) -> &mut BitSlice<O, T> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Accesses the vector’s backing store as an element slice."]
-    #[doc= ""]
-    #[doc= " Unlike `BitSlice`’s method of the same name, this includes the partial"]
-    #[doc= " edges, as `BitBox` forbids fragmentation that leads to contention."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`"]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " The slice of all live elements in the backing storage, including the"]
-    #[doc= " partial edges if present."]
-    pub(crate) fn as_slice(&self) -> &[T] {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Accesses the vector’s backing store as an element slice."]
-    #[doc= ""]
-    #[doc= " Unlike `BitSlice`’s method of the same name, this includes the partial"]
-    #[doc= " edges, as `BitBox` forbids fragmentation that leads to contention."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&mut self`"]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " The slice of all live elements in the backing storage, including the"]
-    #[doc= " partial edges if present."]
-    pub(crate) fn as_mut_slice(&mut self) -> &mut [T] {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
     #[doc= " Gives read access to the `BitPtr<T>` structure powering the box."]
     #[doc= ""]
     #[doc= " # Parameters"]
@@ -265,31 +124,6 @@ where
     pub(crate) fn bitptr(&self) -> BitPtr<T> {
         self.pointer
     }
-
-    #[doc= " Allows a function to access the `Box<[T]>` that the `BitBox` is using"]
-    #[doc= " under the hood."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`"]
-    #[doc= " - `func`: A function which works with a borrowed `Box<[T]>` representing"]
-    #[doc= "   the actual memory held by the `BitBox`."]
-    #[doc= ""]
-    #[doc= " # Type Parameters"]
-    #[doc= ""]
-    #[doc= " - `F: FnOnce(&Box<[T]>) -> R`: A function which borrows a box."]
-    #[doc= " - `R`: The return value of the function."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " The return value of the provided function."]
-    fn do_with_box<F, R>(&self, func: F) -> R
-    where
-        F: FnOnce(&Box<[T::Mem]>) -> R {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
 }
 mod api;
-mod iter;
-mod ops;
 mod traits;

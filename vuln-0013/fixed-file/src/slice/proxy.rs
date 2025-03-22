@@ -49,12 +49,3 @@ where
         panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 }
-
-impl<O, T> Drop for BitMut<'_, O, T>
-where
-    O: BitOrder,
-    T: BitStore {
-    fn drop(&mut self) {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}

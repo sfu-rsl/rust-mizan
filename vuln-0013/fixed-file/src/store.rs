@@ -124,16 +124,3 @@ mod seal {
     #[doc(hidden)]
     pub trait Sealed { }
 }
-
-#[cfg(target_endian = "disabled")]
-#[cfg(test)]
-mod tests {
-    use crate::prelude::*;
-    use core::cell::Cell;
-    use static_assertions::*;
-
-    #[test]
-    fn traits() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
