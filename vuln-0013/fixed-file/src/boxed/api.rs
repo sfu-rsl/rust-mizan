@@ -10,9 +10,7 @@ use crate::{
 use core::{
     marker::{
         PhantomData,
-        Unpin,
     },
-    pin::Pin,
 };
 
 impl<O, T> BitBox<O, T>

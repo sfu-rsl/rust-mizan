@@ -73,14 +73,6 @@ where
 		self.inner
 	}
 
-	/// Views the underlying buffer.
-	///
-	/// This has the same rules as `BitSlice::as_slice`.
-	#[inline]
-	pub(crate) fn as_slice(&self) -> &'a [T] {
-		unsafe { &*(self.inner.as_slice() as *const [_] as *const [_]) }
-	}
-
 	/// Accesses the `BitPtr` representation of the slice.
 	///
 	/// # Parameters
