@@ -53,62 +53,7 @@ where
 impl<'a, O, T> BitDomain<'a, O, T>
 where
     O: BitOrder,
-    T: 'a + BitStore {
-    #[doc= " Constructs a domain over an empty slice."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " A `BitDomain::Region` with all subslices set to the empty slice."]
-    fn empty() -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Constructs a domain with partial elements on both edges."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `head`: The element index at which the slice begins."]
-    #[doc= " - `slice`: The original `BitSlice` being split."]
-    #[doc= " - `tail`: The element index at which the slice ends."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " A `BitDomain::Region` with its `head` section set to the live bits in"]
-    #[doc= " the low element, its `body` section set to the live bits in the"]
-    #[doc= " wholly-filled interior elements, and its `tail` section set to the live"]
-    #[doc= " bits in the high element."]
-    fn major(head: BitIdx<T::Mem>, slice: &BitSlice<O, T>, tail: BitTail<T::Mem>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Constructs a domain wholly within a single element."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `head`: The element index at which the slice begins."]
-    #[doc= " - `slice`: The source slice."]
-    #[doc= " - `tail`: The element index at which the slice ends."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " A `BitDomain::Enclave` that marks the source slice as aliased, and"]
-    #[doc= " carries the `head` and `tail` indices for mask construction."]
-    fn minor(head: BitIdx<T::Mem>, slice: &BitSlice<O, T>, tail: BitTail<T::Mem>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    fn partial_head(head: BitIdx<T::Mem>, slice: &BitSlice<O, T>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    fn partial_tail(slice: &BitSlice<O, T>, tail: BitTail<T::Mem>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    fn spanning(slice: &'a BitSlice<O, T>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
+    T: 'a + BitStore { }
 
 impl<'a, O, T> From<&'a BitSlice<O, T>> for BitDomain<'a, O, T>
 where
@@ -187,51 +132,7 @@ where
 
 impl<'a, T> Domain<'a, T>
 where
-    T: 'a + BitStore {
-    #[doc= " Produces an iterator over each memory value referenced by the domain."]
-    #[doc= ""]
-    #[doc= " This iterator will perform the appropriate load on each reference"]
-    #[doc= " element, yielding the value of the referenced memory."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`"]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " An iterator yielding each referent value."]
-    pub(crate) fn iter(&self) -> DomainIter<'a, T> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    pub(crate) fn is_spanning(&self) -> bool {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    fn empty() -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    fn major(head: BitIdx<T::Mem>, elts: &'a [T::Alias], tail: BitTail<T::Mem>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    fn minor(head: BitIdx<T::Mem>, elts: &'a [T::Alias], tail: BitTail<T::Mem>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    fn partial_head(head: BitIdx<T::Mem>, elts: &'a [T::Alias]) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    fn partial_tail(elts: &'a [T::Alias], tail: BitTail<T::Mem>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    fn spanning(elts: &[T::Alias]) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
+    T: 'a + BitStore { }
 
 impl<T> Clone for Domain<'_, T>
 where
