@@ -268,7 +268,7 @@ The target has big-endian byte ordering, so the default bit ordering is set to
 big-endian as well, as a convenience. These two orderings are not related.
 **/
 #[cfg(target_endian = "big")]
-pub type Local = Msb0;
+pub(crate) type Local = Msb0;
 
 /** A default bit ordering.
 

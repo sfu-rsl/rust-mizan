@@ -137,7 +137,7 @@ where
 	/// let bits: &BitSlice = BitSlice::empty();
 	/// ```
 	#[inline]
-	pub fn empty<'a>() -> &'a Self {
+	pub(crate) fn empty<'a>() -> &'a Self {
 		BitPtr::empty().into_bitslice()
 	}
 
@@ -156,7 +156,7 @@ where
 	/// let bits: &mut BitSlice = BitSlice::empty_mut();
 	/// ```
 	#[inline]
-	pub fn empty_mut<'a>() -> &'a mut Self {
+	pub(crate) fn empty_mut<'a>() -> &'a mut Self {
 		BitPtr::empty().into_bitslice_mut()
 	}
 
@@ -181,7 +181,7 @@ where
 	/// assert!(bs.all());
 	/// ```
 	#[inline]
-	pub fn from_element(elt: &T) -> &Self {
+	pub(crate) fn from_element(elt: &T) -> &Self {
 		unsafe { BitPtr::new_unchecked(elt, 0u8.idx(), T::Mem::BITS as usize) }
 			.into_bitslice()
 	}
@@ -208,7 +208,7 @@ where
 	/// assert!(!bs.all());
 	/// ```
 	#[inline]
-	pub fn from_element_mut(elt: &mut T) -> &mut Self {
+	pub(crate) fn from_element_mut(elt: &mut T) -> &mut Self {
 		unsafe { BitPtr::new_unchecked(elt, 0u8.idx(), T::Mem::BITS as usize) }
 			.into_bitslice_mut()
 	}
@@ -245,7 +245,7 @@ where
 	/// ```
 	///
 	/// [`BitPtr`]: ../pointer/struct.BitPtr.html
-	pub fn from_slice(slice: &[T]) -> &Self {
+	pub(crate) fn from_slice(slice: &[T]) -> &Self {
 		let len = slice.len();
 		assert!(
 			len <= BitPtr::<T>::MAX_ELTS,
@@ -291,7 +291,7 @@ where
 	///
 	/// [`BitPtr`]: ../pointer/struct.BitPtr.html
 	#[inline]
-	pub fn from_slice_mut(slice: &mut [T]) -> &mut Self {
+	pub(crate) fn from_slice_mut(slice: &mut [T]) -> &mut Self {
 		Self::from_slice(slice).bitptr().into_bitslice_mut()
 	}
 
@@ -319,7 +319,7 @@ where
 	/// bits.set(3, true);
 	/// assert!(bits[3]);
 	/// ```
-	pub fn set(&mut self, index: usize, value: bool) {
+	pub(crate) fn set(&mut self, index: usize, value: bool) {
 		let len = self.len();
 		assert!(index < len, "Index out of range: {} >= {}", index, len);
 		unsafe { self.set_unchecked(index, value) };
@@ -369,7 +369,7 @@ where
 	/// ```
 	///
 	/// [`set`]: #method.set
-	pub unsafe fn set_unchecked(&mut self, index: usize, value: bool) {
+	pub(crate) unsafe fn set_unchecked(&mut self, index: usize, value: bool) {
 		let bitptr = self.bitptr();
 		let (elt, bit) = bitptr.head().offset(index as isize);
 		let data_ptr = bitptr.pointer().a();
@@ -450,7 +450,7 @@ where
 	/// [`::split_at_mut`]: #method.split_at_mut
 	#[deprecated(since = "0.18.0", note = "Use `.get_mut()` instead")]
 	#[inline]
-	pub fn at<'a, I>(&'a mut self, index: I) -> I::Mut
+	pub(crate) fn at<'a, I>(&'a mut self, index: I) -> I::Mut
 	where I: BitSliceIndex<'a, O, T> {
 		index.index_mut(self)
 	}
@@ -464,7 +464,7 @@ where
 	/// the boundaries of `self` before calling.
 	#[deprecated(since = "0.18.0", note = "Use `.get_unchecked_mut()` instead")]
 	#[inline]
-	pub unsafe fn at_unchecked<'a, I>(&'a mut self, index: I) -> I::Mut
+	pub(crate) unsafe fn at_unchecked<'a, I>(&'a mut self, index: I) -> I::Mut
 	where I: BitSliceIndex<'a, O, T> {
 		index.get_unchecked_mut(self)
 	}
@@ -477,7 +477,7 @@ where
 	/// If `mid` is outside the boundaries of `self`, then this function will
 	/// induce safety violations. The caller must ensure that `mid` is within
 	/// the boundaries of `self` before calling.
-	pub unsafe fn split_at_unchecked(&self, mid: usize) -> (&Self, &Self) {
+	pub(crate) unsafe fn split_at_unchecked(&self, mid: usize) -> (&Self, &Self) {
 		match mid {
 			0 => (BitSlice::empty(), self),
 			n if n == self.len() => (self, BitSlice::empty()),
@@ -500,10 +500,10 @@ where
 	/// induce safety violations. The caller must ensure that `mid` is within
 	/// the boundaries of `self` before calling.
 	#[inline]
-	//  `pub type Aliased = BitSlice<O, T::Alias>;` is not allowed in inherents,
+	//  `pub(crate) type Aliased = BitSlice<O, T::Alias>;` is not allowed in inherents,
 	//  so this will not be aliased.
 	#[allow(clippy::type_complexity)]
-	pub unsafe fn split_at_mut_unchecked(
+	pub(crate) unsafe fn split_at_mut_unchecked(
 		&mut self,
 		mid: usize,
 	) -> (&mut BitSlice<O, T::Alias>, &mut BitSlice<O, T::Alias>)
@@ -522,7 +522,7 @@ where
 	/// `a` and `b` must be within the bounds of `self`, otherwise, the memory
 	/// access is unsound and may induce undefined behavior.
 	#[inline]
-	pub unsafe fn swap_unchecked(&mut self, a: usize, b: usize) {
+	pub(crate) unsafe fn swap_unchecked(&mut self, a: usize, b: usize) {
 		let bit_a = *self.get_unchecked(a);
 		let bit_b = *self.get_unchecked(b);
 		self.set_unchecked(a, bit_b);
@@ -558,7 +558,7 @@ where
 	/// assert!(bits[.. 4].all());
 	/// assert!(!bits[4 ..].all());
 	/// ```
-	pub fn all(&self) -> bool {
+	pub(crate) fn all(&self) -> bool {
 		match self.domain() {
 			Domain::Enclave { head, elem, tail } => {
 				//  Use the `Mask | M` implementation to bypass the #69441 bug.
@@ -607,7 +607,7 @@ where
 	/// assert!(bits[.. 4].any());
 	/// assert!(!bits[4 ..].any());
 	/// ```
-	pub fn any(&self) -> bool {
+	pub(crate) fn any(&self) -> bool {
 		match self.domain() {
 			Domain::Enclave { head, elem, tail } => {
 				O::mask(head, tail) & elem.load() != BitMask::ZERO
@@ -654,7 +654,7 @@ where
 	/// assert!(bits[4 ..].not_all());
 	/// ```
 	#[inline]
-	pub fn not_all(&self) -> bool {
+	pub(crate) fn not_all(&self) -> bool {
 		!self.all()
 	}
 
@@ -687,7 +687,7 @@ where
 	/// assert!(bits[4 ..].not_any());
 	/// ```
 	#[inline]
-	pub fn not_any(&self) -> bool {
+	pub(crate) fn not_any(&self) -> bool {
 		!self.any()
 	}
 
@@ -725,7 +725,7 @@ where
 	/// assert!(bits[6 ..].some());
 	/// ```
 	#[inline]
-	pub fn some(&self) -> bool {
+	pub(crate) fn some(&self) -> bool {
 		self.any() && self.not_all()
 	}
 
@@ -747,7 +747,7 @@ where
 	/// let bits = [0xFDu8, 0x25].bits::<Msb0>();
 	/// assert_eq!(bits.count_ones(), 10);
 	/// ```
-	pub fn count_ones(&self) -> usize {
+	pub(crate) fn count_ones(&self) -> usize {
 		match self.domain() {
 			Domain::Enclave { head, elem, tail } => {
 				(O::mask(head, tail) & elem.load()).count_ones() as usize
@@ -783,7 +783,7 @@ where
 	/// let bits = [0xFDu8, 0x25].bits::<Msb0>();
 	/// assert_eq!(bits.count_zeros(), 6);
 	/// ```
-	pub fn count_zeros(&self) -> usize {
+	pub(crate) fn count_zeros(&self) -> usize {
 		match self.domain() {
 			Domain::Enclave { head, elem, tail } => {
 				(!O::mask(head, tail) | elem.load()).count_zeros() as usize
@@ -822,7 +822,7 @@ where
 	/// bits[.. 1].set_all(true);
 	/// assert_eq!(bits.as_slice(), &[0b1010_0100]);
 	/// ```
-	pub fn set_all(&mut self, value: bool) {
+	pub(crate) fn set_all(&mut self, value: bool) {
 		match self.domain_mut() {
 			DomainMut::Enclave { head, elem, tail } => {
 				let val = elem.load();
@@ -874,7 +874,7 @@ where
 	/// bits.for_each(|idx, _bit| idx % 3 == 0);
 	/// assert_eq!(src, 0b1001_0010);
 	/// ```
-	pub fn for_each<F>(&mut self, func: F)
+	pub(crate) fn for_each<F>(&mut self, func: F)
 	where F: Fn(usize, bool) -> bool {
 		for idx in 0 .. self.len() {
 			unsafe {
@@ -906,7 +906,7 @@ where
 	/// contended edge elements.
 	///
 	/// [`.domain()`]: #method.domain
-	pub fn as_aliased_slice(&self) -> &[T::Alias] {
+	pub(crate) fn as_aliased_slice(&self) -> &[T::Alias] {
 		self.bitptr().aliased_slice()
 	}
 
@@ -939,7 +939,7 @@ where
 	///     .sum::<u32>();
 	/// assert_eq!(accum, 3);
 	/// ```
-	pub fn as_slice(&self) -> &[T] {
+	pub(crate) fn as_slice(&self) -> &[T] {
 		unsafe {
 			&*(match self.domain() {
 				Domain::Enclave { .. } => &[],
@@ -965,7 +965,7 @@ where
 	/// }
 	/// assert_eq!(&[3, 66], bits.as_slice());
 	/// ```
-	pub fn as_mut_slice(&mut self) -> &mut [T] {
+	pub(crate) fn as_mut_slice(&mut self) -> &mut [T] {
 		unsafe {
 			&mut *(match self.domain() {
 				Domain::Enclave { .. } => &[],
@@ -979,7 +979,7 @@ where
 	/// This produces a set of read-only aliased and unaliased subslices,
 	/// according to its pointer information. See the `BitDomain` documentation
 	/// for more information about the returned descriptor.
-	pub fn bit_domain(&self) -> BitDomain<O, T> {
+	pub(crate) fn bit_domain(&self) -> BitDomain<O, T> {
 		self.into()
 	}
 
@@ -988,7 +988,7 @@ where
 	/// This produces a set of writable aliased and unaliased subslices,
 	/// according to its pointer information. See the `BitDomainMut`
 	/// documentation for more information about the returned descriptor.
-	pub fn bit_domain_mut(&mut self) -> BitDomainMut<O, T> {
+	pub(crate) fn bit_domain_mut(&mut self) -> BitDomainMut<O, T> {
 		self.into()
 	}
 
@@ -1012,7 +1012,7 @@ where
 	/// A read-only descriptor of the memory elements underneath `*self`.
 	///
 	/// [`.domain_mut()`]: #method.domain_mut
-	pub fn domain(&self) -> Domain<T> {
+	pub(crate) fn domain(&self) -> Domain<T> {
 		self.into()
 	}
 
@@ -1035,7 +1035,7 @@ where
 	///
 	/// A descriptor of the memory elements underneath `*self`, permitting
 	/// mutation.
-	pub fn domain_mut(&mut self) -> DomainMut<T> {
+	pub(crate) fn domain_mut(&mut self) -> DomainMut<T> {
 		self.into()
 	}
 
@@ -1112,7 +1112,7 @@ where
 This trait can only be implemented by contiguous structures: individual
 fundamentals, and sequences (arrays or slices) of them.
 **/
-pub trait AsBits {
+pub(crate) trait AsBits {
 	/// The underlying fundamental type of the implementor.
 	type Store: BitStore;
 
@@ -1235,7 +1235,7 @@ mod traits;
 
 //  Match the `core::slice` API module topology.
 
-pub use self::{
+pub(crate) use self::{
 	api::*,
 	iter::*,
 	proxy::*,

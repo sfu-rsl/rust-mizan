@@ -46,7 +46,7 @@ where
 	/// let mut bv: BitVec<Local, usize> = BitVec::new();
 	/// ```
 	#[inline]
-	pub fn new() -> Self {
+	pub(crate) fn new() -> Self {
 		Self::with_capacity(0)
 	}
 
@@ -86,7 +86,7 @@ where
 	/// let bv: BitVec<Local, usize> = BitVec::with_capacity(100);
 	/// assert!(bv.capacity() >= 100);
 	#[inline]
-	pub fn capacity(&self) -> usize {
+	pub(crate) fn capacity(&self) -> usize {
 		self.capacity
 			.checked_mul(T::Mem::BITS as usize)
 			.expect("Vector capacity overflow")
@@ -110,7 +110,7 @@ where
 	/// bv.reserve(10);
 	/// assert!(bv.capacity() >= 11);
 	/// ```
-	pub fn reserve(&mut self, additional: usize) {
+	pub(crate) fn reserve(&mut self, additional: usize) {
 		let newlen = self.len() + additional;
 		assert!(
 			newlen <= BitPtr::<T>::MAX_BITS,
@@ -145,7 +145,7 @@ where
 	/// bv.reserve_exact(10);
 	/// assert!(bv.capacity() >= 11);
 	/// ```
-	pub fn reserve_exact(&mut self, additional: usize) {
+	pub(crate) fn reserve_exact(&mut self, additional: usize) {
 		let newlen = self.len() + additional;
 		assert!(
 			newlen <= BitPtr::<T>::MAX_BITS,
@@ -174,7 +174,7 @@ where
 	/// assert!(bv.capacity() >= 3);
 	/// ```
 	#[inline]
-	pub fn shrink_to_fit(&mut self) {
+	pub(crate) fn shrink_to_fit(&mut self) {
 		self.with_vec(Vec::shrink_to_fit);
 	}
 
@@ -212,7 +212,7 @@ where
 	/// [`Box<[T]>`]: https://doc.rust-lang.org/std/boxed/struct.Box.html
 	/// [`into_boxed_bitslice`]: #method.into_boxed_bitslice
 	#[inline]
-	pub fn into_boxed_slice(self) -> Box<[T]> {
+	pub(crate) fn into_boxed_slice(self) -> Box<[T]> {
 		self.into_vec().into_boxed_slice()
 	}
 
@@ -260,7 +260,7 @@ where
 	/// [`clear`]: #method.clear
 	/// [`drain`]: #method.drain
 	#[inline]
-	pub fn truncate(&mut self, len: usize) {
+	pub(crate) fn truncate(&mut self, len: usize) {
 		if len < self.len() {
 			unsafe { self.set_len(len) }
 		}
@@ -284,7 +284,7 @@ where
 	///
 	/// [`BitSlice::as_slice`]: ../slice/struct.BitSlice.html#method.as_slice
 	#[inline]
-	pub fn as_slice(&self) -> &[T] {
+	pub(crate) fn as_slice(&self) -> &[T] {
 		self.pointer.as_slice()
 	}
 
@@ -308,7 +308,7 @@ where
 	/// [`BitSlice::as_mut_slice`]:
 	/// ../slice/struct.BitSlice.html#method.as_mut_slice
 	#[inline]
-	pub fn as_mut_slice(&mut self) -> &mut [T] {
+	pub(crate) fn as_mut_slice(&mut self) -> &mut [T] {
 		self.pointer.as_mut_slice()
 	}
 
@@ -346,7 +346,7 @@ where
 	/// [`extend`]: #method.extend
 	/// [`resize`]: #method.resize
 	/// [`truncate`]: #method.truncate
-	pub unsafe fn set_len(&mut self, new_len: usize) {
+	pub(crate) unsafe fn set_len(&mut self, new_len: usize) {
 		assert!(
 			new_len <= BitPtr::<T>::MAX_BITS,
 			"Capacity overflow: {} overflows maximum length {}",
@@ -385,7 +385,7 @@ where
 	/// assert!(bv.swap_remove(0));
 	/// assert_eq!(bv, bitvec![0, 1, 1]);
 	/// ```
-	pub fn swap_remove(&mut self, index: usize) -> bool {
+	pub(crate) fn swap_remove(&mut self, index: usize) -> bool {
 		let len = self.len();
 		assert!(len != 0, "Empty vectors cannot remove");
 		assert!(index < len, "Index {} out of bounds: {}", index, len);
@@ -411,7 +411,7 @@ where
 	/// bv.insert(4, true);
 	/// assert_eq!(bv, bitvec![1, 0, 0, 1, 1, 0, 1]);
 	/// ```
-	pub fn insert(&mut self, index: usize, value: bool) {
+	pub(crate) fn insert(&mut self, index: usize, value: bool) {
 		let len = self.len();
 		assert!(index <= len, "Index {} is out of bounds: {}", index, len);
 		self.push(value);
@@ -433,7 +433,7 @@ where
 	/// assert!(!bv.remove(1));
 	/// assert_eq!(bv, bitvec![1, 1, 0, 1]);
 	/// ```
-	pub fn remove(&mut self, index: usize) -> bool {
+	pub(crate) fn remove(&mut self, index: usize) -> bool {
 		let len = self.len();
 		assert!(len != 0, "Empty vectors cannot remove");
 		assert!(index < len, "Index {} is out of bounds: {}", index, len);
@@ -467,7 +467,7 @@ where
 	/// ```
 	///
 	/// [`BitSlice::for_each`]: ../slice/struct.BitSlice.html#method.for_each
-	pub fn retain<F>(&mut self, mut pred: F)
+	pub(crate) fn retain<F>(&mut self, mut pred: F)
 	where F: FnMut(usize, bool) -> bool {
 		for n in (0 .. self.len()).rev() {
 			if !pred(n, self[n]) {
@@ -533,7 +533,7 @@ where
 	/// assert!(bv.is_empty());
 	/// assert!(bv.pop().is_none());
 	/// ```
-	pub fn pop(&mut self) -> Option<bool> {
+	pub(crate) fn pop(&mut self) -> Option<bool> {
 		self.len().checked_sub(1).map(|new_len| unsafe {
 			let out = *self.get_unchecked(new_len);
 			self.set_len(new_len);
@@ -560,7 +560,7 @@ where
 	/// assert!(bv2.is_empty());
 	/// ```
 	#[inline]
-	pub fn append<D, U>(&mut self, other: &mut BitVec<D, U>)
+	pub(crate) fn append<D, U>(&mut self, other: &mut BitVec<D, U>)
 	where
 		D: BitOrder,
 		U: BitStore,
@@ -596,7 +596,7 @@ where
 	/// assert!(bv.not_any());
 	/// assert_eq!(bv.len(), 4);
 	/// ```
-	pub fn drain<R>(&mut self, range: R) -> Drain<O, T>
+	pub(crate) fn drain<R>(&mut self, range: R) -> Drain<O, T>
 	where R: RangeBounds<usize> {
 		use core::ops::Bound::*;
 		let len = self.len();
@@ -652,7 +652,7 @@ where
 	/// After calling `clear()`, `bv` will no longer show raw memory, so the
 	/// above test cannot show that the underlying memory is not altered. This
 	/// is also an implementation detail on which you should not rely.
-	pub fn clear(&mut self) {
+	pub(crate) fn clear(&mut self) {
 		unsafe { self.set_len(0) }
 	}
 
@@ -676,7 +676,7 @@ where
 	/// assert_eq!(bv1, bitvec![0, 0, 0]);
 	/// assert_eq!(bv2, bitvec![1, 1, 1]);
 	/// ```
-	pub fn split_off(&mut self, at: usize) -> Self {
+	pub(crate) fn split_off(&mut self, at: usize) -> Self {
 		let len = self.len();
 		assert!(at <= len, "Index out of bounds: {} is beyond {}", at, len);
 		match at {
@@ -725,7 +725,7 @@ where
 	/// [`Default`]: https://doc.rust-lang.org/std/default/trait.Default.html
 	/// [`Default::default()`]: https://doc.rust-lang.org/std/default/trait.Default.html#tymethod.default
 	/// [`resize`]: #method.resize
-	pub fn resize_with<F>(&mut self, new_len: usize, mut f: F)
+	pub(crate) fn resize_with<F>(&mut self, new_len: usize, mut f: F)
 	where F: FnMut() -> bool {
 		let len = self.len();
 		match new_len.cmp(&len) {
@@ -757,7 +757,7 @@ where
 	/// bv.resize(5, false);
 	/// assert_eq!(bv, bitvec![0, 0, 0, 0, 1]);
 	/// ```
-	pub fn resize(&mut self, new_len: usize, value: bool) {
+	pub(crate) fn resize(&mut self, new_len: usize, value: bool) {
 		let len = self.len();
 		match new_len.cmp(&len) {
 			cmp::Ordering::Less => self.truncate(new_len),
@@ -793,7 +793,7 @@ where
 	/// ```
 	///
 	/// [`extend`]: #method.extend
-	pub fn extend_from_slice<D, U>(&mut self, other: &BitSlice<D, U>)
+	pub(crate) fn extend_from_slice<D, U>(&mut self, other: &BitSlice<D, U>)
 	where
 		D: BitOrder,
 		U: BitStore,
@@ -847,7 +847,7 @@ where
 	/// assert!(!s[0]);
 	/// assert_eq!(bv, bitvec![0, 0, 1, 1, 1, 1, 0, 0]);
 	/// ```
-	pub fn splice<R, I>(
+	pub(crate) fn splice<R, I>(
 		&mut self,
 		range: R,
 		replace_with: I,

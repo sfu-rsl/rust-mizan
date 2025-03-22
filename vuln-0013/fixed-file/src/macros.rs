@@ -5,7 +5,7 @@ The public macros are `bits!`, `bitvec!`, and `bitbox!`.
 
 #[macro_use]
 #[doc(hidden)]
-pub mod internal;
+pub(crate) mod internal;
 
 /** Construct a `&BitSlice` out of a literal array in source code, like `vec!`.
 

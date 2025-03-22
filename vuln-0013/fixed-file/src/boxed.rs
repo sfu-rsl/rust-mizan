@@ -84,7 +84,7 @@ where
 	/// let bb: BitBox = BitBox::empty();
 	/// assert!(bb.is_empty());
 	/// ```
-	pub fn empty() -> Self {
+	pub(crate) fn empty() -> Self {
 		Self {
 			_order: PhantomData,
 			pointer: BitPtr::empty(),
@@ -109,7 +109,7 @@ where
 	/// let bb: BitBox<Msb0, u16> = BitBox::from_element(!0);
 	/// assert!(bb.all());
 	/// ```
-	pub fn from_element(elt: T) -> Self {
+	pub(crate) fn from_element(elt: T) -> Self {
 		BitSlice::<O, T>::from_element(&elt).into()
 	}
 
@@ -140,7 +140,7 @@ where
 	/// assert!(bb[12]);
 	/// assert!(bb[14]);
 	/// ```
-	pub fn from_slice(slice: &[T]) -> Self {
+	pub(crate) fn from_slice(slice: &[T]) -> Self {
 		BitVec::from_slice(slice).into_boxed_bitslice()
 	}
 
@@ -164,7 +164,7 @@ where
 	/// assert_eq!(bb.len(), 16);
 	/// assert!(bb.some());
 	/// ```
-	pub fn from_bitslice(slice: &BitSlice<O, T>) -> Self {
+	pub(crate) fn from_bitslice(slice: &BitSlice<O, T>) -> Self {
 		BitVec::from_bitslice(slice).into_boxed_bitslice()
 	}
 
@@ -194,7 +194,7 @@ where
 	/// assert!(bb.some());
 	/// assert_eq!(bb.len(), 32);
 	/// ```
-	pub fn from_boxed_slice(boxed: Box<[T]>) -> Self {
+	pub(crate) fn from_boxed_slice(boxed: Box<[T]>) -> Self {
 		let len = boxed.len();
 		assert!(
 			len <= BitPtr::<T>::MAX_ELTS,
@@ -233,7 +233,7 @@ where
 	/// let slice = bb.into_boxed_slice();
 	/// assert_eq!(slice.len(), 2);
 	/// ```
-	pub fn into_boxed_slice(self) -> Box<[T]> {
+	pub(crate) fn into_boxed_slice(self) -> Box<[T]> {
 		let slice = self.pointer.as_mut_slice();
 		let (data, elts) = (slice.as_mut_ptr(), slice.len());
 		let out =
@@ -252,7 +252,7 @@ where
 	/// # Returns
 	///
 	/// An equivalent handle to the same data, with a new order parameter.
-	pub fn change_order<P>(self) -> BitBox<P, T>
+	pub(crate) fn change_order<P>(self) -> BitBox<P, T>
 	where P: BitOrder {
 		let bp = self.bitptr();
 		mem::forget(self);
@@ -268,7 +268,7 @@ where
 	/// # Returns
 	///
 	/// The slice of bits behind the box.
-	pub fn as_bitslice(&self) -> &BitSlice<O, T> {
+	pub(crate) fn as_bitslice(&self) -> &BitSlice<O, T> {
 		self.pointer.into_bitslice()
 	}
 
@@ -281,7 +281,7 @@ where
 	/// # Returns
 	///
 	/// The slice of bits behind the box.
-	pub fn as_mut_bitslice(&mut self) -> &mut BitSlice<O, T> {
+	pub(crate) fn as_mut_bitslice(&mut self) -> &mut BitSlice<O, T> {
 		self.pointer.into_bitslice_mut()
 	}
 
@@ -298,7 +298,7 @@ where
 	///
 	/// The slice of all live elements in the backing storage, including the
 	/// partial edges if present.
-	pub fn as_slice(&self) -> &[T] {
+	pub(crate) fn as_slice(&self) -> &[T] {
 		self.bitptr().as_slice()
 	}
 
@@ -315,7 +315,7 @@ where
 	///
 	/// The slice of all live elements in the backing storage, including the
 	/// partial edges if present.
-	pub fn as_mut_slice(&mut self) -> &mut [T] {
+	pub(crate) fn as_mut_slice(&mut self) -> &mut [T] {
 		self.bitptr().as_mut_slice()
 	}
 
@@ -366,5 +366,5 @@ mod iter;
 mod ops;
 mod traits;
 
-pub use api::*;
-pub use iter::*;
+pub(crate) use api::*;
+pub(crate) use iter::*;

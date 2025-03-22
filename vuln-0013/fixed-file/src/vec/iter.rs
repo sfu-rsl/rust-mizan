@@ -150,7 +150,7 @@ where
 
 - `'a`: The lifetime of the underlying vector.
 **/
-pub struct Drain<'a, O, T>
+pub(crate) struct Drain<'a, O, T>
 where
 	O: BitOrder,
 	T: 'a + BitStore,
@@ -525,7 +525,7 @@ Only the removed segment is available for iteration.
 - `I: Iterator<Item=bool>`: Any bitstream. This will be used to fill the
   removed span.
 **/
-pub struct Splice<'a, O, T, I>
+pub(crate) struct Splice<'a, O, T, I>
 where
 	O: BitOrder,
 	T: 'a + BitStore,

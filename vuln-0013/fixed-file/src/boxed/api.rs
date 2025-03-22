@@ -46,14 +46,14 @@ where
 	/// # use bitvec::prelude::*;
 	/// let boxed = BitBox::new(0u8.bits::<Lsb0>());
 	/// ```
-	pub fn new(bits: &BitSlice<O, T>) -> Self {
+	pub(crate) fn new(bits: &BitSlice<O, T>) -> Self {
 		Self::from_bitslice(bits)
 	}
 
 	/// Constructs a new `Pin<BitBox<O, T>>`.
 	///
 	/// `BitSlice` is always `Unpin`, so this has no actual immobility effect.
-	pub fn pin(bits: &BitSlice<O, T>) -> Pin<Self>
+	pub(crate) fn pin(bits: &BitSlice<O, T>) -> Pin<Self>
 	where
 		O: Unpin,
 		T: Unpin,
@@ -98,7 +98,7 @@ where
 	/// ```
 	///
 	/// [`BitBox::into_raw`]: #method.into_raw
-	pub unsafe fn from_raw(raw: *mut BitSlice<O, T>) -> Self {
+	pub(crate) unsafe fn from_raw(raw: *mut BitSlice<O, T>) -> Self {
 		Self {
 			_order: PhantomData,
 			pointer: BitPtr::from_mut_ptr(raw),
@@ -139,7 +139,7 @@ where
 	/// ```
 	///
 	/// [`BitBox::from_raw`]: #method.from_raw
-	pub fn into_raw(b: Self) -> *mut BitSlice<O, T> {
+	pub(crate) fn into_raw(b: Self) -> *mut BitSlice<O, T> {
 		let out = b.pointer.as_mut_ptr();
 		mem::forget(b);
 		out
@@ -174,7 +174,7 @@ where
 	/// ```
 	///
 	/// [`BitBox::from_raw`]: #method.from_raw
-	pub fn leak<'a>(self) -> &'a mut BitSlice<O, T> {
+	pub(crate) fn leak<'a>(self) -> &'a mut BitSlice<O, T> {
 		let out = self.bitptr();
 		mem::forget(self);
 		out.into_bitslice_mut()

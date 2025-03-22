@@ -331,21 +331,21 @@ where T: BitStore
 	///
 	/// This is always `3`, until Rust tries to target a machine whose bytes are
 	/// not eight bits wide.
-	pub const LEN_HEAD_BITS: usize = 3;
+	pub(crate) const LEN_HEAD_BITS: usize = 3;
 	/// Marks the bits of `self.len` that are the `head` section.
-	pub const LEN_HEAD_MASK: usize = 0b0111;
+	pub(crate) const LEN_HEAD_MASK: usize = 0b0111;
 	/// The inclusive maximum bit index.
-	pub const MAX_BITS: usize = !0 >> Self::LEN_HEAD_BITS;
+	pub(crate) const MAX_BITS: usize = !0 >> Self::LEN_HEAD_BITS;
 	/// The inclusive maximum number of elements that can be stored in a
 	/// `BitPtr` domain.
-	pub const MAX_ELTS: usize = (Self::MAX_BITS >> 3) + 1;
+	pub(crate) const MAX_ELTS: usize = (Self::MAX_BITS >> 3) + 1;
 	/// Marks the bits of `self.ptr` that are the `data` section.
-	pub const PTR_DATA_MASK: usize = !Self::PTR_HEAD_MASK;
+	pub(crate) const PTR_DATA_MASK: usize = !Self::PTR_HEAD_MASK;
 	/// The number of low bits in `self.ptr` that are the high bits of the head
 	/// `BitIdx` cursor.
-	pub const PTR_HEAD_BITS: usize = T::Mem::INDX as usize - Self::LEN_HEAD_BITS;
+	pub(crate) const PTR_HEAD_BITS: usize = T::Mem::INDX as usize - Self::LEN_HEAD_BITS;
 	/// Marks the bits of `self.ptr` that are the `head` section.
-	pub const PTR_HEAD_MASK: usize =
+	pub(crate) const PTR_HEAD_MASK: usize =
 		T::Mem::MASK as usize >> Self::LEN_HEAD_BITS;
 
 	/// Produces an empty-slice representation.
@@ -361,7 +361,7 @@ where T: BitStore
 	/// # Safety
 	///
 	/// The `BitPtr` returned by this function must never be dereferenced.
-	pub fn empty() -> Self {
+	pub(crate) fn empty() -> Self {
 		Self {
 			_ty: PhantomData,
 			ptr: NonNull::dangling(),
@@ -580,7 +580,7 @@ where T: BitStore
 	/// A `BitIdx` that is the index of the first live bit in the first element.
 	/// This will be in the domain `0 .. T::Mem::BITS`.
 	#[inline]
-	pub fn head(&self) -> BitIdx<T::Mem> {
+	pub(crate) fn head(&self) -> BitIdx<T::Mem> {
 		let ptr = self.ptr.as_ptr() as usize;
 		let ptr_head = (ptr & Self::PTR_HEAD_MASK) << Self::LEN_HEAD_BITS;
 		let len_head = self.len & Self::LEN_HEAD_MASK;
@@ -588,7 +588,7 @@ where T: BitStore
 	}
 
 	#[cfg(feature = "alloc")]
-	pub unsafe fn set_head(&mut self, head: BitIdx<T::Mem>) {
+	pub(crate) unsafe fn set_head(&mut self, head: BitIdx<T::Mem>) {
 		let head = *head as usize;
 		let mut ptr = self.ptr.as_ptr() as usize;
 
@@ -614,7 +614,7 @@ where T: BitStore
 	///
 	/// A count of the live bits in the slice.
 	#[inline]
-	pub fn len(&self) -> usize {
+	pub(crate) fn len(&self) -> usize {
 		self.len >> Self::LEN_HEAD_BITS
 	}
 
@@ -630,7 +630,7 @@ where T: BitStore
 	///
 	/// None. The caller must ensure that the invariants of `::new` are upheld.
 	#[inline]
-	pub unsafe fn set_len(&mut self, len: usize) {
+	pub(crate) unsafe fn set_len(&mut self, len: usize) {
 		let n = (len << Self::LEN_HEAD_BITS) | (self.len & Self::LEN_HEAD_MASK);
 		self.len = n;
 	}
@@ -665,7 +665,7 @@ where T: BitStore
 	///
 	/// This size must be valid in the user’s memory model and allocation
 	/// regime.
-	pub fn elements(&self) -> usize {
+	pub(crate) fn elements(&self) -> usize {
 		self.head().span(self.len()).0
 	}
 
@@ -719,7 +719,7 @@ where T: BitStore
 	///
 	/// - `'a`: Lifetime for which the data behind the pointer is live.
 	#[inline]
-	pub fn as_slice<'a>(&self) -> &'a [T] {
+	pub(crate) fn as_slice<'a>(&self) -> &'a [T] {
 		unsafe { slice::from_raw_parts(self.pointer().r, self.elements()) }
 	}
 
@@ -738,7 +738,7 @@ where T: BitStore
 	/// - `'a`: Lifetime for which the data behind the pointer is live.
 	#[inline]
 	#[cfg(feature = "alloc")]
-	pub fn as_mut_slice<'a>(&self) -> &'a mut [T] {
+	pub(crate) fn as_mut_slice<'a>(&self) -> &'a mut [T] {
 		unsafe { slice::from_raw_parts_mut(self.pointer().w, self.elements()) }
 	}
 
@@ -757,7 +757,7 @@ where T: BitStore
 	/// - `'a`: Lifetime for which the data behind the pointer is live.
 	#[inline]
 	#[cfg(feature = "alloc")]
-	pub fn as_access_slice<'a>(&self) -> &'a [T::Access] {
+	pub(crate) fn as_access_slice<'a>(&self) -> &'a [T::Access] {
 		unsafe { slice::from_raw_parts(self.pointer().a, self.elements()) }
 	}
 
