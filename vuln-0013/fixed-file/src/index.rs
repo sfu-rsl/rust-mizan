@@ -2,21 +2,9 @@
 
 use crate::mem::BitMemory;
 use core::{
-    fmt::{
-        self,
-        Binary,
-        Formatter,
-    },
-    iter::{
-        Product,
-        Sum,
-    },
     marker::PhantomData,
     ops::{
-        BitAnd,
-        BitOr,
         Deref,
-        Not,
     },
 };
 #[cfg(feature = "serde")]

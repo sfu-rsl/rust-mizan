@@ -11,14 +11,7 @@ use crate::{
     store::BitStore,
 };
 use core::{
-    fmt::{
-        self,
-        Debug,
-        Formatter,
-        Pointer,
-    },
     marker::PhantomData,
-    mem::size_of,
     ptr::NonNull,
     slice,
 };
@@ -215,11 +208,7 @@ where
     #[doc= ""]
     #[doc= " The `BitPtr` returned by this function must never be dereferenced."]
     pub(crate) fn empty() -> Self {
-        Self {
-            _ty: PhantomData,
-            ptr: NonNull::dangling(),
-            len: 0,
-        }
+        panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 
     #[doc= " Produces an uninhabited slice from a bare pointer."]

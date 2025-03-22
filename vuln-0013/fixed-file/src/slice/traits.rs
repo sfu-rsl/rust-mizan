@@ -8,55 +8,21 @@ use crate::{
     store::BitStore,
 };
 use core::{
-    cmp::Ordering,
     fmt::{
         self,
         Binary,
         Debug,
-        Display,
         Formatter,
         LowerHex,
         Octal,
         UpperHex,
     },
     hash::{
-        Hash,
         Hasher,
     },
     hint::unreachable_unchecked,
     str,
 };
-#[cfg(feature = "alloc")]
-use {
-    crate::vec::BitVec,
-    alloc::borrow::ToOwned,
-};
-
-#[doc= " Tests if two `BitSlice`s are semantically — not bitwise — equal.\n\nIt is valid to compare two slices of different ordering or element types.\n\nThe equality condition requires that they have the same number of total bits and\nthat each pair of bits in semantic order are identical.\n*"]
-impl<A, B, C, D> PartialEq<BitSlice<C, D>> for BitSlice<A, B>
-where
-    A: BitOrder,
-    B: BitStore,
-    C: BitOrder,
-    D: BitStore {
-    #[doc= " Performas a comparison by `==`."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " use bitvec::prelude::*;"]
-    #[doc= ""]
-    #[doc= " let lsrc = [8u8, 16, 32, 0];"]
-    #[doc= " let rsrc = 0x10_08_04_00u32;"]
-    #[doc= " let lbits = lsrc.bits::<Lsb0>();"]
-    #[doc= " let rbits = rsrc.bits::<Msb0>();"]
-    #[doc= ""]
-    #[doc= " assert_eq!(lbits, rbits);"]
-    #[doc= " ```"]
-    fn eq(&self, rhs: &BitSlice<C, D>) -> bool {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
 
 macro_rules! fmt{
     ($trait: ident, $base: expr, $pfx: expr, $blksz: expr) => {

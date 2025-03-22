@@ -38,43 +38,6 @@ impl<O, T> BitSlice<O, T>
 where
     O: BitOrder,
     T: BitStore {
-    #[doc= " Produces the empty slice. This is equivalent to `&[]` for Rust slices."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " An empty `&BitSlice` handle."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " use bitvec::prelude::*;"]
-    #[doc= ""]
-    #[doc= " let bits: &BitSlice = BitSlice::empty();"]
-    #[doc= " ```"]
-    #[inline]
-    pub(crate) fn empty<'a>() -> &'a Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Produces the empty mutable slice. This is equivalent to `&mut []` for"]
-    #[doc= " Rust slices."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " An empty `&mut BitSlice` handle."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " use bitvec::prelude::*;"]
-    #[doc= ""]
-    #[doc= " let bits: &mut BitSlice = BitSlice::empty_mut();"]
-    #[doc= " ```"]
-    #[inline]
-    pub(crate) fn empty_mut<'a>() -> &'a mut Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
     #[doc= " Produces an immutable `BitSlice` over a single element."]
     #[doc= ""]
     #[doc= " # Parameters"]
@@ -227,18 +190,6 @@ where
         (*data_ptr.offset(elt)).set::<O>(bit, value);
     }
 
-    #[doc= " Version of [`split_at`](#method.split_at) that does not perform boundary"]
-    #[doc= " checking."]
-    #[doc= ""]
-    #[doc= " # Safety"]
-    #[doc= ""]
-    #[doc= " If `mid` is outside the boundaries of `self`, then this function will"]
-    #[doc= " induce safety violations. The caller must ensure that `mid` is within"]
-    #[doc= " the boundaries of `self` before calling."]
-    pub(crate) unsafe fn split_at_unchecked(&self, mid: usize) -> (&Self, &Self) {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
     #[doc= " Splits the slice into references to its underlying memory elements."]
     #[doc= ""]
     #[doc= " Unlike `.bit_domain()` and `.bit_domain_mut()`, this does not return"]
@@ -296,16 +247,6 @@ where
         panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 
-    #[doc= " Mark an immutable slice as referring to aliased memory."]
-    pub(crate) fn alias(&self) -> &BitSlice<O, T::Alias> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Mark a mutable slice as referring to aliased memory."]
-    pub(crate) fn alias_mut(&mut self) -> &mut BitSlice<O, T::Alias> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
     #[doc= " Mark a slice as referring to known-unaliased memory."]
     #[doc= ""]
     #[doc= " # Safety"]
@@ -313,16 +254,6 @@ where
     #[doc= " This function requires that the unaliasing condition is correct,"]
     #[doc= " otherwise it will introduce race conditions."]
     pub(crate) unsafe fn noalias(&self) -> &BitSlice<O, T::NoAlias> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Remove the aliasing marker from a mutable slice."]
-    #[doc= ""]
-    #[doc= " # Safety"]
-    #[doc= ""]
-    #[doc= " This may only be done when the slice is known to refer to unaliased"]
-    #[doc= " memory, or when the marker is about to be reäpplied."]
-    pub(crate) unsafe fn unalias_mut(this: &mut BitSlice<O, T::Alias>) -> &mut Self {
         panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 }
@@ -455,7 +386,5 @@ mod proxy;
 mod traits;
 
 pub(crate) use self::{
-    api::*,
-    iter::*,
     proxy::*,
 };

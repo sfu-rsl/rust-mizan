@@ -4,13 +4,8 @@ use crate::{
     mem::BitMemory,
     order::BitOrder,
     pointer::BitPtr,
-    slice::BitSlice,
     store::BitStore,
     vec::{
-        iter::{
-            Drain,
-            Splice,
-        },
         BitVec,
     },
 };
@@ -21,7 +16,6 @@ use alloc::{
 use core::{
     marker::PhantomData,
     mem,
-    ops::RangeBounds,
 };
 use funty::IsInteger;
 

@@ -3,33 +3,8 @@
 use crate::{
     boxed::BitBox,
     order::BitOrder,
-    slice::BitSlice,
     store::BitStore,
     vec::BitVec,
-};
-use alloc::{
-    borrow::{
-        Borrow,
-        BorrowMut,
-    },
-    boxed::Box,
-};
-use core::{
-    cmp::Ordering,
-    fmt::{
-        self,
-        Binary,
-        Debug,
-        Display,
-        Formatter,
-        LowerHex,
-        Octal,
-        UpperHex,
-    },
-    hash::{
-        Hash,
-        Hasher,
-    },
 };
 
 impl<O, T> From<BitVec<O, T>> for BitBox<O, T>

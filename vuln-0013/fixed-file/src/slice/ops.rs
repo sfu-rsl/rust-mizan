@@ -6,18 +6,10 @@ use crate::{
     store::BitStore,
 };
 use core::ops::{
-    BitAndAssign,
-    BitOrAssign,
-    BitXorAssign,
     Index,
-    IndexMut,
-    Not,
     Range,
     RangeFrom,
-    RangeFull,
-    RangeInclusive,
     RangeTo,
-    RangeToInclusive,
     ShlAssign,
     ShrAssign,
 };
