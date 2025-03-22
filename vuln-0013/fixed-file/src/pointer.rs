@@ -536,24 +536,6 @@ where
         panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 
-    #[doc= " Accesses the element slice behind the pointer as a Rust slice."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `&self`"]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " Standard Rust slice handle over the data governed by this pointer."]
-    #[doc= ""]
-    #[doc= " # Lifetimes"]
-    #[doc= ""]
-    #[doc= " - `'a`: Lifetime for which the data behind the pointer is live."]
-    #[inline]
-    pub(crate) fn as_slice<'a>(&self) -> &'a [T] {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
     #[doc= " Accesses the element slice behind the pointer as a Rust mutable slice."]
     #[doc= ""]
     #[doc= " # Parameters"]
