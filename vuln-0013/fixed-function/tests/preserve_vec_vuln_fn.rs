@@ -1,8 +1,11 @@
 #[cfg(feature = "alloc")]
 extern crate vuln_0013_fixed_function as bitvec;
 
-#[cfg(test)]
-use bitvec::prelude::*;
+use bitvec::{
+	BitBox,
+	BitVec,
+};
+
 
 #[cfg(feature = "alloc")]
 #[test]
