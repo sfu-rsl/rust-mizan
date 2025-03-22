@@ -405,7 +405,19 @@ where
 
     #[cfg(feature = "alloc")]
     pub(crate) unsafe fn set_head(&mut self, head: BitIdx<T::Mem>) {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+        let head = *head as usize;
+        let mut ptr = self.ptr.as_ptr() as usize;
+
+        //  Erase the head section of the pointer value.
+        ptr &= !Self::PTR_HEAD_MASK;
+        //  Write the pointer section of the head value into the head section.
+        ptr |= head >> Self::LEN_HEAD_BITS;
+        self.ptr = NonNull::new_unchecked(ptr as *mut u8);
+
+        //  Erase the head section of the length value.
+        self.len &= !Self::LEN_HEAD_MASK;
+        //  Write the length section of the head value into the head section.
+        self.len |= head & Self::LEN_HEAD_MASK;
     }
 
     #[doc= " Counts how many bits are in the domain of a `BitPtr` slice."]

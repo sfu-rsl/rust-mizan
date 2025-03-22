@@ -220,7 +220,7 @@ where
     #[doc= " checked."]
     #[inline]
     pub(crate) unsafe fn copy_unchecked(&mut self, from: usize, to: usize) {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+        self.set_unchecked(to, *self.get_unchecked(from));
     }
 
     #[doc= " Mark a slice as referring to known-unaliased memory."]
