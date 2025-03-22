@@ -19,9 +19,13 @@ The test code from the original issue only failed on macOS, but the vulnerabilit
 ```rust
 pub fn into_boxed_bitslice(self) -> BitBox<O, T> {
     let pointer = self.pointer;
-    // Convert the Vec allocation into a Box<[T]> allocation
+    // Convert the Vec allocation into a Box<[T]> allocation.
+    // into_boxed_slice will call into_vec (Rust std Vec) and then call into_boxed_slice, which
+    // shrinks the allocation in order to get a frozen-length slice.
     mem::forget(self.into_boxed_slice());
-    // The memory allocator is not required to preserve the address when shrinking an allocation! 
+    // However, the memory allocator is not required to preserve the address when shrinking an 
+    // allocation! Notice how the same pointer of the Vec before is being used after the 
+    // shrinking.
     //
     // The macOS allocator _probably_ has an inclusive limit at 8064 words for its bucket size.
     // The minimal test code / PoC used in the issue created a 8065-word vector. When shrinking, 
