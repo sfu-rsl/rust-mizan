@@ -208,7 +208,11 @@ where
     #[doc= ""]
     #[doc= " The `BitPtr` returned by this function must never be dereferenced."]
     pub(crate) fn empty() -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+        Self {
+            _ty: PhantomData,
+            ptr: NonNull::dangling(),
+            len: 0,
+        }
     }
 
     #[doc= " Produces an uninhabited slice from a bare pointer."]
@@ -499,7 +503,20 @@ where
     #[cfg(any(test, feature = "alloc"))]
     #[inline]
     pub(crate) fn tail(&self) -> BitTail<T::Mem> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+        let (head, len) = (self.head(), self.len());
+
+        if *head == 0 && len == 0 {
+            return 0u8.tail();
+        }
+
+        //  Compute the in-element tail index as the head plus the length,
+        //  modulated to the element width.
+        let tail = (*self.head() as usize + len) & T::Mem::MASK as usize;
+        //  If the tail is zero, wrap it to `T::BITS` as the maximal. This
+        //  upshifts `1` (tail is zero) or `0` (tail is not), then sets the
+        //  upshift on the rest of the tail, producing something in the range
+        //  `1 ..= T::BITS`.
+        ((((tail == 0) as u8) << T::Mem::INDX) | tail as u8).tail()
     }
 
     #[doc= " Accesses the element slice behind the pointer as a Rust mutable slice."]
@@ -634,7 +651,7 @@ impl<T> Clone for BitPtr<T>
 where
     T: BitStore {
     fn clone(&self) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
+        Self { ..*self }
     }
 }
 

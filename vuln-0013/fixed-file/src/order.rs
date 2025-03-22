@@ -23,136 +23,51 @@ pub trait BitOrder {
     #[doc= " Name of the ordering type, for use in text display."]
     const TYPENAME: &'static str;
 
-    #[doc= " Translate a semantic bit index into an electrical bit position."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `place`: The semantic bit value."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " - A concrete position. This value can be used for shifting and masking"]
-    #[doc= "   to extract a bit from an element. This must be in the domain `0 .."]
-    #[doc= "   T::BITS`."]
-    #[doc= ""]
-    #[doc= " # Type Parameters"]
-    #[doc= ""]
-    #[doc= " - `M`: The storage type for which the position will be calculated."]
-    #[doc= ""]
-    #[doc= " # Invariants"]
-    #[doc= ""]
-    #[doc= " The function **must** be *total* for the domain `.. M::BITS`. All values"]
-    #[doc= " in this domain are valid indices that the library will pass to it, and"]
-    #[doc= " which this function must satisfy."]
-    #[doc= ""]
-    #[doc= " The function **must** be *bijective* over the domain `.. M::BITS`. All"]
-    #[doc= " input values in this domain must have one and only one correpsonding"]
-    #[doc= " output, which must also be in this domain."]
-    #[doc= ""]
-    #[doc= " The function *may* support input in the domain `M::BITS ..`. The library"]
-    #[doc= " will not produce any values in this domain as input indices. The"]
-    #[doc= " function **must not** produce output in the domain `M::BITS ..`. It must"]
-    #[doc= " choose between panicking, or producing an output in `.. M::BITS`. The"]
-    #[doc= " reduction in domain from `M::BITS ..` to `.. M::BITS` removes the"]
-    #[doc= " requirement for inputs in `M::BITS ..` to have unique outputs in"]
-    #[doc= " `.. M::BITS`."]
-    #[doc= ""]
-    #[doc= " This function **must** be *pure*. Calls which have the same input must"]
-    #[doc= " produce the same output. This invariant is only required to be upheld"]
-    #[doc= " for the lifetime of all data structures which use an implementor. The"]
-    #[doc= " behavior of the function *may* be modified after all existing dependent"]
-    #[doc= " data structures are destroyed and before any new dependent data"]
-    #[doc= " structures are created."]
-    #[doc= ""]
-    #[doc= " # Non-Invariants"]
-    #[doc= ""]
-    #[doc= " This function is *not* required to be stateless. It *may* refer to"]
-    #[doc= " immutable global state, subject to the purity requirement on lifetimes."]
-    #[doc= ""]
-    #[doc= " # Safety"]
-    #[doc= ""]
-    #[doc= " This function requires that the output be in the domain `.. M::BITS`."]
-    #[doc= " Implementors must uphold this themselves. Outputs in the domain"]
-    #[doc= " `M::BITS ..` will induce panics elsewhere in the library."]
-    fn at<M>(place: BitIdx<M>) -> BitPos<M>
-    where
-        M: BitMemory;
-
-    #[doc= " Translate a semantic bit index into an electrical bit mask."]
-    #[doc= ""]
-    #[doc= " This is an optional function; a default implementation is provided for"]
-    #[doc= " you."]
-    #[doc= ""]
-    #[doc= " The default implementation of this function calls `Self::at` to produce"]
-    #[doc= " an electrical position, then turns that into a bitmask by setting the"]
-    #[doc= " `n`th bit more significant than the least significant bit of the"]
-    #[doc= " element. `BitOrder` implementations may choose to provide a faster mask"]
-    #[doc= " production here, but they must satisfy the invariants listed below."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `place`: A semantic bit index into a memory element."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " A one-hot encoding of the provided `BitOrder`’s electrical position in"]
-    #[doc= " the `M` element."]
-    #[doc= ""]
-    #[doc= " # Type Parameters"]
-    #[doc= ""]
-    #[doc= " - `M`: The storage type for which the mask will be calculated. The mask"]
-    #[doc= "   must also be this type, as it will be applied to an element of `M` in"]
-    #[doc= "   order to set, clear, or test a single bit."]
-    #[doc= ""]
-    #[doc= " # Invariants"]
-    #[doc= ""]
-    #[doc= " A one-hot encoding means that there is exactly one bit set in the"]
-    #[doc= " produced value. It must be equivalent to `1 << *Self::at(place)`."]
-    #[doc= ""]
-    #[doc= " As with `at`, this function must produce a unique mapping from each"]
-    #[doc= " legal index in the `M` domain to a one-hot value of `M`."]
-    #[doc= ""]
-    #[doc= " # Safety"]
-    #[doc= ""]
-    #[doc= " This function requires that the output is always a one-hot value. It is"]
-    #[doc= " illegal to produce a value with more than one bit set, and doing so will"]
-    #[doc= " cause uncontrolled side effects."]
+    /// Translate a semantic bit index into an electrical bit mask.
+    ///
+    /// This is an optional function; a default implementation is provided for
+    /// you.
+    ///
+    /// The default implementation of this function calls `Self::at` to produce
+    /// an electrical position, then turns that into a bitmask by setting the
+    /// `n`th bit more significant than the least significant bit of the
+    /// element. `BitOrder` implementations may choose to provide a faster mask
+    /// production here, but they must satisfy the invariants listed below.
+    ///
+    /// # Parameters
+    ///
+    /// - `place`: A semantic bit index into a memory element.
+    ///
+    /// # Returns
+    ///
+    /// A one-hot encoding of the provided `BitOrder`’s electrical position in
+    /// the `M` element.
+    ///
+    /// # Type Parameters
+    ///
+    /// - `M`: The storage type for which the mask will be calculated. The mask
+    ///   must also be this type, as it will be applied to an element of `M` in
+    ///   order to set, clear, or test a single bit.
+    ///
+    /// # Invariants
+    ///
+    /// A one-hot encoding means that there is exactly one bit set in the
+    /// produced value. It must be equivalent to `1 << *Self::at(place)`.
+    ///
+    /// As with `at`, this function must produce a unique mapping from each
+    /// legal index in the `M` domain to a one-hot value of `M`.
+    ///
+    /// # Safety
+    ///
+    /// This function requires that the output is always a one-hot value. It is
+    /// illegal to produce a value with more than one bit set, and doing so will
+    /// cause uncontrolled side effects.
     fn select<M>(place: BitIdx<M>) -> BitSel<M>
-    where
-        M: BitMemory {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Produce a bitmask with each position in the provided range selected."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `from`: An optional starting index in the element. If this is `None`,"]
-    #[doc= "   then the range begins at zero."]
-    #[doc= " - `to`: An optional ending index in the element. If this is `None`, then"]
-    #[doc= "   the range ends at `M::BITS`."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " A mask with each *position* specified by the input range set high."]
-    fn mask<M>(from: impl Into<Option<BitIdx<M>>>, to: impl Into<Option<BitTail<M>>>) -> BitMask<M>
-    where
-        M: BitMemory {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
+    where M: BitMemory;
 }
 
 impl BitOrder for Msb0 {
     const TYPENAME: &'static str = "Msb0";
-
-    #[doc= " Maps a semantic count to a concrete position."]
-    #[doc= ""]
-    #[doc= " `Msb0` order moves from `MSbit` first to `LSbit` last."]
-    fn at<M>(place: BitIdx<M>) -> BitPos<M>
-    where
-        M: BitMemory {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
 
     fn select<M>(place: BitIdx<M>) -> BitSel<M>
     where
@@ -161,25 +76,11 @@ impl BitOrder for Msb0 {
             BitSel::new_unchecked((M::ONE << M::MASK) >> *place)
         }
     }
-
-    fn mask<M>(from: impl Into<Option<BitIdx<M>>>, to: impl Into<Option<BitTail<M>>>) -> BitMask<M>
-    where
-        M: BitMemory {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
 }
 
 impl BitOrder for Lsb0 {
     const TYPENAME: &'static str = "Lsb0";
 
-    #[doc= " Maps a semantic count to a concrete position."]
-    #[doc= ""]
-    #[doc= " `Lsb0` order moves from `LSbit` first to `MSbit` last."]
-    fn at<M>(place: BitIdx<M>) -> BitPos<M>
-    where
-        M: BitMemory {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
 
     fn select<M>(place: BitIdx<M>) -> BitSel<M>
     where
@@ -187,12 +88,6 @@ impl BitOrder for Lsb0 {
         unsafe {
             BitSel::new_unchecked(M::ONE << *place)
         }
-    }
-
-    fn mask<M>(from: impl Into<Option<BitIdx<M>>>, to: impl Into<Option<BitTail<M>>>) -> BitMask<M>
-    where
-        M: BitMemory {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 }
 
