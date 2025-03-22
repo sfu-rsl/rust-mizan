@@ -1,62 +1,67 @@
-#![doc= " Operator trait implementations."]
+//! Operator trait implementations.
 
 use super::*;
+
 use crate::{
-    order::BitOrder,
-    store::BitStore,
-};
-use core::ops::{
-    Deref,
-    DerefMut,
-    Shl,
-    ShlAssign,
-    Shr,
-    ShrAssign,
+	order::BitOrder,
+	store::BitStore,
 };
 
-#[doc= " Reborrows the `BitVec` as a `BitSlice`.\n\nThis mimics the separation between `Vec<T>` and `[T]`.\n*"]
+use core::ops::{
+	Deref,
+	DerefMut,
+};
+
+/** Reborrows the `BitVec` as a `BitSlice`.
+
+This mimics the separation between `Vec<T>` and `[T]`.
+**/
 impl<O, T> Deref for BitVec<O, T>
 where
-    O: BitOrder,
-    T: BitStore {
-    type Target = BitSlice<O, T>;
+	O: BitOrder,
+	T: BitStore,
+{
+	type Target = BitSlice<O, T>;
 
-    #[doc= " Dereferences `&BitVec` down to `&BitSlice`."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " use bitvec::prelude::*;"]
-    #[doc= ""]
-    #[doc= " let bv: BitVec = bitvec![1; 4];"]
-    #[doc= " let bref: &BitSlice = &bv;"]
-    #[doc= " assert!(bref[2]);"]
-    #[doc= " ```"]
-    fn deref(&self) -> &Self::Target {
-        self.as_bitslice()
-    }
+	/// Dereferences `&BitVec` down to `&BitSlice`.
+	///
+	/// # Examples
+	///
+	/// ```rust
+	/// use bitvec::prelude::*;
+	///
+	/// let bv: BitVec = bitvec![1; 4];
+	/// let bref: &BitSlice = &bv;
+	/// assert!(bref[2]);
+	/// ```
+	fn deref(&self) -> &Self::Target {
+		self.as_bitslice()
+	}
 }
 
-#[doc= " Mutably reborrows the `BitVec` as a `BitSlice`.\n\nThis mimics the separation between `Vec<T>` and `[T]`.\n*"]
+/** Mutably reborrows the `BitVec` as a `BitSlice`.
+
+This mimics the separation between `Vec<T>` and `[T]`.
+**/
 impl<O, T> DerefMut for BitVec<O, T>
 where
-    O: BitOrder,
-    T: BitStore {
-    #[doc= " Dereferences `&mut BitVec` down to `&mut BitSlice`."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " use bitvec::prelude::*;"]
-    #[doc= ""]
-    #[doc= " let mut bv: BitVec = bitvec![0; 6];"]
-    #[doc= " let bref: &mut BitSlice = &mut bv;"]
-    #[doc= " assert!(!bref[5]);"]
-    #[doc= " bref.set(5, true);"]
-    #[doc= " assert!(bref[5]);"]
-    #[doc= " ```"]
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        self.as_mut_bitslice()
-    }
+	O: BitOrder,
+	T: BitStore,
+{
+	/// Dereferences `&mut BitVec` down to `&mut BitSlice`.
+	///
+	/// # Examples
+	///
+	/// ```rust
+	/// use bitvec::prelude::*;
+	///
+	/// let mut bv: BitVec = bitvec![0; 6];
+	/// let bref: &mut BitSlice = &mut bv;
+	/// assert!(!bref[5]);
+	/// bref.set(5, true);
+	/// assert!(bref[5]);
+	/// ```
+	fn deref_mut(&mut self) -> &mut Self::Target {
+		self.as_mut_bitslice()
+	}
 }
-

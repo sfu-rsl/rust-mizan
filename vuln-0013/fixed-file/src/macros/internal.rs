@@ -1,4 +1,13 @@
-#![doc= " Internal implementation macros for the public exports.\n\nThe macros in this module are required to be exported from the crate, as the\npublic macros will call them from client contexts (`macro_rules!` expansion\nbodies are not in source crate scope, as they are token expansion rather than\nsymbolic calls). However, they are not part of the public *API* of the crate,\nand are not intended for use anywhere but in the expansion bodies of the\npublic-API constructor macros.\n!"]
+/*! Internal implementation macros for the public exports.
+
+The macros in this module are required to be exported from the crate, as the
+public macros will call them from client contexts (`macro_rules!` expansion
+bodies are not in source crate scope, as they are token expansion rather than
+symbolic calls). However, they are not part of the public *API* of the crate,
+and are not intended for use anywhere but in the expansion bodies of the
+public-API constructor macros.
+!*/
+
 #![doc(hidden)]
 
 #[doc(hidden)]
