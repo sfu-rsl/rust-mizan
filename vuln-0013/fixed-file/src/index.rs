@@ -47,21 +47,6 @@ where
     #[doc= ""]
     #[doc= " # Parameters"]
     #[doc= ""]
-    #[doc= " - `idx`: A semantic index within a `M` memory element."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " If `idx` is within the range `0 .. M::BITS`, then this returns the index"]
-    #[doc= " value wrapped in the index type; if `idx` exceeds this range, then this"]
-    #[doc= " returns `None`."]
-    pub(crate) fn new(idx: u8) -> Option<Self> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Wraps a counter value as a known-good index of the `M` element type."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
     #[doc= " - `idx`: A semantic index within a `M` memory element. It must be in the"]
     #[doc= "   range `0 .. M::BITS`."]
     #[doc= ""]
@@ -160,14 +145,6 @@ where
     }
 }
 
-impl<M> Binary for BitIdx<M>
-where
-    M: BitMemory {
-    fn fmt(&self, fmt: &mut Formatter) -> fmt::Result {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
 impl<M> Deref for BitIdx<M>
 where
     M: BitMemory {
@@ -175,17 +152,6 @@ where
 
     fn deref(&self) -> &Self::Target {
         &self.idx
-    }
-}
-
-#[cfg(feature = "serde")]
-impl<M> TryFrom<u8> for BitIdx<M>
-where
-    M: BitMemory {
-    type Error = &'static str;
-
-    fn try_from(idx: u8) -> Result<Self, Self::Error> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 }
 
@@ -263,84 +229,6 @@ where
     _ty: PhantomData<M>,
 }
 
-impl<M> BitPos<M>
-where
-    M: BitMemory {
-    #[doc= " Produce a new bit position marker at a valid position value."]
-    #[doc= ""]
-    #[doc= " `BitOrder` implementations should prefer this method, but *may* use"]
-    #[doc= " [`::new_unchecked`] if they can guarantee that the range invariant is"]
-    #[doc= " upheld."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `pos`: The bit position value to encode. It must be in the range `0 .."]
-    #[doc= "   M::BITS`."]
-    #[doc= ""]
-    #[doc= " # Panics"]
-    #[doc= ""]
-    #[doc= " This function panics if `pos` is greater than or equal to `M::BITS`."]
-    #[doc= ""]
-    #[doc= " [`::new_unchecked`]: #method.new_unchecked"]
-    #[inline]
-    pub(crate) fn new(pos: u8) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Produce a new bit position marker at any position value."]
-    #[doc= ""]
-    #[doc= " # Safety"]
-    #[doc= ""]
-    #[doc= " The caller *must* ensure that `pos` is less than `M::BITS`. `BitOrder`"]
-    #[doc= " implementations should prefer [`::new`], which panics on range failure."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `pos`: The bit position value to encode. This must be in the range `0"]
-    #[doc= "   .. M::BITS`."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " `pos` wrapped in the `BitPos` marker type."]
-    #[doc= ""]
-    #[doc= " # Panics"]
-    #[doc= ""]
-    #[doc= " This function panics if `pos` is greater than or equal to `M::BITS`, but"]
-    #[doc= " only in debug builds. It does not inspect `pos` in release builds."]
-    #[doc= ""]
-    #[doc= " [`::new`]: #method.new"]
-    #[inline]
-    pub(crate) unsafe fn new_unchecked(pos: u8) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[doc= " Produces a one-hot selector mask from a position value."]
-    #[doc= ""]
-    #[doc= " This is equivalent to `1 << *self`."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `self`"]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " A one-hot selector mask with the bit at `*self` set."]
-    #[inline]
-    pub(crate) fn select(self) -> BitSel<M> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<M> Deref for BitPos<M>
-where
-    M: BitMemory {
-    type Target = u8;
-
-    fn deref(&self) -> &Self::Target {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
 #[doc= " Wrapper type indicating a one-hot encoding of a bit mask for an element.\n\nThis type is produced by [`BitOrder`] implementations to speed up access to the\nunderlying memory. It ensures that masks have exactly one set bit, and can\nsafely be used as a mask for read/write access to memory.\n\n# Type Parameters\n\n- `M`: The storage type being masked.\n\n[`BitOrder`]: ../order/trait.BitOrder.html\n*"]
 #[repr(transparent)]
 #[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
@@ -354,32 +242,6 @@ where
 impl<M> BitSel<M>
 where
     M: BitMemory {
-    #[doc= " Produce a new bit-mask wrapper around a one-hot mask value."]
-    #[doc= ""]
-    #[doc= " `BitOrder` implementations should prefer this method, but *may* use"]
-    #[doc= " [`::new_unchecked`] if they can guarantee that the one-hot invariant is"]
-    #[doc= " upheld."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `mask`: The mask value to encode. This **must** have exactly one bit"]
-    #[doc= "   set high, and all others set low."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " `mask` wrapped in the `BitMask` marker type."]
-    #[doc= ""]
-    #[doc= " # Panics"]
-    #[doc= ""]
-    #[doc= " This function unconditionally panics if `mask` has zero or multiple bits"]
-    #[doc= " set high."]
-    #[doc= ""]
-    #[doc= " [`::new_unchecked`]: #method.new_unchecked"]
-    #[inline]
-    pub(crate) fn new(sel: M) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
     #[doc= " Produce a new bit-mask wrapper around any value."]
     #[doc= ""]
     #[doc= " # Safety"]
@@ -435,153 +297,12 @@ where
     mask: M,
 }
 
-impl<M> BitMask<M>
-where
-    M: BitMemory {
-    #[doc= " A full mask."]
-    pub(crate) const ALL: Self = Self { mask: M::ALL };
-    #[doc= " An empty mask."]
-    pub(crate) const ZERO: Self = Self { mask: M::ZERO };
-
-    #[doc= " Wraps a value as a bitmask."]
-    #[doc= ""]
-    #[doc= " # Safety"]
-    #[doc= ""]
-    #[doc= " The caller must ensure that the mask value is correct in the caller’s"]
-    #[doc= " provenance."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `mask`: Any integer, to be reïnterpreted as a bitmask."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " The `mask` value as a bitmask."]
-    pub(crate) fn new(mask: M) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<M> Product<BitPos<M>> for BitMask<M>
-where
-    M: BitMemory {
-    fn product<I>(iter: I) -> Self
-    where
-        I: Iterator<Item = BitPos<M>> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<M> Product<BitSel<M>> for BitMask<M>
-where
-    M: BitMemory {
-    fn product<I>(iter: I) -> Self
-    where
-        I: Iterator<Item = BitSel<M>> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-#[doc= " Enable accumulation of a multi-bit mask from a sequence of position values."]
-impl<M> Sum<BitPos<M>> for BitMask<M>
-where
-    M: BitMemory {
-    fn sum<I>(iter: I) -> Self
-    where
-        I: Iterator<Item = BitPos<M>> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-#[doc= " Enable accumulation of a multi-bit mask from a sequence of selector masks."]
-impl<M> Sum<BitSel<M>> for BitMask<M>
-where
-    M: BitMemory {
-    fn sum<I>(iter: I) -> Self
-    where
-        I: Iterator<Item = BitSel<M>> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<M> BitAnd<M> for BitMask<M>
-where
-    M: BitMemory {
-    type Output = Self;
-
-    fn bitand(self, rhs: M) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<M> BitAnd<BitPos<M>> for BitMask<M>
-where
-    M: BitMemory {
-    type Output = Self;
-
-    fn bitand(self, rhs: BitPos<M>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<M> BitAnd<BitSel<M>> for BitMask<M>
-where
-    M: BitMemory {
-    type Output = Self;
-
-    fn bitand(self, rhs: BitSel<M>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<M> BitOr<M> for BitMask<M>
-where
-    M: BitMemory {
-    type Output = Self;
-
-    fn bitor(self, rhs: M) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-#[doc= " Insert a position value into a multimask."]
-impl<M> BitOr<BitPos<M>> for BitMask<M>
-where
-    M: BitMemory {
-    type Output = Self;
-
-    fn bitor(self, rhs: BitPos<M>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-#[doc= " Insert a single selector into a multimask."]
-impl<M> BitOr<BitSel<M>> for BitMask<M>
-where
-    M: BitMemory {
-    type Output = Self;
-
-    fn bitor(self, rhs: BitSel<M>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
 impl<M> Deref for BitMask<M>
 where
     M: BitMemory {
     type Target = M;
 
     fn deref(&self) -> &Self::Target {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<M> Not for BitMask<M>
-where
-    M: BitMemory {
-    type Output = Self;
-
-    fn not(self) -> Self {
         panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 }
@@ -622,21 +343,6 @@ impl Indexable for u8 {
     fn pos<M>(self) -> BitPos<M>
     where
         M: BitMemory {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn jump_far_up() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[test]
-    fn jump_far_down() {
         panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 }

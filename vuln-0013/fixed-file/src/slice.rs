@@ -390,42 +390,6 @@ pub(crate) trait AsBits {
         O: BitOrder;
 }
 
-impl<T> AsBits for T
-where
-    T: BitStore {
-    type Store = T;
-
-    fn bits<O>(&self) -> &BitSlice<O, T>
-    where
-        O: BitOrder {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    fn bits_mut<O>(&mut self) -> &mut BitSlice<O, T>
-    where
-        O: BitOrder {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<T> AsBits for [T]
-where
-    T: BitStore {
-    type Store = T;
-
-    fn bits<O>(&self) -> &BitSlice<O, T>
-    where
-        O: BitOrder {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    fn bits_mut<O>(&mut self) -> &mut BitSlice<O, T>
-    where
-        O: BitOrder {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
 macro_rules! impl_bits_for{
     ($($n: expr), *) => {
         $(impl < T > AsBits for[
@@ -495,6 +459,3 @@ pub(crate) use self::{
     iter::*,
     proxy::*,
 };
-
-#[cfg(test)]
-mod tests;

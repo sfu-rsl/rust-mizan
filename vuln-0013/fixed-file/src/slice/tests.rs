@@ -10,28 +10,3 @@ use crate::{
         BitSlice,
     },
 };
-
-#[test]
-fn all() {
-    panic!("CARGO_MINIMIZE_PANIC_FAIL")
-}
-
-#[test]
-fn any() {
-    panic!("CARGO_MINIMIZE_PANIC_FAIL")
-}
-
-#[test]
-fn count_ones() {
-    panic!("CARGO_MINIMIZE_PANIC_FAIL")
-}
-
-#[test]
-fn count_zeros() {
-    panic!("CARGO_MINIMIZE_PANIC_FAIL")
-}
-
-#[test]
-fn set_all() {
-    panic!("CARGO_MINIMIZE_PANIC_FAIL")
-}

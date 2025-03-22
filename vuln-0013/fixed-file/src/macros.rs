@@ -122,30 +122,3 @@ macro_rules! bitbox{
         $crate:: bitvec ![$($arg) *].into_boxed_bitslice()
     };
 }
-
-#[cfg(test)]
-mod tests {
-    #[allow(unused_imports)]
-    use crate::order::{
-        Lsb0,
-        Msb0,
-    };
-
-    #[test]
-    #[cfg(feature = "alloc")]
-    fn compile_bits_macros() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[test]
-    #[cfg(feature = "alloc")]
-    fn compile_bitvec_macros() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[test]
-    #[cfg(feature = "alloc")]
-    fn compile_bitbox_macros() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}

@@ -32,32 +32,6 @@ use {
     alloc::borrow::ToOwned,
 };
 
-#[cfg(feature = "alloc")]
-impl<O, T> ToOwned for BitSlice<O, T>
-where
-    O: BitOrder,
-    T: BitStore {
-    type Owned = BitVec<O, T>;
-
-    fn to_owned(&self) -> Self::Owned {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<O, T> Eq for BitSlice<O, T>
-where
-    O: BitOrder,
-    T: BitStore { }
-
-impl<O, T> Ord for BitSlice<O, T>
-where
-    O: BitOrder,
-    T: BitStore {
-    fn cmp(&self, rhs: &Self) -> Ordering {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
 #[doc= " Tests if two `BitSlice`s are semantically — not bitwise — equal.\n\nIt is valid to compare two slices of different ordering or element types.\n\nThe equality condition requires that they have the same number of total bits and\nthat each pair of bits in semantic order are identical.\n*"]
 impl<A, B, C, D> PartialEq<BitSlice<C, D>> for BitSlice<A, B>
 where
@@ -80,134 +54,6 @@ where
     #[doc= " assert_eq!(lbits, rbits);"]
     #[doc= " ```"]
     fn eq(&self, rhs: &BitSlice<C, D>) -> bool {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<A, B, C, D> PartialEq<BitSlice<C, D>> for &BitSlice<A, B>
-where
-    A: BitOrder,
-    B: BitStore,
-    C: BitOrder,
-    D: BitStore {
-    fn eq(&self, rhs: &BitSlice<C, D>) -> bool {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<A, B, C, D> PartialEq<&BitSlice<C, D>> for BitSlice<A, B>
-where
-    A: BitOrder,
-    B: BitStore,
-    C: BitOrder,
-    D: BitStore {
-    fn eq(&self, rhs: &&BitSlice<C, D>) -> bool {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-#[doc= " Compares two `BitSlice`s by semantic — not bitwise — ordering.\n\nThe comparison sorts by testing each index for one slice to have a set bit where\nthe other has an unset bit. If the slices are different, the slice with the set\nbit sorts greater than the slice with the unset bit.\n\nIf one of the slices is exhausted before they differ, the longer slice is\ngreater.\n*"]
-impl<A, B, C, D> PartialOrd<BitSlice<C, D>> for BitSlice<A, B>
-where
-    A: BitOrder,
-    B: BitStore,
-    C: BitOrder,
-    D: BitStore {
-    #[doc= " Performs a comparison by `<` or `>`."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " use bitvec::prelude::*;"]
-    #[doc= ""]
-    #[doc= " let src = 0x45u8;"]
-    #[doc= " let bits = src.bits::<Msb0>();"]
-    #[doc= " let a = &bits[0 .. 3]; // 010"]
-    #[doc= " let b = &bits[0 .. 4]; // 0100"]
-    #[doc= " let c = &bits[0 .. 5]; // 01000"]
-    #[doc= " let d = &bits[4 .. 8]; // 0101"]
-    #[doc= ""]
-    #[doc= " assert!(a < b);"]
-    #[doc= " assert!(b < c);"]
-    #[doc= " assert!(c < d);"]
-    #[doc= " ```"]
-    fn partial_cmp(&self, rhs: &BitSlice<C, D>) -> Option<Ordering> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<A, B, C, D> PartialOrd<BitSlice<C, D>> for &BitSlice<A, B>
-where
-    A: BitOrder,
-    B: BitStore,
-    C: BitOrder,
-    D: BitStore {
-    fn partial_cmp(&self, rhs: &BitSlice<C, D>) -> Option<Ordering> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<A, B, C, D> PartialOrd<&BitSlice<C, D>> for BitSlice<A, B>
-where
-    A: BitOrder,
-    B: BitStore,
-    C: BitOrder,
-    D: BitStore {
-    fn partial_cmp(&self, rhs: &&BitSlice<C, D>) -> Option<Ordering> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<'a, O, T> From<&'a T> for &'a BitSlice<O, T>
-where
-    O: BitOrder,
-    T: 'a + BitStore {
-    fn from(src: &'a T) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<'a, O, T> From<&'a [T]> for &'a BitSlice<O, T>
-where
-    O: BitOrder,
-    T: 'a + BitStore {
-    fn from(src: &'a [T]) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<'a, O, T> From<&'a mut T> for &'a mut BitSlice<O, T>
-where
-    O: BitOrder,
-    T: 'a + BitStore {
-    fn from(src: &'a mut T) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<'a, O, T> From<&'a mut [T]> for &'a mut BitSlice<O, T>
-where
-    O: BitOrder,
-    T: 'a + BitStore {
-    fn from(src: &'a mut [T]) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<'a, O, T> Default for &'a BitSlice<O, T>
-where
-    O: BitOrder,
-    T: 'a + BitStore {
-    fn default() -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<'a, O, T> Default for &'a mut BitSlice<O, T>
-where
-    O: BitOrder,
-    T: 'a + BitStore {
-    fn default() -> Self {
         panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 }
@@ -377,16 +223,6 @@ where
     }
 }
 
-#[doc= " Prints the `BitSlice` for displaying.\n\nThis prints each element in turn, formatted in binary in semantic order (so the\nfirst bit seen is printed first and the last bit seen is printed last). Each\nelement of storage is separated by a space for ease of reading.\n\nThe alternate character `{:#}` prints each element on its own line.\n\nTo see the in-memory representation, use `.as_total_slice()` to get access to\nthe raw elements and print that slice instead.\n*"]
-impl<O, T> Display for BitSlice<O, T>
-where
-    O: BitOrder,
-    T: BitStore {
-    fn fmt(&self, fmt: &mut Formatter) -> fmt::Result {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
 fmt![Binary, b'0', b'b', 1];
 
 fmt![Octal, b'0', b'o', 3];
@@ -400,58 +236,6 @@ struct RenderPart<'a>(&'a str);
 
 impl Debug for RenderPart<'_> {
     fn fmt(&self, fmt: &mut Formatter) -> fmt::Result {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-#[doc= " Writes the contents of the `BitSlice`, in semantic bit order, into a hasher."]
-impl<O, T> Hash for BitSlice<O, T>
-where
-    O: BitOrder,
-    T: BitStore {
-    fn hash<H>(&self, hasher: &mut H)
-    where
-        H: Hasher {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-unsafe impl<O, T> Send for BitSlice<O, T>
-where
-    O: BitOrder,
-    T: BitStore,
-    T::Threadsafe: Send { }
-
-unsafe impl<O, T> Sync for BitSlice<O, T>
-where
-    O: BitOrder,
-    T: BitStore,
-    T::Threadsafe: Sync { }
-
-#[cfg(all(test, feature = "alloc"))]
-mod tests {
-    use crate::{
-        order::Msb0,
-        slice::AsBits,
-    };
-
-    #[test]
-    fn binary() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[test]
-    fn octal() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[test]
-    fn hex_lower() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[test]
-    fn hex_upper() {
         panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 }

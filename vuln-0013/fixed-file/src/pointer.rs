@@ -25,9 +25,6 @@ use core::{
 #[cfg(any(test, feature = "alloc"))]
 use crate::index::BitTail;
 
-#[doc= " Width in bits of a pointer on the target machine."]
-const PTR_BITS: usize = size_of::<*const u8>() * 8;
-
 #[doc= " Union to permit reinterpreting a pointer-shaped value as a read pointer,\nwrite pointer, or bare numeric address.\n\n# Safety\n\nAbsolutely none whatsoever. This is probably flirting with undefined\nbehavior, and should be presumed to be the origin site of failure if the\ncrate ever breaks in the future.\n\n# Type Parameters\n\n- `T`: The referent data type.\n*"]
 #[doc(hidden)]
 pub(crate) union Address<T>
@@ -110,10 +107,6 @@ where
             self.u
         }
     }
-
-    pub(crate) fn to_alias(self) -> *const T::Alias {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
 }
 
 impl<T> Clone for Address<T>
@@ -124,27 +117,11 @@ where
     }
 }
 
-impl<T> From<&T> for Address<T>
-where
-    T: BitStore {
-    fn from(r: &T) -> Self {
-        Self { r }
-    }
-}
-
 impl<T> From<*const T> for Address<T>
 where
     T: BitStore {
     fn from(r: *const T) -> Self {
         Self { r }
-    }
-}
-
-impl<T> From<&mut T> for Address<T>
-where
-    T: BitStore {
-    fn from(w: &mut T) -> Self {
-        Self { w }
     }
 }
 
@@ -161,14 +138,6 @@ where
     T: BitStore {
     fn from(u: usize) -> Self {
         Self { u }
-    }
-}
-
-impl<T> Pointer for Address<T>
-where
-    T: BitStore {
-    fn fmt(&self, fmt: &mut Formatter) -> fmt::Result {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 }
 
@@ -532,10 +501,6 @@ where
         panic!("CARGO_MINIMIZE_PANIC_FAIL")
     }
 
-    pub(crate) fn aliased_slice<'a>(&self) -> &'a [T::Alias] {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
     #[doc= " Accesses the element slice behind the pointer as a Rust mutable slice."]
     #[doc= ""]
     #[doc= " # Parameters"]
@@ -672,90 +637,6 @@ where
     }
 }
 
-impl<'a, O, T> From<&'a BitSlice<O, T>> for BitPtr<T>
-where
-    O: BitOrder,
-    T: 'a + BitStore {
-    fn from(src: &'a BitSlice<O, T>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<'a, O, T> From<&'a mut BitSlice<O, T>> for BitPtr<T>
-where
-    O: BitOrder,
-    T: 'a + BitStore {
-    fn from(src: &'a mut BitSlice<O, T>) -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-#[doc= " Produces the empty-slice representation."]
-impl<T> Default for BitPtr<T>
-where
-    T: BitStore {
-    #[doc= " Produces an empty-slice representation."]
-    #[doc= ""]
-    #[doc= " The empty slice has no size or cursors, and its pointer is the alignment"]
-    #[doc= " of the type. The non-null pointer allows this structure to be null-value"]
-    #[doc= " optimized."]
-    fn default() -> Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-#[doc= " Prints the `BitPtr` data structure for debugging."]
-impl<T> Debug for BitPtr<T>
-where
-    T: BitStore {
-    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
 impl<T> Copy for BitPtr<T>
 where
     T: BitStore { }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn associated_consts_u8() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[test]
-    fn associated_consts_u16() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[test]
-    fn associated_consts_u32() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[cfg(target_pointer_width = "64")]
-    #[test]
-    fn associated_consts_u64() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[test]
-    fn ctors() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[test]
-    fn empty() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-
-    #[cfg(not(miri))]
-    #[test]
-    #[should_panic]
-    fn overfull() {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
