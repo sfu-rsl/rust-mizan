@@ -38,30 +38,6 @@ impl<O, T> BitSlice<O, T>
 where
     O: BitOrder,
     T: BitStore {
-    #[doc= " Produces an immutable `BitSlice` over a single element."]
-    #[doc= ""]
-    #[doc= " # Parameters"]
-    #[doc= ""]
-    #[doc= " - `elt`: A reference to an element over which the `BitSlice` will be"]
-    #[doc= "   created."]
-    #[doc= ""]
-    #[doc= " # Returns"]
-    #[doc= ""]
-    #[doc= " A `BitSlice` over the provided element."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " use bitvec::prelude::*;"]
-    #[doc= ""]
-    #[doc= " let elt: u8 = !0;"]
-    #[doc= " let bs: &BitSlice<Local, _> = BitSlice::from_element(&elt);"]
-    #[doc= " assert!(bs.all());"]
-    #[doc= " ```"]
-    #[inline]
-    pub(crate) fn from_element(elt: &T) -> &Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
 
     #[doc= " Wraps a `&[T: BitStore]` in a `&BitSlice<O: BitOrder, T>`. The order"]
     #[doc= " must be specified at the call site. The element type cannot be changed."]

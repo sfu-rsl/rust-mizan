@@ -81,38 +81,4 @@ where
     pub(crate) fn is_empty(&self) -> bool {
         self.bitptr().len() == 0
     }
-
-    #[doc= " Returns an iterator over `chunk_size` bits of the slice at a time,"]
-    #[doc= " starting at the beginning of the slice."]
-    #[doc= ""]
-    #[doc= " The chunks are slices and do not overlap. If `chunk_size` does not"]
-    #[doc= " divide the length of the slice, then the last chunk will not have length"]
-    #[doc= " `chunk_size`."]
-    #[doc= ""]
-    #[doc= " See [`chunks_exact`] for a variant of this iterator that returns chunks"]
-    #[doc= " of always exactly `chunk_size` elements, and [`rchunks`] for the same"]
-    #[doc= " iterator but starting at the end of the slice."]
-    #[doc= ""]
-    #[doc= " # Panics"]
-    #[doc= ""]
-    #[doc= " Panics if `chunk_size` is 0."]
-    #[doc= ""]
-    #[doc= " # Examples"]
-    #[doc= ""]
-    #[doc= " ```rust"]
-    #[doc= " # use bitvec::prelude::*;"]
-    #[doc= " let data = 0b001_010_10u8;"]
-    #[doc= " let bits = data.bits::<Msb0>();"]
-    #[doc= " let mut iter = bits.chunks(3);"]
-    #[doc= " assert_eq!(iter.next().unwrap(), &bits[0 .. 3]);"]
-    #[doc= " assert_eq!(iter.next().unwrap(), &bits[3 .. 6]);"]
-    #[doc= " assert_eq!(iter.next().unwrap(), &bits[6 .. 8]);"]
-    #[doc= " assert!(iter.next().is_none());"]
-    #[doc= " ```"]
-    #[doc= ""]
-    #[doc= " [`chunks_exact`]: #method.chunks_exact"]
-    #[doc= " [`rchunks`]: #method.rchunks"]
-    pub(crate) fn chunks(&self, chunk_size: usize) -> Chunks<O, T> {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
 }

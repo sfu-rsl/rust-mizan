@@ -10,17 +10,6 @@ use core::{
     iter::FusedIterator,
 };
 
-impl<'a, O, T> IntoIterator for &'a BitSlice<O, T>
-where
-    O: BitOrder,
-    T: 'a + BitStore {
-    type IntoIter = Iter<'a, O, T>;
-    type Item = <Self::IntoIter as Iterator>::Item;
-
-    fn into_iter(self) -> Self::IntoIter {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
 
 #[doc= " Immutable slice iterator\n\nThis struct is created by the [`iter`] method on [`BitSlice`]s.\n\n# Examples\n\nBasic usage:\n\n```rust\n# use bitvec::prelude::*;\nlet data = 5u8;\nlet bits = data.bits::<Lsb0>();\n\nfor bit in bits[.. 4].iter() {\n  println!(\"{}\", bit);\n}\n```\n\n[`BitSlice`]: struct.BitSlice.html\n[`iter`]: struct.BitSlice.html#method.iter\n*"]
 #[derive(Clone, Debug)]

@@ -14,28 +14,6 @@ use core::ops::{
     ShrAssign,
 };
 
-impl<O, T> Index<Range<usize>> for BitSlice<O, T>
-where
-    O: BitOrder,
-    T: BitStore {
-    type Output = Self;
-
-    fn index(&self, range: Range<usize>) -> &Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
-impl<O, T> Index<RangeFrom<usize>> for BitSlice<O, T>
-where
-    O: BitOrder,
-    T: BitStore {
-    type Output = Self;
-
-    fn index(&self, range: RangeFrom<usize>) -> &Self {
-        panic!("CARGO_MINIMIZE_PANIC_FAIL")
-    }
-}
-
 impl<O, T> Index<RangeTo<usize>> for BitSlice<O, T>
 where
     O: BitOrder,

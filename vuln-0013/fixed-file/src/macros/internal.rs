@@ -26,50 +26,6 @@ macro_rules! __bitslice_shift{
     };
 }
 
-#[doc= " Implement the shift operators on `BitVec` with other types than `usize`."]
-#[doc(hidden)]
-#[cfg(feature = "alloc")]
-macro_rules! __bitvec_shift{
-    ($($t: ty), +) => {
-        $(
-            #[doc(hidden)] impl < O,
-            T > core:: ops:: Shl < $t > for $crate:: vec:: BitVec < O,
-            T > where O: $crate:: order:: BitOrder,
-            T: $crate:: store:: BitStore {
-                type Output = <Self as core::ops::Shl<usize>>::Output;
-                fn shl(self, shamt: $t) -> Self:: Output {
-                    core::ops::Shl::<usize>::shl(self, shamt as usize)
-                }
-            }
-            #[doc(hidden)] impl < O,
-            T > core:: ops:: ShlAssign < $t > for $crate:: vec:: BitVec < O,
-            T > where O: $crate:: order:: BitOrder,
-            T: $crate:: store:: BitStore {
-                fn shl_assign(&mut self, shamt: $t) {
-                    core::ops::ShlAssign::<usize>::shl_assign(self, shamt as usize)
-                }
-            }
-            #[doc(hidden)] impl < O,
-            T > core:: ops:: Shr < $t > for $crate:: vec:: BitVec < O,
-            T > where O: $crate:: order:: BitOrder,
-            T: $crate:: store:: BitStore {
-                type Output = <Self as core::ops::Shr<usize>>::Output;
-                fn shr(self, shamt: $t) -> Self:: Output {
-                    core::ops::Shr::<usize>::shr(self, shamt as usize)
-                }
-            }
-            #[doc(hidden)] impl < O,
-            T > core:: ops:: ShrAssign < $t > for $crate:: vec:: BitVec < O,
-            T > where O: $crate:: order:: BitOrder,
-            T: $crate:: store:: BitStore {
-                fn shr_assign(&mut self, shamt: $t) {
-                    core::ops::ShrAssign::<usize>::shr_assign(self, shamt as usize)
-                }
-            }
-        ) +
-    };
-}
-
 #[doc(hidden)]
 #[cfg(target_endian = "big")]
 pub(crate) use self::u8_from_be_bits as u8_from_ne_bits;
