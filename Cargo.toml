@@ -135,6 +135,14 @@ members = [
     "vuln-0025/fixed-crate",
     "vuln-0025/fixed-function",
 
+    "vuln-0026/vuln-crate",
+    "vuln-0026/vuln-file",
+    "vuln-0026/vuln-function",
+
+    "vuln-0026/fixed-crate",
+    "vuln-0026/fixed-file",
+    "vuln-0026/fixed-function",
+
     "vuln-0028/vuln-crate",
     "vuln-0028/vuln-function",
 
