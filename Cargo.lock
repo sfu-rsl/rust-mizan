@@ -2762,6 +2762,70 @@ name = "vuln-0025-vuln-function"
 version = "0.1.0"
 
 [[package]]
+name = "vuln-0026-fixed-crate"
+version = "0.1.0"
+dependencies = [
+ "bincode",
+ "bitflags 1.3.2",
+ "libc",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
+name = "vuln-0026-fixed-file"
+version = "0.1.0"
+dependencies = [
+ "bincode",
+ "bitflags 1.3.2",
+ "libc",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
+name = "vuln-0026-fixed-function"
+version = "0.1.0"
+dependencies = [
+ "libc",
+ "serde",
+ "serde_derive",
+]
+
+[[package]]
+name = "vuln-0026-vuln-crate"
+version = "0.1.0"
+dependencies = [
+ "bitflags 1.3.2",
+ "libc",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
+name = "vuln-0026-vuln-file"
+version = "0.1.0"
+dependencies = [
+ "bitflags 1.3.2",
+ "libc",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
+name = "vuln-0026-vuln-function"
+version = "0.1.0"
+dependencies = [
+ "libc",
+ "serde",
+ "serde_derive",
+]
+
+[[package]]
 name = "vuln-0028-fixed-crate"
 version = "0.1.0"
 dependencies = [
