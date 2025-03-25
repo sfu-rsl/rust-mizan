@@ -2,7 +2,7 @@
 
 | **Information**       | **Details**                                                                                 |
 | --------------------- | ------------------------------------------------------------------------------------------- |
-| **CVE**               | [CVE-2020-35711](https://rustsec.org/advisories/RUSTSEC-2020-0091.html)                     |
+| **CVE**               | [CVE-2020-35711](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35711)             |
 | **Vulnerable Commit** | [b5ec44c](https://github.com/vorner/arc-swap/tree/b5ec44cd5d9b4b4a491cf85c1cbb2b1d5cdae061) |
 | **Fixed Commit**      | [03ffe98](https://github.com/vorner/arc-swap/tree/03ffe983171f9583d629d31a33b169631ec56934) |
 | **Variants**          | - [fixed-crate](fixed-crate)                                                                |

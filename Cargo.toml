@@ -9,15 +9,14 @@ members = [
     "vuln-0001/fixed-file",
     "vuln-0001/fixed-function",
     "vuln-0001/fixed-crate",
-    
-    
+
     "vuln-0002/vuln-function",
     "vuln-0002/vuln-file",
     "vuln-0002/vuln-crate",
     
     "vuln-0002/fixed-function",
     "vuln-0002/fixed-file",
-    "vuln-0002/fixed-crate", 
+    "vuln-0002/fixed-crate",
     
     "vuln-0003/vuln-crate", 
     "vuln-0003/vuln-file", 
@@ -31,9 +30,50 @@ members = [
     "vuln-0004/vuln-file",
     "vuln-0004/vuln-crate",
 
+    "vuln-0005/vuln-function",
+    "vuln-0005/vuln-file",
+    "vuln-0005/vuln-crate",
+
+    "vuln-0005/fixed-function",
+    "vuln-0005/fixed-file",
+    "vuln-0005/fixed-crate",
+
+    "vuln-0006/vuln-crate",
+    "vuln-0006/vuln-function",
+    "vuln-0006/vuln-file",
+
+    "vuln-0006/fixed-crate",
+    "vuln-0006/fixed-file",
+    "vuln-0006/fixed-function",
+
+    "vuln-0007/vuln-crate",
+    "vuln-0007/vuln-file",
+    "vuln-0007/vuln-function",
+
+    "vuln-0009/vuln-crate",
+    "vuln-0009/vuln-file",
+    "vuln-0009/vuln-function",
+
+    "vuln-0010/vuln-crate",
+    "vuln-0010/vuln-file",
+    "vuln-0010/vuln-function",
+
+    "vuln-0010/fixed-crate",
+    "vuln-0010/fixed-file",
+    "vuln-0010/fixed-function",
+
     "vuln-0011/vuln-crate", 
     "vuln-0011/vuln-function", 
     
     "vuln-0011/fixed-crate", 
     "vuln-0011/fixed-function",
+
+    "vuln-0015/vuln-crate",
+    "vuln-0015/vuln-function",
+
+    "vuln-0016/vuln-crate",
+    "vuln-0016/vuln-function",
+
+    "vuln-0017/vuln-crate",
+    "vuln-0017/vuln-function",
 ]
