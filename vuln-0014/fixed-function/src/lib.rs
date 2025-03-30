@@ -26,32 +26,6 @@ pub struct SmallArena<'tag, T> {
 }
 
 #[cfg(feature = "alloc")]
-#[macro_export]
-macro_rules! mk_arena {
-    ($name:ident) => { $crate::mk_arena!($name, 128*1024) };
-    ($name:ident, $cap:expr) => {
-        let tag = $crate::invariant_lifetime();
-        let _guard;
-        let mut $name = unsafe {
-            // this is not per-se unsafe but we need it to be public and
-            // calling it with a non-unique `tag` would allow arena mixups,
-            // which may introduce UB in `Index`/`IndexMut`
-            $crate::SmallArena::new(tag, $cap)
-        };
-        // this doesn't make it to MIR, but ensures that borrowck will not
-        // unify the lifetimes of two macro calls by binding the lifetime to
-        // drop scope
-        if false {
-            struct Guard<'tag>(&'tag $crate::InvariantLifetime<'tag>);
-            impl<'tag> ::core::ops::Drop for Guard<'tag> {
-                fn drop(&mut self) { }
-            }
-            _guard = Guard(&tag);
-        }
-    };
-}
-
-#[cfg(feature = "alloc")]
 impl<'tag, T> SmallArena<'tag, T> {
     /// create a new SmallArena. Don't do this manually. Use the
     /// [`in_arena`] macro instead.

@@ -14,17 +14,6 @@ pub struct SmallArena<'tag, T> {
     data: Vec<T>,
 }
 
-#[macro_export]
-macro_rules! mk_arena {
-    ($name:ident) => { mk_arena!($name, 1024*1024) };
-    ($name:ident, $cap:expr) => {
-        let mut tag = ();
-        let mut $name = unsafe {
-            compact_arena::SmallArena::new(&mut tag, $cap)
-        };
-    };
-}
-
 impl<'tag, T> SmallArena<'tag, T> {
     /// create a new SmallArena. Don't do this manually. Use the
     /// [`in_arena`] macro instead.

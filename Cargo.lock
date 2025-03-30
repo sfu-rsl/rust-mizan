@@ -2132,6 +2132,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "vuln-0014-vuln-crate"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0014-vuln-function"
+version = "0.1.0"
+
+[[package]]
 name = "wait-timeout"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"

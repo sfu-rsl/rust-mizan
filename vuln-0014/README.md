@@ -13,5 +13,6 @@
 ### Vulnerable Lines
 
 ```rust
-
+// Does not guarantee a uniqueness of lifetime, allowing a different's arena index to be used on it
+pub unsafe fn SmallArena::new(_: &'tag mut (), capacity: usize) -> Self
 ```
