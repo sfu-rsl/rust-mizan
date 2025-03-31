@@ -724,12 +724,12 @@
     {
       "id": "vuln-0024",
       "author": "Tarek Elsayed",
-      "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0039.html",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35892",
       "code_samples": [
         {
           "path_to_crate": "vuln-0024/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": "CWE-125",
+          "cwe_type": ["CWE-125"],
           "vulnerable_functions": {
             "src/lib.rs": ["fn index(&self, index: usize) -> &Self::Output"]
           },
@@ -740,7 +740,7 @@
         {
           "path_to_crate": "vuln-0024/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": "CWE-125",
+          "cwe_type": ["CWE-125"],
           "vulnerable_functions": {
             "src/lib.rs": ["fn index(&self, index: usize) -> &Self::Output"]
           },
@@ -751,14 +751,14 @@
         {
           "path_to_crate": "vuln-0024/fixed-crate",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0024/fixed-function",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         }
@@ -767,12 +767,12 @@
     {
       "id": "vuln-0025",
       "author": "Tarek Elsayed",
-      "source_link": "https://rustsec.org/advisories/RUSTSEC-2020-0039.html",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35893",
       "code_samples": [
         {
           "path_to_crate": "vuln-0025/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": "CWE-193, CWE-908, CWE-401",
+          "cwe_type": ["CWE-193, CWE-908, CWE-401"],
           "vulnerable_functions": {
             "src/lib.rs": ["pub fn remove(&mut self, offset: usize) -> T"]
           },
@@ -783,7 +783,7 @@
         {
           "path_to_crate": "vuln-0025/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": "CWE-193, CWE-908, CWE-401",
+          "cwe_type": ["CWE-193, CWE-908, CWE-401"],
           "vulnerable_functions": {
             "src/lib.rs": ["pub fn remove(&mut self, offset: usize) -> T"]
           },
@@ -794,14 +794,14 @@
         {
           "path_to_crate": "vuln-0025/fixed-crate",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0025/fixed-function",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         }

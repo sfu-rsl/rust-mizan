@@ -2,7 +2,7 @@
 
 | **Information**       | **Details**                                                                                            |
 | --------------------- | ------------------------------------------------------------------------------------------------------ |
-| **CVE**               | [CVE-2020-35893](https://rustsec.org/advisories/RUSTSEC-2020-0039.html)                                |
+| **CVE**               | [CVE-2020-35893](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35893)                        |
 | **Vulnerable Commit** | [f1b18e1](https://github.com/nathansizemore/simple-slab/tree/f1b18e1ed42b5477d43c837155998d566fdaf461) |
 | **Fixed Commit**      | [5e0524c](https://github.com/nathansizemore/simple-slab/tree/5e0524c1db836e2192e1cd818848d96937c0b587) |
 | **Variants**          | - [vuln-crate](vuln-crate)                                                                             |
