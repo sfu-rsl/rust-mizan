@@ -745,7 +745,7 @@
             "src/lib.rs": ["fn index(&self, index: usize) -> &Self::Output"]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [16]
+            "src/lib.rs": [14]
           }
         },
         {
