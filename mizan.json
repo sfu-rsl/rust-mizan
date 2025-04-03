@@ -619,6 +619,76 @@
       ]
     },
     {
+      "id": "vuln-0012",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-36215",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0012/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-662, CWE-787"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "unsafe impl<T> Sync for HConsed<T> {}",
+              "unsafe impl<T> Send for HConsed<T> {}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [354, 355]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0012/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-662, CWE-787"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "unsafe impl<T> Sync for HConsed<T> {}",
+              "unsafe impl<T> Send for HConsed<T> {}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [352, 353]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0012/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-662, CWE-787"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "unsafe impl<T> Sync for HConsed<T> {}",
+              "unsafe impl<T> Send for HConsed<T> {}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [20, 21]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0012/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0012/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0012/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
       "id": "vuln-0015",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35886",

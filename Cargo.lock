@@ -2332,6 +2332,45 @@ dependencies = [
 ]
 
 [[package]]
+name = "vuln-0012-fixed-crate"
+version = "0.1.0"
+dependencies = [
+ "lazy_static",
+]
+
+[[package]]
+name = "vuln-0012-fixed-file"
+version = "0.1.0"
+dependencies = [
+ "lazy_static",
+]
+
+[[package]]
+name = "vuln-0012-fixed-function"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0012-vuln-crate"
+version = "0.1.0"
+dependencies = [
+ "lazy_static",
+]
+
+[[package]]
+name = "vuln-0012-vuln-file"
+version = "0.1.0"
+dependencies = [
+ "lazy_static",
+]
+
+[[package]]
+name = "vuln-0012-vuln-function"
+version = "0.1.0"
+dependencies = [
+ "lazy_static",
+]
+
+[[package]]
 name = "vuln-0015-vuln-crate"
 version = "0.1.0"
 
