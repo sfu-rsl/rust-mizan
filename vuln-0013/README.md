@@ -12,6 +12,9 @@
 |                       | - [vuln-file](vuln-file)                                                                    |
 |                       | - [vuln-function](vuln-function)                                                            |
 
+This sample was created with the help of `cargo-minimize`; see [cargo-minimize-files](cargo-minimize-files) for more 
+details.
+
 ### Vulnerable lines
 
 The test code from the original issue only failed on macOS, but the vulnerability is nevertheless general.
