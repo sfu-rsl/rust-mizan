@@ -87,7 +87,7 @@ class LineNumberAndInfo:
 class VulnCrateInfo:
     __line_number_and_info: LineNumberAndInfo
 
-    def make_new_line_info(self) -> LineNumberAndInfo:
+    def copy_line_info(self) -> LineNumberAndInfo:
         return LineNumberAndInfo(list(self.__line_number_and_info.line_number_and_line_and_file_name))
 
     def __init__(self, sample: any) -> None:
@@ -137,10 +137,23 @@ try:
                     print(f"❌ vulnerable_functions path: {file_path} doesn't exist!")
                     any_error = True
 
-            if sample["is_vulnerability"] and len(sample["vulnerable_lines"]) > 0:
-                remaining_vuln_crate_lines: LineNumberAndInfo | None = vuln_crate_info.make_new_line_info() \
-                    if vuln_crate_info is not None \
-                    else None
+            if sample["is_vulnerability"]:
+                if len(sample["vulnerable_lines"]) == 0:
+                    print(f"❌ is_vulnerability is true but no vulnerable_lines are specified")
+                    any_error = True
+                if len(sample["vulnerable_functions"]) == 0:
+                    print(f"❌ is_vulnerability is true but no vulnerable_functions are specified")
+                    any_error = True
+            else:
+                if len(sample["vulnerable_lines"]) > 0:
+                    print(f"❌ is_vulnerability is false but vulnerable_lines are specified")
+                    any_error = True
+                if len(sample["vulnerable_functions"]) > 0:
+                    print(f"❌ is_vulnerability is false but vulnerable_functions are specified")
+                    any_error = True
+
+            if sample["is_vulnerability"] and vuln_crate_info is not None:
+                remaining_vuln_crate_lines: LineNumberAndInfo = vuln_crate_info.copy_line_info()
 
                 for file_name_key in sample["vulnerable_lines"]:
                     file_path = os.path.join(path, file_name_key)
@@ -149,14 +162,11 @@ try:
                         any_error = True
                         continue
 
-                    if remaining_vuln_crate_lines is None:
-                        continue
-
-                    line_array = set(sample["vulnerable_lines"][file_name_key])
+                    vulnerable_lines = set(sample["vulnerable_lines"][file_name_key])
 
                     with open(file_path, "r", encoding="utf-8") as file:
                         for line_idx, line in enumerate(file.readlines()):
-                            if line_idx + 1 not in line_array:
+                            if line_idx + 1 not in vulnerable_lines:
                                 continue
 
                             cleaned_line = line.strip()
@@ -167,14 +177,13 @@ try:
                                       f"previous lines for file {file_name_key} ... "
                                       f"remaining lines from vuln-crate are {remaining_vuln_crate_lines} ")
                                 any_error = True
-                if (remaining_vuln_crate_lines is not None
-                        and len(remaining_vuln_crate_lines) > 0
+                if (len(remaining_vuln_crate_lines) > 0
                         and vulnerability["id"] not in ignored_line_validation_leftover_warning_ids):
                     print(f"❓ warning: some lines from vuln-crate not matched to ones in {path}: "
                           f"{remaining_vuln_crate_lines}")
     if any_error:
         exit(1)
-    print("✅ mizan.json file name and line number validation successful!")
+    print("✅ mizan.json file name keys and line number validation successful!")
 except jsonschema.exceptions.ValidationError as e:
     print("❌ JSON validation error:", e.message)
     exit(1)
