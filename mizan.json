@@ -729,7 +729,7 @@
         {
           "path_to_crate": "vuln-0018/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": "CWE-129",
+          "cwe_type": ["CWE-129"],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": ["pub fn unit(value: A) -> Self"],
             "src/sized_chunk/mod.rs": ["pub fn unit(value: A) -> Self"]
@@ -742,7 +742,7 @@
         {
           "path_to_crate": "vuln-0018/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": "CWE-129",
+          "cwe_type": ["CWE-129"],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": ["pub fn unit(value: A) -> Self"],
             "src/sized_chunk/mod.rs": ["pub fn unit(value: A) -> Self"]
@@ -755,7 +755,7 @@
         {
           "path_to_crate": "vuln-0018/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": "CWE-129",
+          "cwe_type": ["CWE-129"],
           "vulnerable_functions": {
             "src/lib.rs": ["pub fn unit(value: A) -> Self"]
           },
@@ -766,21 +766,21 @@
         {
           "path_to_crate": "vuln-0018/fixed-crate",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0018/fixed-file",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0018/fixed-function",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         }
@@ -794,7 +794,7 @@
         {
           "path_to_crate": "vuln-0019/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": "CWE-129",
+          "cwe_type": ["CWE-129"],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": [
               "pub fn pair(value1: A, value2: A) -> Self"
@@ -809,7 +809,7 @@
         {
           "path_to_crate": "vuln-0019/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": "CWE-129",
+          "cwe_type": ["CWE-129"],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": [
               "pub fn pair(value1: A, value2: A) -> Self"
@@ -824,7 +824,7 @@
         {
           "path_to_crate": "vuln-0019/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": "CWE-129",
+          "cwe_type": ["CWE-129"],
           "vulnerable_functions": {
             "src/lib.rs": ["pub fn unit(value: A) -> Self"]
           },
@@ -835,21 +835,21 @@
         {
           "path_to_crate": "vuln-0019/fixed-crate",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0019/fixed-file",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0019/fixed-function",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         }
@@ -863,7 +863,7 @@
         {
           "path_to_crate": "vuln-0020/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": "CWE-129",
+          "cwe_type": ["CWE-129"],
           "vulnerable_functions": {
             "src/sized_chunk/mod.rs": [
               "fn from(array: &mut InlineArray<A, T>) -> Self"
@@ -876,7 +876,7 @@
         {
           "path_to_crate": "vuln-0020/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": "CWE-129",
+          "cwe_type": ["CWE-129"],
           "vulnerable_functions": {
             "src/sized_chunk/mod.rs": [
               "fn from(array: &mut InlineArray<A, T>) -> Self"
@@ -889,7 +889,7 @@
         {
           "path_to_crate": "vuln-0020/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": "CWE-129",
+          "cwe_type": ["CWE-129"],
           "vulnerable_functions": {
             "src/lib.rs": ["fn from(array: &mut InlineArray<A, T>) -> Self"]
           },
@@ -900,21 +900,21 @@
         {
           "path_to_crate": "vuln-0020/fixed-crate",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0020/fixed-file",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0020/fixed-function",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         }
@@ -928,7 +928,7 @@
         {
           "path_to_crate": "vuln-0021/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": "CWE-401",
+          "cwe_type": ["CWE-401"],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": [
               "impl<A: Clone, N: ChunkLength<A>> Clone for RingBuffer<A, N>",
@@ -942,7 +942,7 @@
         {
           "path_to_crate": "vuln-0021/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": "CWE-401",
+          "cwe_type": ["CWE-401"],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": [
               "impl<A: Clone, N: ChunkLength<A>> Clone for RingBuffer<A, N>",
@@ -956,7 +956,7 @@
         {
           "path_to_crate": "vuln-0021/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": "CWE-401",
+          "cwe_type": ["CWE-401"],
           "vulnerable_functions": {
             "src/lib.rs": [
               "impl<A: Clone, N: ChunkLength<A>> Clone for RingBuffer<A, N>",
@@ -970,21 +970,21 @@
         {
           "path_to_crate": "vuln-0021/fixed-crate",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0021/fixed-file",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0021/fixed-function",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         }
@@ -998,7 +998,7 @@
         {
           "path_to_crate": "vuln-0022/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": "CWE-401",
+          "cwe_type": ["CWE-401"],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": [
               "pub fn insert_from<Iterable, I>(&mut self, index: usize, iter: Iterable)"
@@ -1011,7 +1011,7 @@
         {
           "path_to_crate": "vuln-0022/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": "CWE-401",
+          "cwe_type": ["CWE-401"],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": [
               "pub fn insert_from<Iterable, I>(&mut self, index: usize, iter: Iterable)"
@@ -1024,7 +1024,7 @@
         {
           "path_to_crate": "vuln-0022/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": "CWE-401",
+          "cwe_type": ["CWE-401"],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn insert_from<Iterable, I>(&mut self, index: usize, iter: Iterable)"
@@ -1037,21 +1037,21 @@
         {
           "path_to_crate": "vuln-0022/fixed-crate",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0022/fixed-file",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0022/fixed-function",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         }
@@ -1065,7 +1065,7 @@
         {
           "path_to_crate": "vuln-0023/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": "CWE-129",
+          "cwe_type": ["CWE-129"],
           "vulnerable_functions": {
             "src/inline_array/mod.rs": [
               "unsafe fn len_const(&self) -> *const usize",
@@ -1085,7 +1085,7 @@
         {
           "path_to_crate": "vuln-0023/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": "CWE-129",
+          "cwe_type": ["CWE-129"],
           "vulnerable_functions": {
             "src/inline_array/mod.rs": [
               "unsafe fn len_const(&self) -> *const usize",
@@ -1105,7 +1105,7 @@
         {
           "path_to_crate": "vuln-0023/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": "CWE-129",
+          "cwe_type": ["CWE-129"],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe fn len_const(&self) -> *const usize",
@@ -1125,21 +1125,21 @@
         {
           "path_to_crate": "vuln-0023/fixed-crate",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0023/fixed-file",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         },
         {
           "path_to_crate": "vuln-0023/fixed-function",
           "is_vulnerability": false,
-          "cwe_type": null,
+          "cwe_type": [],
           "vulnerable_functions": {},
           "vulnerable_lines": {}
         }
