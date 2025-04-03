@@ -75,3 +75,58 @@ fn set_len(&mut self, len: usize) -> Result<(), Error> {
 	Ok(())
 }
 ```
+
+and later on:
+
+```rust
+
+#[cfg(feature = "with-serde")]
+impl<'de, T: Default + FamStruct + Deserialize<'de>> Deserialize<'de> for FamStructWrapper<T>
+where
+    <T as FamStruct>::Entry: std::marker::Copy + serde::Deserialize<'de>,
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        struct FamStructWrapperVisitor<X> {
+            dummy: PhantomData<X>,
+        }
+
+        impl<'de, X: Default + FamStruct + Deserialize<'de>> Visitor<'de> for FamStructWrapperVisitor<X>
+        where
+            <X as FamStruct>::Entry: std::marker::Copy + serde::Deserialize<'de>,
+        {
+            type Value = FamStructWrapper<X>;
+
+            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+                formatter.write_str("FamStructWrapper")
+            }
+
+            fn visit_seq<V>(self, mut seq: V) -> Result<FamStructWrapper<X>, V::Error>
+            where
+                V: SeqAccess<'de>,
+            {
+                use serde::de::Error;
+
+                let header = seq
+                    .next_element()?
+                    .ok_or_else(|| de::Error::invalid_length(0, &self))?;
+                let entries: Vec<X::Entry> = seq
+                    .next_element()?
+                    .ok_or_else(|| de::Error::invalid_length(1, &self))?;
+
+				// VULNERABILITY: `FamStructWrapper::from_entries` calls `FamStructWrapper::<T>::new`
+				// which in turn calls `FamStruct::set_len` so this is the entry point for the
+				// vulnerability.
+                let mut result: Self::Value = FamStructWrapper::from_entries(entries.as_slice())
+                    .map_err(|e| V::Error::custom(format!("{:?}", e)))?;
+                result.mem_allocator[0] = header;
+                Ok(result)
+            }
+        }
+
+        deserializer.deserialize_tuple(2, FamStructWrapperVisitor { dummy: PhantomData })
+    }
+}
+```
