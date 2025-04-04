@@ -3,7 +3,7 @@
 | **Information**       | **Details**                                                                                 |
 | --------------------- | ------------------------------------------------------------------------------------------- |
 | **CVE**               | [CVE-2020-35862](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35862)                     |
-| **Vulnerable Commit** | [c5587f0](https://github.com/ferrilab/bitvec/commit/c5587f0cab99abd6b363afa84a3acad9e8f2cce6) |
+| **Vulnerable Commit** | [83170a4](https://github.com/ferrilab/bitvec/commit/83170a4c1c9537aa61cdd906d1ad92e7ecfd2f1b) |
 | **Fixed Commit**      | [3ffe951](https://github.com/ferrilab/bitvec/commit/3ffe9510c3368555f96e5e96e0c1b90381d07cc9) |
 | **Variants**          | - [fixed-crate](fixed-crate)                                                                |
 |                       | - [fixed-file](fixed-file)                                                                  |
