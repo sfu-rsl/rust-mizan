@@ -99,6 +99,53 @@ where
 			pointer: BitPtr::from_mut_ptr(raw),
 		}
 	}
+
+	/// Accesses the vector’s backing store as an element slice.
+	///
+	/// Unlike `BitSlice`’s method of the same name, this includes the partial
+	/// edges, as `BitBox` forbids fragmentation that leads to contention.
+	///
+	/// # Parameters
+	///
+	/// - `&self`
+	///
+	/// # Returns
+	///
+	/// The slice of all live elements in the backing storage, including the
+	/// partial edges if present.
+	pub fn as_slice(&self) -> &[T] {
+		self.bitptr().as_slice()
+	}
+
+	/// Accesses the vector’s backing store as an element slice.
+	///
+	/// Unlike `BitSlice`’s method of the same name, this includes the partial
+	/// edges, as `BitBox` forbids fragmentation that leads to contention.
+	///
+	/// # Parameters
+	///
+	/// - `&mut self`
+	///
+	/// # Returns
+	///
+	/// The slice of all live elements in the backing storage, including the
+	/// partial edges if present.
+	pub fn as_mut_slice(&mut self) -> &mut [T] {
+		self.bitptr().as_mut_slice()
+	}
+
+	/// Gives read access to the `BitPtr<T>` structure powering the box.
+	///
+	/// # Parameters
+	///
+	/// - `&self`
+	///
+	/// # Returns
+	///
+	/// A copy of the interior `BitPtr<T>`.
+	pub(crate) fn bitptr(&self) -> BitPtr<T> {
+		self.pointer
+	}
 }
 
 impl<O, T> From<BitVec<O, T>> for BitBox<O, T>
@@ -107,6 +154,19 @@ where
 	T: BitStore {
 	fn from(src: BitVec<O, T>) -> Self {
 		src.into_boxed_bitslice()
+	}
+}
+
+impl<O, T> Drop for BitBox<O, T>
+where
+	O: BitOrder,
+	T: BitStore,
+{
+	fn drop(&mut self) {
+		let ptr = self.as_mut_slice().as_mut_ptr();
+		let len = self.as_slice().len();
+		//  Run the `Box<[T]>` destructor.
+		drop(unsafe { Vec::from_raw_parts(ptr, 0, len) }.into_boxed_slice());
 	}
 }
 
@@ -1455,6 +1515,24 @@ where T: BitStore
 		//  upshift on the rest of the tail, producing something in the range
 		//  `1 ..= T::BITS`.
 		((((tail == 0) as u8) << T::Mem::INDX) | tail as u8).tail()
+	}
+
+	/// Accesses the element slice behind the pointer as a Rust slice.
+	///
+	/// # Parameters
+	///
+	/// - `&self`
+	///
+	/// # Returns
+	///
+	/// Standard Rust slice handle over the data governed by this pointer.
+	///
+	/// # Lifetimes
+	///
+	/// - `'a`: Lifetime for which the data behind the pointer is live.
+	#[inline]
+	pub fn as_slice<'a>(&self) -> &'a [T] {
+		unsafe { slice::from_raw_parts(self.pointer().r, self.elements()) }
 	}
 
 	/// Accesses the element slice behind the pointer as a Rust mutable slice.

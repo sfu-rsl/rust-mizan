@@ -521,6 +521,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3f9eec918d3f24069decb9af1554cad7c880e2da24a9afd88aca000531ab82c1"
 
 [[package]]
+name = "funty"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fed34cd105917e91daa4da6b3728c47b068749d6a62c59811f06ed2ac71d9da7"
+
+[[package]]
 name = "getrandom"
 version = "0.1.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1238,6 +1244,12 @@ checksum = "c1f1914ce909e1658d9907913b4b91947430c7d9be598b15a1912935b8c04801"
 dependencies = [
  "proc-macro2 1.0.94",
 ]
+
+[[package]]
+name = "radium"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "def50a86306165861203e7f84ecffbbdfdea79f0e51039b33de1e952358c47ac"
 
 [[package]]
 name = "rand"
@@ -2368,6 +2380,54 @@ name = "vuln-0012-vuln-function"
 version = "0.1.0"
 dependencies = [
  "lazy_static",
+]
+
+[[package]]
+name = "vuln-0013-fixed-crate"
+version = "0.18.0"
+dependencies = [
+ "funty",
+ "radium",
+]
+
+[[package]]
+name = "vuln-0013-fixed-file"
+version = "0.18.0"
+dependencies = [
+ "funty",
+ "radium",
+]
+
+[[package]]
+name = "vuln-0013-fixed-function"
+version = "0.18.0"
+dependencies = [
+ "funty",
+ "radium",
+]
+
+[[package]]
+name = "vuln-0013-vuln-crate"
+version = "0.18.0"
+dependencies = [
+ "funty",
+ "radium",
+]
+
+[[package]]
+name = "vuln-0013-vuln-file"
+version = "0.18.0"
+dependencies = [
+ "funty",
+ "radium",
+]
+
+[[package]]
+name = "vuln-0013-vuln-function"
+version = "0.18.0"
+dependencies = [
+ "funty",
+ "radium",
 ]
 
 [[package]]

@@ -681,6 +681,24 @@ where T: BitStore
 		((((tail == 0) as u8) << T::Mem::INDX) | tail as u8).tail()
 	}
 
+	/// Accesses the element slice behind the pointer as a Rust slice.
+	///
+	/// # Parameters
+	///
+	/// - `&self`
+	///
+	/// # Returns
+	///
+	/// Standard Rust slice handle over the data governed by this pointer.
+	///
+	/// # Lifetimes
+	///
+	/// - `'a`: Lifetime for which the data behind the pointer is live.
+	#[inline]
+	pub fn as_slice<'a>(&self) -> &'a [T] {
+		unsafe { slice::from_raw_parts(self.pointer().r, self.elements()) }
+	}
+
 	/// Accesses the element slice behind the pointer as a Rust mutable slice.
 	///
 	/// # Parameters
