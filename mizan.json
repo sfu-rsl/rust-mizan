@@ -626,7 +626,7 @@
         {
           "path_to_crate": "vuln-0012/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-662, CWE-787"],
+          "cwe_type": ["CWE-662", "CWE-787"],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<T> Sync for HConsed<T> {}",
@@ -640,7 +640,7 @@
         {
           "path_to_crate": "vuln-0012/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-662, CWE-787"],
+          "cwe_type": ["CWE-662", "CWE-787"],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<T> Sync for HConsed<T> {}",
@@ -654,7 +654,7 @@
         {
           "path_to_crate": "vuln-0012/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-662, CWE-787"],
+          "cwe_type": ["CWE-662", "CWE-787"],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<T> Sync for HConsed<T> {}",
@@ -842,7 +842,7 @@
         {
           "path_to_crate": "vuln-0025/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-193, CWE-908, CWE-401"],
+          "cwe_type": ["CWE-193", "CWE-908", "CWE-401"],
           "vulnerable_functions": {
             "src/lib.rs": ["pub fn remove(&mut self, offset: usize) -> T"]
           },
@@ -853,7 +853,7 @@
         {
           "path_to_crate": "vuln-0025/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-193, CWE-908, CWE-401"],
+          "cwe_type": ["CWE-193", "CWE-908", "CWE-401"],
           "vulnerable_functions": {
             "src/lib.rs": ["pub fn remove(&mut self, offset: usize) -> T"]
           },
