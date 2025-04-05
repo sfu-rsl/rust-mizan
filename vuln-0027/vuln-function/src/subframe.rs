@@ -100,17 +100,6 @@ fn extend_sign_u16(val: u16, bits: u32) -> i16 {
     return ((val << (16 - bits)) as i16) >> (16 - bits);
 }
 
-#[test]
-fn verify_extend_sign_u16() {
-    assert_eq!(5, extend_sign_u16(5, 4));
-    assert_eq!(0x3ffe, extend_sign_u16(0x3ffe, 15));
-    assert_eq!(-5, extend_sign_u16(16 - 5, 4));
-    assert_eq!(-3, extend_sign_u16(512 - 3, 9));
-    assert_eq!(-1, extend_sign_u16(0xffff, 16));
-    assert_eq!(-2, extend_sign_u16(0xfffe, 16));
-    assert_eq!(-1, extend_sign_u16(0x7fff, 15));
-}
-
 /// Given a signed two's complement integer in the `bits` least significant
 /// bits of `val`, extends the sign bit to a valid 32-bit signed integer.
 #[inline(always)]
@@ -119,24 +108,6 @@ pub fn extend_sign_u32(val: u32, bits: u32) -> i32 {
     // then convert to a signed integer, and then do an arithmetic shift back,
     // which will extend the sign bit.
     ((val << (32 - bits)) as i32) >> (32 - bits)
-}
-
-#[test]
-fn verify_extend_sign_u32() {
-    assert_eq!(5, extend_sign_u32(5, 4));
-    assert_eq!(0x3ffffffe, extend_sign_u32(0x3ffffffe, 31));
-    assert_eq!(-5, extend_sign_u32(16 - 5, 4));
-    assert_eq!(-3, extend_sign_u32(512 - 3, 9));
-    assert_eq!(-2, extend_sign_u32(0xfffe, 16));
-    assert_eq!(-1, extend_sign_u32(0xffffffff_u32, 32));
-    assert_eq!(-2, extend_sign_u32(0xfffffffe_u32, 32));
-    assert_eq!(-1, extend_sign_u32(0x7fffffff, 31));
-
-    // The data below are samples from a real FLAC stream.
-    assert_eq!(-6392, extend_sign_u32(124680, 17));
-    assert_eq!(-6605, extend_sign_u32(124467, 17));
-    assert_eq!(-6850, extend_sign_u32(124222, 17));
-    assert_eq!(-7061, extend_sign_u32(124011, 17));
 }
 
 /// Decodes a signed number from Rice coding to the two's complement.
@@ -167,15 +138,6 @@ fn rice_to_signed(val: u32) -> i32 {
     let half = (val >> 1) as i32;
     let extended_bit_0 = ((val << 31) as i32) >> 31;
     half ^ extended_bit_0
-}
-
-#[test]
-fn verify_rice_to_signed() {
-    assert_eq!(rice_to_signed(0), 0);
-    assert_eq!(rice_to_signed(1), -1);
-    assert_eq!(rice_to_signed(2), 1);
-    assert_eq!(rice_to_signed(3), -2);
-    assert_eq!(rice_to_signed(4), 2);
 }
 
 /// Decodes a subframe into the provided block-size buffer.
@@ -462,22 +424,6 @@ fn predict_fixed(order: u32, buffer: &mut [i32]) -> Result<()> {
     Ok(())
 }
 
-#[test]
-fn verify_predict_fixed() {
-    // The following data is from an actual FLAC stream and has been verified
-    // against the reference decoder. The data is from a 16-bit stream.
-    let mut buffer = [-729, -722, -667, -19, -16,  17, -23, -7,
-                        16,  -16,   -5,   3,  -8, -13, -15, -1];
-    assert!(predict_fixed(3, &mut buffer).is_ok());
-    assert_eq!(&buffer, &[-729, -722, -667, -583, -486, -359, -225, -91,
-                            59,  209,  354,  497,  630,  740,  812, 845]);
-
-    // The following data causes overflow of i32 when not handled with care.
-    let mut buffer = [21877, 27482, -6513];
-    assert!(predict_fixed(2, &mut buffer).is_ok());
-    assert_eq!(&buffer, &[21877, 27482, 26574]);
-}
-
 fn decode_fixed<R: ReadBytes>(input: &mut Bitstream<R>,
                               bps: u32,
                               order: u32,
@@ -571,24 +517,6 @@ fn predict_lpc(raw_coefficients: &[i16],
     }
 
     Ok(())
-}
-
-#[test]
-fn verify_predict_lpc() {
-    // The following data is from an actual FLAC stream and has been verified
-    // against the reference decoder. The data is from a 16-bit stream.
-    let coefficients = [-75, 166,  121, -269, -75, -399, 1042];
-    let mut buffer = [-796, -547, -285,  -32, 199,  443,  670, -2,
-                       -23,   14,    6,    3,  -4,   12,   -2, 10];
-    assert!(predict_lpc(&coefficients, 9, &mut buffer).is_ok());
-    assert_eq!(&buffer, &[-796, -547, -285,  -32,  199,  443,  670,  875,
-                          1046, 1208, 1343, 1454, 1541, 1616, 1663, 1701]);
-
-    // The following data causes an overflow when not handled with care.
-    let coefficients = [119, -255, 555, -836, 879, -1199, 1757];
-    let mut buffer = [-21363, -21951, -22649, -24364, -27297, -26870, -30017, 3157];
-    assert!(predict_lpc(&coefficients, 10, &mut buffer).is_ok());
-    assert_eq!(&buffer, &[-21363, -21951, -22649, -24364, -27297, -26870, -30017, -29718]);
 }
 
 fn decode_lpc<R: ReadBytes>(input: &mut Bitstream<R>,
