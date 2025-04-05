@@ -361,82 +361,6 @@ impl Block {
         }
     }
 
-    /// Returns a block with 0 channels and 0 samples.
-    pub fn empty() -> Block {
-        Block {
-            first_sample_number: 0,
-            block_size: 0,
-            channels: 0,
-            buffer: Vec::with_capacity(0),
-        }
-    }
-
-    /// Returns the inter-channel sample number of the first sample in the block.
-    ///
-    /// The time is independent of the number of channels. To get the start time
-    /// of the block in seconds, divide this number by the sample rate in the
-    /// streaminfo.
-    pub fn time(&self) -> u64 {
-        self.first_sample_number
-    }
-
-    /// Returns the total number of samples in this block.
-    ///
-    /// Samples in different channels are counted as distinct samples.
-    #[inline(always)]
-    pub fn len(&self) -> u32 {
-        // Note: this cannot overflow, because the block size fits in 16 bits,
-        // and the number of channels is at most 8.
-        self.block_size * self.channels
-    }
-
-    /// Returns the number of inter-channel samples in the block.
-    ///
-    /// The duration is independent of the number of channels. The returned
-    /// value is also referred to as the *block size*. To get the duration of
-    /// the block in seconds, divide this number by the sample rate in the
-    /// streaminfo.
-    #[inline(always)]
-    pub fn duration(&self) -> u32 {
-        self.block_size
-    }
-
-    /// Returns the number of channels in the block.
-    // TODO: Should a frame know this? #channels must be constant throughout the stream anyway ...
-    // TODO: Rename to `num_channels` for clarity.
-    #[inline(always)]
-    pub fn channels(&self) -> u32 {
-        self.channels
-    }
-
-    /// Returns the (zero-based) `ch`-th channel as a slice.
-    ///
-    /// # Panics
-    ///
-    /// Panics if `ch >= channels()`.
-    #[inline(always)]
-    pub fn channel(&self, ch: u32) -> &[i32] {
-        let bsz = self.block_size as usize;
-        let ch_usz = ch as usize;
-        &self.buffer[ch_usz * bsz..(ch_usz + 1) * bsz]
-    }
-
-    /// Returns a sample in this block.
-    ///
-    /// The value returned is for the zero-based `ch`-th channel of the
-    /// inter-channel sample with index `sample` in this block (so this is not
-    /// the global sample number).
-    ///
-    /// # Panics
-    ///
-    /// Panics if `ch >= channels()` or if `sample >= len()` for the last
-    /// channel.
-    #[inline(always)]
-    pub fn sample(&self, ch: u32, sample: u32) -> i32 {
-        let bsz = self.block_size as usize;
-        return self.buffer[ch as usize * bsz + sample as usize];
-    }
-
     /// Returns the underlying buffer that stores the samples in this block.
     ///
     /// This allows the buffer to be reused to decode the next frame. The
@@ -444,38 +368,6 @@ impl Block {
     pub fn into_buffer(self) -> Vec<i32> {
         return self.buffer;
     }
-
-    /// Returns an iterator that produces left and right channel samples.
-    ///
-    /// This iterator can be more efficient than requesting a sample directly,
-    /// because it avoids a bounds check.
-    ///
-    /// # Panics
-    ///
-    /// Panics if the number of channels in the block is not 2.
-    #[inline]
-    pub fn stereo_samples<'a>(&'a self) -> StereoSamples<'a> {
-        if self.channels != 2 {
-            panic!("stereo_samples() must only be called for blocks with two channels.");
-        }
-
-        assert!(self.buffer.len() >= self.block_size as usize * 2);
-
-        StereoSamples {
-            buffer: &self.buffer,
-            block_duration: self.block_size,
-            current_sample: 0,
-        }
-    }
-}
-
-/// An iterator over the stereo sample pairs in a block.
-///
-/// This iterator is produced by `Block::stereo_samples()`.
-pub struct StereoSamples<'a> {
-    buffer: &'a [i32],
-    block_duration: u32,
-    current_sample: u32,
 }
 
 /// Reads frames from a stream and exposes decoded blocks as an iterator.
@@ -630,11 +522,6 @@ impl<R: ReadBytes> FrameReader<R> {
         let block = Block::new(time, header.block_size as u32, buffer);
 
         Ok(Some(block))
-    }
-
-    /// Destroy the frame reader, returning the wrapped reader.
-    pub fn into_inner(self) -> R {
-        self.input
     }
 }
 
