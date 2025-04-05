@@ -233,7 +233,6 @@ enum RicePartitionType {
     Rice2,
 }
 
-#[cfg(not(KEEP_CARGO_MINIMIZE))]
 fn decode_residual<R: ReadBytes>(input: &mut Bitstream<R>,
                                  block_size: u16,
                                  buffer: &mut [i32])
