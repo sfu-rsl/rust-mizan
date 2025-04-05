@@ -12,7 +12,7 @@
 |                       | - [fixed-file](vuln-file)                                                                |
 |                       | - [fixed-function](vuln-function)                                                        |
 
-### Vulnerable lines
+## Vulnerable lines
 
 [Certain malformed inputs would cause the contents of uninitialized memory to be written to the decoded audio.](https://github.com/ruuda/claxon/issues/10)
 
@@ -127,3 +127,46 @@ residuals, which are split into partitions.
 cause a format error down the line. Instead, it caused the buffer to be
 sliced in a way where the slices together did not cover the entire
 buffer, and so parts of uninitialized memory could remain in the buffer.
+
+## `cargo-minimize` usage:
+
+The script (`run-compile.sh`):
+
+```bash
+#!/usr/bin/env bash
+
+# output minimize-fmt-cargo to stdout to indicate that cargo lints will be output to stdout
+# this is the default
+# echo "minimize-fmt-cargo"
+
+# The script needs to emit the output here for lints
+cargo build --message-format=json
+if [ $? != 0 ];
+then
+    # echo "No reproduction"
+    exit 1
+else
+    exit 0
+fi
+```
+
+Add `#[cfg(not(KEEP_CARGO_MINIMIZE))]` and `#[allow(dead_code)]` to target functions. Also add 
+`#[cfg(not(KEEP_CARGO_MINIMIZE))]` to the `mod` declarations in `lib.rs`, otherwise it will just delete those `mod` 
+lines and call it a day.
+
+Command for creating minimized file sample (`src/subframe.rs` and `src/frame.rs` are vulnerable functions, so they're
+preserved for this level):
+
+```bash
+RUST_BACKTRACE=1 cargo minimize --script-path ./run-compile.sh --ignore-file src/subframe.rs --ignore-file src/frame.rs --passes=privatize,delete-unused-functions,item-deleter,item-deleter-inner
+```
+
+Command for creating minimized function sample:
+
+```bash
+RUST_BACKTRACE=1 cargo minimize --script-path ./run-compile.sh --passes=privatize,delete-unused-functions,item-deleter,item-deleter-inner
+```
+
+After running multiple times, the deletions that `cargo minimize` makes are cherry-picked to make a commit, and then
+the rest of the changes are reverted to preserve original formatting and comments (e.g. it will reformat doc comments 
+like `/// test doc` into `#[doc= "test doc"]`, it will remove all general comments beginning with `//`, etc.)
