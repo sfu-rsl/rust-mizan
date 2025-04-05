@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 // Claxon -- A FLAC decoding library in Rust
 // Copyright 2014 Ruud van Asseldonk
 //
