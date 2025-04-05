@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 // Claxon -- A FLAC decoding library in Rust
 // Copyright 2014 Ruud van Asseldonk
 //
@@ -604,8 +602,6 @@ pub type FrameResult = Result<Option<Block>>;
 /// A macro to expand the length of a buffer, or replace the buffer altogether,
 /// so it can hold at least `new_len` elements. The contents of the buffer can
 /// be anything, it is assumed they will be overwritten anyway.
-#[cfg(not(KEEP_CARGO_MINIMIZE))]
-#[allow(dead_code)]
 fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32> {
     if buffer.len() < new_len {
         // Previous data will be overwritten, so instead of resizing the
@@ -643,8 +639,6 @@ impl<R: ReadBytes> FrameReader<R> {
     /// allocated automatically.
     ///
     /// TODO: I should really be consistent with 'read' and 'decode'.
-    #[cfg(not(KEEP_CARGO_MINIMIZE))]
-    #[allow(dead_code)]
     pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult {
         // The frame includes a CRC-16 at the end. It can be computed
         // automatically while reading, by wrapping the input reader in a reader

@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 // Claxon -- A FLAC decoding library in Rust
 // Copyright 2014 Ruud van Asseldonk
 //
@@ -641,8 +639,6 @@ impl<R: ReadBytes> FrameReader<R> {
     /// allocated automatically.
     ///
     /// TODO: I should really be consistent with 'read' and 'decode'.
-    #[cfg(not(KEEP_CARGO_MINIMIZE))]
-    #[allow(dead_code)]
     pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult {
         // The frame includes a CRC-16 at the end. It can be computed
         // automatically while reading, by wrapping the input reader in a reader

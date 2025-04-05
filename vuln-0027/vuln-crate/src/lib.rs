@@ -82,7 +82,6 @@ mod error;
 pub mod frame;
 pub mod input;
 pub mod metadata;
-#[cfg(not(KEEP_CARGO_MINIMIZE))]
 pub mod subframe;
 
 pub use error::{Error, Result};
