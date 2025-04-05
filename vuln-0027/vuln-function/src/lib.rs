@@ -62,6 +62,8 @@
 
 mod crc;
 mod error;
-pub mod frame;
+#[cfg(not(KEEP_CARGO_MINIMIZE))]
+pub(crate) mod frame;
 pub(crate) mod input;
-pub mod subframe;
+#[cfg(not(KEEP_CARGO_MINIMIZE))]
+pub(crate) mod subframe;
