@@ -1439,6 +1439,88 @@
       ]
     },
     {
+      "id": "vuln-0027",
+      "author": "Paul Ngo",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-20992",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0027/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-908"],
+          "vulnerable_functions": {
+            "src/frame.rs": [
+              "fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
+              "pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult"
+            ],
+            "src/subframe.rs": [
+              "fn decode_residual<R: ReadBytes>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/frame.rs": [618, 657],
+            "src/subframe.rs": [257]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0027/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-908"],
+          "vulnerable_functions": {
+            "src/frame.rs": [
+              "fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
+              "pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult"
+            ],
+            "src/subframe.rs": [
+              "fn decode_residual<R: ReadBytes>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/frame.rs": [618, 657],
+            "src/subframe.rs": [257]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0027/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-908"],
+          "vulnerable_functions": {
+            "src/frame.rs": [
+              "fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
+              "pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult"
+            ],
+            "src/subframe.rs": [
+              "fn decode_residual<R: ReadBytes>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/frame.rs": [401, 440],
+            "src/subframe.rs": [219]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0027/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0027/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0027/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
       "id": "vuln-0028",
       "author": "Paul Ngo",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-16141",
