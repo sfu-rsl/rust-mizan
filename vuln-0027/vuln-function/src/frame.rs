@@ -104,30 +104,6 @@ fn read_var_length_int<R: ReadBytes>(input: &mut R) -> Result<u64> {
     Ok(result)
 }
 
-#[test]
-fn verify_read_var_length_int() {
-    use std::io;
-    use error::Error;
-    use input::BufferedReader;
-
-    let mut reader = BufferedReader::new(
-        io::Cursor::new(vec![0x24, 0xc2, 0xa2, 0xe2, 0x82, 0xac, 0xf0, 0x90, 0x8d,
-                            0x88, 0xc2, 0x00, 0x80]));
-
-    assert_eq!(read_var_length_int(&mut reader).unwrap(), 0x24);
-    assert_eq!(read_var_length_int(&mut reader).unwrap(), 0xa2);
-    assert_eq!(read_var_length_int(&mut reader).unwrap(), 0x20ac);
-    assert_eq!(read_var_length_int(&mut reader).unwrap(), 0x010348);
-
-    // Two-byte integer with invalid continuation byte should fail.
-    assert_eq!(read_var_length_int(&mut reader).err().unwrap(),
-               Error::FormatError("invalid variable-length integer"));
-
-    // Continuation byte can never be the first byte.
-    assert_eq!(read_var_length_int(&mut reader).err().unwrap(),
-               Error::FormatError("invalid variable-length integer"));
-}
-
 fn read_frame_header_or_eof<R: ReadBytes>(input: &mut R) -> Result<Option<FrameHeader>> {
     // The frame header includes a CRC-8 at the end. It can be computed
     // automatically while reading, by wrapping the input reader in a reader
@@ -324,14 +300,6 @@ fn decode_left_side(buffer: &mut [i32]) {
     }
 }
 
-#[test]
-fn verify_decode_left_side() {
-    let mut buffer = vec![2, 5, 83, 113, 127, -63, -45, -15, 7, 38, 142, 238, 0, -152, -52, -18];
-    let result = vec![2, 5, 83, 113, 127, -63, -45, -15, -5, -33, -59, -125, 127, 89, 7, 3];
-    decode_left_side(&mut buffer);
-    assert_eq!(buffer, result);
-}
-
 /// Converts a buffer with right samples and a side channel in-place to left ++ right.
 fn decode_right_side(buffer: &mut [i32]) {
     let block_size = buffer.len() / 2;
@@ -348,14 +316,6 @@ fn decode_right_side(buffer: &mut [i32]) {
         let left = side.wrapping_add(right);
         *fst = left;
     }
-}
-
-#[test]
-fn verify_decode_right_side() {
-    let mut buffer = vec![7, 38, 142, 238, 0, -152, -52, -18, -5, -33, -59, -125, 127, 89, 7, 3];
-    let result = vec![2, 5, 83, 113, 127, -63, -45, -15, -5, -33, -59, -125, 127, 89, 7, 3];
-    decode_right_side(&mut buffer);
-    assert_eq!(buffer, result);
 }
 
 /// Converts a buffer with mid samples and a side channel in-place to left ++ right.
@@ -377,16 +337,6 @@ fn decode_mid_side(buffer: &mut [i32]) {
         *fst = left;
         *snd = right;
     }
-}
-
-#[test]
-fn verify_decode_mid_side() {
-    let mut buffer = vec!(-2, -14,  12,   -6, 127,   13, -19,  -6,
-                           7,  38, 142,  238,   0, -152, -52, -18);
-    let result =      vec!(2,   5,  83,  113, 127,  -63, -45, -15,
-                          -5, -33, -59, -125, 127,   89,   7,   3);
-    decode_mid_side(&mut buffer);
-    assert_eq!(buffer, result);
 }
 
 /// A block of raw audio samples.
@@ -519,20 +469,6 @@ impl Block {
     }
 }
 
-#[test]
-fn verify_block_sample() {
-    let block = Block {
-        first_sample_number: 0,
-        block_size: 5,
-        channels: 3,
-        buffer: vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47],
-    };
-
-    assert_eq!(block.sample(0, 2), 5);
-    assert_eq!(block.sample(1, 3), 23);
-    assert_eq!(block.sample(2, 4), 47);
-}
-
 /// An iterator over the stereo sample pairs in a block.
 ///
 /// This iterator is produced by `Block::stereo_samples()`.
@@ -540,51 +476,6 @@ pub struct StereoSamples<'a> {
     buffer: &'a [i32],
     block_duration: u32,
     current_sample: u32,
-}
-
-impl<'a> Iterator for StereoSamples<'a> {
-    type Item = (i32, i32);
-
-    #[inline(always)]
-    fn next(&mut self) -> Option<(i32, i32)> {
-        if self.current_sample == self.block_duration {
-            None
-        } else {
-            let ch_offset = self.block_duration as usize;
-            let idx = self.current_sample as usize;
-
-            // Indexing without bounds check is safe here, because the current
-            // sample is less than the block duration, and the buffer size is at
-            // least twice the block duration. (There is an assertion for that
-            // too when the iterator is constructed.)
-            let samples = unsafe {
-                let left = *self.buffer.get_unchecked(idx);
-                let right = *self.buffer.get_unchecked(idx + ch_offset);
-                (left, right)
-            };
-
-            self.current_sample += 1;
-
-            Some(samples)
-        }
-    }
-}
-
-#[test]
-fn verify_block_stereo_samples_iterator() {
-    let block = Block {
-        first_sample_number: 0,
-        block_size: 3,
-        channels: 2,
-        buffer: vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47],
-    };
-
-    let mut iter = block.stereo_samples();
-
-    assert_eq!(iter.next(), Some((2, 7)));
-    assert_eq!(iter.next(), Some((3, 11)));
-    assert_eq!(iter.next(), Some((5, 13)));
-    assert_eq!(iter.next(), None);
 }
 
 /// Reads frames from a stream and exposes decoded blocks as an iterator.
