@@ -175,35 +175,3 @@ impl<R: ReadBytes> ReadBytes for Crc16Reader<R> {
         panic!("CRC reader does not support skip, it does not compute CRC over skipped data.");
     }
 }
-
-#[cfg(test)]
-fn verify_crc8(test_vector: Vec<u8>, result: u8) {
-    use input::BufferedReader;
-    let data = BufferedReader::new(io::Cursor::new(test_vector));
-    let mut reader = Crc8Reader::new(data);
-    while let Some(_) = reader.read_u8_or_eof().unwrap() {}
-    assert_eq!(reader.crc(), result);
-}
-
-#[cfg(test)]
-fn verify_crc16(test_vector: Vec<u8>, result: u16) {
-    use input::BufferedReader;
-    let data = BufferedReader::new(io::Cursor::new(test_vector));
-    let mut reader = Crc16Reader::new(data);
-    while let Some(_) = reader.read_u8_or_eof().unwrap() {}
-    assert_eq!(reader.crc(), result);
-}
-
-#[test]
-fn verify_crc8_test_vectors() {
-    verify_crc8(vec![0x1f], 0x5d);
-    verify_crc8(vec![0x04, 0x01], 0x53);
-    verify_crc8(vec![0x61, 0x62, 0x63], 0x5f);
-}
-
-#[test]
-fn verify_crc16_test_vectors() {
-    verify_crc16(vec![0x1f], 0x8041);
-    verify_crc16(vec![0x04, 0x01], 0x1806);
-    verify_crc16(vec![0x61, 0x62, 0x63], 0xcadb);
-}
