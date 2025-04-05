@@ -2941,6 +2941,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "vuln-0027-fixed-function"
+version = "0.1.0"
+dependencies = [
+ "hound",
+ "time",
+ "walkdir 1.0.7",
+]
+
+[[package]]
 name = "vuln-0027-vuln-crate"
 version = "0.1.0"
 dependencies = [
