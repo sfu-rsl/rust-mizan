@@ -1,0 +1,8 @@
+[package]
+name = "vuln-0027-vuln-function"
+version = "0.1.0"
+
+[dev-dependencies]
+hound   = "3.0"
+time    = "0.1.35"
+walkdir = "1.0"
