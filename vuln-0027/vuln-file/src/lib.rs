@@ -79,6 +79,7 @@ use metadata::{MetadataBlock, MetadataBlockReader, StreamInfo, VorbisComment};
 
 mod crc;
 mod error;
+#[cfg(not(KEEP_CARGO_MINIMIZE))]
 pub mod frame;
 pub mod input;
 pub mod metadata;

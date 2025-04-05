@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 // Claxon -- A FLAC decoding library in Rust
 // Copyright 2014 Ruud van Asseldonk
 //
@@ -234,6 +236,7 @@ enum RicePartitionType {
 }
 
 #[cfg(not(KEEP_CARGO_MINIMIZE))]
+#[allow(dead_code)]
 fn decode_residual<R: ReadBytes>(input: &mut Bitstream<R>,
                                  block_size: u16,
                                  buffer: &mut [i32])
