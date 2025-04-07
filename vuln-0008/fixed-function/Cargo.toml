@@ -1,13 +1,7 @@
 [package]
 name = "vuln-0008-fixed-function"
-description = "Low-latency lock-free queues"
-version = "2.0.0"
-authors = ["John Shaw <jshaw@shawnation.com>"]
-license = "MIT"
-repository = "https://github.com/johnshaw/magnetic"
-keywords = ["lock-free", "queue"]
-documentation = "http://johnshaw.github.io/magnetic/doc/magnetic"
-edition = "2018"
+version = "0.1.0"
+edition = "2021"
 
 [features]
 unstable = []

@@ -534,7 +534,7 @@
           }
         },
         {
-          "path_to_crate": "vuln-0008/vuln-file",
+          "path_to_crate": "vuln-0008/vuln-functin",
           "is_vulnerability": true,
           "cwe_type": [],
           "vulnerable_functions": {
@@ -543,37 +543,32 @@
               "unsafe impl<T, B: Buffer<T>> Sync for MPMCConsumer<T, B> {}",
               "unsafe impl<T, B: Buffer<T>> Send for MPMCProducer<T, B> {}",
               "unsafe impl<T, B: Buffer<T>> Sync for MPMCProducer<T, B> {}"
+            ],
+            "src/mpsc.rs": [
+              "unsafe impl<T: Send, B: Buffer<T>> Send for MPSCConsumer<T, B> {}",
+              "unsafe impl<T: Send, B: Buffer<T>> Send for MPSCProducer<T, B> {}",      
+              "unsafe impl<T: Send, B: Buffer<T>> Sync for MPSCProducer<T, B> {}"
+            ],
+            "src/spmc.rs": [
+              "unsafe impl<T: Send, B: Buffer<T>> Send for SPMCConsumer<T, B> {}",
+              "unsafe impl<T: Send, B: Buffer<T>> Sync for SPMCConsumer<T, B> {}",
+              "unsafe impl<T: Send, B: Buffer<T>> Send for SPMCProducer<T, B> {}",
+              "unsafe impl<T: Send, B: Buffer<T>> Sync for SPMCProducer<T, B> {}"
+            ],
+            "src/spsc.rs": [
+              "unsafe impl<T: Send, B: Buffer<T>> Send for SPSCConsumer<T, B> {}",
+              "unsafe impl<T: Send, B: Buffer<T>> Send for SPSCProducer<T, B> {}"
             ]
           },
           "vulnerable_lines": {
-            "src/mpmc.rs": [37, 38, 45, 46]
-          }
-        },
-        {
-          "path_to_crate": "vuln-0008/vuln-function",
-          "is_vulnerability": true,
-          "cwe_type": [],
-          "vulnerable_functions": {
-            "src/lib.rs": [
-              "unsafe impl<T, B: Buffer<T>> Send for MPMCConsumer<T, B> {}",
-              "unsafe impl<T, B: Buffer<T>> Sync for MPMCConsumer<T, B> {}",
-                          "unsafe impl<T, B: Buffer<T>> Send for MPMCProducer<T, B> {}",
-                          "unsafe impl<T, B: Buffer<T>> Sync for MPMCProducer<T, B> {}"
-                        ]
-          },
-          "vulnerable_lines": {
-            "src/lib.rs": [42, 43, 50, 51]
+            "src/mpmc.rs": [37, 38, 45, 46],
+            "src/mpsc.rs": [37, 44, 45],
+            "src/spmc.rs": [37, 38, 45, 46],
+            "src/spsc.rs": [35, 42]
           }
         },
         {
           "path_to_crate": "vuln-0008/fixed-function",
-          "is_vulnerability": false,
-          "cwe_type": [],
-          "vulnerable_functions": {},
-          "vulnerable_lines": {}
-        },
-        {
-          "path_to_crate": "vuln-0008/fixed-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
