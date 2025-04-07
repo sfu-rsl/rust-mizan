@@ -1,51 +1,112 @@
-use std::cell::UnsafeCell;
-use std::marker::PhantomData;
-use std::sync::Arc;
-use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
+//! Magnetic contains a set of high-performance queues useful for developing
+//! low-latency applications. All queues are FIFO unless otherwise specified.
+//!
+//! # Examples
+//!
+//! ```
+//! use std::thread::spawn;
+//! use magnetic::spsc::spsc_queue;
+//! use magnetic::buffer::dynamic::DynamicBuffer;
+//! use magnetic::{Producer, Consumer};
+//!
+//! let (p, c) = spsc_queue(DynamicBuffer::new(32).unwrap());
+//!
+//! // Push and pop within a single thread
+//! p.push(1).unwrap();
+//! assert_eq!(c.pop(), Ok(1));
+//!
+//! // Push and pop from multiple threads. Since this example is using the
+//! // SPSC queue, only one producer and one consumer are allowed.
+//! let t1 = spawn(move || {
+//!     for i in 0..10 {
+//!         println!("Producing {}", i);
+//!         p.push(i).unwrap();
+//!     }
+//!     p
+//! });
+//!
+//! let t2 = spawn(move || {
+//!     loop {
+//!         let i = c.pop().unwrap();
+//!         println!("Consumed {}", i);
+//!         if i == 9 { break; }
+//!     }
+//! });
+//!
+//! t1.join().unwrap();
+//! t2.join().unwrap();
+//! ```
 
-/// All buffers must implement this trait to be used with any of the queues.
-trait Buffer<T> {
-    /// Return the size of the buffer
-    fn size(&self) -> usize;
+#![cfg_attr(feature = "unstable", feature(test, asm))]
 
-    /// Return a pointer to data at the given index. It is expected that this
-    /// function use modular arithmetic since `idx` may refer to a location
-    /// beyond the end of the buffer.
-    fn at(&self, idx: usize) -> *const T;
+#![deny(missing_docs)]
 
-    /// Return a mutable pointer to data at the given index. It is expected
-    /// that this function use modular arithmetic since `idx` may refer to a
-    /// location beyond the end of the buffer.
-    fn at_mut(&mut self, idx: usize) -> *mut T;
+#[cfg(feature = "unstable")]
+extern crate test;
+
+pub mod buffer;
+pub mod spsc;
+pub mod mpsc;
+pub mod spmc;
+pub mod mpmc;
+mod util;
+
+/// Possible errors for `Producer::push`
+#[derive(Debug, PartialEq)]
+pub enum PushError<T> {
+    /// Consumer was destroyed
+    Disconnected(T),
 }
 
-
-struct MPMCQueue<T, B: Buffer<T>> {
-    head: AtomicUsize,
-    next_head: AtomicUsize,
-    _pad1: [u8; 48],
-    tail: AtomicUsize,
-    next_tail: AtomicUsize,
-    _pad2: [u8; 48],
-    buf: B,
-    ok: AtomicBool,
-    _marker: PhantomData<T>
+/// Possible errors for `Producer::try_push`
+#[derive(Debug, PartialEq)]
+pub enum TryPushError<T> {
+    /// Queue was full
+    Full(T),
+    /// Consumer was destroyed
+    Disconnected(T),
 }
 
-unsafe impl<T, B: Buffer<T>> Sync for MPMCQueue<T, B> {}
-
-/// Consumer end of the queue. Implements the trait `Consumer<T>`.
-pub struct MPMCConsumer<T, B: Buffer<T>> {
-    queue: Arc<UnsafeCell<MPMCQueue<T, B>>>,
+/// Possible errors for `Consumer::pop`
+#[derive(Debug, PartialEq)]
+pub enum PopError {
+    /// Producer was destroyed
+    Disconnected,
 }
 
-unsafe impl<T: Send, B: Buffer<T>> Send for MPMCConsumer<T, B> {}
-unsafe impl<T: Send, B: Buffer<T>> Sync for MPMCConsumer<T, B> {}
-
-/// Producer end of the queue. Implements the trait `Producer<T>`.
-pub struct MPMCProducer<T, B: Buffer<T>> {
-    queue: Arc<UnsafeCell<MPMCQueue<T, B>>>,
+/// Possible errors for `Consumer::try_pop`
+#[derive(Debug, PartialEq)]
+pub enum TryPopError {
+    /// Queue was empty
+    Empty,
+    /// Producer was destroyed
+    Disconnected,
 }
 
-unsafe impl<T: Send, B: Buffer<T>> Send for MPMCProducer<T, B> {}
-unsafe impl<T: Send, B: Buffer<T>> Sync for MPMCProducer<T, B> {}
+/// The consumer end of the queue allows for sending data. `Producer<T>` is
+/// always `Send`, but is only `Sync` for multi-producer (MPSC, MPMC) queues.
+pub trait Producer<T> {
+    /// Add value to front of the queue. This method will block if the queue
+    /// is currently full.
+    fn push(&self, value: T) -> Result<(), PushError<T>>;
+
+    /// Attempt to add a value to the front of the queue. If the value was
+    /// added successfully, `None` will be returned. If unsuccessful, `value`
+    /// will be returned. An unsuccessful push indicates that the queue was
+    /// full.
+    fn try_push(&self, value: T) -> Result<(), TryPushError<T>>;
+}
+
+/// The consumer end of the queue allows for receiving data. `Consumer<T>` is
+/// always `Send`, but is only `Sync` for multi-consumer (SPMC, MPMC) queues.
+pub trait Consumer<T> {
+    /// Remove value from the end of the queue. This method will block if the
+    /// queue is currently empty.
+    fn pop(&self) -> Result<T, PopError>;
+
+    /// Attempt to remove a value from the end of the queue. If the value was
+    /// removed successfully, `Some(T)` will be returned. If unsuccessful,
+    /// `None` will be returned. An unsuccessful pop indicates that the queue
+    /// was empty.
+    fn try_pop(&self) -> Result<T, TryPopError>;
+}
