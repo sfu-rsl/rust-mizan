@@ -1480,24 +1480,6 @@
           }
         },
         {
-          "path_to_crate": "vuln-0027/vuln-function",
-          "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
-          "vulnerable_functions": {
-            "src/frame.rs": [
-              "fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
-              "pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult"
-            ],
-            "src/subframe.rs": [
-              "fn decode_residual<R: ReadBytes>"
-            ]
-          },
-          "vulnerable_lines": {
-            "src/frame.rs": [401, 440],
-            "src/subframe.rs": [219]
-          }
-        },
-        {
           "path_to_crate": "vuln-0027/fixed-crate",
           "is_vulnerability": false,
           "cwe_type": [],
@@ -1506,13 +1488,6 @@
         },
         {
           "path_to_crate": "vuln-0027/fixed-file",
-          "is_vulnerability": false,
-          "cwe_type": [],
-          "vulnerable_functions": {},
-          "vulnerable_lines": {}
-        },
-        {
-          "path_to_crate": "vuln-0027/fixed-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},

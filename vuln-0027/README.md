@@ -7,10 +7,8 @@
 | **Fixed Commit**      | [e7dae6e](https://github.com/ruuda/claxon/tree/e7dae6ee16376f15a25b4126810b25902f82c8b4) |
 | **Variants**          | - [vuln-crate](vuln-crate)                                                               |
 |                       | - [vuln-file](vuln-file)                                                                 |
-|                       | - [vuln-function](vuln-function)                                                         |
 |                       | - [fixed-crate](vuln-crate)                                                              |
 |                       | - [fixed-file](vuln-file)                                                                |
-|                       | - [fixed-function](vuln-function)                                                        |
 
 ## Vulnerable lines
 
