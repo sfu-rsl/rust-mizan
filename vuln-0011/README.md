@@ -3,8 +3,8 @@
 | **Information**       | **Details**                                                                                       |
 | --------------------- | --------------------------------------------------------------------------------------------------|
 | **CVE**               | [CVE-2017-1000430](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-1000430)                           |
-| **Vulnerable Commit** | [5cf6f26](https://github.com/marshallpierce/rust-base64/tree/5cf6f261e1147d7d1359e3759130280e22715dc2) |
-| **Fixed Commit**      | [24ead98](https://github.com/marshallpierce/rust-base64/tree/24ead980daf11ba563e4fb2516187a56a71ad319) |
+| **Vulnerable Commit** | [21a9389](https://github.com/marshallpierce/rust-base64/tree/21a9389cf340f1e36e48856859d5713b97744383) |
+| **Fixed Commit**      | [e0ffe70](https://github.com/marshallpierce/rust-base64/tree/e0ffe7096f8e1457c5e1ab5bcf34dce49ee1e43e) |
 | **Variants**          | - [fixed-crate](fixed-crate)                                                                               |
 |                       | - [fixed-function](fixed-function)                                                                            |
 |                       | - [vuln-crate](vuln-crate)                                                                                |

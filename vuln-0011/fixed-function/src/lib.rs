@@ -40,20 +40,112 @@ pub struct Config {
     line_wrap: LineWrap,
 }
 
-// calculate the base64 encoded string size, including padding
+impl Config {
+    pub fn new(char_set: CharacterSet,
+               pad: bool,
+               strip_whitespace: bool,
+               input_line_wrap: LineWrap) -> Config {
+        let line_wrap = match input_line_wrap  {
+            LineWrap::Wrap(0, _) => LineWrap::NoWrap,
+            _ => input_line_wrap,
+        };
+
+        Config {
+            char_set: char_set,
+            pad: pad,
+            strip_whitespace: strip_whitespace,
+            line_wrap: line_wrap,
+        }
+    }
+}
+
+pub static STANDARD: Config = Config {
+    char_set: CharacterSet::Standard,
+    pad: true,
+    strip_whitespace: false,
+    line_wrap: LineWrap::NoWrap,
+};
+
+pub static MIME: Config = Config {
+    char_set: CharacterSet::Standard,
+    pad: true,
+    strip_whitespace: true,
+    line_wrap: LineWrap::Wrap(76, LineEnding::CRLF),
+};
+
+pub static URL_SAFE: Config = Config {
+    char_set: CharacterSet::UrlSafe,
+    pad: true,
+    strip_whitespace: false,
+    line_wrap: LineWrap::NoWrap,
+};
+
+pub static URL_SAFE_NO_PAD: Config = Config {
+    char_set: CharacterSet::UrlSafe,
+    pad: false,
+    strip_whitespace: false,
+    line_wrap: LineWrap::NoWrap,
+};
+
+
+///Encode arbitrary octets as base64.
+///Returns a String.
+///Convenience for `encode_config(input, base64::STANDARD);`.
+///
+///# Example
+///
+///```rust
+///extern crate base64;
+///
+///fn main() {
+///    let b64 = base64::encode(b"hello world");
+///    println!("{}", b64);
+///}
+///```
+pub fn encode<T: ?Sized + AsRef<[u8]>>(input: &T) -> String {
+    encode_config(input, STANDARD)
+}
+
+///Encode arbitrary octets as base64.
+///Returns a String.
+///
+///# Example
+///
+///```rust
+///extern crate base64;
+///
+///fn main() {
+///    let b64 = base64::encode_config(b"hello world~", base64::STANDARD);
+///    println!("{}", b64);
+///
+///    let b64_url = base64::encode_config(b"hello internet~", base64::URL_SAFE);
+///    println!("{}", b64_url);
+///}
+///```
+pub fn encode_config<T: ?Sized + AsRef<[u8]>>(input: &T, config: Config) -> String {
+    let mut buf = match encoded_size(input.as_ref().len(), config) {
+        Some(n) => String::with_capacity(n),
+        None => panic!("integer overflow when calculating buffer size")
+    };
+
+    encode_config_buf(input, config, &mut buf);
+
+    buf
+}
+
+/// calculate the base64 encoded string size, including padding
 fn encoded_size(bytes_len: usize, config: Config) -> Option<usize> {
     let printing_output_chars = bytes_len
         .checked_add(2)
         .map(|x| x / 3)
         .and_then(|x| x.checked_mul(4));
+
     //TODO this is subtly wrong but in a not dangerous way
     //pushing patch with identical to previous behavior, then fixing
     let line_ending_output_chars = match config.line_wrap {
         LineWrap::NoWrap => Some(0),
-
         LineWrap::Wrap(n, LineEnding::CRLF) =>
             printing_output_chars.map(|y| y / n).and_then(|y| y.checked_mul(2)),
-
         LineWrap::Wrap(n, LineEnding::LF) =>
             printing_output_chars.map(|y| y / n),
     };
@@ -61,7 +153,6 @@ fn encoded_size(bytes_len: usize, config: Config) -> Option<usize> {
     printing_output_chars.and_then(|x|
         line_ending_output_chars.and_then(|y| x.checked_add(y))
     )
-
 }
 
 ///Encode arbitrary octets as base64.

@@ -1,10 +1,15 @@
 [package]
 name = "vuln-0011-vuln-function"
-version = "0.0.1"
-edition = "2018"
+version = "0.1.0"
+edition = "2021"
 
 [dependencies]
 byteorder = "1.0.0"
 
 [dev-dependencies]
 rand = "=0.3.15"
+
+[profile.bench]
+# Uncomment when using `perf record`
+#debug = true
+    
