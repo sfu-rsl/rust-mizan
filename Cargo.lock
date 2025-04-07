@@ -2675,6 +2675,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "vuln-0008-fixed-crate"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0008-fixed-function"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0008-vuln-crate"
+version = "0.1.0"
+
+[[package]]
+name = "vuln-0008-vuln-function"
+version = "0.1.0"
+
+[[package]]
 name = "vuln-0009-vuln-crate"
 version = "0.1.0"
 
