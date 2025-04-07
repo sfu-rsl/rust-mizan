@@ -2134,10 +2134,18 @@ dependencies = [
 [[package]]
 name = "vuln-0014-vuln-crate"
 version = "0.1.0"
+dependencies = [
+ "compiletest_rs",
+ "crossbeam-utils 0.6.6",
+]
 
 [[package]]
 name = "vuln-0014-vuln-function"
 version = "0.1.0"
+dependencies = [
+ "compiletest_rs",
+ "crossbeam-utils 0.6.6",
+]
 
 [[package]]
 name = "wait-timeout"

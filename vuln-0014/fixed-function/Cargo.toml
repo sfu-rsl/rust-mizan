@@ -1,5 +1,5 @@
 [package]
-name = "vuln-0014-fixed-crate"
+name = "vuln-0014-fixed-function"
 version = "0.1.0"
 edition = "2021"
 
