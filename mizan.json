@@ -502,7 +502,7 @@
         {
           "path_to_crate": "vuln-0008/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": [],
+          "cwe_type": ["362"],
           "vulnerable_functions": {
             "src/mpmc.rs": [
               "unsafe impl<T, B: Buffer<T>> Send for MPMCConsumer<T, B> {}",
@@ -536,7 +536,7 @@
         {
           "path_to_crate": "vuln-0008/vuln-functin",
           "is_vulnerability": true,
-          "cwe_type": [],
+          "cwe_type": ["362"],
           "vulnerable_functions": {
             "src/mpmc.rs": [
               "unsafe impl<T, B: Buffer<T>> Send for MPMCConsumer<T, B> {}",
