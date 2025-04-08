@@ -1543,6 +1543,227 @@
           "vulnerable_lines": {}
         }
       ]
+    },
+    {
+      "id": "vuln-0030",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35866",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0030/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/vtab/mod.rs": [
+              "pub trait VTab: Sized",
+              "pub trait VTabCursor: Sized"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/vtab/mod.rs": [195, 459]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0030/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0031",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35867",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0031/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/vtab/mod.rs": [
+              "pub fn create_module<T: VTab>",
+              "fn create_module<T: VTab>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/vtab/mod.rs": [588, 599, 610, 620]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0031/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0032",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35868",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0032/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/unlock_notify.rs": [
+              "fn fired(&mut self)",
+              "fn wait(&mut self)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/unlock_notify.rs": [29, 34, 49]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0032/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0033",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35869",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0033/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-134"],
+          "vulnerable_functions": {
+            "src/trace.rs": ["pub fn log(err_code: c_int, msg: &str)"]
+          },
+          "vulnerable_lines": {
+            "src/trace.rs": [64]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0033/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0034",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35870",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0034/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-416"],
+          "vulnerable_functions": {
+            "src/functions.rs": [
+              "pub fn set_aux<T: 'static>(&self, arg: c_int, value: T)",
+              "pub fn get_aux<T: 'static>(&self, arg: c_int) -> Result<Option<&T>>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/functions.rs": [203, 207]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0034/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0035",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35871",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0035/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/functions.rs": [
+              "pub fn set_aux<T: 'static>(&self, arg: c_int, value: T)",
+              "pub fn get_aux<T: 'static>(&self, arg: c_int) -> Result<Option<&T>>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/functions.rs": [180, 198, 203, 207]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0035/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0036",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35872",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0036/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-351"],
+          "vulnerable_functions": {
+            "src/functions.rs": [
+              "pub fn set_aux<T: 'static>(&self, arg: c_int, value: T)",
+              "pub fn get_aux<T: 'static>(&self, arg: c_int) -> Result<Option<&T>>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/functions.rs": [182, 199, 200]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0036/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0037",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35873",
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0037/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-416"],
+          "vulnerable_functions": {
+            "src/session.rs": [
+              "pub fn attach(&mut self, table: Option<&str>) -> Result<()>",
+              "pub fn diff(&mut self, from: DatabaseName<'_>, table: &str) -> Result<()>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/session.rs": [107, 160]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0037/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
     }
   ]
 }
