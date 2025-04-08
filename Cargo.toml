@@ -162,4 +162,36 @@ members = [
 
     "vuln-0028/fixed-crate",
     "vuln-0028/fixed-function",
+
+    "vuln-0030/vuln-crate",
+
+    "vuln-0030/fixed-crate",
+
+    "vuln-0031/vuln-crate",
+
+    "vuln-0031/fixed-crate",
+
+    "vuln-0032/vuln-crate",
+
+    "vuln-0032/fixed-crate",
+
+    "vuln-0033/vuln-crate",
+
+    "vuln-0033/fixed-crate",
+
+    "vuln-0034/vuln-crate",
+
+    "vuln-0034/fixed-crate",
+
+    "vuln-0035/vuln-crate",
+
+    "vuln-0035/fixed-crate",
+
+    "vuln-0036/vuln-crate",
+
+    "vuln-0036/fixed-crate",
+
+    "vuln-0037/vuln-crate",
+
+    "vuln-0037/fixed-crate",
 ]
