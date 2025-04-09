@@ -96,7 +96,7 @@ class VulnCrateInfo:
         for vuln_rust_file_location_key in sample["vulnerable_lines"]:
             vuln_rust_file_path = os.path.join(crate_path, vuln_rust_file_location_key)
             if not os.path.exists(vuln_rust_file_path):
-                raise FileNotFoundError(f"❌ Path: {file_path} doesn't exist!")
+                raise FileNotFoundError(f"❌ Path: {vuln_rust_file_path} doesn't exist!")
             lines_array = set(sample["vulnerable_lines"][vuln_rust_file_location_key])
             with open(vuln_rust_file_path, "r", encoding="utf-8") as f:
                 for line_idx, line in enumerate(f.readlines()):
