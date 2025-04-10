@@ -628,13 +628,13 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-119"],
           "vulnerable_functions": {
-            "src/compact.rs": [
+            "src/lib.rs": [
               "fn encoded_size(bytes_len: usize, config: Config) -> usize",
               "pub fn encode_config_buf<T: ?Sized + AsRef<[u8]>>(input: &T, config: Config, buf: &mut String)"
             ]
           },
           "vulnerable_lines": {
-            "src/compact.rs": [186, 190, 247, 248, 249, 250, 251, 252, 253, 254]
+            "src/lib.rs": [186, 190, 247, 248, 249, 250, 251, 252, 253, 254]
           }
         },
         {
@@ -648,7 +648,7 @@
             ]
           },
           "vulnerable_lines": {
-            "src/compact.rs": [137, 141, 198, 199, 200, 201, 202, 203, 204, 205]
+            "src/lib.rs": [137, 141, 198, 199, 200, 201, 202, 203, 204, 205]
           }
         },
         {
