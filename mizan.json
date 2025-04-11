@@ -419,7 +419,7 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [167]
+            "src/lib.rs": [210]
           }
         },
         {
