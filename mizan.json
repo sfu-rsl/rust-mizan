@@ -9,6 +9,8 @@
       "id": "vuln-0001",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-16140",
+      "crate_name": "chttp",
+      "year": 2019,
       "code_samples": [
         {
           "path_to_crate": "vuln-0001/vuln-function",
@@ -70,6 +72,8 @@
       "id": "vuln-0002",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35711",
+      "crate_name": "arc-swap",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0002/vuln-crate",
@@ -143,6 +147,8 @@
       "id": "vuln-0003",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-21000",
+      "crate_name": "safe-transmute",
+      "year": 2018,
       "code_samples": [
         {
           "path_to_crate": "vuln-0003/vuln-crate",
@@ -218,6 +224,8 @@
       "id": "vuln-0004",
       "author": "Paul Ngo",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35891",
+      "crate_name": "ordnung",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0004/vuln-crate",
@@ -267,6 +275,8 @@
       "id": "vuln-0005",
       "author": "Nathan Young",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35916",
+      "crate_name": "image",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0005/vuln-function",
@@ -334,6 +344,8 @@
       "id": "vuln-0006",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-25900",
+      "crate_name": "smallvec",
+      "year": 2021,
       "code_samples": [
         {
           "path_to_crate": "vuln-0006/vuln-crate",
@@ -401,6 +413,8 @@
       "id": "vuln-0007",
       "author": "Paul Ngo",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35890",
+      "crate_name": "ordnung",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0007/vuln-crate",
@@ -503,12 +517,9 @@
     {
       "id": "vuln-0009",
       "author": "Tarek Elsayed",
-      "title": "Matrix::new() drops uninitialized memory",
-      "vulnerability_type": "memory",
-      "vulnerability_subtypes": ["access/free uninitialized memory"],
-      "severity": "Critical",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-36432",
-      "description": "`Matrix::new()` internally calls `Matrix::fill_with()` which uses `*ptr = value` pattern to initialize the buffer. This pattern assumes that there is an initialized struct at the address and drops it, which results in dropping of uninitialized struct.",
+      "crate_name": "alg_ds",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0009/vuln-crate",
@@ -558,6 +569,8 @@
       "id": "vuln-0010",
       "author": "Paul Ngo",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-36204",
+      "crate_name": "im",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0010/vuln-crate",
@@ -628,6 +641,8 @@
       "id": "vuln-0012",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-36215",
+      "crate_name": "hashconsing",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0012/vuln-crate",
@@ -698,6 +713,8 @@
       "id": "vuln-0013",
       "author": "Paul Ngo",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35862",
+      "crate_name": "bitvec",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0013/vuln-crate",
@@ -759,6 +776,8 @@
       "id": "vuln-0015",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35886",
+      "crate_name": "arr",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0015/vuln-crate",
@@ -794,6 +813,8 @@
       "id": "vuln-0016",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35887",
+      "crate_name": "arr",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0016/vuln-crate",
@@ -829,6 +850,8 @@
       "id": "vuln-0017",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35888",
+      "crate_name": "arr",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0017/vuln-crate",
@@ -862,6 +885,8 @@
       "id": "vuln-0018",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25791",
+      "crate_name": "sized-chunks",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0018/vuln-crate",
@@ -927,6 +952,8 @@
       "id": "vuln-0019",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25792",
+      "crate_name": "sized-chunks",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0019/vuln-crate",
@@ -996,6 +1023,8 @@
       "id": "vuln-0020",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25793",
+      "crate_name": "sized-chunks",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0020/vuln-crate",
@@ -1061,6 +1090,8 @@
       "id": "vuln-0021",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25794",
+      "crate_name": "sized-chunks",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0021/vuln-crate",
@@ -1131,6 +1162,8 @@
       "id": "vuln-0022",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25795",
+      "crate_name": "sized-chunks",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0022/vuln-crate",
@@ -1198,6 +1231,8 @@
       "id": "vuln-0023",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25796",
+      "crate_name": "sized-chunks",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0023/vuln-crate",
@@ -1286,6 +1321,8 @@
       "id": "vuln-0024",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35892",
+      "crate_name": "simple-slab",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0024/vuln-crate",
@@ -1329,6 +1366,8 @@
       "id": "vuln-0025",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35893",
+      "crate_name": "simple-slab",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0025/vuln-crate",
@@ -1372,6 +1411,8 @@
       "id": "vuln-0026",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-50711",
+      "crate_name": "vmm-sys-util",
+      "year": 2023,
       "code_samples": [
         {
           "path_to_crate": "vuln-0026/vuln-crate",
@@ -1442,6 +1483,8 @@
       "id": "vuln-0027",
       "author": "Paul Ngo",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-20992",
+      "crate_name": "claxon",
+      "year": 2018,
       "code_samples": [
         {
           "path_to_crate": "vuln-0027/vuln-crate",
@@ -1495,6 +1538,8 @@
       "id": "vuln-0028",
       "author": "Paul Ngo",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-16141",
+      "crate_name": "once_cell",
+      "year": 2019,
       "code_samples": [
         {
           "path_to_crate": "vuln-0028/vuln-crate",
@@ -1544,6 +1589,8 @@
       "id": "vuln-0030",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35866",
+      "crate_name": "rusqlite",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0030/vuln-crate",
@@ -1572,6 +1619,8 @@
       "id": "vuln-0031",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35867",
+      "crate_name": "rusqlite",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0031/vuln-crate",
@@ -1600,6 +1649,8 @@
       "id": "vuln-0032",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35868",
+      "crate_name": "rusqlite",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0032/vuln-crate",
@@ -1628,6 +1679,8 @@
       "id": "vuln-0033",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35869",
+      "crate_name": "rusqlite",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0033/vuln-crate",
@@ -1653,6 +1706,8 @@
       "id": "vuln-0034",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35870",
+      "crate_name": "rusqlite",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0034/vuln-crate",
@@ -1681,6 +1736,8 @@
       "id": "vuln-0035",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35871",
+      "crate_name": "rusqlite",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0035/vuln-crate",
@@ -1709,6 +1766,8 @@
       "id": "vuln-0036",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35872",
+      "crate_name": "rusqlite",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0036/vuln-crate",
@@ -1737,6 +1796,8 @@
       "id": "vuln-0037",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35873",
+      "crate_name": "rusqlite",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0037/vuln-crate",

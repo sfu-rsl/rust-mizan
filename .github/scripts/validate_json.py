@@ -32,6 +32,8 @@ schema = {
                     "id": {"type": "string"},
                     "author": {"type": "string"},
                     "source_link": {"type": "string"},
+                    "crate_name": {"type": "string"},
+                    "year": {"type": "integer"},
                     "code_samples": {
                         "type": "array",
                         "items": {
