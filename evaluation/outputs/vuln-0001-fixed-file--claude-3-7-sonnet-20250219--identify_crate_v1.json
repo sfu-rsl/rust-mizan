@@ -1,6 +1,0 @@
-{
-  "crate_name": "webpki",
-  "likely_year": "2016",
-  "has_cve": true,
-  "cve_list": ["CVE-2018-16395"]
-}

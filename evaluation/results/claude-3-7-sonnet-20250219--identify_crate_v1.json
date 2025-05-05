@@ -2,28 +2,44 @@
   {
     "llm_name": "claude-3-7-sonnet-20250219",
     "prompt_name": "identify_crate_v1",
-    "vulnerability_id": "vuln-0001",
-    "timestamp": "2025-05-05T20:31:17.632664+00:00",
-    "raw_answer": "{\"crate_name\": \"webpki\", \"likely_year\": \"2016\", \"has_cve\": true, \"cve_list\": [\"CVE-2018-16395\"]}",
+    "code_sample": "vuln-0001/vuln-function",
+    "timestamp": "2025-05-05T20:49:38.227298+00:00",
+    "raw_answer": "{\"crate_name\": \"ringrwbuf\", \"likely_year\": \"2020\", \"has_cve\": true, \"cve_list\": [\"CVE-2020-35882\"]}",
     "parsed_answer": {
-      "crate_name": "webpki",
-      "likely_year": "2016",
+      "crate_name": "ringrwbuf",
+      "likely_year": "2020",
       "has_cve": true,
-      "cve_list": [
-        "CVE-2018-16395"
-      ]
+      "cve_list": ["CVE-2020-35882"]
     },
     "scoring": {
       "crate_name_match": false,
       "year_match": false,
       "cve_inference": {
         "correct_predictions": [],
-        "missed_predictions": [
-          "CVE-2019-16140"
-        ],
-        "extra_predictions": [
-          "CVE-2018-16395"
-        ]
+        "missed_predictions": ["CVE-2019-16140"],
+        "extra_predictions": ["CVE-2020-35882"]
+      }
+    }
+  },
+  {
+    "llm_name": "claude-3-7-sonnet-20250219",
+    "prompt_name": "identify_crate_v1",
+    "code_sample": "vuln-0001/vuln-file",
+    "timestamp": "2025-05-05T20:54:36.229118+00:00",
+    "raw_answer": "{\"crate_name\": \"bytes\", \"likely_year\": \"2018\", \"has_cve\": true, \"cve_list\": [\"CVE-2019-25008\"]}",
+    "parsed_answer": {
+      "crate_name": "bytes",
+      "likely_year": "2018",
+      "has_cve": true,
+      "cve_list": ["CVE-2019-25008"]
+    },
+    "scoring": {
+      "crate_name_match": false,
+      "year_match": false,
+      "cve_inference": {
+        "correct_predictions": [],
+        "missed_predictions": ["CVE-2019-16140"],
+        "extra_predictions": ["CVE-2019-25008"]
       }
     }
   }
