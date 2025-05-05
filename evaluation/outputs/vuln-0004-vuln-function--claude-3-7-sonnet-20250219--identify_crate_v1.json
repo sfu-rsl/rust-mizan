@@ -1,0 +1,6 @@
+{
+  "crate_name": "tinyvec",
+  "likely_year": "2018",
+  "has_cve": true,
+  "cve_list": ["CVE-2021-29922"]
+}

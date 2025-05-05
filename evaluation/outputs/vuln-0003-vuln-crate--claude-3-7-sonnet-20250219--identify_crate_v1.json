@@ -1,0 +1,6 @@
+{
+  "crate_name": "safe-transmute",
+  "likely_year": "2018",
+  "has_cve": true,
+  "cve_list": ["CVE-2021-45702"]
+}

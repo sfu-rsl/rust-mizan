@@ -1,0 +1,6 @@
+{
+  "crate_name": "arc-swap",
+  "likely_year": "2018",
+  "has_cve": true,
+  "cve_list": ["CVE-2023-46218"]
+}
