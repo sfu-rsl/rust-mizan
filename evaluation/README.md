@@ -164,7 +164,7 @@ The results are saved to:
 sprout -d ../vuln-0001/fixed-file \
        -l anthropic \
        -p prompt-templates/identify_crate_v1.txt \
-       > outputs/vuln-0001--claude-3-7-sonnet-20250219--identify_crate_v1.json
+       > outputs/vuln-0001-fixed-file--claude-3-7-sonnet-20250219--identify_crate_v1.json
 ```
 
 #### Step 2: Score the Output
@@ -173,6 +173,6 @@ sprout -d ../vuln-0001/fixed-file \
 python score_crate_info_and_append.py \
   claude-3-7-sonnet-20250219 \
   vuln-0001 \
-  outputs/vuln-0001--claude-3-7-sonnet-20250219--identify_crate_v1.json \
+  outputs/vuln-0001-fixed-file--claude-3-7-sonnet-20250219--identify_crate_v1.json \
   identify_crate_v1
 ```

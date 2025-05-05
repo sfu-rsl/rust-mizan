@@ -1,6 +1,0 @@
-{
-  "crate_name": "mio-extras",
-  "likely_year": "2018",
-  "has_cve": true,
-  "cve_list": ["CVE-2023-22497"]
-}
