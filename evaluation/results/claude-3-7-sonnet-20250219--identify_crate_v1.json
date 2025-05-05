@@ -1,0 +1,30 @@
+[
+  {
+    "llm_name": "claude-3-7-sonnet-20250219",
+    "prompt_name": "identify_crate_v1",
+    "vulnerability_id": "vuln-0001",
+    "timestamp": "2025-05-05T20:19:58.018953+00:00",
+    "raw_answer": "{\"crate_name\": \"mio-extras\", \"likely_year\": \"2018\", \"has_cve\": true, \"cve_list\": [\"CVE-2023-22497\"]}",
+    "parsed_answer": {
+      "crate_name": "mio-extras",
+      "likely_year": "2018",
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2023-22497"
+      ]
+    },
+    "scoring": {
+      "crate_name_match": false,
+      "year_match": false,
+      "cve_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CVE-2019-16140"
+        ],
+        "extra_predictions": [
+          "CVE-2023-22497"
+        ]
+      }
+    }
+  }
+]

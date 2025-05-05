@@ -10,11 +10,13 @@ This folder contains the scripts and outputs for evaluating LLMs on RustMizan.
 
 ## How to Use
 
-### 1. Generate the Prompt and Run the LLM
+### Vulnerability Detection
+
+#### 1. Generate the Prompt and Run the LLM
 
 To run evaluations, we use [`sprout`](https://github.com/sfu-rsl/sprout) shell script
 
-#### Prompt Templates
+##### Prompt Templates
 
 All prompt templates are stored in [`prompt-templates/`](prompt-templates/). Each prompt file should be named according to its purpose and version. For example:
 
@@ -22,7 +24,7 @@ All prompt templates are stored in [`prompt-templates/`](prompt-templates/). Eac
 prompt-templates/find_vulnerability_v1.txt
 ```
 
-#### Output Naming Convention
+##### Output Naming Convention
 
 LLM outputs will be saved under the `outputs/` folder. Each output file should be named in the format:
 
@@ -36,7 +38,7 @@ Example:
 outputs/vuln-0001-fixed-file--claude-3-7-sonnet-20250219--find_vulnerability_v1.json
 ```
 
-#### Example Command
+##### Example Command
 
 To evaluate a code sample using a specific LLM and prompt:
 
@@ -51,7 +53,7 @@ sprout -d ../vuln-0001/fixed-file \
 - `-l`: LLM provider (`anthropic` or `openai`)
 - `-p`: Prompt file (from `prompt-templates/`)
 
-### 2. Score the LLM Output
+#### 2. Score the LLM Output
 
 Run the following command inside the `evaluation` directory:
 
@@ -119,7 +121,7 @@ An example result entry looks like:
 ]
 ```
 
-## Scoring Criteria
+#### Scoring Criteria
 
 Each LLM output is evaluated on four tasks:
 
@@ -137,3 +139,40 @@ The output is compared strictly:
 
 > [!NOTE]
 > It is assumed that fixed code samples do not contain any other hidden vulnerabilities.
+
+### Contamination Assessment
+
+This task checks whether the LLM has prior memorization of the vulnerability by predicting:
+
+- Crate name
+- Likely publication year
+- Associated CVEs
+
+The model is scored on:
+
+| Field      | Scoring Rule                                   |
+| ---------- | ---------------------------------------------- |
+| Crate Name | Exact match                                    |
+| Year       | Exact match (string or int allowed)            |
+| CVE List   | Set comparison (correct / missed / extra CVEs) |
+
+The results are saved to:
+
+#### Step 1: Run the LLM
+
+```sh
+sprout -d ../vuln-0001/fixed-file \
+       -l anthropic \
+       -p prompt-templates/identify_crate_v1.txt \
+       > outputs/vuln-0001--claude-3-7-sonnet-20250219--identify_crate_v1.json
+```
+
+#### Step 2: Score the Output
+
+```sh
+python score_crate_info_and_append.py \
+  claude-3-7-sonnet-20250219 \
+  vuln-0001 \
+  outputs/vuln-0001--claude-3-7-sonnet-20250219--identify_crate_v1.json \
+  identify_crate_v1
+```
