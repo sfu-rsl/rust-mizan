@@ -15,7 +15,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-416"],
           "vulnerable_functions": {
-            "src/lib.rs": "fn from(buffer: Buffer) -> Vec<u8>"
+            "src/lib.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
           },
           "vulnerable_lines": {
             "src/lib.rs": [95]
@@ -26,7 +26,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-416"],
           "vulnerable_functions": {
-            "src/buffer.rs": "fn from(buffer: Buffer) -> Vec<u8>"
+            "src/buffer.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
           },
           "vulnerable_lines": {
             "src/buffer.rs": [195]
@@ -37,7 +37,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-416"],
           "vulnerable_functions": {
-            "src/buffer.rs": "fn from(buffer: Buffer) -> Vec<u8>"
+            "src/buffer.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
           },
           "vulnerable_lines": {
             "src/buffer.rs": [195]
@@ -273,7 +273,9 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-400"],
           "vulnerable_functions": {
-            "src/lib.rs": "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+            "src/lib.rs": [
+              "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+            ]
           },
           "vulnerable_lines": {
             "src/lib.rs": [24]
@@ -284,7 +286,9 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-400"],
           "vulnerable_functions": {
-            "src/color.rs": "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+            "src/color.rs": [
+              "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+            ]
           },
           "vulnerable_lines": {
             "src/color.rs": [256]
@@ -295,7 +299,9 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-400"],
           "vulnerable_functions": {
-            "src/color.rs": "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+            "src/color.rs": [
+              "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+            ]
           },
           "vulnerable_lines": {
             "src/color.rs": [256]
@@ -698,9 +704,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-415", "CWE-416"],
           "vulnerable_functions": {
-            "src/vec.rs": [
-              "fn into_boxed_bitslice(self) -> BitBox<O, T>"
-            ]
+            "src/vec.rs": ["fn into_boxed_bitslice(self) -> BitBox<O, T>"]
           },
           "vulnerable_lines": {
             "src/vec.rs": [655]
@@ -711,9 +715,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-415", "CWE-416"],
           "vulnerable_functions": {
-            "src/vec.rs": [
-              "fn into_boxed_bitslice(self) -> BitBox<O, T>"
-            ]
+            "src/vec.rs": ["fn into_boxed_bitslice(self) -> BitBox<O, T>"]
           },
           "vulnerable_lines": {
             "src/vec.rs": [655]
@@ -724,9 +726,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-415", "CWE-416"],
           "vulnerable_functions": {
-            "src/lib.rs": [
-              "fn into_boxed_bitslice(self) -> BitBox<O, T>"
-            ]
+            "src/lib.rs": ["fn into_boxed_bitslice(self) -> BitBox<O, T>"]
           },
           "vulnerable_lines": {
             "src/lib.rs": [2503]
@@ -1452,9 +1452,7 @@
               "fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
               "pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult"
             ],
-            "src/subframe.rs": [
-              "fn decode_residual<R: ReadBytes>"
-            ]
+            "src/subframe.rs": ["fn decode_residual<R: ReadBytes>"]
           },
           "vulnerable_lines": {
             "src/frame.rs": [618, 657],
@@ -1470,9 +1468,7 @@
               "fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
               "pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult"
             ],
-            "src/subframe.rs": [
-              "fn decode_residual<R: ReadBytes>"
-            ]
+            "src/subframe.rs": ["fn decode_residual<R: ReadBytes>"]
           },
           "vulnerable_lines": {
             "src/frame.rs": [618, 657],

@@ -1,0 +1,16 @@
+Analyze the code and tell me if you can identify which open-source crate it likely belongs to.
+
+If you can identify the crate, answer the following:
+
+1. What is the name of the crate?
+2. What version or range of versions is this code from, if known?
+3. Has this crate ever had a publicly reported CVE (Common Vulnerabilities and Exposures)? If yes, which one(s)?
+
+Return your response in the following JSON format:
+
+{
+  "crate_name": "string or null",
+  "version_range": "string or null",
+  "has_cve": true or false,
+  "cve_list": ["CVE-YYYY-NNNNN", ...] or []
+}
