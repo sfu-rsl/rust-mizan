@@ -11,23 +11,31 @@ RustMizan (**ميزانَ**- meaning "scale" in Arabic) is a benchmark designed 
 cargo build --workspace
 ```
 
-## How to Add a New Vulnerability
+## Evaluation Tasks
 
-- Identify a vulnerability from the `datasets/` folder.
-- Create a folder to contain all Rust crates (code samples). Name it sequentially after the last reported vulnerability in the repo.
-- Identify the commits where the code was vulnerable and where it was fixed. Only include fixes that are peer-reviewed or accepted 
-  by the community (i.e., fixes that [RustSec](https://rustsec.org/) has officially marked as patched). Some vulnerabilities might
-  not have any fixes.
-- Generate vulnerable code samples
-  - Copy the entire crate into its own crate inside the new folder
-  - Create a module-only crate by reducing the crate to just the vulnerable module.
-  - Create a file-only crate by reducing the code to just the vulnerable file.
-  - Create a function-only crate by reducing the code to just the vulnerable function.
-- Generate non-vulnerable ("fixed") samples, if a valid fix exists (see above for what counts as valid)
-  - Repeat the same process for the code at the fix commit
-- Create a README File. Include relevant information (CVE ID - Commit references before and after the fix - List of sample variants)
-- Update `mizan.json`
-- Update the dataset folder to mark the vulnerability as done
+Each code sample can be used to evaluate one or more of the following:
+
+1. Vulnerability Existence Detection
+2. CWE Type Inference
+3. Key Data Objects & Functions Identification:
+4. Root Cause Location
+
+All metadata is stored in `mizan.json`.
+
+## Granularity Levels
+
+For each vulnerability, we include up to 6 samples:
+
+- 3 vulnerable and 3 fixed crates: each at the crate, module, file, and function level.
+- This allows testing model performance across different code sizes and contexts.
+
+## Evaluation
+
+See the [`evaluation/`](./evaluation) folder for scripts and instructions on running benchmarks using LLMs.
 
 > [!Note]
-> In some cases, it might be challenging or unrealistic to add the whole crate/module (e.g., when dealing with the standard library). If unsure, please open an issue for discussion.
+> Vulnerabilities 0030–0037 depend on the same crate that uses `links = "sqlite3"` in its manifest.  
+> Cargo does not allow multiple crates with the same `links` value in a single workspace.  
+> When evaluating these vulnerabilities, run each one in isolation, outside the workspace.
+
+To add a new vulnerability to the dataset, please follow the instructions in [CONTRIBUTING.md](./CONTRIBUTING.md).
