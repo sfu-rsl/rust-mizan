@@ -3867,6 +3867,38 @@ dependencies = [
 ]
 
 [[package]]
+name = "vuln-0039-fixed-crate"
+version = "0.6.10"
+dependencies = [
+ "bincode",
+ "serde",
+]
+
+[[package]]
+name = "vuln-0039-fixed-function"
+version = "0.6.10"
+dependencies = [
+ "bincode",
+ "serde",
+]
+
+[[package]]
+name = "vuln-0039-vuln-crate"
+version = "0.6.9"
+dependencies = [
+ "bincode",
+ "serde",
+]
+
+[[package]]
+name = "vuln-0039-vuln-function"
+version = "0.6.9"
+dependencies = [
+ "bincode",
+ "serde",
+]
+
+[[package]]
 name = "wait-timeout"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
