@@ -531,15 +531,15 @@
               "unsafe impl<T, B: Buffer<T>> Sync for MPMCProducer<T, B> {}"
             ],
             "src/mpsc.rs": [
-              "unsafe impl<T: Send, B: Buffer<T>> Send for MPSCConsumer<T, B> {}",
-              "unsafe impl<T: Send, B: Buffer<T>> Send for MPSCProducer<T, B> {}",      
-              "unsafe impl<T: Send, B: Buffer<T>> Sync for MPSCProducer<T, B> {}"
+              "unsafe impl<T, B: Buffer<T>> Send for MPSCConsumer<T, B> {}",
+              "unsafe impl<T, B: Buffer<T>> Send for MPSCProducer<T, B> {}",
+              "unsafe impl<T, B: Buffer<T>> Sync for MPSCProducer<T, B> {}"
             ],
             "src/spmc.rs": [
-              "unsafe impl<T: Send, B: Buffer<T>> Send for SPMCConsumer<T, B> {}",
-              "unsafe impl<T: Send, B: Buffer<T>> Sync for SPMCConsumer<T, B> {}",
-              "unsafe impl<T: Send, B: Buffer<T>> Send for SPMCProducer<T, B> {}",
-              "unsafe impl<T: Send, B: Buffer<T>> Sync for SPMCProducer<T, B> {}"
+              "unsafe impl<T, B: Buffer<T>> Send for SPMCConsumer<T, B> {}",
+              "unsafe impl<T, B: Buffer<T>> Sync for SPMCConsumer<T, B> {}",
+              "unsafe impl<T, B: Buffer<T>> Send for SPMCProducer<T, B> {}",
+              "unsafe impl<T, B: Buffer<T>> Sync for SPMCProducer<T, B> {}"
             ],
             "src/spsc.rs": [
               "unsafe impl<T, B: Buffer<T>> Send for SPSCConsumer<T, B> {}",
@@ -554,7 +554,7 @@
           }
         },
         {
-          "path_to_crate": "vuln-0008/vuln-functin",
+          "path_to_crate": "vuln-0008/vuln-function",
           "is_vulnerability": true,
           "cwe_type": ["362"],
           "vulnerable_functions": {
@@ -565,19 +565,19 @@
               "unsafe impl<T, B: Buffer<T>> Sync for MPMCProducer<T, B> {}"
             ],
             "src/mpsc.rs": [
-              "unsafe impl<T: Send, B: Buffer<T>> Send for MPSCConsumer<T, B> {}",
-              "unsafe impl<T: Send, B: Buffer<T>> Send for MPSCProducer<T, B> {}",      
-              "unsafe impl<T: Send, B: Buffer<T>> Sync for MPSCProducer<T, B> {}"
+              "unsafe impl<T, B: Buffer<T>> Send for MPSCConsumer<T, B> {}",
+              "unsafe impl<T, B: Buffer<T>> Send for MPSCProducer<T, B> {}",
+              "unsafe impl<T, B: Buffer<T>> Sync for MPSCProducer<T, B> {}"
             ],
             "src/spmc.rs": [
-              "unsafe impl<T: Send, B: Buffer<T>> Send for SPMCConsumer<T, B> {}",
-              "unsafe impl<T: Send, B: Buffer<T>> Sync for SPMCConsumer<T, B> {}",
-              "unsafe impl<T: Send, B: Buffer<T>> Send for SPMCProducer<T, B> {}",
-              "unsafe impl<T: Send, B: Buffer<T>> Sync for SPMCProducer<T, B> {}"
+              "unsafe impl<T, B: Buffer<T>> Send for SPMCConsumer<T, B> {}",
+              "unsafe impl<T, B: Buffer<T>> Sync for SPMCConsumer<T, B> {}",
+              "unsafe impl<T, B: Buffer<T>> Send for SPMCProducer<T, B> {}",
+              "unsafe impl<T, B: Buffer<T>> Sync for SPMCProducer<T, B> {}"
             ],
             "src/spsc.rs": [
-              "unsafe impl<T: Send, B: Buffer<T>> Send for SPSCConsumer<T, B> {}",
-              "unsafe impl<T: Send, B: Buffer<T>> Send for SPSCProducer<T, B> {}"
+              "unsafe impl<T, B: Buffer<T>> Send for SPSCConsumer<T, B> {}",
+              "unsafe impl<T, B: Buffer<T>> Send for SPSCProducer<T, B> {}"
             ]
           },
           "vulnerable_lines": {
