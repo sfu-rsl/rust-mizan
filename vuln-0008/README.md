@@ -21,7 +21,7 @@ unsafe impl<T, B: Buffer<T>> Sync for MPMCConsumer<T, B> {}
 unsafe impl<T, B: Buffer<T>> Send for MPMCProducer<T, B> {}
 unsafe impl<T, B: Buffer<T>> Sync for MPMCProducer<T, B> {}
 
-// mulitple producer, singular consumer queue
+// multiple producer, singular consumer queue
 unsafe impl<T, B: Buffer<T>> Send for MPSCConsumer<T, B> {}
 
 unsafe impl<T, B: Buffer<T>> Send for MPSCProducer<T, B> {}
