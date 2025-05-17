@@ -1958,6 +1958,36 @@
       ]
     },
     {
+      "id": "vuln-0038",
+      "author": "Eunsong Koh",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2025-0033.html",
+      "crate_name": "scanner",
+      "year": 2019,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0038/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": [""],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn ptr(&self) -> *const u8",
+              "pub fn get<T>(&self, idx: usize) -> *const T"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/session.rs": [410, 415]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0038/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
       "id": "vuln-0039",
       "author": "Vincent Huang",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-15554",
