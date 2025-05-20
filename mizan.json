@@ -1839,7 +1839,7 @@
             ]
           },
           "vulnerable_lines": {
-            "src/sized_chunk/mod.rs": [656]
+            "lib.rs": [656]
           }
         },
         {
@@ -1852,7 +1852,7 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [226]
+            "lib.rs": [226]
           }
         },
         {
