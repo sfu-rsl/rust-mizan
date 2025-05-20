@@ -1,6 +1,0 @@
-{
-  "crate_name": "image",
-  "likely_year": "2019",
-  "has_cve": true,
-  "cve_list": ["CVE-2019-16138"]
-}

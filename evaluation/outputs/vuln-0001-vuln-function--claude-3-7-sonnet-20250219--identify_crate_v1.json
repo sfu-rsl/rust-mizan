@@ -1,6 +1,0 @@
-{
-  "crate_name": "ringrwbuf",
-  "likely_year": "2020",
-  "has_cve": true,
-  "cve_list": ["CVE-2020-35882"]
-}

@@ -1,6 +1,0 @@
-{
-  "crate_name": "parking_lot",
-  "likely_year": "2016",
-  "has_cve": true,
-  "cve_list": ["CVE-2019-1010238"]
-}
