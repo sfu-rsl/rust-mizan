@@ -1,0 +1,7 @@
+timestamp,llm_provider,llm_model,code_sample,existence_correct,cwe_tp,cwe_fp,cwe_fn,func_tp,func_fp,func_fn,line_tp,line_fp,line_fn
+2025-05-20T17:19:52.158892+00:00,openai,gpt-4o-mini,vuln-0001/vuln-function,True,0,2,1,1,1,0,1,1,0
+2025-05-20T17:19:55.225758+00:00,openai,gpt-4o-mini,vuln-0001/vuln-file,True,0,1,1,0,2,1,1,1,0
+2025-05-20T17:19:58.157413+00:00,openai,gpt-4o-mini,vuln-0001/vuln-crate,True,0,2,1,0,2,1,0,3,1
+2025-05-20T17:19:59.939252+00:00,openai,gpt-4o-mini,vuln-0001/fixed-function,False,0,2,0,0,1,0,0,2,0
+2025-05-20T17:20:01.879324+00:00,openai,gpt-4o-mini,vuln-0001/fixed-file,False,0,1,0,0,2,0,0,2,0
+2025-05-20T17:20:04.688601+00:00,openai,gpt-4o-mini,vuln-0001/fixed-crate,False,0,2,0,0,2,0,0,3,0
