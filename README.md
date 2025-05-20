@@ -29,9 +29,12 @@ For each vulnerability, we include up to 6 samples:
 - 3 vulnerable and 3 fixed crates: each at the crate, module, file, and function level.
 - This allows testing model performance across different code sizes and contexts.
 
+> By file code sample, we don't mean that the whole code sample is a single file. It is the file that contains the vulnerability
+> along with all of its dependencies to keep the file itself unmodified. Same for function code sample.
+
 ## Evaluation
 
-See the [`evaluation/`](./evaluation) folder for scripts and instructions on running benchmarks using LLMs.
+See [`sprout-pipeline/`](./sprout-pipeline) for instructions on running different tasks on the dataset.
 
 > [!Note]
 > Vulnerabilities 0030–0037 depend on the same crate that uses `links = "sqlite3"` in its manifest.  
