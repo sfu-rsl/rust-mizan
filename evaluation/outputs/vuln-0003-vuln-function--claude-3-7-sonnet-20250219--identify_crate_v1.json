@@ -1,6 +1,0 @@
-{
-  "crate_name": "byte_tools",
-  "likely_year": "2018",
-  "has_cve": true,
-  "cve_list": ["CVE-2020-25576"]
-}

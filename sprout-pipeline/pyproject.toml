@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "sprout-pipeline"
+version = "0.1.0"
+description = "LLM-assisted Rust vulnerability analysis helpers"
+authors = ["Tarek Elsayed <tarek_elsayed@sfu.ca>"]
+license = "MIT"
+packages = [{ include = "sprout_pipeline", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+langchain-openai = "0.3"
+langchain-anthropic = "0.3"
+langchain-community = "0.3"
+pydantic = "^2.7"
+openai = "^1.14"
+pandas = "^2.2"
+tqdm = "^4.66"
+
+[tool.poetry.scripts]
+sprout-run-task = "sprout_pipeline.cli_run_task:main"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
