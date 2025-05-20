@@ -2,6 +2,31 @@
 
 Sprout Pipeline is a lightweight toolkit for analyzing Rust crates using LLMs. It processes Rust code, sends it to an LLM with specific prompts, receives structured JSON responses, and automatically scores these responses against ground-truth data.
 
+## Architecture
+
+```mermaid
+flowchart LR
+    task["Tasks:<br>check_cve/identify_crate/vuln"] --> |selects| prompt["Task Prompt"]
+    input["Input:<br>mizan.json"] --> loader[Code Loader]
+    prompt --> pipeline[LLM Pipeline]
+    loader --> pipeline
+    pipeline --> llm["LLM Provider:<br>OpenAI/Anthropic"]
+    llm --> parser[JSON Parser]
+    parser --> scorer[Task Scorer]
+    scorer --> output1["JSON Output:<br>/output/"]
+    scorer --> output2["CSV Dataset:<br>/datasets/"]
+
+    classDef component fill:#f9f,stroke:#333,stroke-width:2px
+    classDef data fill:#bbf,stroke:#333,stroke-width:2px
+    classDef llm fill:#bfb,stroke:#333,stroke-width:2px
+    classDef task fill:#fdb,stroke:#333,stroke-width:2px
+
+    class input,prompt,output1,output2 data
+    class loader,pipeline,parser,scorer component
+    class llm llm
+    class task task
+```
+
 ## Installation
 
 [Poetry](https://python-poetry.org/) is required for local development.
