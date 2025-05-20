@@ -1,0 +1,263 @@
+[
+  {
+    "timestamp": "2025-05-20T17:19:52.158892+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o-mini",
+    "code_sample": "vuln-0001/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": ["CWE-758", "CWE-825"],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "fn allocate(size: usize) -> Box<[u8]>",
+          "fn from(buffer: Buffer) -> Vec<u8>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [81, 95]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": ["CWE-416"],
+        "extra_predictions": ["CWE-758", "CWE-825"]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": ["src/lib.rs:fn from(buffer: Buffer) -> Vec<u8>"],
+        "false_positive_keys": [
+          "src/lib.rs:fn allocate(size: usize) -> Box<[u8]>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": ["src/lib.rs:95"],
+        "false_positive_keys": ["src/lib.rs:81"],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-20T17:19:55.225758+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o-mini",
+    "code_sample": "vuln-0001/vuln-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": ["CWE-119"],
+      "vulnerable_functions": {
+        "src/buffer.rs": [
+          "fn allocate(size: usize) -> Box<[u8]>",
+          "fn from<B: Into<Vec<u8>>>(bytes: B) -> Self"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/buffer.rs": [178, 195]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": ["CWE-416"],
+        "extra_predictions": ["CWE-119"]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/buffer.rs:fn allocate(size: usize) -> Box<[u8]>",
+          "src/buffer.rs:fn from<B: Into<Vec<u8>>>(bytes: B) -> Self"
+        ],
+        "missed_keys": ["src/buffer.rs:fn from(buffer: Buffer) -> Vec<u8>"]
+      },
+      "root_cause_location": {
+        "true_positive_keys": ["src/buffer.rs:195"],
+        "false_positive_keys": ["src/buffer.rs:178"],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-20T17:19:58.157413+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o-mini",
+    "code_sample": "vuln-0001/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": ["CWE-20", "CWE-125"],
+      "vulnerable_functions": {
+        "src/client.rs": [
+          "fn send(&self, request: Request) -> Result<Response, Error>"
+        ],
+        "src/body.rs": [
+          "fn json(&mut self) -> Result<::json::JsonValue, Error>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/client.rs": [65],
+        "src/body.rs": [39, 55]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": ["CWE-416"],
+        "extra_predictions": ["CWE-125", "CWE-20"]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/body.rs:fn json(&mut self) -> Result<::json::JsonValue, Error>",
+          "src/client.rs:fn send(&self, request: Request) -> Result<Response, Error>"
+        ],
+        "missed_keys": ["src/buffer.rs:fn from(buffer: Buffer) -> Vec<u8>"]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/body.rs:39",
+          "src/body.rs:55",
+          "src/client.rs:65"
+        ],
+        "missed_keys": ["src/buffer.rs:195"]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-20T17:19:59.939252+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o-mini",
+    "code_sample": "vuln-0001/fixed-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": ["CWE-758", "CWE-825"],
+      "vulnerable_functions": {
+        "src/lib.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [81, 92]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": ["CWE-758", "CWE-825"]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:fn from(buffer: Buffer) -> Vec<u8>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": ["src/lib.rs:81", "src/lib.rs:92"],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-20T17:20:01.879324+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o-mini",
+    "code_sample": "vuln-0001/fixed-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": ["CWE-120"],
+      "vulnerable_functions": {
+        "src/buffer.rs": [
+          "fn allocate(size: usize) -> Box<[u8]>",
+          "fn from(buffer: Buffer) -> Vec<u8>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/buffer.rs": [178, 195]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": ["CWE-120"]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/buffer.rs:fn allocate(size: usize) -> Box<[u8]>",
+          "src/buffer.rs:fn from(buffer: Buffer) -> Vec<u8>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": ["src/buffer.rs:178", "src/buffer.rs:195"],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-20T17:20:04.688601+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o-mini",
+    "code_sample": "vuln-0001/fixed-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": ["CWE-20", "CWE-125"],
+      "vulnerable_functions": {
+        "src/client.rs": [
+          "fn send(&self, request: Request) -> Result<Response, Error>"
+        ],
+        "src/body.rs": [
+          "fn json(&mut self) -> Result<::json::JsonValue, Error>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/client.rs": [65],
+        "src/body.rs": [39, 55]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": ["CWE-125", "CWE-20"]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/body.rs:fn json(&mut self) -> Result<::json::JsonValue, Error>",
+          "src/client.rs:fn send(&self, request: Request) -> Result<Response, Error>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/body.rs:39",
+          "src/body.rs:55",
+          "src/client.rs:65"
+        ],
+        "missed_keys": []
+      }
+    }
+  }
+]

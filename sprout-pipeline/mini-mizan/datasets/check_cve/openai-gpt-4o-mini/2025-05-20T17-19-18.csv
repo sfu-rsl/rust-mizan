@@ -1,0 +1,2 @@
+timestamp,llm_provider,llm_model,code_sample,crate_name,year,has_cve_correct,cve_tp,cve_fn,cve_fp
+2025-05-20T17:19:20.323843+00:00,openai,gpt-4o-mini,chttp:2019,chttp,2019,False,[],['CVE-2019-16140'],[]

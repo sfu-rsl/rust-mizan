@@ -1,0 +1,20 @@
+[
+  {
+    "timestamp": "2025-05-20T17:19:20.323843+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o-mini",
+    "code_sample": "chttp:2019",
+    "answer": {
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name": "chttp",
+      "year": 2019,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": ["CVE-2019-16140"],
+      "cve_fp": []
+    }
+  }
+]
