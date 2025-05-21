@@ -10,26 +10,27 @@ from ..models import CVECheckReport
 class CheckCVETask(TaskBase):
     """
     Task to predict whether CVEs exist for a given crate and year without access to code.
-    
+
     This task uses only the crate name and year as input, without any code samples.
     """
+
     name = "check_cve"
     schema = CVECheckReport
-    prompt_path = files("sprout_pipeline.prompts").joinpath("check_cve.txt")
+    prompt_path = files("sprout_pipeline.prompts").joinpath("check_cve.md")
 
     @staticmethod
     def iterate_samples(mizan: Path) -> Iterator[Tuple[Optional[Path], Any, Dict]]:
         """
         Yield samples from mizan.json for CVE checking.
-        
+
         For each vulnerability in the dataset, extract crate name, year, and
         CVE information. No code is needed for this task.
-        
+
         Args:
             mizan: Path to mizan.json file
-            
+
         Returns:
-            Iterator of (None, ground_truth, context) tuples 
+            Iterator of (None, ground_truth, context) tuples
         """
         data = json.loads(mizan.read_text())
 
@@ -55,11 +56,11 @@ class CheckCVETask(TaskBase):
     def score(pred: Dict, truth: Dict) -> Dict:
         """
         Score the CVE prediction against ground truth.
-        
+
         Args:
             pred: Model prediction dictionary
             truth: Ground truth dictionary
-            
+
         Returns:
             Dictionary with scoring metrics
         """
@@ -76,11 +77,11 @@ class CheckCVETask(TaskBase):
     def dataset_row(meta: Dict, score: Dict) -> Dict[str, Any]:
         """
         Create a CSV row from scoring results.
-        
+
         Args:
             meta: Run metadata
             score: Scoring results
-            
+
         Returns:
             Flattened dictionary for CSV export
         """
@@ -90,14 +91,15 @@ class CheckCVETask(TaskBase):
     def build_prompt(base_prompt_path: Path, ctx: Dict) -> str:
         """
         Customize the prompt with crate name and year.
-        
+
         Args:
             base_prompt_path: Path to the base prompt template
             ctx: Context with crate_name and year
-            
+
         Returns:
             Complete prompt string with crate context
         """
         base = base_prompt_path.read_text(encoding="utf-8")
-        trailer = f'\n\nChecking for CVEs for crate "{ctx["crate_name"]}" in year {ctx["year"]}.'
+        trailer = f"\ncrate = \"{ctx['crate_name']}\"\nyear = {ctx['year']}\n"
+
         return base + trailer

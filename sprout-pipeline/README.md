@@ -62,11 +62,11 @@ export ANTHROPIC_API_KEY="sk-..."
 
 Sprout Pipeline includes three built-in tasks:
 
-| Task Name        | Description                                                                  | Prompt File                        | Code Required |
-| ---------------- | ---------------------------------------------------------------------------- | ---------------------------------- | ------------- |
-| `check_cve`      | Predict whether CVEs exist for a crate in a specific year (without the code) | `prompts/check_cve.txt`            | No            |
-| `identify_crate` | Identify crate name, year, and CVEs from source code                         | `prompts/identify_crate.txt`       | Yes           |
-| `vuln`           | Detect and localize memory-safety vulnerabilities                            | `prompts/detect_vulnerability.txt` | Yes           |
+| Task Name        | Description                                                                  | Prompt File                       | Code Required |
+| ---------------- | ---------------------------------------------------------------------------- | --------------------------------- | ------------- |
+| `check_cve`      | Predict whether CVEs exist for a crate in a specific year (without the code) | `prompts/check_cve.md`            | No            |
+| `identify_crate` | Identify crate name, year, and CVEs from source code                         | `prompts/identify_crate.md`       | Yes           |
+| `vuln`           | Detect and localize memory-safety vulnerabilities                            | `prompts/detect_vulnerability.md` | Yes           |
 
 ## Usage
 

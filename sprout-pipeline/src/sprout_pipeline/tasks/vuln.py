@@ -10,35 +10,36 @@ from ..models import VulnerabilityReport
 class VulnerabilityTask(TaskBase):
     """
     Task to detect memory-safety vulnerabilities in Rust code.
-    
+
     This task analyzes Rust source code to detect vulnerabilities,
     identify their CWE types, vulnerable functions, and line numbers.
     """
+
     name = "vuln"
     schema = VulnerabilityReport
-    prompt_path = files("sprout_pipeline.prompts").joinpath("detect_vulnerability.txt")
+    prompt_path = files("sprout_pipeline.prompts").joinpath("detect_vulnerability.md")
 
     @staticmethod
     def iterate_samples(mizan_path: Path) -> Iterator[Tuple[Path, Any, Optional[Dict]]]:
         """
         Yield samples from mizan.json for vulnerability detection.
-        
+
         For each code sample in the dataset, extract the path to the code
         and the ground truth vulnerability information.
-        
+
         Args:
             mizan_path: Path to mizan.json file
-            
+
         Returns:
             Iterator of (code_dir, ground_truth, None) tuples
         """
         data = json.loads(mizan_path.read_text())
         base_dir = mizan_path.parent
-        
+
         for vuln in data["vulnerabilities"]:
             for sample in vuln["code_samples"]:
                 code_dir = base_dir / sample["path_to_crate"]
-                
+
                 # Extract ground truth
                 ground_truth = {
                     k: sample[k]
@@ -49,18 +50,18 @@ class VulnerabilityTask(TaskBase):
                         "vulnerable_lines",
                     )
                 }
-                
+
                 yield code_dir, ground_truth, None
 
     @staticmethod
     def score(pred: Dict, truth: Dict) -> Dict:
         """
         Score the vulnerability detection prediction against ground truth.
-        
+
         Args:
             pred: Model prediction dictionary
             truth: Ground truth dictionary
-            
+
         Returns:
             Dictionary with structured scoring metrics
         """
@@ -109,11 +110,11 @@ class VulnerabilityTask(TaskBase):
     def dataset_row(meta: Dict, score: Dict) -> Dict[str, Any]:
         """
         Create a CSV row from scoring results.
-        
+
         Args:
             meta: Run metadata
             score: Scoring results
-            
+
         Returns:
             Flattened dictionary for CSV export
         """
