@@ -1,0 +1,11 @@
+[package]
+name = "vuln-0003-vuln-crate"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+[features]
+default = ["std"]
+"std" = []
+"test-unaligned" = []
