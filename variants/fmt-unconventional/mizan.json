@@ -1,0 +1,1826 @@
+{
+  "general_information": {
+    "benchmark_name": "RustMizan",
+    "rust_version": "rustc 1.84.1",
+    "dataset_version": "0.1.0"
+  },
+  "vulnerabilities": [
+    {
+      "id": "vuln-0001",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-16140",
+      "crate_name": "chttp",
+      "year": 2019,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0001/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-416"],
+          "vulnerable_functions": {
+            "src/lib.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [95]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0001/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-416"],
+          "vulnerable_functions": {
+            "src/buffer.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
+          },
+          "vulnerable_lines": {
+            "src/buffer.rs": [195]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0001/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-416"],
+          "vulnerable_functions": {
+            "src/buffer.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
+          },
+          "vulnerable_lines": {
+            "src/buffer.rs": [195]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0001/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0001/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0001/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0002",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35711",
+      "crate_name": "arc-swap",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0002/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-416"],
+          "vulnerable_functions": {
+            "src/access.rs": [
+              "fn deref(&self) -> &T",
+              "fn load(&self) -> Self::Guard",
+              "impl<T: Clone> Access<T> for Constant<T>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/access.rs": [240, 287]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0002/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-416"],
+          "vulnerable_functions": {
+            "src/access.rs": [
+              "fn deref(&self) -> &T",
+              "fn load(&self) -> Self::Guard",
+              "impl<T: Clone> Access<T> for Constant<T>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/access.rs": [240, 287]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0002/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-416"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn deref(&self) -> &T",
+              "fn load(&self) -> Self::Guard",
+              "impl<T: Clone> Access<T> for Constant<T>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [19, 51]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0002/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0002/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0002/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0003",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-21000",
+      "crate_name": "safe-transmute",
+      "year": 2018,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0003/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-119"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>"
+            ],
+            "src/to_bytes.rs": [
+              "pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [317],
+            "src/to_bytes.rs": [234]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0003/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-119"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>"
+            ],
+            "src/to_bytes.rs": [
+              "pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [310],
+            "src/to_bytes.rs": [234]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0003/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-119"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [9]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0003/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0003/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0003/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0004",
+      "author": "Paul Ngo",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35891",
+      "crate_name": "ordnung",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0004/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-415"],
+          "vulnerable_functions": {
+            "src/compact.rs": [
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/compact.rs": [110, 144]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0004/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-415"],
+          "vulnerable_functions": {
+            "src/compact.rs": [
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/compact.rs": [110, 144]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0004/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-415"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [20, 47]
+          }
+        }
+      ]
+    },
+    {
+      "id": "vuln-0005",
+      "author": "Nathan Young",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35916",
+      "crate_name": "image",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0005/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-400"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [24]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0005/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-400"],
+          "vulnerable_functions": {
+            "src/color.rs": [
+              "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/color.rs": [256]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0005/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-400"],
+          "vulnerable_functions": {
+            "src/color.rs": [
+              "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/color.rs": [256]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0005/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0005/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0005/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0006",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-25900",
+      "crate_name": "smallvec",
+      "year": 2021,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0006/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-787"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn insert_many<I: IntoIterator<Item = A::Item>>(&mut self, index: usize, iterable: I)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [1032, 1044]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0006/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-787"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn insert_many<I: IntoIterator<Item = A::Item>>(&mut self, index: usize, iterable: I)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [1029, 1041]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0006/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-787"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn insert_many<I: IntoIterator<Item = A::Item>>(&mut self, index: usize, iterable: I)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [355, 367]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0006/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0006/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0006/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0007",
+      "author": "Paul Ngo",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35890",
+      "crate_name": "ordnung",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0007/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-125"],
+          "vulnerable_functions": {
+            "src/compact.rs": [
+              "fn with_capacity(capacity: usize) -> Self",
+              "fn push(&mut self, val: T)",
+              "fn parts(&self) -> (usize, usize)",
+              "fn clear(&mut self)",
+              "fn capacity(&self) -> usize",
+              "unsafe fn set_len(&mut self, len: usize)",
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R",
+              "fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self",
+              "unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> ",
+              "unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>",
+              "impl<T> core::ops::Drop for Vec<T>",
+              "fn drop(&mut self)",
+              "impl<T> From<StdVec<T>> for Vec<T>",
+              "fn from(stdvec: StdVec<T>) -> Self",
+              "impl<T> From<Vec<T>> for StdVec<T>",
+              "fn from(vec: Vec<T>) -> Self"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/compact.rs": [
+              36, 48, 54, 72, 90, 102, 110, 127, 136, 142, 161, 187, 204, 213,
+              281, 282, 286, 297
+            ]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0007/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-125"],
+          "vulnerable_functions": {
+            "src/compact.rs": [
+              "fn with_capacity(capacity: usize) -> Self",
+              "fn push(&mut self, val: T)",
+              "fn parts(&self) -> (usize, usize)",
+              "fn clear(&mut self)",
+              "fn capacity(&self) -> usize",
+              "unsafe fn set_len(&mut self, len: usize)",
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R",
+              "fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self",
+              "unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> ",
+              "unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>",
+              "impl<T> core::ops::Drop for Vec<T>",
+              "fn drop(&mut self)",
+              "impl<T> From<StdVec<T>> for Vec<T>",
+              "fn from(stdvec: StdVec<T>) -> Self",
+              "impl<T> From<Vec<T>> for StdVec<T>",
+              "fn from(vec: Vec<T>) -> Self"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/compact.rs": [
+              36, 48, 54, 72, 90, 102, 110, 127, 136, 142, 161, 187, 204, 213,
+              281, 282, 286, 297
+            ]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0007/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-125"],
+          "vulnerable_functions": {
+            "src/compact.rs": [
+              "fn with_capacity(capacity: usize) -> Self",
+              "fn push(&mut self, val: T)",
+              "fn parts(&self) -> (usize, usize)",
+              "fn clear(&mut self)",
+              "fn capacity(&self) -> usize",
+              "unsafe fn set_len(&mut self, len: usize)",
+              "fn remove(&mut self, index: usize) -> T",
+              "fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R",
+              "fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self",
+              "unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> ",
+              "unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>",
+              "impl<T> core::ops::Drop for Vec<T>",
+              "fn drop(&mut self)",
+              "impl<T> From<StdVec<T>> for Vec<T>",
+              "fn from(stdvec: StdVec<T>) -> Self",
+              "impl<T> From<Vec<T>> for StdVec<T>",
+              "fn from(vec: Vec<T>) -> Self"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              21, 33, 39, 57, 66, 71, 79, 96, 105, 111, 130, 141, 158, 167, 173,
+              174, 178, 189
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "vuln-0009",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-36432",
+      "crate_name": "alg_ds",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0009/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-908"],
+          "vulnerable_functions": {
+            "src/ds/matrix.rs": [
+              "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
+              "fn fill_with(buf: &mut [T], value: T)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/ds/matrix.rs": [101, 110]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0009/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-908"],
+          "vulnerable_functions": {
+            "src/ds/matrix.rs": [
+              "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
+              "fn fill_with(buf: &mut [T], value: T)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/ds/matrix.rs": [101, 110]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0009/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-908"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
+              "fn fill_with(buf: &mut [T], value: T)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [21, 30]
+          }
+        }
+      ]
+    },
+    {
+      "id": "vuln-0010",
+      "author": "Paul Ngo",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-36204",
+      "crate_name": "im",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0010/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/vector/focus.rs": [
+              "unsafe impl<A> Send for TreeFocus<A>",
+              "unsafe impl<A> Sync for TreeFocus<A>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/vector/focus.rs": [281, 284]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0010/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/vector/focus.rs": [
+              "unsafe impl<A> Send for TreeFocus<A>",
+              "unsafe impl<A> Sync for TreeFocus<A>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/vector/focus.rs": [281, 284]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0010/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "unsafe impl<A> Send for TreeFocus<A>",
+              "unsafe impl<A> Sync for TreeFocus<A>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [65, 68]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0010/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0010/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0010/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0012",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-36215",
+      "crate_name": "hashconsing",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0012/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-662", "CWE-787"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "unsafe impl<T> Sync for HConsed<T> {}",
+              "unsafe impl<T> Send for HConsed<T> {}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [354, 355]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0012/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-662", "CWE-787"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "unsafe impl<T> Sync for HConsed<T> {}",
+              "unsafe impl<T> Send for HConsed<T> {}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [352, 353]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0012/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-662", "CWE-787"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "unsafe impl<T> Sync for HConsed<T> {}",
+              "unsafe impl<T> Send for HConsed<T> {}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [20, 21]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0012/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0012/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0012/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0013",
+      "author": "Paul Ngo",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35862",
+      "crate_name": "bitvec",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0013/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-415", "CWE-416"],
+          "vulnerable_functions": {
+            "src/vec.rs": ["fn into_boxed_bitslice(self) -> BitBox<O, T>"]
+          },
+          "vulnerable_lines": {
+            "src/vec.rs": [655]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0013/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-415", "CWE-416"],
+          "vulnerable_functions": {
+            "src/vec.rs": ["fn into_boxed_bitslice(self) -> BitBox<O, T>"]
+          },
+          "vulnerable_lines": {
+            "src/vec.rs": [655]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0013/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-415", "CWE-416"],
+          "vulnerable_functions": {
+            "src/lib.rs": ["fn into_boxed_bitslice(self) -> BitBox<O, T>"]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [2503]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0013/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0013/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0013/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0015",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35886",
+      "crate_name": "arr",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0015/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "unsafe impl<T> Sync for Array<T>{}",
+              "unsafe impl<T> Send for Array<T>{}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [45, 46]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0015/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "unsafe impl<T> Sync for Array<T>{}",
+              "unsafe impl<T> Send for Array<T>{}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [6, 7]
+          }
+        }
+      ]
+    },
+    {
+      "id": "vuln-0016",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35887",
+      "crate_name": "arr",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0016/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-120"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn index<'a>(&'a self, idx: usize) -> &'a Self::Output {",
+              "fn index_mut<'a>(&'a mut self, idx: usize) -> &'a mut Self::Output {"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [134, 144]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0016/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-120"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn index<'a>(&'a self, idx: usize) -> &'a Self::Output {",
+              "fn index_mut<'a>(&'a mut self, idx: usize) -> &'a mut Self::Output {"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [14, 24]
+          }
+        }
+      ]
+    },
+    {
+      "id": "vuln-0017",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35888",
+      "crate_name": "arr",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0017/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-908"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn new_from_template(size: usize, template: &T) -> Self"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [117, 121]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0017/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-908"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn new_from_template(size: usize, template: &T) -> Self"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [15, 19]
+          }
+        }
+      ]
+    },
+    {
+      "id": "vuln-0018",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25791",
+      "crate_name": "sized-chunks",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0018/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-129"],
+          "vulnerable_functions": {
+            "src/ring_buffer/mod.rs": ["pub fn unit(value: A) -> Self"],
+            "src/sized_chunk/mod.rs": ["pub fn unit(value: A) -> Self"]
+          },
+          "vulnerable_lines": {
+            "src/ring_buffer/mod.rs": [259, 262],
+            "src/sized_chunk/mod.rs": [157, 160]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0018/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-129"],
+          "vulnerable_functions": {
+            "src/ring_buffer/mod.rs": ["pub fn unit(value: A) -> Self"],
+            "src/sized_chunk/mod.rs": ["pub fn unit(value: A) -> Self"]
+          },
+          "vulnerable_lines": {
+            "src/ring_buffer/mod.rs": [259, 262],
+            "src/sized_chunk/mod.rs": [154, 157]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0018/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-129"],
+          "vulnerable_functions": {
+            "src/lib.rs": ["pub fn unit(value: A) -> Self"]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [27, 30]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0018/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0018/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0018/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0019",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25792",
+      "crate_name": "sized-chunks",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0019/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-129"],
+          "vulnerable_functions": {
+            "src/ring_buffer/mod.rs": [
+              "pub fn pair(value1: A, value2: A) -> Self"
+            ],
+            "src/sized_chunk/mod.rs": ["pub fn pair(left: A, right: A) -> Self"]
+          },
+          "vulnerable_lines": {
+            "src/ring_buffer/mod.rs": [274, 277, 278],
+            "src/sized_chunk/mod.rs": [170, 173, 174]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0019/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-129"],
+          "vulnerable_functions": {
+            "src/ring_buffer/mod.rs": [
+              "pub fn pair(value1: A, value2: A) -> Self"
+            ],
+            "src/sized_chunk/mod.rs": ["pub fn pair(left: A, right: A) -> Self"]
+          },
+          "vulnerable_lines": {
+            "src/ring_buffer/mod.rs": [274, 277, 278],
+            "src/sized_chunk/mod.rs": [167, 170, 171]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0019/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-129"],
+          "vulnerable_functions": {
+            "src/lib.rs": ["pub fn unit(value: A) -> Self"]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [27, 30, 31]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0019/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0019/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0019/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0020",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25793",
+      "crate_name": "sized-chunks",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0020/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-129"],
+          "vulnerable_functions": {
+            "src/sized_chunk/mod.rs": [
+              "fn from(array: &mut InlineArray<A, T>) -> Self"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/sized_chunk/mod.rs": [824, 825]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0020/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-129"],
+          "vulnerable_functions": {
+            "src/sized_chunk/mod.rs": [
+              "fn from(array: &mut InlineArray<A, T>) -> Self"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/sized_chunk/mod.rs": [821, 822]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0020/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-129"],
+          "vulnerable_functions": {
+            "src/lib.rs": ["fn from(array: &mut InlineArray<A, T>) -> Self"]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [50, 51]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0020/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0020/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0020/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0021",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25794",
+      "crate_name": "sized-chunks",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0021/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-401"],
+          "vulnerable_functions": {
+            "src/ring_buffer/mod.rs": [
+              "impl<A: Clone, N: ChunkLength<A>> Clone for RingBuffer<A, N>",
+              "fn clone(&self) -> Self"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/ring_buffer/mod.rs": [791]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0021/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-401"],
+          "vulnerable_functions": {
+            "src/ring_buffer/mod.rs": [
+              "impl<A: Clone, N: ChunkLength<A>> Clone for RingBuffer<A, N>",
+              "fn clone(&self) -> Self"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/ring_buffer/mod.rs": [791]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0021/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-401"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "impl<A: Clone, N: ChunkLength<A>> Clone for RingBuffer<A, N>",
+              "fn clone(&self) -> Self"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [123]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0021/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0021/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0021/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0022",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25795",
+      "crate_name": "sized-chunks",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0022/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-401"],
+          "vulnerable_functions": {
+            "src/ring_buffer/mod.rs": [
+              "pub fn insert_from<Iterable, I>(&mut self, index: usize, iter: Iterable)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/ring_buffer/mod.rs": [718]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0022/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-401"],
+          "vulnerable_functions": {
+            "src/ring_buffer/mod.rs": [
+              "pub fn insert_from<Iterable, I>(&mut self, index: usize, iter: Iterable)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/ring_buffer/mod.rs": [718]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0022/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-401"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn insert_from<Iterable, I>(&mut self, index: usize, iter: Iterable)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [200]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0022/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0022/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0022/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0023",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-25796",
+      "crate_name": "sized-chunks",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0023/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-129"],
+          "vulnerable_functions": {
+            "src/inline_array/mod.rs": [
+              "unsafe fn len_const(&self) -> *const usize",
+              "pub(crate) unsafe fn len_mut(&mut self) -> *mut usize",
+              "pub(crate) unsafe fn data(&self) -> *const A",
+              "unsafe fn data_mut(&mut self) -> *mut A",
+              "unsafe fn ptr_at(&self, index: usize) -> *const A",
+              "unsafe fn ptr_at_mut(&mut self, index: usize) -> *mut A",
+              "unsafe fn read_at(&self, index: usize) -> A",
+              "unsafe fn write_at(&mut self, index: usize, value: A)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/inline_array/mod.rs": [99, 105, 111, 117, 123, 129, 134, 139]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0023/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-129"],
+          "vulnerable_functions": {
+            "src/inline_array/mod.rs": [
+              "unsafe fn len_const(&self) -> *const usize",
+              "pub(crate) unsafe fn len_mut(&mut self) -> *mut usize",
+              "pub(crate) unsafe fn data(&self) -> *const A",
+              "unsafe fn data_mut(&mut self) -> *mut A",
+              "unsafe fn ptr_at(&self, index: usize) -> *const A",
+              "unsafe fn ptr_at_mut(&mut self, index: usize) -> *mut A",
+              "unsafe fn read_at(&self, index: usize) -> A",
+              "unsafe fn write_at(&mut self, index: usize, value: A)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/inline_array/mod.rs": [99, 105, 111, 117, 123, 129, 134, 139]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0023/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-129"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "unsafe fn len_const(&self) -> *const usize",
+              "pub(crate) unsafe fn len_mut(&mut self) -> *mut usize",
+              "pub(crate) unsafe fn data(&self) -> *const A",
+              "unsafe fn data_mut(&mut self) -> *mut A",
+              "unsafe fn ptr_at(&self, index: usize) -> *const A",
+              "unsafe fn ptr_at_mut(&mut self, index: usize) -> *mut A",
+              "unsafe fn read_at(&self, index: usize) -> A",
+              "unsafe fn write_at(&mut self, index: usize, value: A)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [92, 98, 104, 110, 116, 122, 127, 132]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0023/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0023/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0023/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0024",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35892",
+      "crate_name": "simple-slab",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0024/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-125"],
+          "vulnerable_functions": {
+            "src/lib.rs": ["fn index(&self, index: usize) -> &Self::Output"]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [163]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0024/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-125"],
+          "vulnerable_functions": {
+            "src/lib.rs": ["fn index(&self, index: usize) -> &Self::Output"]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [14]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0024/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0024/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0025",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35893",
+      "crate_name": "simple-slab",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0025/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-193", "CWE-908", "CWE-401"],
+          "vulnerable_functions": {
+            "src/lib.rs": ["pub fn remove(&mut self, offset: usize) -> T"]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [93, 96]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0025/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-193", "CWE-908", "CWE-401"],
+          "vulnerable_functions": {
+            "src/lib.rs": ["pub fn remove(&mut self, offset: usize) -> T"]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [28, 31]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0025/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0025/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0026",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-50711",
+      "crate_name": "vmm-sys-util",
+      "year": 2023,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0026/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-787"],
+          "vulnerable_functions": {
+            "src/fam.rs": [
+              "fn set_len(&mut self, len: usize) -> Result<(), Error>",
+              "let mut result: Self::Value = FamStructWrapper::from_entries(entries.as_slice())"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/fam.rs": [398, 550]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0026/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-787"],
+          "vulnerable_functions": {
+            "src/fam.rs": [
+              "fn set_len(&mut self, len: usize) -> Result<(), Error>",
+              "let mut result: Self::Value = FamStructWrapper::from_entries(entries.as_slice())"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/fam.rs": [398, 550]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0026/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-787"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn set_len(&mut self, len: usize) -> Result<(), Error>",
+              "let mut result: Self::Value = FamStructWrapper::from_entries(entries.as_slice())"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [320, 366]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0026/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0026/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0026/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0027",
+      "author": "Paul Ngo",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-20992",
+      "crate_name": "claxon",
+      "year": 2018,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0027/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-908"],
+          "vulnerable_functions": {
+            "src/frame.rs": [
+              "fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
+              "pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult"
+            ],
+            "src/subframe.rs": ["fn decode_residual<R: ReadBytes>"]
+          },
+          "vulnerable_lines": {
+            "src/frame.rs": [618, 657],
+            "src/subframe.rs": [257]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0027/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-908"],
+          "vulnerable_functions": {
+            "src/frame.rs": [
+              "fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
+              "pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult"
+            ],
+            "src/subframe.rs": ["fn decode_residual<R: ReadBytes>"]
+          },
+          "vulnerable_lines": {
+            "src/frame.rs": [618, 657],
+            "src/subframe.rs": [257]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0027/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0027/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0028",
+      "author": "Paul Ngo",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-16141",
+      "crate_name": "once_cell",
+      "year": 2019,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0028/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-20"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn force(this: &Lazy<T, F>) -> &T",
+              "pub fn force(this: &Lazy<T, F>) -> &T"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [492, 795]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0028/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-20"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn force(this: &Lazy<T, F>) -> &T",
+              "pub fn force(this: &Lazy<T, F>) -> &T"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [425, 637]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0028/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0028/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0030",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35866",
+      "crate_name": "rusqlite",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0030/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/vtab/mod.rs": [
+              "pub trait VTab: Sized",
+              "pub trait VTabCursor: Sized"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/vtab/mod.rs": [195, 459]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0030/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0031",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35867",
+      "crate_name": "rusqlite",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0031/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/vtab/mod.rs": [
+              "pub fn create_module<T: VTab>",
+              "fn create_module<T: VTab>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/vtab/mod.rs": [588, 599, 610, 620]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0031/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0032",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35868",
+      "crate_name": "rusqlite",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0032/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/unlock_notify.rs": [
+              "fn fired(&mut self)",
+              "fn wait(&mut self)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/unlock_notify.rs": [29, 34, 49]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0032/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0033",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35869",
+      "crate_name": "rusqlite",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0033/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-134"],
+          "vulnerable_functions": {
+            "src/trace.rs": ["pub fn log(err_code: c_int, msg: &str)"]
+          },
+          "vulnerable_lines": {
+            "src/trace.rs": [64]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0033/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0034",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35870",
+      "crate_name": "rusqlite",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0034/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-416"],
+          "vulnerable_functions": {
+            "src/functions.rs": [
+              "pub fn set_aux<T: 'static>(&self, arg: c_int, value: T)",
+              "pub fn get_aux<T: 'static>(&self, arg: c_int) -> Result<Option<&T>>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/functions.rs": [203, 207]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0034/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0035",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35871",
+      "crate_name": "rusqlite",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0035/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-362"],
+          "vulnerable_functions": {
+            "src/functions.rs": [
+              "pub fn set_aux<T: 'static>(&self, arg: c_int, value: T)",
+              "pub fn get_aux<T: 'static>(&self, arg: c_int) -> Result<Option<&T>>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/functions.rs": [180, 198, 203, 207]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0035/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0036",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35872",
+      "crate_name": "rusqlite",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0036/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-351"],
+          "vulnerable_functions": {
+            "src/functions.rs": [
+              "pub fn set_aux<T: 'static>(&self, arg: c_int, value: T)",
+              "pub fn get_aux<T: 'static>(&self, arg: c_int) -> Result<Option<&T>>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/functions.rs": [182, 199, 200]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0036/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0037",
+      "author": "Tarek Elsayed",
+      "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35873",
+      "crate_name": "rusqlite",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0037/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-416"],
+          "vulnerable_functions": {
+            "src/session.rs": [
+              "pub fn attach(&mut self, table: Option<&str>) -> Result<()>",
+              "pub fn diff(&mut self, from: DatabaseName<'_>, table: &str) -> Result<()>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/session.rs": [107, 160]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0037/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    }
+  ]
+}
