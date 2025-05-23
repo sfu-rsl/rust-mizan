@@ -25,3 +25,7 @@ jobs:
 
       - name: Validate mizan.json
         run: python .github/scripts/validate_json.py
+
+      - name: Mutuation - Unconventional Formatting
+        run: python ../../.github/scripts/validate_json.py
+        working-directory: variants/fmt-unconventional
