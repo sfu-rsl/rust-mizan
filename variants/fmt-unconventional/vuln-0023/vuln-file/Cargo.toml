@@ -1,0 +1,7 @@
+[package]
+name = "vuln-0023-vuln-file"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+typenum = "1.11.2"

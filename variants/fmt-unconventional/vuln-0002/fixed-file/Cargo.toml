@@ -1,0 +1,16 @@
+[package]
+name = "vuln-0002-fixed-file"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+
+[dev-dependencies]
+criterion = "~0.3"
+crossbeam-utils = "~0.7"
+itertools = "~0.9"
+num_cpus = "~1"
+once_cell = "~1"
+parking_lot = "~0.11"
+proptest = "~0.10"
