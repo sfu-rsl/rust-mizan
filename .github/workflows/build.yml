@@ -28,3 +28,7 @@ jobs:
 
       - name: Build the Rust workspace
         run: cargo build --workspace
+
+      - name: Mutuation - Unconventional Formatting
+        run: cargo build --workspace
+        working-directory: variants/fmt-unconventional
