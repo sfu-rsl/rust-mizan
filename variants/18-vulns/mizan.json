@@ -932,8 +932,7 @@
           "cwe_type": ["CWE-787"],
           "vulnerable_functions": {
             "src/fam.rs": [
-              "fn set_len(&mut self, len: usize) -> Result<(), Error>",
-              "let mut result: Self::Value = FamStructWrapper::from_entries(entries.as_slice())"
+              "fn set_len(&mut self, len: usize) -> Result<(), Error>"
             ]
           },
           "vulnerable_lines": {
@@ -946,8 +945,7 @@
           "cwe_type": ["CWE-787"],
           "vulnerable_functions": {
             "src/fam.rs": [
-              "fn set_len(&mut self, len: usize) -> Result<(), Error>",
-              "let mut result: Self::Value = FamStructWrapper::from_entries(entries.as_slice())"
+              "fn set_len(&mut self, len: usize) -> Result<(), Error>"
             ]
           },
           "vulnerable_lines": {
@@ -960,8 +958,7 @@
           "cwe_type": ["CWE-787"],
           "vulnerable_functions": {
             "src/lib.rs": [
-              "fn set_len(&mut self, len: usize) -> Result<(), Error>",
-              "let mut result: Self::Value = FamStructWrapper::from_entries(entries.as_slice())"
+              "fn set_len(&mut self, len: usize) -> Result<(), Error>"
             ]
           },
           "vulnerable_lines": {
