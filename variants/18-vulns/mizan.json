@@ -485,7 +485,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-125"],
           "vulnerable_functions": {
-            "src/compact.rs": [
+            "src/lib.rs": [
               "fn with_capacity(capacity: usize) -> Self",
               "fn push(&mut self, val: T)",
               "fn parts(&self) -> (usize, usize)",
