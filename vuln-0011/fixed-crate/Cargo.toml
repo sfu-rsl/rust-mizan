@@ -1,0 +1,6 @@
+[package]
+name = "vuln-0011-fixed-crate"
+version = "0.2.1"
+keywords = ["abstraction", "initialization", "no_std"]
+categories = ["data-structures", "no-std"]
+description = "Utility crate to help keep track of arrays of MaybeUninit"
