@@ -1979,7 +1979,7 @@
           }
         },
         {
-          "path_to_crate": "vuln-0038/fixed-crate",
+          "path_to_crate": "",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
