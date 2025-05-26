@@ -1975,7 +1975,7 @@
             ]
           },
           "vulnerable_lines": {
-            "src/session.rs": [410, 415]
+            "src/lib.rs": [410, 415]
           }
         },
         {
