@@ -2825,6 +2825,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "vuln-0011-fixed-crate"
+version = "0.2.1"
+
+[[package]]
+name = "vuln-0011-fixed-function"
+version = "0.2.1"
+
+[[package]]
+name = "vuln-0011-vuln-crate"
+version = "0.2.0"
+
+[[package]]
+name = "vuln-0011-vuln-function"
+version = "0.2.0"
+
+[[package]]
 name = "vuln-0012-fixed-crate"
 version = "0.1.0"
 dependencies = [

@@ -638,6 +638,55 @@
       ]
     },
     {
+      "id": "vuln-0011",
+      "author": "Vincent Huang",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2025-0019.html",
+      "crate_name": "array-init-cursor",
+      "year": 2025,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0011/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-672"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn write_impl(&mut self, value: [T; N])"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [28, 29, 30, 31, 32, 33]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0011/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-672"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn write_impl(&mut self, value: [T; N])"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [61, 62, 63, 64, 65, 66]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0011/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0011/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
       "id": "vuln-0012",
       "author": "Tarek Elsayed",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-36215",
