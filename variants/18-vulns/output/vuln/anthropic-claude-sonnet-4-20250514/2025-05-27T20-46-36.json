@@ -1,0 +1,4455 @@
+[
+  {
+    "timestamp": "2025-05-27T20:46:40.127135+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0001/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-401",
+        "CWE-908"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "fn allocate(size: usize) -> Box<[u8]>",
+          "fn from(buffer: Buffer) -> Vec<u8>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          83,
+          84,
+          85,
+          95
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-416"
+        ],
+        "extra_predictions": [
+          "CWE-401",
+          "CWE-908"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/lib.rs:fn from(buffer: Buffer) -> Vec<u8>"
+        ],
+        "false_positive_keys": [
+          "src/lib.rs:fn allocate(size: usize) -> Box<[u8]>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:95"
+        ],
+        "false_positive_keys": [
+          "src/lib.rs:83",
+          "src/lib.rs:84",
+          "src/lib.rs:85"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:46:43.969296+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0001/vuln-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-908"
+      ],
+      "vulnerable_functions": {
+        "src/buffer.rs": [
+          "fn allocate(size: usize) -> Box<[u8]>",
+          "fn from(buffer: Buffer) -> Vec<u8>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/buffer.rs": [
+          183,
+          195
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-416"
+        ],
+        "extra_predictions": [
+          "CWE-908"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/buffer.rs:fn from(buffer: Buffer) -> Vec<u8>"
+        ],
+        "false_positive_keys": [
+          "src/buffer.rs:fn allocate(size: usize) -> Box<[u8]>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/buffer.rs:195"
+        ],
+        "false_positive_keys": [
+          "src/buffer.rs:183"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:46:47.333920+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0001/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-416"
+      ],
+      "vulnerable_functions": {
+        "src/client.rs": [
+          "fn read(&mut self, buffer: &mut [u8]) -> io::Result<usize>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/client.rs": [
+          159
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-416"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/client.rs:fn read(&mut self, buffer: &mut [u8]) -> io::Result<usize>"
+        ],
+        "missed_keys": [
+          "src/buffer.rs:fn from(buffer: Buffer) -> Vec<u8>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/client.rs:159"
+        ],
+        "missed_keys": [
+          "src/buffer.rs:195"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:46:50.809715+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0001/fixed-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-908"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "fn allocate(size: usize) -> Box<[u8]>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          83
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-908"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:fn allocate(size: usize) -> Box<[u8]>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:83"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:46:54.637020+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0001/fixed-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-908"
+      ],
+      "vulnerable_functions": {
+        "src/buffer.rs": [
+          "fn allocate(size: usize) -> Box<[u8]>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/buffer.rs": [
+          183
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-908"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/buffer.rs:fn allocate(size: usize) -> Box<[u8]>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/buffer.rs:183"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:46:57.902077+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0001/fixed-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-416"
+      ],
+      "vulnerable_functions": {
+        "src/client.rs": [
+          "fn read(&mut self, buffer: &mut [u8]) -> io::Result<usize>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/client.rs": [
+          159
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-416"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/client.rs:fn read(&mut self, buffer: &mut [u8]) -> io::Result<usize>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/client.rs:159"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:47:01.449343+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0002/vuln-crate",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-416"
+        ],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/access.rs:fn deref(&self) -> &T",
+          "src/access.rs:fn load(&self) -> Self::Guard",
+          "src/access.rs:impl<T: Clone> Access<T> for Constant<T>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/access.rs:240",
+          "src/access.rs:287"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:47:04.863081+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0002/vuln-file",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-416"
+        ],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/access.rs:fn deref(&self) -> &T",
+          "src/access.rs:fn load(&self) -> Self::Guard",
+          "src/access.rs:impl<T: Clone> Access<T> for Constant<T>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/access.rs:240",
+          "src/access.rs:287"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:47:07.455268+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0002/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-416"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "fn deref(&self) -> &T"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          19
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-416"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/lib.rs:fn deref(&self) -> &T"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/lib.rs:fn load(&self) -> Self::Guard",
+          "src/lib.rs:impl<T: Clone> Access<T> for Constant<T>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:19"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/lib.rs:51"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:47:14.699883+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0002/fixed-crate",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:47:26.272645+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0002/fixed-file",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:47:28.637274+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0002/fixed-function",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:47:33.959560+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0003/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-119",
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          317
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-119"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>"
+        ],
+        "missed_keys": [
+          "src/lib.rs:pub unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>",
+          "src/to_bytes.rs:pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:317"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/to_bytes.rs:234"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:47:38.942414+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0003/vuln-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-310"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          310
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-119"
+        ],
+        "extra_predictions": [
+          "CWE-310"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>"
+        ],
+        "missed_keys": [
+          "src/lib.rs:pub unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>",
+          "src/to_bytes.rs:pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:310"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/to_bytes.rs:234"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:47:41.464741+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0003/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-119"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          9
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-119"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/lib.rs:pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8>"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:9"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:47:44.129163+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0003/fixed-crate",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:47:52.348466+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0003/fixed-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-119",
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "unsafe fn guarded_transmute<T: Copy>(bytes: &[u8]) -> Result<T, Error>",
+          "unsafe fn guarded_transmute_pedantic<T: Copy>(bytes: &[u8]) -> Result<T, Error>",
+          "unsafe fn guarded_transmute_many<T>(bytes: &[u8]) -> Result<&[T], Error>",
+          "unsafe fn guarded_transmute_many_permissive<T>(bytes: &[u8]) -> &[T]",
+          "unsafe fn guarded_transmute_many_pedantic<T>(bytes: &[u8]) -> Result<&[T], Error>",
+          "unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>"
+        ],
+        "src/to_bytes.rs": [
+          "unsafe fn guarded_transmute_to_bytes<T>(from: &T) -> &[u8]",
+          "unsafe fn guarded_transmute_to_bytes_many<T>(from: &[T]) -> &[u8]",
+          "unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          144,
+          168,
+          194,
+          211,
+          237,
+          310
+        ],
+        "src/to_bytes.rs": [
+          50,
+          96,
+          234
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-119",
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:unsafe fn guarded_transmute<T: Copy>(bytes: &[u8]) -> Result<T, Error>",
+          "src/lib.rs:unsafe fn guarded_transmute_many<T>(bytes: &[u8]) -> Result<&[T], Error>",
+          "src/lib.rs:unsafe fn guarded_transmute_many_pedantic<T>(bytes: &[u8]) -> Result<&[T], Error>",
+          "src/lib.rs:unsafe fn guarded_transmute_many_permissive<T>(bytes: &[u8]) -> &[T]",
+          "src/lib.rs:unsafe fn guarded_transmute_pedantic<T: Copy>(bytes: &[u8]) -> Result<T, Error>",
+          "src/lib.rs:unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>",
+          "src/to_bytes.rs:unsafe fn guarded_transmute_to_bytes<T>(from: &T) -> &[u8]",
+          "src/to_bytes.rs:unsafe fn guarded_transmute_to_bytes_many<T>(from: &[T]) -> &[u8]",
+          "src/to_bytes.rs:unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:144",
+          "src/lib.rs:168",
+          "src/lib.rs:194",
+          "src/lib.rs:211",
+          "src/lib.rs:237",
+          "src/lib.rs:310",
+          "src/to_bytes.rs:234",
+          "src/to_bytes.rs:50",
+          "src/to_bytes.rs:96"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:47:54.688174+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0003/fixed-function",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:48:08.559258+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0004/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub fn insert(&mut self, key: K, value: V) -> Option<V>",
+          "pub fn get<Q>(&self, key: &Q) -> Option<&V>",
+          "pub fn get_mut<Q>(&mut self, key: &Q) -> Option<&mut V>",
+          "pub fn contains_key<Q>(&self, key: &Q) -> bool",
+          "pub fn get_or_insert<F>(&mut self, key: K, fill: F) -> &mut V",
+          "pub fn remove<Q>(&mut self, key: &Q) -> Option<V>",
+          "fn find(&self, hash: u64) -> FindResult"
+        ],
+        "src/raw_entry.rs": [
+          "pub fn key(&self) -> &K",
+          "pub fn key_mut(&mut self) -> &mut K",
+          "pub fn into_key(self) -> &'a mut K",
+          "pub fn get(&self) -> &V",
+          "pub fn into_mut(self) -> &'a mut V",
+          "pub fn get_mut(&mut self) -> &mut V",
+          "pub fn get_key_value(&mut self) -> (&K, &V)",
+          "pub fn get_key_value_mut(&mut self) -> (&mut K, &mut V)",
+          "pub fn into_key_value(self) -> (&'a mut K, &'a mut V)",
+          "pub fn remove_entry(self) -> (K, V)",
+          "pub fn insert(self, key: K, value: V) -> (&'a mut K, &'a mut V)",
+          "pub fn insert_hashed_nocheck(self, _hash: u64, key: K, value: V) -> (&'a mut K, &'a mut V)",
+          "pub fn insert_with_hasher(self, _hash: u64, key: K, value: V, _hasher: H) -> (&'a mut K, &'a mut V)"
+        ],
+        "src/entry.rs": [
+          "pub fn key(&self) -> &K",
+          "pub fn remove_entry(self) -> (K, V)",
+          "pub fn get(&self) -> &V",
+          "pub fn get_mut(&mut self) -> &mut V",
+          "pub fn into_mut(self) -> &'a mut V",
+          "pub fn replace_entry(self, value: V) -> (K, V)",
+          "pub fn replace_key(self) -> K",
+          "pub fn insert(self, value: V) -> &'a mut V"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          231,
+          268,
+          301,
+          329,
+          345,
+          391,
+          423
+        ],
+        "src/raw_entry.rs": [
+          302,
+          308,
+          315,
+          321,
+          332,
+          342,
+          353,
+          365,
+          383,
+          418,
+          443,
+          456,
+          462
+        ],
+        "src/entry.rs": [
+          208,
+          231,
+          254,
+          292,
+          326,
+          406,
+          443,
+          530
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-415"
+        ],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/entry.rs:pub fn get(&self) -> &V",
+          "src/entry.rs:pub fn get_mut(&mut self) -> &mut V",
+          "src/entry.rs:pub fn insert(self, value: V) -> &'a mut V",
+          "src/entry.rs:pub fn into_mut(self) -> &'a mut V",
+          "src/entry.rs:pub fn key(&self) -> &K",
+          "src/entry.rs:pub fn remove_entry(self) -> (K, V)",
+          "src/entry.rs:pub fn replace_entry(self, value: V) -> (K, V)",
+          "src/entry.rs:pub fn replace_key(self) -> K",
+          "src/lib.rs:fn find(&self, hash: u64) -> FindResult",
+          "src/lib.rs:pub fn contains_key<Q>(&self, key: &Q) -> bool",
+          "src/lib.rs:pub fn get<Q>(&self, key: &Q) -> Option<&V>",
+          "src/lib.rs:pub fn get_mut<Q>(&mut self, key: &Q) -> Option<&mut V>",
+          "src/lib.rs:pub fn get_or_insert<F>(&mut self, key: K, fill: F) -> &mut V",
+          "src/lib.rs:pub fn insert(&mut self, key: K, value: V) -> Option<V>",
+          "src/lib.rs:pub fn remove<Q>(&mut self, key: &Q) -> Option<V>",
+          "src/raw_entry.rs:pub fn get(&self) -> &V",
+          "src/raw_entry.rs:pub fn get_key_value(&mut self) -> (&K, &V)",
+          "src/raw_entry.rs:pub fn get_key_value_mut(&mut self) -> (&mut K, &mut V)",
+          "src/raw_entry.rs:pub fn get_mut(&mut self) -> &mut V",
+          "src/raw_entry.rs:pub fn insert(self, key: K, value: V) -> (&'a mut K, &'a mut V)",
+          "src/raw_entry.rs:pub fn insert_hashed_nocheck(self, _hash: u64, key: K, value: V) -> (&'a mut K, &'a mut V)",
+          "src/raw_entry.rs:pub fn insert_with_hasher(self, _hash: u64, key: K, value: V, _hasher: H) -> (&'a mut K, &'a mut V)",
+          "src/raw_entry.rs:pub fn into_key(self) -> &'a mut K",
+          "src/raw_entry.rs:pub fn into_key_value(self) -> (&'a mut K, &'a mut V)",
+          "src/raw_entry.rs:pub fn into_mut(self) -> &'a mut V",
+          "src/raw_entry.rs:pub fn key(&self) -> &K",
+          "src/raw_entry.rs:pub fn key_mut(&mut self) -> &mut K",
+          "src/raw_entry.rs:pub fn remove_entry(self) -> (K, V)"
+        ],
+        "missed_keys": [
+          "src/compact.rs:fn remove(&mut self, index: usize) -> T",
+          "src/compact.rs:fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/entry.rs:208",
+          "src/entry.rs:231",
+          "src/entry.rs:254",
+          "src/entry.rs:292",
+          "src/entry.rs:326",
+          "src/entry.rs:406",
+          "src/entry.rs:443",
+          "src/entry.rs:530",
+          "src/lib.rs:231",
+          "src/lib.rs:268",
+          "src/lib.rs:301",
+          "src/lib.rs:329",
+          "src/lib.rs:345",
+          "src/lib.rs:391",
+          "src/lib.rs:423",
+          "src/raw_entry.rs:302",
+          "src/raw_entry.rs:308",
+          "src/raw_entry.rs:315",
+          "src/raw_entry.rs:321",
+          "src/raw_entry.rs:332",
+          "src/raw_entry.rs:342",
+          "src/raw_entry.rs:353",
+          "src/raw_entry.rs:365",
+          "src/raw_entry.rs:383",
+          "src/raw_entry.rs:418",
+          "src/raw_entry.rs:443",
+          "src/raw_entry.rs:456",
+          "src/raw_entry.rs:462"
+        ],
+        "missed_keys": [
+          "src/compact.rs:110",
+          "src/compact.rs:144"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:48:17.462936+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0004/vuln-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125",
+        "CWE-787"
+      ],
+      "vulnerable_functions": {
+        "src/compact.rs": [
+          "pub fn push(&mut self, val: T)",
+          "pub fn pop(&mut self) -> Option<T>",
+          "pub fn remove(&mut self, index: usize) -> T",
+          "unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>"
+        ],
+        "src/lib.rs": [
+          "pub fn insert(&mut self, key: K, value: V) -> Option<V>",
+          "pub fn get<Q>(&self, key: &Q) -> Option<&V>",
+          "pub fn get_mut<Q>(&mut self, key: &Q) -> Option<&mut V>",
+          "pub fn contains_key<Q>(&self, key: &Q) -> bool",
+          "pub fn get_or_insert<F>(&mut self, key: K, fill: F) -> &mut V",
+          "pub fn remove<Q>(&mut self, key: &Q) -> Option<V>",
+          "fn find(&self, hash: u64) -> FindResult"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/compact.rs": [
+          72,
+          83,
+          161,
+          297
+        ],
+        "src/lib.rs": [
+          227,
+          230,
+          264,
+          297,
+          325,
+          341,
+          353,
+          387,
+          419,
+          423,
+          428
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-415"
+        ],
+        "extra_predictions": [
+          "CWE-125",
+          "CWE-787"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/compact.rs:pub fn pop(&mut self) -> Option<T>",
+          "src/compact.rs:pub fn push(&mut self, val: T)",
+          "src/compact.rs:pub fn remove(&mut self, index: usize) -> T",
+          "src/compact.rs:unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>",
+          "src/lib.rs:fn find(&self, hash: u64) -> FindResult",
+          "src/lib.rs:pub fn contains_key<Q>(&self, key: &Q) -> bool",
+          "src/lib.rs:pub fn get<Q>(&self, key: &Q) -> Option<&V>",
+          "src/lib.rs:pub fn get_mut<Q>(&mut self, key: &Q) -> Option<&mut V>",
+          "src/lib.rs:pub fn get_or_insert<F>(&mut self, key: K, fill: F) -> &mut V",
+          "src/lib.rs:pub fn insert(&mut self, key: K, value: V) -> Option<V>",
+          "src/lib.rs:pub fn remove<Q>(&mut self, key: &Q) -> Option<V>"
+        ],
+        "missed_keys": [
+          "src/compact.rs:fn remove(&mut self, index: usize) -> T",
+          "src/compact.rs:fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/compact.rs:161",
+          "src/compact.rs:297",
+          "src/compact.rs:72",
+          "src/compact.rs:83",
+          "src/lib.rs:227",
+          "src/lib.rs:230",
+          "src/lib.rs:264",
+          "src/lib.rs:297",
+          "src/lib.rs:325",
+          "src/lib.rs:341",
+          "src/lib.rs:353",
+          "src/lib.rs:387",
+          "src/lib.rs:419",
+          "src/lib.rs:423",
+          "src/lib.rs:428"
+        ],
+        "missed_keys": [
+          "src/compact.rs:110",
+          "src/compact.rs:144"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:48:20.920983+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0004/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-119",
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub fn remove(&mut self, index: usize) -> T"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          20
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-415"
+        ],
+        "extra_predictions": [
+          "CWE-119",
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:pub fn remove(&mut self, index: usize) -> T"
+        ],
+        "missed_keys": [
+          "src/lib.rs:fn remove(&mut self, index: usize) -> T",
+          "src/lib.rs:fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:20"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/lib.rs:47"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:48:23.382799+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0005/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-119",
+        "CWE-787"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          24
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-400"
+        ],
+        "extra_predictions": [
+          "CWE-119",
+          "CWE-787"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/lib.rs:fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:24"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:48:27.988904+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0005/vuln-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/color.rs": [
+          "fn index(&self, _index: usize) -> &T",
+          "fn index_mut(&mut self, _index: usize) -> &mut T"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/color.rs": [
+          350,
+          357
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-400"
+        ],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/color.rs:fn index(&self, _index: usize) -> &T",
+          "src/color.rs:fn index_mut(&mut self, _index: usize) -> &mut T"
+        ],
+        "missed_keys": [
+          "src/color.rs:fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/color.rs:350",
+          "src/color.rs:357"
+        ],
+        "missed_keys": [
+          "src/color.rs:256"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:48:31.471631+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0005/fixed-function",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:48:36.592174+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0005/fixed-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/color.rs": [
+          "fn index(&self, _index: usize) -> &T",
+          "fn index_mut(&mut self, _index: usize) -> &mut T"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/color.rs": [
+          350,
+          357
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/color.rs:fn index(&self, _index: usize) -> &T",
+          "src/color.rs:fn index_mut(&mut self, _index: usize) -> &mut T"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/color.rs:350",
+          "src/color.rs:357"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:48:43.219751+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0006/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "unsafe fn from_buf_and_len_unchecked(buf: MaybeUninit<A>, len: usize) -> SmallVec<A>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          608
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-787"
+        ],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:unsafe fn from_buf_and_len_unchecked(buf: MaybeUninit<A>, len: usize) -> SmallVec<A>"
+        ],
+        "missed_keys": [
+          "src/lib.rs:pub fn insert_many<I: IntoIterator<Item = A::Item>>(&mut self, index: usize, iterable: I)"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:608"
+        ],
+        "missed_keys": [
+          "src/lib.rs:1032",
+          "src/lib.rs:1044"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:49:05.902055+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0006/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub unsafe fn set_len(&mut self, new_len: usize)"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          153
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-787"
+        ],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:pub unsafe fn set_len(&mut self, new_len: usize)"
+        ],
+        "missed_keys": [
+          "src/lib.rs:pub fn insert_many<I: IntoIterator<Item = A::Item>>(&mut self, index: usize, iterable: I)"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:153"
+        ],
+        "missed_keys": [
+          "src/lib.rs:355",
+          "src/lib.rs:367"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:49:09.828869+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0006/fixed-crate",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:49:34.299321+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0006/fixed-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-119"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub unsafe fn set_len(&mut self, new_len: usize)"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          619
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-119"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:pub unsafe fn set_len(&mut self, new_len: usize)"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:619"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:49:37.004717+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0006/fixed-function",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:49:53.723111+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0007/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub fn insert(&mut self, key: K, value: V) -> Option<V>",
+          "pub fn get<Q>(&self, key: &Q) -> Option<&V>",
+          "pub fn get_mut<Q>(&mut self, key: &Q) -> Option<&mut V>",
+          "pub fn contains_key<Q>(&self, key: &Q) -> bool",
+          "pub fn get_or_insert<F>(&mut self, key: K, fill: F) -> &mut V",
+          "pub fn remove<Q>(&mut self, key: &Q) -> Option<V>",
+          "fn find(&self, hash: u64) -> FindResult"
+        ],
+        "src/raw_entry.rs": [
+          "pub fn key(&self) -> &K",
+          "pub fn key_mut(&mut self) -> &mut K",
+          "pub fn into_key(self) -> &'a mut K",
+          "pub fn get(&self) -> &V",
+          "pub fn into_mut(self) -> &'a mut V",
+          "pub fn get_mut(&mut self) -> &mut V",
+          "pub fn get_key_value(&mut self) -> (&K, &V)",
+          "pub fn get_key_value_mut(&mut self) -> (&mut K, &mut V)",
+          "pub fn into_key_value(self) -> (&'a mut K, &'a mut V)",
+          "pub fn remove_entry(self) -> (K, V)",
+          "pub fn insert(self, key: K, value: V) -> (&'a mut K, &'a mut V)",
+          "pub fn insert_hashed_nocheck(self, _hash: u64, key: K, value: V) -> (&'a mut K, &'a mut V)",
+          "pub fn insert_with_hasher(self, _hash: u64, key: K, value: V, _hasher: H) -> (&'a mut K, &'a mut V)"
+        ],
+        "src/entry.rs": [
+          "pub fn key(&self) -> &K",
+          "pub fn remove_entry(self) -> (K, V)",
+          "pub fn get(&self) -> &V",
+          "pub fn get_mut(&mut self) -> &mut V",
+          "pub fn into_mut(self) -> &'a mut V",
+          "pub fn replace_entry(self, value: V) -> (K, V)",
+          "pub fn replace_key(self) -> K",
+          "pub fn insert(self, value: V) -> &'a mut V"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          231,
+          268,
+          301,
+          329,
+          345,
+          391,
+          423
+        ],
+        "src/raw_entry.rs": [
+          302,
+          308,
+          315,
+          321,
+          332,
+          342,
+          353,
+          365,
+          383,
+          418,
+          443,
+          456,
+          462
+        ],
+        "src/entry.rs": [
+          208,
+          231,
+          254,
+          292,
+          326,
+          406,
+          443,
+          530
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-125"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/entry.rs:pub fn get(&self) -> &V",
+          "src/entry.rs:pub fn get_mut(&mut self) -> &mut V",
+          "src/entry.rs:pub fn insert(self, value: V) -> &'a mut V",
+          "src/entry.rs:pub fn into_mut(self) -> &'a mut V",
+          "src/entry.rs:pub fn key(&self) -> &K",
+          "src/entry.rs:pub fn remove_entry(self) -> (K, V)",
+          "src/entry.rs:pub fn replace_entry(self, value: V) -> (K, V)",
+          "src/entry.rs:pub fn replace_key(self) -> K",
+          "src/lib.rs:fn find(&self, hash: u64) -> FindResult",
+          "src/lib.rs:pub fn contains_key<Q>(&self, key: &Q) -> bool",
+          "src/lib.rs:pub fn get<Q>(&self, key: &Q) -> Option<&V>",
+          "src/lib.rs:pub fn get_mut<Q>(&mut self, key: &Q) -> Option<&mut V>",
+          "src/lib.rs:pub fn get_or_insert<F>(&mut self, key: K, fill: F) -> &mut V",
+          "src/lib.rs:pub fn insert(&mut self, key: K, value: V) -> Option<V>",
+          "src/lib.rs:pub fn remove<Q>(&mut self, key: &Q) -> Option<V>",
+          "src/raw_entry.rs:pub fn get(&self) -> &V",
+          "src/raw_entry.rs:pub fn get_key_value(&mut self) -> (&K, &V)",
+          "src/raw_entry.rs:pub fn get_key_value_mut(&mut self) -> (&mut K, &mut V)",
+          "src/raw_entry.rs:pub fn get_mut(&mut self) -> &mut V",
+          "src/raw_entry.rs:pub fn insert(self, key: K, value: V) -> (&'a mut K, &'a mut V)",
+          "src/raw_entry.rs:pub fn insert_hashed_nocheck(self, _hash: u64, key: K, value: V) -> (&'a mut K, &'a mut V)",
+          "src/raw_entry.rs:pub fn insert_with_hasher(self, _hash: u64, key: K, value: V, _hasher: H) -> (&'a mut K, &'a mut V)",
+          "src/raw_entry.rs:pub fn into_key(self) -> &'a mut K",
+          "src/raw_entry.rs:pub fn into_key_value(self) -> (&'a mut K, &'a mut V)",
+          "src/raw_entry.rs:pub fn into_mut(self) -> &'a mut V",
+          "src/raw_entry.rs:pub fn key(&self) -> &K",
+          "src/raw_entry.rs:pub fn key_mut(&mut self) -> &mut K",
+          "src/raw_entry.rs:pub fn remove_entry(self) -> (K, V)"
+        ],
+        "missed_keys": [
+          "src/compact.rs:fn capacity(&self) -> usize",
+          "src/compact.rs:fn clear(&mut self)",
+          "src/compact.rs:fn drop(&mut self)",
+          "src/compact.rs:fn from(stdvec: StdVec<T>) -> Self",
+          "src/compact.rs:fn from(vec: Vec<T>) -> Self",
+          "src/compact.rs:fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self",
+          "src/compact.rs:fn parts(&self) -> (usize, usize)",
+          "src/compact.rs:fn push(&mut self, val: T)",
+          "src/compact.rs:fn remove(&mut self, index: usize) -> T",
+          "src/compact.rs:fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R",
+          "src/compact.rs:fn with_capacity(capacity: usize) -> Self",
+          "src/compact.rs:impl<T> From<StdVec<T>> for Vec<T>",
+          "src/compact.rs:impl<T> From<Vec<T>> for StdVec<T>",
+          "src/compact.rs:impl<T> core::ops::Drop for Vec<T>",
+          "src/compact.rs:unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> ",
+          "src/compact.rs:unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>",
+          "src/compact.rs:unsafe fn set_len(&mut self, len: usize)"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/entry.rs:208",
+          "src/entry.rs:231",
+          "src/entry.rs:254",
+          "src/entry.rs:292",
+          "src/entry.rs:326",
+          "src/entry.rs:406",
+          "src/entry.rs:443",
+          "src/entry.rs:530",
+          "src/lib.rs:231",
+          "src/lib.rs:268",
+          "src/lib.rs:301",
+          "src/lib.rs:329",
+          "src/lib.rs:345",
+          "src/lib.rs:391",
+          "src/lib.rs:423",
+          "src/raw_entry.rs:302",
+          "src/raw_entry.rs:308",
+          "src/raw_entry.rs:315",
+          "src/raw_entry.rs:321",
+          "src/raw_entry.rs:332",
+          "src/raw_entry.rs:342",
+          "src/raw_entry.rs:353",
+          "src/raw_entry.rs:365",
+          "src/raw_entry.rs:383",
+          "src/raw_entry.rs:418",
+          "src/raw_entry.rs:443",
+          "src/raw_entry.rs:456",
+          "src/raw_entry.rs:462"
+        ],
+        "missed_keys": [
+          "src/compact.rs:102",
+          "src/compact.rs:110",
+          "src/compact.rs:127",
+          "src/compact.rs:136",
+          "src/compact.rs:142",
+          "src/compact.rs:161",
+          "src/compact.rs:187",
+          "src/compact.rs:204",
+          "src/compact.rs:213",
+          "src/compact.rs:281",
+          "src/compact.rs:282",
+          "src/compact.rs:286",
+          "src/compact.rs:297",
+          "src/compact.rs:36",
+          "src/compact.rs:48",
+          "src/compact.rs:54",
+          "src/compact.rs:72",
+          "src/compact.rs:90"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:50:02.514924+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0007/vuln-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125",
+        "CWE-787"
+      ],
+      "vulnerable_functions": {
+        "src/compact.rs": [
+          "pub fn push(&mut self, val: T)",
+          "pub fn pop(&mut self) -> Option<T>",
+          "pub fn remove(&mut self, index: usize) -> T",
+          "unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>"
+        ],
+        "src/lib.rs": [
+          "pub fn insert(&mut self, key: K, value: V) -> Option<V>",
+          "pub fn get<Q>(&self, key: &Q) -> Option<&V>",
+          "pub fn get_mut<Q>(&mut self, key: &Q) -> Option<&mut V>",
+          "pub fn contains_key<Q>(&self, key: &Q) -> bool",
+          "pub fn get_or_insert<F>(&mut self, key: K, fill: F) -> &mut V",
+          "pub fn remove<Q>(&mut self, key: &Q) -> Option<V>",
+          "fn find(&self, hash: u64) -> FindResult"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/compact.rs": [
+          72,
+          83,
+          110,
+          297
+        ],
+        "src/lib.rs": [
+          227,
+          264,
+          297,
+          325,
+          341,
+          387,
+          419
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-125"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-787"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/compact.rs:unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>"
+        ],
+        "false_positive_keys": [
+          "src/compact.rs:pub fn pop(&mut self) -> Option<T>",
+          "src/compact.rs:pub fn push(&mut self, val: T)",
+          "src/compact.rs:pub fn remove(&mut self, index: usize) -> T",
+          "src/lib.rs:fn find(&self, hash: u64) -> FindResult",
+          "src/lib.rs:pub fn contains_key<Q>(&self, key: &Q) -> bool",
+          "src/lib.rs:pub fn get<Q>(&self, key: &Q) -> Option<&V>",
+          "src/lib.rs:pub fn get_mut<Q>(&mut self, key: &Q) -> Option<&mut V>",
+          "src/lib.rs:pub fn get_or_insert<F>(&mut self, key: K, fill: F) -> &mut V",
+          "src/lib.rs:pub fn insert(&mut self, key: K, value: V) -> Option<V>",
+          "src/lib.rs:pub fn remove<Q>(&mut self, key: &Q) -> Option<V>"
+        ],
+        "missed_keys": [
+          "src/compact.rs:fn capacity(&self) -> usize",
+          "src/compact.rs:fn clear(&mut self)",
+          "src/compact.rs:fn drop(&mut self)",
+          "src/compact.rs:fn from(stdvec: StdVec<T>) -> Self",
+          "src/compact.rs:fn from(vec: Vec<T>) -> Self",
+          "src/compact.rs:fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self",
+          "src/compact.rs:fn parts(&self) -> (usize, usize)",
+          "src/compact.rs:fn push(&mut self, val: T)",
+          "src/compact.rs:fn remove(&mut self, index: usize) -> T",
+          "src/compact.rs:fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R",
+          "src/compact.rs:fn with_capacity(capacity: usize) -> Self",
+          "src/compact.rs:impl<T> From<StdVec<T>> for Vec<T>",
+          "src/compact.rs:impl<T> From<Vec<T>> for StdVec<T>",
+          "src/compact.rs:impl<T> core::ops::Drop for Vec<T>",
+          "src/compact.rs:unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> ",
+          "src/compact.rs:unsafe fn set_len(&mut self, len: usize)"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/compact.rs:110",
+          "src/compact.rs:297",
+          "src/compact.rs:72"
+        ],
+        "false_positive_keys": [
+          "src/compact.rs:83",
+          "src/lib.rs:227",
+          "src/lib.rs:264",
+          "src/lib.rs:297",
+          "src/lib.rs:325",
+          "src/lib.rs:341",
+          "src/lib.rs:387",
+          "src/lib.rs:419"
+        ],
+        "missed_keys": [
+          "src/compact.rs:102",
+          "src/compact.rs:127",
+          "src/compact.rs:136",
+          "src/compact.rs:142",
+          "src/compact.rs:161",
+          "src/compact.rs:187",
+          "src/compact.rs:204",
+          "src/compact.rs:213",
+          "src/compact.rs:281",
+          "src/compact.rs:282",
+          "src/compact.rs:286",
+          "src/compact.rs:36",
+          "src/compact.rs:48",
+          "src/compact.rs:54",
+          "src/compact.rs:90"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:50:05.885420+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0007/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125",
+        "CWE-787",
+        "CWE-119"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub unsafe fn set_len(&mut self, len: usize)"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          98
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-125"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-119",
+          "CWE-787"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:pub unsafe fn set_len(&mut self, len: usize)"
+        ],
+        "missed_keys": [
+          "src/lib.rs:fn capacity(&self) -> usize",
+          "src/lib.rs:fn clear(&mut self)",
+          "src/lib.rs:fn drop(&mut self)",
+          "src/lib.rs:fn from(stdvec: StdVec<T>) -> Self",
+          "src/lib.rs:fn from(vec: Vec<T>) -> Self",
+          "src/lib.rs:fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self",
+          "src/lib.rs:fn parts(&self) -> (usize, usize)",
+          "src/lib.rs:fn push(&mut self, val: T)",
+          "src/lib.rs:fn remove(&mut self, index: usize) -> T",
+          "src/lib.rs:fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R",
+          "src/lib.rs:fn with_capacity(capacity: usize) -> Self",
+          "src/lib.rs:impl<T> From<StdVec<T>> for Vec<T>",
+          "src/lib.rs:impl<T> From<Vec<T>> for StdVec<T>",
+          "src/lib.rs:impl<T> core::ops::Drop for Vec<T>",
+          "src/lib.rs:unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> ",
+          "src/lib.rs:unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]>",
+          "src/lib.rs:unsafe fn set_len(&mut self, len: usize)"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:98"
+        ],
+        "missed_keys": [
+          "src/lib.rs:105",
+          "src/lib.rs:111",
+          "src/lib.rs:130",
+          "src/lib.rs:141",
+          "src/lib.rs:158",
+          "src/lib.rs:167",
+          "src/lib.rs:173",
+          "src/lib.rs:174",
+          "src/lib.rs:178",
+          "src/lib.rs:189",
+          "src/lib.rs:21",
+          "src/lib.rs:33",
+          "src/lib.rs:39",
+          "src/lib.rs:57",
+          "src/lib.rs:66",
+          "src/lib.rs:71",
+          "src/lib.rs:79",
+          "src/lib.rs:96"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:50:10.391820+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0009/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-401",
+        "CWE-416"
+      ],
+      "vulnerable_functions": {
+        "src/ds/matrix.rs": [
+          "pub fn new(rows: usize, cols: usize) -> Self",
+          "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
+          "fn clone(&self) -> Self",
+          "fn drop(&mut self)"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/ds/matrix.rs": [
+          99,
+          100,
+          101,
+          132,
+          133,
+          134,
+          188,
+          189,
+          190
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-908"
+        ],
+        "extra_predictions": [
+          "CWE-401",
+          "CWE-416"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/ds/matrix.rs:fn alloc(rows: usize, cols: usize) -> &'a mut [T]"
+        ],
+        "false_positive_keys": [
+          "src/ds/matrix.rs:fn clone(&self) -> Self",
+          "src/ds/matrix.rs:fn drop(&mut self)",
+          "src/ds/matrix.rs:pub fn new(rows: usize, cols: usize) -> Self"
+        ],
+        "missed_keys": [
+          "src/ds/matrix.rs:fn fill_with(buf: &mut [T], value: T)"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/ds/matrix.rs:101"
+        ],
+        "false_positive_keys": [
+          "src/ds/matrix.rs:100",
+          "src/ds/matrix.rs:132",
+          "src/ds/matrix.rs:133",
+          "src/ds/matrix.rs:134",
+          "src/ds/matrix.rs:188",
+          "src/ds/matrix.rs:189",
+          "src/ds/matrix.rs:190",
+          "src/ds/matrix.rs:99"
+        ],
+        "missed_keys": [
+          "src/ds/matrix.rs:110"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:50:16.127469+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0009/vuln-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-401",
+        "CWE-415",
+        "CWE-416"
+      ],
+      "vulnerable_functions": {
+        "src/ds/matrix.rs": [
+          "pub fn new(rows: usize, cols: usize) -> Self",
+          "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
+          "fn drop(&mut self)",
+          "fn clone(&self) -> Self",
+          "fn add(self, other: Self) -> Self",
+          "fn sub(self, other: Self) -> Self",
+          "fn mul(self, value: T) -> Self"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/ds/matrix.rs": [
+          99,
+          100,
+          132,
+          133,
+          134,
+          188,
+          189,
+          190,
+          237,
+          238,
+          239,
+          257,
+          258,
+          259,
+          273,
+          274,
+          275
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-908"
+        ],
+        "extra_predictions": [
+          "CWE-401",
+          "CWE-415",
+          "CWE-416"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/ds/matrix.rs:fn alloc(rows: usize, cols: usize) -> &'a mut [T]"
+        ],
+        "false_positive_keys": [
+          "src/ds/matrix.rs:fn add(self, other: Self) -> Self",
+          "src/ds/matrix.rs:fn clone(&self) -> Self",
+          "src/ds/matrix.rs:fn drop(&mut self)",
+          "src/ds/matrix.rs:fn mul(self, value: T) -> Self",
+          "src/ds/matrix.rs:fn sub(self, other: Self) -> Self",
+          "src/ds/matrix.rs:pub fn new(rows: usize, cols: usize) -> Self"
+        ],
+        "missed_keys": [
+          "src/ds/matrix.rs:fn fill_with(buf: &mut [T], value: T)"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/ds/matrix.rs:100",
+          "src/ds/matrix.rs:132",
+          "src/ds/matrix.rs:133",
+          "src/ds/matrix.rs:134",
+          "src/ds/matrix.rs:188",
+          "src/ds/matrix.rs:189",
+          "src/ds/matrix.rs:190",
+          "src/ds/matrix.rs:237",
+          "src/ds/matrix.rs:238",
+          "src/ds/matrix.rs:239",
+          "src/ds/matrix.rs:257",
+          "src/ds/matrix.rs:258",
+          "src/ds/matrix.rs:259",
+          "src/ds/matrix.rs:273",
+          "src/ds/matrix.rs:274",
+          "src/ds/matrix.rs:275",
+          "src/ds/matrix.rs:99"
+        ],
+        "missed_keys": [
+          "src/ds/matrix.rs:101",
+          "src/ds/matrix.rs:110"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:50:19.694304+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0009/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-401",
+        "CWE-908"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "fn alloc(rows: usize, cols: usize) -> &'a mut [T]"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          19,
+          20
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-908"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-401"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/lib.rs:fn alloc(rows: usize, cols: usize) -> &'a mut [T]"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/lib.rs:fn fill_with(buf: &mut [T], value: T)"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:19",
+          "src/lib.rs:20"
+        ],
+        "missed_keys": [
+          "src/lib.rs:21",
+          "src/lib.rs:30"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:50:35.231272+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0010/vuln-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-119",
+        "CWE-125",
+        "CWE-787"
+      ],
+      "vulnerable_functions": {
+        "src/util.rs": [
+          "pub(crate) fn swap_indices<V>(vector: &mut V, a: usize, b: usize)"
+        ],
+        "src/vector/mod.rs": [
+          "pub fn pair<F, B>(&mut self, a: usize, b: usize, mut f: F) -> B",
+          "pub fn triplet<F, B>(&mut self, a: usize, b: usize, c: usize, mut f: F) -> B"
+        ],
+        "src/vector/focus.rs": [
+          "fn next(&mut self) -> Option<Self::Item>",
+          "fn next_back(&mut self) -> Option<Self::Item>",
+          "fn next(&mut self) -> Option<Self::Item>",
+          "fn next_back(&mut self) -> Option<Self::Item>",
+          "fn next(&mut self) -> Option<Self::Item>",
+          "fn next_back(&mut self) -> Option<Self::Item>",
+          "fn next(&mut self) -> Option<Self::Item>",
+          "fn next_back(&mut self) -> Option<Self::Item>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/util.rs": [
+          65,
+          66,
+          68
+        ],
+        "src/vector/mod.rs": [
+          2574,
+          2575,
+          2576,
+          2604,
+          2605,
+          2606,
+          2607
+        ],
+        "src/vector/focus.rs": [
+          1936,
+          1937,
+          1958,
+          1959,
+          2015,
+          2016,
+          2040,
+          2041,
+          2121,
+          2122,
+          2138,
+          2139,
+          2180,
+          2181,
+          2197,
+          2198
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-362"
+        ],
+        "extra_predictions": [
+          "CWE-119",
+          "CWE-125",
+          "CWE-787"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/util.rs:pub(crate) fn swap_indices<V>(vector: &mut V, a: usize, b: usize)",
+          "src/vector/focus.rs:fn next(&mut self) -> Option<Self::Item>",
+          "src/vector/focus.rs:fn next_back(&mut self) -> Option<Self::Item>",
+          "src/vector/mod.rs:pub fn pair<F, B>(&mut self, a: usize, b: usize, mut f: F) -> B",
+          "src/vector/mod.rs:pub fn triplet<F, B>(&mut self, a: usize, b: usize, c: usize, mut f: F) -> B"
+        ],
+        "missed_keys": [
+          "src/vector/focus.rs:unsafe impl<A> Send for TreeFocus<A>",
+          "src/vector/focus.rs:unsafe impl<A> Sync for TreeFocus<A>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/util.rs:65",
+          "src/util.rs:66",
+          "src/util.rs:68",
+          "src/vector/focus.rs:1936",
+          "src/vector/focus.rs:1937",
+          "src/vector/focus.rs:1958",
+          "src/vector/focus.rs:1959",
+          "src/vector/focus.rs:2015",
+          "src/vector/focus.rs:2016",
+          "src/vector/focus.rs:2040",
+          "src/vector/focus.rs:2041",
+          "src/vector/focus.rs:2121",
+          "src/vector/focus.rs:2122",
+          "src/vector/focus.rs:2138",
+          "src/vector/focus.rs:2139",
+          "src/vector/focus.rs:2180",
+          "src/vector/focus.rs:2181",
+          "src/vector/focus.rs:2197",
+          "src/vector/focus.rs:2198",
+          "src/vector/mod.rs:2574",
+          "src/vector/mod.rs:2575",
+          "src/vector/mod.rs:2576",
+          "src/vector/mod.rs:2604",
+          "src/vector/mod.rs:2605",
+          "src/vector/mod.rs:2606",
+          "src/vector/mod.rs:2607"
+        ],
+        "missed_keys": [
+          "src/vector/focus.rs:281",
+          "src/vector/focus.rs:284"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:50:38.374603+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0010/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-662"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "unsafe impl<A> Send for TreeFocus<A>",
+          "unsafe impl<A> Sync for TreeFocus<A>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          65,
+          68
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-362"
+        ],
+        "extra_predictions": [
+          "CWE-662"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/lib.rs:unsafe impl<A> Send for TreeFocus<A>",
+          "src/lib.rs:unsafe impl<A> Sync for TreeFocus<A>"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:65",
+          "src/lib.rs:68"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:50:57.316498+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0010/fixed-file",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:00.158113+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0010/fixed-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-416"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "unsafe impl<A: Send> Send for TreeFocus<A>",
+          "unsafe impl<A: Sync> Sync for TreeFocus<A>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          65,
+          68
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-416"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:unsafe impl<A: Send> Send for TreeFocus<A>",
+          "src/lib.rs:unsafe impl<A: Sync> Sync for TreeFocus<A>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:65",
+          "src/lib.rs:68"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:03.819122+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0012/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/coll.rs": [
+          "fn finish(&self) -> u64"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/coll.rs": [
+          456
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-662",
+          "CWE-787"
+        ],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/coll.rs:fn finish(&self) -> u64"
+        ],
+        "missed_keys": [
+          "src/lib.rs:unsafe impl<T> Send for HConsed<T> {}",
+          "src/lib.rs:unsafe impl<T> Sync for HConsed<T> {}"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/coll.rs:456"
+        ],
+        "missed_keys": [
+          "src/lib.rs:354",
+          "src/lib.rs:355"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:07.272359+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0012/vuln-file",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-662",
+          "CWE-787"
+        ],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/lib.rs:unsafe impl<T> Send for HConsed<T> {}",
+          "src/lib.rs:unsafe impl<T> Sync for HConsed<T> {}"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/lib.rs:352",
+          "src/lib.rs:353"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:10.628885+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0012/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-662"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "unsafe impl<T> Sync for HConsed<T>",
+          "unsafe impl<T> Send for HConsed<T>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          20,
+          21
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-662"
+        ],
+        "missed_predictions": [
+          "CWE-787"
+        ],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:unsafe impl<T> Send for HConsed<T>",
+          "src/lib.rs:unsafe impl<T> Sync for HConsed<T>"
+        ],
+        "missed_keys": [
+          "src/lib.rs:unsafe impl<T> Send for HConsed<T> {}",
+          "src/lib.rs:unsafe impl<T> Sync for HConsed<T> {}"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:20",
+          "src/lib.rs:21"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:15.140827+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0012/fixed-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-908"
+      ],
+      "vulnerable_functions": {
+        "src/coll.rs": [
+          "fn finish(&self) -> u64"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/coll.rs": [
+          456
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-908"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/coll.rs:fn finish(&self) -> u64"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/coll.rs:456"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:17.632167+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0012/fixed-file",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:19.817836+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0012/fixed-function",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:27.912293+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0013/vuln-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/slice.rs": [
+          "pub unsafe fn set_unchecked(&mut self, index: usize, value: bool)"
+        ],
+        "src/slice/api.rs": [
+          "unsafe fn get_unchecked(self, slice: &'a BitSlice<O, T>) -> Self::Immut"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/slice.rs": [
+          212
+        ],
+        "src/slice/api.rs": [
+          270
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-415",
+          "CWE-416"
+        ],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/slice.rs:pub unsafe fn set_unchecked(&mut self, index: usize, value: bool)",
+          "src/slice/api.rs:unsafe fn get_unchecked(self, slice: &'a BitSlice<O, T>) -> Self::Immut"
+        ],
+        "missed_keys": [
+          "src/vec.rs:fn into_boxed_bitslice(self) -> BitBox<O, T>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/slice.rs:212",
+          "src/slice/api.rs:270"
+        ],
+        "missed_keys": [
+          "src/vec.rs:655"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:37.141602+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0013/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "unsafe fn set_unchecked(&mut self, index: usize, value: bool)"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          2022
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-415",
+          "CWE-416"
+        ],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:unsafe fn set_unchecked(&mut self, index: usize, value: bool)"
+        ],
+        "missed_keys": [
+          "src/lib.rs:fn into_boxed_bitslice(self) -> BitBox<O, T>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:2022"
+        ],
+        "missed_keys": [
+          "src/lib.rs:2503"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:45.390390+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0013/fixed-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/slice.rs": [
+          "unsafe fn set_unchecked(&mut self, index: usize, value: bool)",
+          "unsafe fn copy_unchecked(&mut self, from: usize, to: usize)"
+        ],
+        "src/slice/api.rs": [
+          "unsafe fn get_unchecked(self, slice: &'a BitSlice<O, T>) -> Self::Immut",
+          "unsafe fn get_unchecked_mut(self, slice: &'a mut BitSlice<O, T>) -> Self::Mut"
+        ],
+        "src/vec.rs": [
+          "unsafe fn set_len(&mut self, new_len: usize)"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/slice.rs": [
+          210,
+          212,
+          245
+        ],
+        "src/slice/api.rs": [
+          267,
+          268,
+          286,
+          291
+        ],
+        "src/vec.rs": [
+          720,
+          721
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/slice.rs:unsafe fn copy_unchecked(&mut self, from: usize, to: usize)",
+          "src/slice.rs:unsafe fn set_unchecked(&mut self, index: usize, value: bool)",
+          "src/slice/api.rs:unsafe fn get_unchecked(self, slice: &'a BitSlice<O, T>) -> Self::Immut",
+          "src/slice/api.rs:unsafe fn get_unchecked_mut(self, slice: &'a mut BitSlice<O, T>) -> Self::Mut",
+          "src/vec.rs:unsafe fn set_len(&mut self, new_len: usize)"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/slice.rs:210",
+          "src/slice.rs:212",
+          "src/slice.rs:245",
+          "src/slice/api.rs:267",
+          "src/slice/api.rs:268",
+          "src/slice/api.rs:286",
+          "src/slice/api.rs:291",
+          "src/vec.rs:720",
+          "src/vec.rs:721"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:49.520621+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0013/fixed-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "unsafe fn set_unchecked(&mut self, index: usize, value: bool)"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          1983
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:unsafe fn set_unchecked(&mut self, index: usize, value: bool)"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:1983"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:53.938474+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0017/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125",
+        "CWE-787",
+        "CWE-119"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "fn index<'a>(&'a self, idx: usize) -> &'a Self::Output",
+          "fn index_mut<'a>(&'a mut self, idx: usize) -> &'a mut Self::Output"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          134,
+          144
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-908"
+        ],
+        "extra_predictions": [
+          "CWE-119",
+          "CWE-125",
+          "CWE-787"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:fn index<'a>(&'a self, idx: usize) -> &'a Self::Output",
+          "src/lib.rs:fn index_mut<'a>(&'a mut self, idx: usize) -> &'a mut Self::Output"
+        ],
+        "missed_keys": [
+          "src/lib.rs:pub fn new_from_template(size: usize, template: &T) -> Self"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:134",
+          "src/lib.rs:144"
+        ],
+        "missed_keys": [
+          "src/lib.rs:117",
+          "src/lib.rs:121"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:51:56.745464+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0017/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-908"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub fn new_from_template(size: usize, template: &T) -> Self"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          19
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-908"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/lib.rs:pub fn new_from_template(size: usize, template: &T) -> Self"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:19"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/lib.rs:15"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:52:01.091206+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0020/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/sparse_chunk/mod.rs": [
+          "unsafe fn get_unchecked(&self, index: usize) -> &A",
+          "unsafe fn get_unchecked_mut(&mut self, index: usize) -> &mut A"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/sparse_chunk/mod.rs": [
+          230,
+          240
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-129"
+        ],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/sparse_chunk/mod.rs:unsafe fn get_unchecked(&self, index: usize) -> &A",
+          "src/sparse_chunk/mod.rs:unsafe fn get_unchecked_mut(&mut self, index: usize) -> &mut A"
+        ],
+        "missed_keys": [
+          "src/sized_chunk/mod.rs:fn from(array: &mut InlineArray<A, T>) -> Self"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/sparse_chunk/mod.rs:230",
+          "src/sparse_chunk/mod.rs:240"
+        ],
+        "missed_keys": [
+          "src/sized_chunk/mod.rs:824",
+          "src/sized_chunk/mod.rs:825"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:52:18.939135+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0020/vuln-file",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-129"
+        ],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/sized_chunk/mod.rs:fn from(array: &mut InlineArray<A, T>) -> Self"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/sized_chunk/mod.rs:821",
+          "src/sized_chunk/mod.rs:822"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:52:24.536199+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0020/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/inline_array/mod.rs": [
+          "fn clone(&self) -> Self"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/inline_array/mod.rs": [
+          315
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-129"
+        ],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/inline_array/mod.rs:fn clone(&self) -> Self"
+        ],
+        "missed_keys": [
+          "src/lib.rs:fn from(array: &mut InlineArray<A, T>) -> Self"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/inline_array/mod.rs:315"
+        ],
+        "missed_keys": [
+          "src/lib.rs:50",
+          "src/lib.rs:51"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:52:30.271326+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0020/fixed-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/sparse_chunk/mod.rs": [
+          "unsafe fn get_unchecked(&self, index: usize) -> &A",
+          "unsafe fn get_unchecked_mut(&mut self, index: usize) -> &mut A"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/sparse_chunk/mod.rs": [
+          230,
+          240
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/sparse_chunk/mod.rs:unsafe fn get_unchecked(&self, index: usize) -> &A",
+          "src/sparse_chunk/mod.rs:unsafe fn get_unchecked_mut(&mut self, index: usize) -> &mut A"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/sparse_chunk/mod.rs:230",
+          "src/sparse_chunk/mod.rs:240"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:52:37.342888+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0020/fixed-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/ring_buffer/slice.rs": [
+          "unsafe fn get_unchecked(&self, index: usize) -> &A",
+          "unsafe fn get_unchecked_mut(&mut self, index: usize) -> &mut A"
+        ],
+        "src/ring_buffer/mod.rs": [
+          "unsafe fn get_unchecked(&self, index: usize) -> &A",
+          "unsafe fn get_unchecked_mut(&mut self, index: usize) -> &mut A"
+        ],
+        "src/inline_array/mod.rs": [
+          "unsafe fn get_unchecked(&self, index: usize) -> &A",
+          "unsafe fn get_unchecked_mut(&mut self, index: usize) -> &mut A"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/ring_buffer/slice.rs": [
+          56,
+          328
+        ],
+        "src/ring_buffer/mod.rs": [
+          408,
+          418
+        ],
+        "src/inline_array/mod.rs": [
+          401
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/inline_array/mod.rs:unsafe fn get_unchecked(&self, index: usize) -> &A",
+          "src/inline_array/mod.rs:unsafe fn get_unchecked_mut(&mut self, index: usize) -> &mut A",
+          "src/ring_buffer/mod.rs:unsafe fn get_unchecked(&self, index: usize) -> &A",
+          "src/ring_buffer/mod.rs:unsafe fn get_unchecked_mut(&mut self, index: usize) -> &mut A",
+          "src/ring_buffer/slice.rs:unsafe fn get_unchecked(&self, index: usize) -> &A",
+          "src/ring_buffer/slice.rs:unsafe fn get_unchecked_mut(&mut self, index: usize) -> &mut A"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/inline_array/mod.rs:401",
+          "src/ring_buffer/mod.rs:408",
+          "src/ring_buffer/mod.rs:418",
+          "src/ring_buffer/slice.rs:328",
+          "src/ring_buffer/slice.rs:56"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:52:40.590950+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0020/fixed-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/inline_array/mod.rs": [
+          "fn clone(&self) -> Self"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/inline_array/mod.rs": [
+          315
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/inline_array/mod.rs:fn clone(&self) -> Self"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/inline_array/mod.rs:315"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:52:44.403250+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0024/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125",
+        "CWE-787"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub fn remove(&mut self, offset: usize) -> T",
+          "fn index(&self, index: usize) -> &Self::Output"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          93,
+          96,
+          163
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-125"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-787"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/lib.rs:fn index(&self, index: usize) -> &Self::Output"
+        ],
+        "false_positive_keys": [
+          "src/lib.rs:pub fn remove(&mut self, offset: usize) -> T"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:163"
+        ],
+        "false_positive_keys": [
+          "src/lib.rs:93",
+          "src/lib.rs:96"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:52:47.986369+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0024/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125",
+        "CWE-119"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "fn index(&self, index: usize) -> &Self::Output"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          14
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-125"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-119"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/lib.rs:fn index(&self, index: usize) -> &Self::Output"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:14"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:52:51.188661+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0024/fixed-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-119",
+        "CWE-125",
+        "CWE-787"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "fn next(&mut self) -> Option<&'a mut T>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          191
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-119",
+          "CWE-125",
+          "CWE-787"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:fn next(&mut self) -> Option<&'a mut T>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:191"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:52:53.204144+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0024/fixed-function",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:53:12.414737+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0026/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125",
+        "CWE-787",
+        "CWE-416"
+      ],
+      "vulnerable_functions": {
+        "src/fam.rs": [
+          "unsafe fn from_raw(content: Vec<T>) -> Self",
+          "fn clone(&self) -> Self"
+        ],
+        "src/linux/sock_ctrl_msg.rs": [
+          "unsafe fn raw_recvmsg(fd: RawFd, iovecs: &mut [iovec], in_fds: &mut [RawFd]) -> Result<(usize, usize)>"
+        ],
+        "src/linux/aio.rs": [
+          "fn submit(&self, iocbs: &[&mut IoControlBlock]) -> Result<usize>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/fam.rs": [
+          263,
+          473
+        ],
+        "src/linux/sock_ctrl_msg.rs": [
+          269,
+          271
+        ],
+        "src/linux/aio.rs": [
+          130
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-787"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-125",
+          "CWE-416"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/fam.rs:fn clone(&self) -> Self",
+          "src/fam.rs:unsafe fn from_raw(content: Vec<T>) -> Self",
+          "src/linux/aio.rs:fn submit(&self, iocbs: &[&mut IoControlBlock]) -> Result<usize>",
+          "src/linux/sock_ctrl_msg.rs:unsafe fn raw_recvmsg(fd: RawFd, iovecs: &mut [iovec], in_fds: &mut [RawFd]) -> Result<(usize, usize)>"
+        ],
+        "missed_keys": [
+          "src/fam.rs:fn set_len(&mut self, len: usize) -> Result<(), Error>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/fam.rs:263",
+          "src/fam.rs:473",
+          "src/linux/aio.rs:130",
+          "src/linux/sock_ctrl_msg.rs:269",
+          "src/linux/sock_ctrl_msg.rs:271"
+        ],
+        "missed_keys": [
+          "src/fam.rs:398",
+          "src/fam.rs:550"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:53:17.355801+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0026/vuln-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125",
+        "CWE-787"
+      ],
+      "vulnerable_functions": {
+        "src/fam.rs": [
+          "pub unsafe fn as_slice(&self, len: usize) -> &[T]",
+          "pub unsafe fn as_mut_slice(&mut self, len: usize) -> &mut [T]",
+          "fn as_slice(&self) -> &[<Self as FamStruct>::Entry]",
+          "fn as_mut_slice(&mut self) -> &mut [<Self as FamStruct>::Entry]"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/fam.rs": [
+          79,
+          83,
+          583,
+          588
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [
+          "CWE-787"
+        ],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/fam.rs:fn as_mut_slice(&mut self) -> &mut [<Self as FamStruct>::Entry]",
+          "src/fam.rs:fn as_slice(&self) -> &[<Self as FamStruct>::Entry]",
+          "src/fam.rs:pub unsafe fn as_mut_slice(&mut self, len: usize) -> &mut [T]",
+          "src/fam.rs:pub unsafe fn as_slice(&self, len: usize) -> &[T]"
+        ],
+        "missed_keys": [
+          "src/fam.rs:fn set_len(&mut self, len: usize) -> Result<(), Error>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/fam.rs:583",
+          "src/fam.rs:588",
+          "src/fam.rs:79",
+          "src/fam.rs:83"
+        ],
+        "missed_keys": [
+          "src/fam.rs:398",
+          "src/fam.rs:550"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:53:21.930453+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0026/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-908"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub fn new(num_elements: usize) -> Result<FamStructWrapper<T>, Error>",
+          "fn set_len(&mut self, len: usize) -> Result<(), Error>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          199,
+          317
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-787"
+        ],
+        "extra_predictions": [
+          "CWE-908"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/lib.rs:fn set_len(&mut self, len: usize) -> Result<(), Error>"
+        ],
+        "false_positive_keys": [
+          "src/lib.rs:pub fn new(num_elements: usize) -> Result<FamStructWrapper<T>, Error>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:199",
+          "src/lib.rs:317"
+        ],
+        "missed_keys": [
+          "src/lib.rs:320",
+          "src/lib.rs:366"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:53:38.619320+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0026/fixed-file",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:53:42.154570+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0026/fixed-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-908"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub fn new(num_elements: usize) -> Result<FamStructWrapper<T>, Error>",
+          "fn set_len(&mut self, len: usize) -> Result<(), Error>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          204,
+          326
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-908"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:fn set_len(&mut self, len: usize) -> Result<(), Error>",
+          "src/lib.rs:pub fn new(num_elements: usize) -> Result<FamStructWrapper<T>, Error>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:204",
+          "src/lib.rs:326"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:53:50.145232+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0027/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/input.rs": [
+          "fn read_u8(&mut self) -> io::Result<u8>"
+        ],
+        "src/frame.rs": [
+          "fn next(&mut self) -> Option<(i32, i32)>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/input.rs": [
+          138
+        ],
+        "src/frame.rs": [
+          561,
+          562
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-908"
+        ],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/frame.rs:fn next(&mut self) -> Option<(i32, i32)>",
+          "src/input.rs:fn read_u8(&mut self) -> io::Result<u8>"
+        ],
+        "missed_keys": [
+          "src/frame.rs:fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
+          "src/frame.rs:pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult",
+          "src/subframe.rs:fn decode_residual<R: ReadBytes>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/frame.rs:561",
+          "src/frame.rs:562",
+          "src/input.rs:138"
+        ],
+        "missed_keys": [
+          "src/frame.rs:618",
+          "src/frame.rs:657",
+          "src/subframe.rs:257"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:53:54.658816+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0027/vuln-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/frame.rs": [
+          "fn next(&mut self) -> Option<(i32, i32)>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/frame.rs": [
+          561,
+          562
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-908"
+        ],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/frame.rs:fn next(&mut self) -> Option<(i32, i32)>"
+        ],
+        "missed_keys": [
+          "src/frame.rs:fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
+          "src/frame.rs:pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult",
+          "src/subframe.rs:fn decode_residual<R: ReadBytes>"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/frame.rs:561",
+          "src/frame.rs:562"
+        ],
+        "missed_keys": [
+          "src/frame.rs:618",
+          "src/frame.rs:657",
+          "src/subframe.rs:257"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:53:58.762685+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0027/fixed-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/frame.rs": [
+          "fn next(&mut self) -> Option<(i32, i32)>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/frame.rs": [
+          561,
+          562
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/frame.rs:fn next(&mut self) -> Option<(i32, i32)>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/frame.rs:561",
+          "src/frame.rs:562"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:54:02.587022+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0027/fixed-file",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/frame.rs": [
+          "fn next(&mut self) -> Option<(i32, i32)>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/frame.rs": [
+          561,
+          562
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/frame.rs:fn next(&mut self) -> Option<(i32, i32)>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/frame.rs:561",
+          "src/frame.rs:562"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:54:05.586852+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0028/vuln-crate",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-20"
+        ],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/lib.rs:pub fn force(this: &Lazy<T, F>) -> &T"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": [
+          "src/lib.rs:492",
+          "src/lib.rs:795"
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:54:11.957150+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0028/vuln-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-908"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub fn force(this: &Lazy<T, F>) -> &T",
+          "pub fn force(this: &Lazy<T, F>) -> &T"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          425,
+          637
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-20"
+        ],
+        "extra_predictions": [
+          "CWE-908"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [
+          "src/lib.rs:pub fn force(this: &Lazy<T, F>) -> &T"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [
+          "src/lib.rs:425",
+          "src/lib.rs:637"
+        ],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:54:15.522498+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0028/fixed-crate",
+    "answer": {
+      "is_vulnerable": false,
+      "cwe_type": [],
+      "vulnerable_functions": {},
+      "vulnerable_lines": {}
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": []
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:54:18.926244+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0028/fixed-function",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/lib.rs": [
+          "pub(crate) fn get(&self) -> Option<&T>"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/lib.rs": [
+          750
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": false
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:pub(crate) fn get(&self) -> Option<&T>"
+        ],
+        "missed_keys": []
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/lib.rs:750"
+        ],
+        "missed_keys": []
+      }
+    }
+  },
+  {
+    "timestamp": "2025-05-27T20:54:36.921811+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-sonnet-4-20250514",
+    "code_sample": "vuln-0033/vuln-crate",
+    "answer": {
+      "is_vulnerable": true,
+      "cwe_type": [
+        "CWE-125"
+      ],
+      "vulnerable_functions": {
+        "src/collation.rs": [
+          "unsafe extern \"C\" fn call_boxed_closure<F, C>(p_arg: *mut c_void, action_code: c_int, db_str: *const c_char, tbl_str: *const c_char, row_id: i64)"
+        ],
+        "src/session.rs": [
+          "unsafe extern \"C\" fn call_filter<F, C>(p_ctx: *mut c_void, tbl_str: *const c_char) -> c_int"
+        ],
+        "src/hooks.rs": [
+          "unsafe extern \"C\" fn call_boxed_closure<F>(p_arg: *mut c_void, action_code: c_int, db_str: *const c_char, tbl_str: *const c_char, row_id: i64)"
+        ]
+      },
+      "vulnerable_lines": {
+        "src/collation.rs": [
+          63,
+          67
+        ],
+        "src/session.rs": [
+          663
+        ],
+        "src/hooks.rs": [
+          191,
+          195
+        ]
+      }
+    },
+    "scoring": {
+      "existence_detection": {
+        "is_correct": true
+      },
+      "cwe_inference": {
+        "correct_predictions": [],
+        "missed_predictions": [
+          "CWE-134"
+        ],
+        "extra_predictions": [
+          "CWE-125"
+        ]
+      },
+      "key_objects_identification": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/collation.rs:unsafe extern \"C\" fn call_boxed_closure<F, C>(p_arg: *mut c_void, action_code: c_int, db_str: *const c_char, tbl_str: *const c_char, row_id: i64)",
+          "src/hooks.rs:unsafe extern \"C\" fn call_boxed_closure<F>(p_arg: *mut c_void, action_code: c_int, db_str: *const c_char, tbl_str: *const c_char, row_id: i64)",
+          "src/session.rs:unsafe extern \"C\" fn call_filter<F, C>(p_ctx: *mut c_void, tbl_str: *const c_char) -> c_int"
+        ],
+        "missed_keys": [
+          "src/trace.rs:pub fn log(err_code: c_int, msg: &str)"
+        ]
+      },
+      "root_cause_location": {
+        "true_positive_keys": [],
+        "false_positive_keys": [
+          "src/collation.rs:63",
+          "src/collation.rs:67",
+          "src/hooks.rs:191",
+          "src/hooks.rs:195",
+          "src/session.rs:663"
+        ],
+        "missed_keys": [
+          "src/trace.rs:64"
+        ]
+      }
+    }
+  }
+]
