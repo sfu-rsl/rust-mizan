@@ -1,5 +1,5 @@
-use crate::Connection;
-use crate::Result;
+use crate::{Connection,
+            Result};
 use std::ops::Deref;
 
 
@@ -853,8 +853,8 @@ mod test
 
 
 	use super::DropBehavior;
-	use crate::Connection;
-	use crate::NO_PARAMS;
+	use crate::{Connection,
+	            NO_PARAMS};
 
 
 

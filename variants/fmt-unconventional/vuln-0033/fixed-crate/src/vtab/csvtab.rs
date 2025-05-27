@@ -27,20 +27,20 @@
 
 use crate::ffi;
 use crate::types::Null;
-use crate::vtab::dequote;
-use crate::vtab::escape_double_quote;
-use crate::vtab::parse_boolean;
-use crate::vtab::read_only_module;
-use crate::vtab::Context;
-use crate::vtab::CreateVTab;
-use crate::vtab::IndexInfo;
-use crate::vtab::VTab;
-use crate::vtab::VTabConnection;
-use crate::vtab::VTabCursor;
-use crate::vtab::Values;
-use crate::Connection;
-use crate::Error;
-use crate::Result;
+use crate::vtab::{dequote,
+                  escape_double_quote,
+                  parse_boolean,
+                  read_only_module,
+                  Context,
+                  CreateVTab,
+                  IndexInfo,
+                  VTab,
+                  VTabConnection,
+                  VTabCursor,
+                  Values};
+use crate::{Connection,
+            Error,
+            Result};
 use std::fs::File;
 use std::os::raw::c_int;
 use std::path::Path;
@@ -681,9 +681,9 @@ mod test
 
 
 	use crate::vtab::csvtab;
-	use crate::Connection;
-	use crate::Result;
-	use crate::NO_PARAMS;
+	use crate::{Connection,
+	            Result,
+	            NO_PARAMS};
 	use fallible_iterator::FallibleIterator;
 
 

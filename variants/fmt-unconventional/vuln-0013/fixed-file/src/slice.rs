@@ -20,13 +20,13 @@
 
 
 
-use crate::access::BitAccess;
-use crate::index::Indexable;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::order::Local;
-use crate::pointer::BitPtr;
-use crate::store::BitStore;
+use crate::{access::BitAccess,
+            index::Indexable,
+            mem::BitMemory,
+            order::{BitOrder,
+                    Local},
+            pointer::BitPtr,
+            store::BitStore};
 use core::marker::PhantomData;
 use funty::IsInteger;
 

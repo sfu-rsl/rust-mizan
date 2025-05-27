@@ -17,9 +17,9 @@
 
 
 
-use crate::errno::errno_result;
-use crate::errno::Error;
-use crate::errno::Result;
+use crate::errno::{errno_result,
+                   Error,
+                   Result};
 use std::os::unix::io::AsRawFd;
 
 

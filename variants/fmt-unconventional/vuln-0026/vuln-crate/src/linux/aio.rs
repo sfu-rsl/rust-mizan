@@ -20,12 +20,12 @@
 
 
 
-use std::io::Error;
-use std::io::Result;
-use std::os::raw::c_int;
-use std::os::raw::c_long;
-use std::os::raw::c_uint;
-use std::os::raw::c_ulong;
+use std::io::{Error,
+              Result};
+use std::os::raw::{c_int,
+                   c_long,
+                   c_uint,
+                   c_ulong};
 use std::ptr::null_mut;
 
 

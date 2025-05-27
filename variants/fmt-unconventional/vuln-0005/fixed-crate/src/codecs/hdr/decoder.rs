@@ -1,37 +1,37 @@
-use crate::color::ColorType;
-use crate::color::Rgb;
-use crate::error::DecodingError;
-use crate::error::ImageError;
-use crate::error::ImageFormatHint;
-use crate::error::ImageResult;
-use crate::error::ParameterError;
-use crate::error::ParameterErrorKind;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::image::ImageDecoder;
-use crate::image::ImageDecoderExt;
-use crate::image::ImageFormat;
-use crate::image::Progress;
-use crate::image::{self};
+use crate::color::{ColorType,
+                   Rgb};
+use crate::error::{DecodingError,
+                   ImageError,
+                   ImageFormatHint,
+                   ImageResult,
+                   ParameterError,
+                   ParameterErrorKind,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
+use crate::image::{self,
+                   ImageDecoder,
+                   ImageDecoderExt,
+                   ImageFormat,
+                   Progress};
 use crate::Primitive;
 use num_traits::identities::Zero;
 use scoped_threadpool::Pool;
 #[cfg(test)]
 use std::borrow::Cow;
 use std::convert::TryFrom;
-use std::error;
-use std::fmt;
-use std::io::BufRead;
-use std::io::Cursor;
-use std::io::Read;
-use std::io::Seek;
-use std::io::{self};
+use std::io::{self,
+              BufRead,
+              Cursor,
+              Read,
+              Seek};
 use std::iter::Iterator;
 use std::marker::PhantomData;
-use std::mem;
-use std::num::ParseFloatError;
-use std::num::ParseIntError;
+use std::num::{ParseFloatError,
+               ParseIntError};
 use std::path::Path;
+use std::{error,
+          fmt,
+          mem};
 
 
 
@@ -2235,8 +2235,8 @@ pub fn read_raw_file<P : AsRef<Path>>(
 
 
 
-	use byteorder::LittleEndian as LE;
-	use byteorder::ReadBytesExt;
+	use byteorder::{LittleEndian as LE,
+	                ReadBytesExt};
 	use std::fs::File;
 	use std::io::BufReader;
 

@@ -74,11 +74,11 @@
 
 
 use super::ffi;
-use super::types::ToSql;
-use super::types::ToSqlOutput;
-use crate::Connection;
-use crate::DatabaseName;
-use crate::Result;
+use super::types::{ToSql,
+                   ToSqlOutput};
+use crate::{Connection,
+            DatabaseName,
+            Result};
 use std::cmp::min;
 use std::io;
 use std::ptr;
@@ -624,16 +624,16 @@ mod test
 
 
 
-	use crate::Connection;
-	use crate::DatabaseName;
-	use crate::Result;
-	use std::io::BufRead;
-	use std::io::BufReader;
-	use std::io::BufWriter;
-	use std::io::Read;
-	use std::io::Seek;
-	use std::io::SeekFrom;
-	use std::io::Write;
+	use crate::{Connection,
+	            DatabaseName,
+	            Result};
+	use std::io::{BufRead,
+	              BufReader,
+	              BufWriter,
+	              Read,
+	              Seek,
+	              SeekFrom,
+	              Write};
 
 
 

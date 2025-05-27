@@ -19,23 +19,23 @@
 
 
 
-use crate::errno::errno_result;
-use crate::errno::Result;
-use libc::c_int;
-use libc::fcntl;
-use libc::isatty;
-use libc::read;
-use libc::tcgetattr;
-use libc::tcsetattr;
-use libc::termios;
-use libc::ECHO;
-use libc::F_GETFL;
-use libc::F_SETFL;
-use libc::ICANON;
-use libc::ISIG;
-use libc::O_NONBLOCK;
-use libc::STDIN_FILENO;
-use libc::TCSANOW;
+use crate::errno::{errno_result,
+                   Result};
+use libc::{c_int,
+           fcntl,
+           isatty,
+           read,
+           tcgetattr,
+           tcsetattr,
+           termios,
+           ECHO,
+           F_GETFL,
+           F_SETFL,
+           ICANON,
+           ISIG,
+           O_NONBLOCK,
+           STDIN_FILENO,
+           TCSANOW};
 use std::io::StdinLock;
 use std::mem::zeroed;
 use std::os::unix::io::RawFd;

@@ -8,23 +8,22 @@ pub extern crate alloc;
 
 
 #[allow(deprecated)]
-use alloc::alloc::Layout;
-#[allow(deprecated)]
-use alloc::alloc::LayoutErr;
+use alloc::alloc::{Layout,
+                   LayoutErr};
 use core::hint::unreachable_unchecked;
-use core::iter::repeat;
-use core::iter::FromIterator;
-use core::iter::FusedIterator;
-use core::iter::IntoIterator;
+use core::iter::{repeat,
+                 FromIterator,
+                 FusedIterator,
+                 IntoIterator};
 use core::mem;
 use core::mem::MaybeUninit;
-use core::ops::Range;
-use core::ops::RangeBounds;
-use core::ops::{self};
-use core::ptr::NonNull;
-use core::ptr::{self};
-use core::slice::SliceIndex;
-use core::slice::{self};
+use core::ops::{self,
+                Range,
+                RangeBounds};
+use core::ptr::{self,
+                NonNull};
+use core::slice::{self,
+                  SliceIndex};
 
 
 

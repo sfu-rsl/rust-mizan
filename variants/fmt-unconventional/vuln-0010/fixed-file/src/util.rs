@@ -22,14 +22,13 @@ pub(crate) use crate::fakepool::{Arc as PoolRef,
                                  PoolClone,
                                  PoolDefault};
 #[cfg(feature = "pool")]
-pub(crate) use refpool::PoolClone;
-#[cfg(feature = "pool")]
-pub(crate) use refpool::PoolDefault;
+pub(crate) use refpool::{PoolClone,
+                         PoolDefault};
 use std::cmp::Ordering;
-use std::ops::Bound;
-use std::ops::IndexMut;
-use std::ops::Range;
-use std::ops::RangeBounds;
+use std::ops::{Bound,
+               IndexMut,
+               Range,
+               RangeBounds};
 use std::ptr;
 
 
@@ -47,16 +46,10 @@ pub(crate) type Ref<A> = std::sync::Arc<A>;
 // `Rc` without refpool
 #[cfg(all(not(threadsafe),
               not(feature = "pool")))]
-pub(crate) use crate::fakepool::Pool;
-#[cfg(all(not(threadsafe),
-              not(feature = "pool")))]
-pub(crate) use crate::fakepool::PoolClone;
-#[cfg(all(not(threadsafe),
-              not(feature = "pool")))]
-pub(crate) use crate::fakepool::PoolDefault;
-#[cfg(all(not(threadsafe),
-              not(feature = "pool")))]
-pub(crate) use crate::fakepool::Rc as PoolRef;
+pub(crate) use crate::fakepool::{Pool,
+                                 PoolClone,
+                                 PoolDefault,
+                                 Rc as PoolRef};
 
 
 

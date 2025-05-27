@@ -16,22 +16,22 @@
 
 
 
-use libc::c_void;
-use libc::dup;
-use libc::eventfd;
-use libc::read;
-use libc::write;
+use libc::{c_void,
+           dup,
+           eventfd,
+           read,
+           write};
 // Reexport commonly used flags from libc.
 pub use libc::{EFD_CLOEXEC,
                EFD_NONBLOCK,
                EFD_SEMAPHORE};
 use std::fs::File;
-use std::io;
-use std::mem;
-use std::os::unix::io::AsRawFd;
-use std::os::unix::io::FromRawFd;
-use std::os::unix::io::RawFd;
-use std::result;
+use std::os::unix::io::{AsRawFd,
+                        FromRawFd,
+                        RawFd};
+use std::{io,
+          mem,
+          result};
 
 
 

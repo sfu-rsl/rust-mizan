@@ -1,13 +1,13 @@
 use crate::color;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::ParameterError;
-use crate::error::ParameterErrorKind;
+use crate::error::{ImageError,
+                   ImageResult,
+                   ParameterError,
+                   ParameterErrorKind};
 use crate::image::ImageEncoder;
-use byteorder::LittleEndian;
-use byteorder::WriteBytesExt;
-use std::io::Write;
-use std::io::{self};
+use byteorder::{LittleEndian,
+                WriteBytesExt};
+use std::io::{self,
+              Write};
 
 
 

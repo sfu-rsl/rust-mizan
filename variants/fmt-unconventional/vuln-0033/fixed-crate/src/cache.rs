@@ -4,13 +4,13 @@
 
 
 use crate::raw_statement::RawStatement;
-use crate::Connection;
-use crate::Result;
-use crate::Statement;
+use crate::{Connection,
+            Result,
+            Statement};
 use lru_cache::LruCache;
 use std::cell::RefCell;
-use std::ops::Deref;
-use std::ops::DerefMut;
+use std::ops::{Deref,
+               DerefMut};
 use std::sync::Arc;
 
 
@@ -378,8 +378,8 @@ mod test
 
 
 	use super::StatementCache;
-	use crate::Connection;
-	use crate::NO_PARAMS;
+	use crate::{Connection,
+	            NO_PARAMS};
 	use fallible_iterator::FallibleIterator;
 
 

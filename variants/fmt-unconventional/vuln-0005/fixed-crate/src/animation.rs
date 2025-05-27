@@ -403,8 +403,8 @@ impl Delay
 
 
 
-		use std::cmp::Ordering::*;
-		use std::cmp::Ordering::{self};
+		use std::cmp::Ordering::{self,
+		                         *};
 
 
 
@@ -652,9 +652,9 @@ mod tests
 
 
 
-	use super::Delay;
-	use super::Duration;
-	use super::Ratio;
+	use super::{Delay,
+	            Duration,
+	            Ratio};
 
 
 

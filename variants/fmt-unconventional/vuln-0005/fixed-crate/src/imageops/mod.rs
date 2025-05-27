@@ -3,71 +3,47 @@
 
 
 /// Affine transformations
-pub use self::affine::flip_horizontal;
-/// Affine transformations
-pub use self::affine::flip_horizontal_in;
-/// Affine transformations
-pub use self::affine::flip_horizontal_in_place;
-/// Affine transformations
-pub use self::affine::flip_vertical;
-/// Affine transformations
-pub use self::affine::flip_vertical_in;
-/// Affine transformations
-pub use self::affine::flip_vertical_in_place;
-/// Affine transformations
-pub use self::affine::rotate180;
-/// Affine transformations
-pub use self::affine::rotate180_in;
-/// Affine transformations
-pub use self::affine::rotate180_in_place;
-/// Affine transformations
-pub use self::affine::rotate270;
-/// Affine transformations
-pub use self::affine::rotate270_in;
-/// Affine transformations
-pub use self::affine::rotate90;
-/// Affine transformations
-pub use self::affine::rotate90_in;
+pub use self::affine::{flip_horizontal,
+                       flip_horizontal_in,
+                       flip_horizontal_in_place,
+                       flip_vertical,
+                       flip_vertical_in,
+                       flip_vertical_in_place,
+                       rotate180,
+                       rotate180_in,
+                       rotate180_in_place,
+                       rotate270,
+                       rotate270_in,
+                       rotate90,
+                       rotate90_in};
 /// Color operations
-pub use self::colorops::brighten;
-/// Color operations
-pub use self::colorops::contrast;
-/// Color operations
-pub use self::colorops::dither;
-/// Color operations
-pub use self::colorops::grayscale;
-/// Color operations
-pub use self::colorops::huerotate;
-/// Color operations
-pub use self::colorops::index_colors;
-/// Color operations
-pub use self::colorops::invert;
-/// Color operations
-pub use self::colorops::BiLevel;
-/// Color operations
-pub use self::colorops::ColorMap;
-/// Image sampling
-pub use self::sample::blur;
-/// Image sampling
-pub use self::sample::filter3x3;
-/// Image sampling
-pub use self::sample::resize;
-/// Image sampling
-pub use self::sample::thumbnail;
-/// Image sampling
-pub use self::sample::unsharpen;
+pub use self::colorops::{brighten,
+                         contrast,
+                         dither,
+                         grayscale,
+                         huerotate,
+                         index_colors,
+                         invert,
+                         BiLevel,
+                         ColorMap};
 pub use self::sample::FilterType;
-pub use self::sample::FilterType::CatmullRom;
-pub use self::sample::FilterType::Gaussian;
-pub use self::sample::FilterType::Lanczos3;
-pub use self::sample::FilterType::Nearest;
-pub use self::sample::FilterType::Triangle;
-use crate::image::GenericImage;
-use crate::image::GenericImageView;
-use crate::image::SubImage;
-use crate::traits::Lerp;
-use crate::traits::Pixel;
-use crate::traits::Primitive;
+pub use self::sample::FilterType::{CatmullRom,
+                                   Gaussian,
+                                   Lanczos3,
+                                   Nearest,
+                                   Triangle};
+/// Image sampling
+pub use self::sample::{blur,
+                       filter3x3,
+                       resize,
+                       thumbnail,
+                       unsharpen};
+use crate::image::{GenericImage,
+                   GenericImageView,
+                   SubImage};
+use crate::traits::{Lerp,
+                    Pixel,
+                    Primitive};
 use num_traits::NumCast;
 use std::cmp;
 
@@ -857,8 +833,8 @@ mod tests
 
 
 
-	use super::horizontal_gradient;
-	use super::vertical_gradient;
+	use super::{horizontal_gradient,
+	            vertical_gradient};
 
 
 

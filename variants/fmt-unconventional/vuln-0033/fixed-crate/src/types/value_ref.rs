@@ -1,7 +1,7 @@
-use super::Type;
-use super::Value;
-use crate::types::FromSqlError;
-use crate::types::FromSqlResult;
+use super::{Type,
+            Value};
+use crate::types::{FromSqlError,
+                   FromSqlResult};
 
 
 

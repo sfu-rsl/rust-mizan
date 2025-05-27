@@ -68,9 +68,6 @@ match_block_trailing_comma = true
 # How to handle trailing commas for lists
 #   Default value: "Vertical"
 trailing_comma = "Always"
-# Controls how imports are structured in use statements. Imports will be merged or split to the configured level of granularity.
-#   Default value: Preserve
-imports_granularity = "Item"
 # Controls the strategy for how consecutive imports are grouped together.
 #   Default value: Preserve
 group_imports = "One"

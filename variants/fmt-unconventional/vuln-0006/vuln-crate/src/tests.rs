@@ -1,10 +1,10 @@
-use crate::smallvec;
-use crate::SmallVec;
+use crate::{smallvec,
+            SmallVec};
 use alloc::borrow::ToOwned;
 use alloc::boxed::Box;
 use alloc::rc::Rc;
-use alloc::vec;
-use alloc::vec::Vec;
+use alloc::{vec,
+            vec::Vec};
 use std::iter::FromIterator;
 
 
@@ -1051,8 +1051,8 @@ mod insert_many_panic
 
 
 
-	use crate::smallvec;
-	use crate::SmallVec;
+	use crate::{smallvec,
+	            SmallVec};
 	use alloc::boxed::Box;
 
 
@@ -2857,8 +2857,8 @@ fn test_serde()
 
 
 
-	use self::bincode::config;
-	use self::bincode::deserialize;
+	use self::bincode::{config,
+	                    deserialize};
 
 
 

@@ -15,24 +15,24 @@
 
 
 
-use core::borrow::Borrow;
-use core::borrow::BorrowMut;
+use core::borrow::{Borrow,
+                   BorrowMut};
 use core::cmp::Ordering;
-use core::fmt::Debug;
-use core::fmt::Error;
-use core::fmt::Formatter;
-use core::hash::Hash;
-use core::hash::Hasher;
+use core::fmt::{Debug,
+                Error,
+                Formatter};
+use core::hash::{Hash,
+                 Hasher};
 use core::iter::FromIterator;
-use core::mem::MaybeUninit;
-use core::mem::{self};
-use core::ops::Deref;
-use core::ops::DerefMut;
+use core::mem::{self,
+                MaybeUninit};
+use core::ops::{Deref,
+                DerefMut};
 use core::ptr;
-use core::slice::from_raw_parts;
-use core::slice::from_raw_parts_mut;
-use core::slice::Iter as SliceIter;
-use core::slice::IterMut as SliceIterMut;
+use core::slice::{from_raw_parts,
+                  from_raw_parts_mut,
+                  Iter as SliceIter,
+                  IterMut as SliceIterMut};
 
 
 
@@ -40,8 +40,8 @@ mod iter;
 
 
 
-pub use self::iter::Drain;
-pub use self::iter::Iter;
+pub use self::iter::{Drain,
+                     Iter};
 
 
 
@@ -1357,8 +1357,8 @@ mod test
 
 	use super::*;
 	use crate::tests::DropTest;
-	use std::sync::atomic::AtomicUsize;
-	use std::sync::atomic::Ordering;
+	use std::sync::atomic::{AtomicUsize,
+	                        Ordering};
 
 
 

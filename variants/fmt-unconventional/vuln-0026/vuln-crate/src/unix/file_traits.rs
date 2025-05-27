@@ -125,9 +125,9 @@ mod tests
 	use super::*;
 	use crate::tempdir::TempDir;
 	use std::fs::OpenOptions;
-	use std::io::Seek;
-	use std::io::SeekFrom;
-	use std::io::Write;
+	use std::io::{Seek,
+	              SeekFrom,
+	              Write};
 	use std::path::PathBuf;
 
 

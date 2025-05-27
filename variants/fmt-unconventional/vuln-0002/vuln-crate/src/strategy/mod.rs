@@ -105,8 +105,8 @@
 
 
 
-use crate::gen_lock::Global;
-use crate::gen_lock::PrivateUnsharded;
+use crate::gen_lock::{Global,
+                      PrivateUnsharded};
 use crate::ref_cnt::RefCnt;
 use std::borrow::Borrow;
 use std::sync::atomic::AtomicPtr;

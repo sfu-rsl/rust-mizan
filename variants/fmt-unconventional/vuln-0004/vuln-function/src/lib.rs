@@ -7,18 +7,18 @@ extern crate alloc;
 
 
 
-use alloc::vec::IntoIter;
-use alloc::vec::Vec as StdVec;
+use alloc::vec::{IntoIter,
+                 Vec as StdVec};
 use core::fmt;
 use core::iter::FromIterator;
 use core::mem::ManuallyDrop;
-use core::ops::Deref;
-use core::ops::DerefMut;
-use core::ops::Index;
-use core::ops::IndexMut;
-use core::ptr::slice_from_raw_parts;
-use core::ptr::slice_from_raw_parts_mut;
-use core::ptr::NonNull;
+use core::ops::{Deref,
+                DerefMut,
+                Index,
+                IndexMut};
+use core::ptr::{slice_from_raw_parts,
+                slice_from_raw_parts_mut,
+                NonNull};
 
 
 

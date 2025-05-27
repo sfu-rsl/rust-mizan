@@ -1,6 +1,6 @@
-use super::Null;
-use super::Value;
-use super::ValueRef;
+use super::{Null,
+            Value,
+            ValueRef};
 #[cfg(feature = "array")]
 use crate::vtab::array::Array;
 use crate::Result;
@@ -629,8 +629,8 @@ mod test
 
 
 
-		use std::rc::Rc;
-		use std::sync::Arc;
+		use std::{rc::Rc,
+		          sync::Arc};
 
 
 
@@ -752,8 +752,8 @@ mod test
 
 
 
-		use crate::Connection;
-		use crate::NO_PARAMS;
+		use crate::{Connection,
+		            NO_PARAMS};
 		use std::i128;
 
 
@@ -834,8 +834,8 @@ mod test
 
 
 
-		use crate::params;
-		use crate::Connection;
+		use crate::{params,
+		            Connection};
 		use uuid::Uuid;
 
 

@@ -24,46 +24,46 @@
 
 
 
-use crate::access::BitAccess;
-use crate::index::BitIdx;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::pointer::BitPtr;
-use crate::slice::iter::Chunks;
-use crate::slice::iter::ChunksExact;
-use crate::slice::iter::ChunksExactMut;
-use crate::slice::iter::ChunksMut;
-use crate::slice::iter::GenericSplitN;
-use crate::slice::iter::Iter;
-use crate::slice::iter::IterMut;
-use crate::slice::iter::RChunks;
-use crate::slice::iter::RChunksExact;
-use crate::slice::iter::RChunksExactMut;
-use crate::slice::iter::RChunksMut;
-use crate::slice::iter::RSplit;
-use crate::slice::iter::RSplitMut;
-use crate::slice::iter::RSplitN;
-use crate::slice::iter::RSplitNMut;
-use crate::slice::iter::Split;
-use crate::slice::iter::SplitMut;
-use crate::slice::iter::SplitN;
-use crate::slice::iter::SplitNMut;
-use crate::slice::iter::Windows;
-use crate::slice::proxy::BitMut;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
 #[cfg(feature = "alloc")]
 use crate::vec::BitVec;
-use core::cmp;
-use core::marker::PhantomData;
-use core::ops::Range;
-use core::ops::RangeFrom;
-use core::ops::RangeFull;
-use core::ops::RangeInclusive;
-use core::ops::RangeTo;
-use core::ops::RangeToInclusive;
-use core::ptr::NonNull;
-use core::slice;
+use crate::{access::BitAccess,
+            index::BitIdx,
+            mem::BitMemory,
+            order::BitOrder,
+            pointer::BitPtr,
+            slice::{iter::{Chunks,
+                           ChunksExact,
+                           ChunksExactMut,
+                           ChunksMut,
+                           GenericSplitN,
+                           Iter,
+                           IterMut,
+                           RChunks,
+                           RChunksExact,
+                           RChunksExactMut,
+                           RChunksMut,
+                           RSplit,
+                           RSplitMut,
+                           RSplitN,
+                           RSplitNMut,
+                           Split,
+                           SplitMut,
+                           SplitN,
+                           SplitNMut,
+                           Windows},
+                    proxy::BitMut,
+                    BitSlice},
+            store::BitStore};
+use core::{cmp,
+           marker::PhantomData,
+           ops::{Range,
+                 RangeFrom,
+                 RangeFull,
+                 RangeInclusive,
+                 RangeTo,
+                 RangeToInclusive},
+           ptr::NonNull,
+           slice};
 
 
 

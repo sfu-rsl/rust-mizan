@@ -4,23 +4,23 @@
 
 
 
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::pointer::BitPtr;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
-use crate::vec::iter::Drain;
-use crate::vec::iter::Splice;
-use crate::vec::BitVec;
-use alloc::borrow::ToOwned;
-use alloc::boxed::Box;
-use alloc::vec::Vec;
-use core::cmp;
-use core::hint::unreachable_unchecked;
-use core::marker::PhantomData;
-use core::mem;
-use core::ops::RangeBounds;
-use core::ptr::NonNull;
+use crate::{mem::BitMemory,
+            order::BitOrder,
+            pointer::BitPtr,
+            slice::BitSlice,
+            store::BitStore,
+            vec::{iter::{Drain,
+                         Splice},
+                  BitVec}};
+use alloc::{borrow::ToOwned,
+            boxed::Box,
+            vec::Vec};
+use core::{cmp,
+           hint::unreachable_unchecked,
+           marker::PhantomData,
+           mem,
+           ops::RangeBounds,
+           ptr::NonNull};
 use funty::IsInteger;
 
 

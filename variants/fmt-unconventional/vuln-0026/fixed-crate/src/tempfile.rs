@@ -43,16 +43,16 @@
 
 
 
-use crate::errno::errno_result;
-use crate::errno::Error;
-use crate::errno::Result;
+use crate::errno::{errno_result,
+                   Error,
+                   Result};
 use libc;
 use std::env::temp_dir;
 use std::ffi::OsStr;
 use std::fs;
 use std::fs::File;
-use std::path::Path;
-use std::path::PathBuf;
+use std::path::{Path,
+                PathBuf};
 
 
 
@@ -102,8 +102,8 @@ impl TempFile
 
 
 		use std::ffi::CString;
-		use std::os::unix::ffi::OsStrExt;
-		use std::os::unix::io::FromRawFd;
+		use std::os::unix::{ffi::OsStrExt,
+		                    io::FromRawFd};
 
 
 
@@ -437,8 +437,8 @@ mod tests
 
 
 	use super::*;
-	use std::io::Read;
-	use std::io::Write;
+	use std::io::{Read,
+	              Write};
 
 
 

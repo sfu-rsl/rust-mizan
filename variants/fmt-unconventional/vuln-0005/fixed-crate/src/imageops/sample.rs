@@ -11,14 +11,14 @@
 
 
 use crate::image::GenericImageView;
-use crate::traits::Enlargeable;
-use crate::traits::Pixel;
-use crate::traits::Primitive;
+use crate::traits::{Enlargeable,
+                    Pixel,
+                    Primitive};
 use crate::utils::clamp;
 use crate::ImageBuffer;
-use num_traits::NumCast;
-use num_traits::ToPrimitive;
-use num_traits::Zero;
+use num_traits::{NumCast,
+                 ToPrimitive,
+                 Zero};
 use std::f32;
 
 
@@ -1808,10 +1808,10 @@ mod tests
 
 
 
-	use super::resize;
-	use super::FilterType;
-	use crate::ImageBuffer;
-	use crate::RgbImage;
+	use super::{resize,
+	            FilterType};
+	use crate::{ImageBuffer,
+	            RgbImage};
 	#[cfg(feature = "benchmarks")]
 	use test;
 

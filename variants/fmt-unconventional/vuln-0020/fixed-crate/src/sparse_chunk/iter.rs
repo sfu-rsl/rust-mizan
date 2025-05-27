@@ -1,8 +1,8 @@
 use super::SparseChunk;
 use crate::types::ChunkLength;
-use bitmaps::Bitmap;
-use bitmaps::Bits;
-use bitmaps::Iter as BitmapIter;
+use bitmaps::{Bitmap,
+              Bits,
+              Iter as BitmapIter};
 
 
 

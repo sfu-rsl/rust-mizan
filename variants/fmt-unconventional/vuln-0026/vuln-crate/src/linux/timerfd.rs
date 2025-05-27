@@ -16,20 +16,20 @@
 
 
 
-use crate::errno::errno_result;
-use crate::errno::Result;
-use libc::timerfd_create;
-use libc::timerfd_gettime;
-use libc::timerfd_settime;
-use libc::CLOCK_MONOTONIC;
-use libc::TFD_CLOEXEC;
-use libc::{self};
+use crate::errno::{errno_result,
+                   Result};
+use libc::{self,
+           timerfd_create,
+           timerfd_gettime,
+           timerfd_settime,
+           CLOCK_MONOTONIC,
+           TFD_CLOEXEC};
 use std::fs::File;
 use std::mem;
-use std::os::unix::io::AsRawFd;
-use std::os::unix::io::FromRawFd;
-use std::os::unix::io::IntoRawFd;
-use std::os::unix::io::RawFd;
+use std::os::unix::io::{AsRawFd,
+                        FromRawFd,
+                        IntoRawFd,
+                        RawFd};
 use std::ptr;
 use std::time::Duration;
 
@@ -564,8 +564,8 @@ mod tests
 
 	use super::*;
 	use std::thread::sleep;
-	use std::time::Duration;
-	use std::time::Instant;
+	use std::time::{Duration,
+	                Instant};
 
 
 

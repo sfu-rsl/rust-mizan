@@ -16,18 +16,23 @@
 
 
 #[cfg(target_env = "musl")]
-use libc::c_int;
-#[cfg(target_env = "musl")]
-use libc::lseek64;
-#[cfg(target_env = "musl")]
-use libc::ENXIO;
+use libc::{c_int,
+           lseek64,
+           ENXIO};
 #[cfg(target_env = "gnu")]
-use libc::SEEK_DATA;
-#[cfg(target_env = "gnu")]
-use libc::SEEK_HOLE;
+use libc::{lseek64,
+           ENXIO,
+           SEEK_DATA,
+           SEEK_HOLE};
+#[cfg(all(not(target_env = "musl"),
+              target_os = "android"))]
+use libc::{lseek64,
+           ENXIO,
+           SEEK_DATA,
+           SEEK_HOLE};
 use std::fs::File;
-use std::io::Error;
-use std::io::Result;
+use std::io::{Error,
+              Result};
 use std::os::unix::io::AsRawFd;
 
 
@@ -213,9 +218,9 @@ mod tests
 	use super::*;
 	use crate::tempdir::TempDir;
 	use std::fs::File;
-	use std::io::Seek;
-	use std::io::SeekFrom;
-	use std::io::Write;
+	use std::io::{Seek,
+	              SeekFrom,
+	              Write};
 	use std::path::PathBuf;
 
 

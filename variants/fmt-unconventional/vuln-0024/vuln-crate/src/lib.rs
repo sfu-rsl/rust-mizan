@@ -20,12 +20,12 @@ extern crate libc;
 
 
 
-use std::iter::IntoIterator;
-use std::iter::Iterator;
-use std::mem;
-use std::ops::Drop;
-use std::ops::Index;
-use std::ptr;
+use std::iter::{IntoIterator,
+                Iterator};
+use std::ops::{Drop,
+               Index};
+use std::{mem,
+          ptr};
 
 
 

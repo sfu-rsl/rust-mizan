@@ -4,14 +4,14 @@
 
 use crate::error::Error;
 use crate::ffi;
-use crate::types::ToSql;
-use crate::types::ToSqlOutput;
-use crate::types::ValueRef;
-use crate::Connection;
-use crate::DatabaseName;
-use crate::Result;
-use crate::Row;
-use crate::NO_PARAMS;
+use crate::types::{ToSql,
+                   ToSqlOutput,
+                   ValueRef};
+use crate::{Connection,
+            DatabaseName,
+            Result,
+            Row,
+            NO_PARAMS};
 use std::ops::Deref;
 
 
@@ -670,8 +670,8 @@ mod test
 
 	use super::Sql;
 	use crate::pragma;
-	use crate::Connection;
-	use crate::DatabaseName;
+	use crate::{Connection,
+	            DatabaseName};
 
 
 

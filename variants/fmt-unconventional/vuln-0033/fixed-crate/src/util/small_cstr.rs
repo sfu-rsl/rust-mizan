@@ -1,8 +1,8 @@
-use smallvec::smallvec;
-use smallvec::SmallVec;
-use std::ffi::CStr;
-use std::ffi::CString;
-use std::ffi::NulError;
+use smallvec::{smallvec,
+               SmallVec};
+use std::ffi::{CStr,
+               CString,
+               NulError};
 
 
 

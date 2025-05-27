@@ -3,32 +3,32 @@
 
 
 
-use crate::boxed::BitBox;
-use crate::order::BitOrder;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
-use core::ops::BitAnd;
-use core::ops::BitAndAssign;
-use core::ops::BitOr;
-use core::ops::BitOrAssign;
-use core::ops::BitXor;
-use core::ops::BitXorAssign;
-use core::ops::Deref;
-use core::ops::DerefMut;
-use core::ops::Index;
-use core::ops::IndexMut;
-use core::ops::Not;
-use core::ops::Range;
-use core::ops::RangeFrom;
-use core::ops::RangeFull;
-use core::ops::RangeInclusive;
-use core::ops::RangeTo;
-use core::ops::RangeToInclusive;
-use core::ops::Shl;
-use core::ops::ShlAssign;
-use core::ops::Shr;
-use core::ops::ShrAssign;
-use core::slice;
+use crate::{boxed::BitBox,
+            order::BitOrder,
+            slice::BitSlice,
+            store::BitStore};
+use core::{ops::{BitAnd,
+                 BitAndAssign,
+                 BitOr,
+                 BitOrAssign,
+                 BitXor,
+                 BitXorAssign,
+                 Deref,
+                 DerefMut,
+                 Index,
+                 IndexMut,
+                 Not,
+                 Range,
+                 RangeFrom,
+                 RangeFull,
+                 RangeInclusive,
+                 RangeTo,
+                 RangeToInclusive,
+                 Shl,
+                 ShlAssign,
+                 Shr,
+                 ShrAssign},
+           slice};
 
 
 

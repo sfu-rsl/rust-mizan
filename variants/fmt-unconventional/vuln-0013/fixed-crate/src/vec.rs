@@ -18,19 +18,19 @@
 
 
 
-use crate::access::BitAccess;
-use crate::boxed::BitBox;
-use crate::index::Indexable;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::order::Local;
-use crate::pointer::BitPtr;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
+use crate::{access::BitAccess,
+            boxed::BitBox,
+            index::Indexable,
+            mem::BitMemory,
+            order::{BitOrder,
+                    Local},
+            pointer::BitPtr,
+            slice::BitSlice,
+            store::BitStore};
 use alloc::vec::Vec;
-use core::marker::PhantomData;
-use core::mem;
-use core::ptr;
+use core::{marker::PhantomData,
+           mem,
+           ptr};
 use funty::IsInteger;
 
 

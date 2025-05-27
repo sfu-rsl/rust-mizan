@@ -1,5 +1,5 @@
-use std::alloc;
-use std::mem;
+use std::{alloc,
+          mem};
 
 
 

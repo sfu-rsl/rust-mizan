@@ -1,18 +1,18 @@
 use super::gen_lock::GenLockStrategy;
-use super::sealed::CaS;
-use super::sealed::InnerStrategy;
-use super::sealed::Protected;
+use super::sealed::{CaS,
+                    InnerStrategy,
+                    Protected};
 use crate::debt::Debt;
-use crate::gen_lock::GenLock;
-use crate::gen_lock::LockStorage;
+use crate::gen_lock::{GenLock,
+                      LockStorage};
 use crate::ref_cnt::RefCnt;
 use std::borrow::Borrow;
-use std::mem::ManuallyDrop;
-use std::mem::{self};
+use std::mem::{self,
+               ManuallyDrop};
 use std::ops::Deref;
 use std::ptr;
-use std::sync::atomic::AtomicPtr;
-use std::sync::atomic::Ordering;
+use std::sync::atomic::{AtomicPtr,
+                        Ordering};
 
 
 

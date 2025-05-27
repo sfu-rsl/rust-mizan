@@ -81,20 +81,20 @@ use crate::context::set_result;
 use crate::ffi;
 use crate::ffi::sqlite3_context;
 use crate::ffi::sqlite3_value;
-use crate::str_to_cstring;
-use crate::types::FromSql;
-use crate::types::FromSqlError;
-use crate::types::ToSql;
-use crate::types::ValueRef;
-use crate::Connection;
-use crate::Error;
-use crate::InnerConnection;
-use crate::Result;
-use std::os::raw::c_int;
-use std::os::raw::c_void;
-use std::panic::catch_unwind;
-use std::panic::RefUnwindSafe;
-use std::panic::UnwindSafe;
+use crate::types::{FromSql,
+                   FromSqlError,
+                   ToSql,
+                   ValueRef};
+use crate::{str_to_cstring,
+            Connection,
+            Error,
+            InnerConnection,
+            Result};
+use std::os::raw::{c_int,
+                   c_void};
+use std::panic::{catch_unwind,
+                 RefUnwindSafe,
+                 UnwindSafe};
 use std::ptr;
 use std::slice;
 
@@ -1389,15 +1389,15 @@ mod test
 
 
 
-	use crate::functions::Aggregate;
-	use crate::functions::Context;
-	use crate::functions::FunctionFlags;
 	#[cfg(feature = "window")]
 	use crate::functions::WindowAggregate;
-	use crate::Connection;
-	use crate::Error;
-	use crate::Result;
-	use crate::NO_PARAMS;
+	use crate::functions::{Aggregate,
+	                       Context,
+	                       FunctionFlags};
+	use crate::{Connection,
+	            Error,
+	            Result,
+	            NO_PARAMS};
 	use regex::Regex;
 	use std::f64::EPSILON;
 	use std::os::raw::c_double;

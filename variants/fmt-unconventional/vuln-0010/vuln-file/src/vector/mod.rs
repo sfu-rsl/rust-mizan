@@ -92,40 +92,40 @@
 
 
 
-use self::VectorInner::Full;
-use self::VectorInner::Inline;
-use self::VectorInner::Single;
-use crate::nodes::chunk::Chunk;
-use crate::nodes::chunk::CHUNK_SIZE;
-use crate::nodes::rrb::Node;
-use crate::nodes::rrb::PopResult;
-use crate::nodes::rrb::PushResult;
-use crate::nodes::rrb::SplitResult;
-use crate::util::clone_ref;
-use crate::util::swap_indices;
-use crate::util::to_range;
-use crate::util::Pool;
-use crate::util::PoolDefault;
-use crate::util::PoolRef;
-use crate::util::Ref;
-use crate::util::Side;
+use self::VectorInner::{Full,
+                        Inline,
+                        Single};
+use crate::nodes::chunk::{Chunk,
+                          CHUNK_SIZE};
+use crate::nodes::rrb::{Node,
+                        PopResult,
+                        PushResult,
+                        SplitResult};
+use crate::util::{clone_ref,
+                  swap_indices,
+                  to_range,
+                  Pool,
+                  PoolDefault,
+                  PoolRef,
+                  Ref,
+                  Side};
 use sized_chunks::InlineArray;
 use std::borrow::Borrow;
 use std::cmp::Ordering;
-use std::fmt::Debug;
-use std::fmt::Error;
-use std::fmt::Formatter;
-use std::hash::Hash;
-use std::hash::Hasher;
-use std::iter::FromIterator;
-use std::iter::FusedIterator;
+use std::fmt::{Debug,
+               Error,
+               Formatter};
+use std::hash::{Hash,
+                Hasher};
 use std::iter::Sum;
-use std::mem::replace;
-use std::mem::swap;
-use std::ops::Add;
-use std::ops::Index;
-use std::ops::IndexMut;
-use std::ops::RangeBounds;
+use std::iter::{FromIterator,
+                FusedIterator};
+use std::mem::{replace,
+               swap};
+use std::ops::{Add,
+               Index,
+               IndexMut,
+               RangeBounds};
 
 
 
@@ -133,8 +133,8 @@ mod focus;
 
 
 
-pub use self::focus::Focus;
-pub use self::focus::FocusMut;
+pub use self::focus::{Focus,
+                      FocusMut};
 
 
 
@@ -4682,8 +4682,8 @@ mod test
 	use super::*;
 	use crate::proptest::vector;
 	use ::proptest::collection::vec;
-	use ::proptest::num::i32;
-	use ::proptest::num::usize;
+	use ::proptest::num::{i32,
+	                      usize};
 	use ::proptest::proptest;
 
 

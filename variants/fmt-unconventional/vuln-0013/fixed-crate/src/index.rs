@@ -116,16 +116,16 @@
 use crate::mem::BitMemory;
 #[cfg(feature = "serde")]
 use core::convert::TryFrom;
-use core::fmt::Binary;
-use core::fmt::Formatter;
-use core::fmt::{self};
-use core::iter::Product;
-use core::iter::Sum;
-use core::marker::PhantomData;
-use core::ops::BitAnd;
-use core::ops::BitOr;
-use core::ops::Deref;
-use core::ops::Not;
+use core::{fmt::{self,
+                 Binary,
+                 Formatter},
+           iter::{Product,
+                  Sum},
+           marker::PhantomData,
+           ops::{BitAnd,
+                 BitOr,
+                 Deref,
+                 Not}};
 
 
 

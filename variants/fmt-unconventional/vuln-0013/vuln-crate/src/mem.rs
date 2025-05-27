@@ -12,9 +12,9 @@
 
 
 
-use crate::index::BitIdx;
-use crate::order::BitOrder;
-use crate::store::BitStore;
+use crate::{index::BitIdx,
+            order::BitOrder,
+            store::BitStore};
 use core::mem;
 use funty::IsUnsigned;
 use radium::marker::BitOps;

@@ -1,40 +1,40 @@
-use super::ArbitraryHeader;
-use super::ArbitraryTuplType;
-use super::BitmapHeader;
-use super::GraymapHeader;
-use super::HeaderRecord;
-use super::PNMSubtype;
-use super::PixmapHeader;
-use super::PnmHeader;
-use super::SampleEncoding;
-use crate::color::ColorType;
-use crate::color::ExtendedColorType;
-use crate::error::DecodingError;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::image::ImageDecoder;
-use crate::image::ImageFormat;
-use crate::image::{self};
+use super::{ArbitraryHeader,
+            ArbitraryTuplType,
+            BitmapHeader,
+            GraymapHeader,
+            PixmapHeader};
+use super::{HeaderRecord,
+            PNMSubtype,
+            PnmHeader,
+            SampleEncoding};
+use crate::color::{ColorType,
+                   ExtendedColorType};
+use crate::error::{DecodingError,
+                   ImageError,
+                   ImageResult,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
+use crate::image::{self,
+                   ImageDecoder,
+                   ImageFormat};
 use crate::utils;
-use byteorder::BigEndian;
-use byteorder::ByteOrder;
-use byteorder::NativeEndian;
+use byteorder::{BigEndian,
+                ByteOrder,
+                NativeEndian};
 use std::convert::TryFrom;
 use std::error;
-use std::fmt::Display;
-use std::fmt::{self};
-use std::io::BufRead;
-use std::io::BufReader;
-use std::io::Cursor;
-use std::io::Read;
-use std::io::{self};
+use std::fmt::{self,
+               Display};
+use std::io::{self,
+              BufRead,
+              BufReader,
+              Cursor,
+              Read};
 use std::marker::PhantomData;
 use std::mem;
 use std::num::ParseIntError;
-use std::str::FromStr;
-use std::str::{self};
+use std::str::{self,
+               FromStr};
 
 
 
@@ -2144,11 +2144,11 @@ ENDHDR
 
 
 
-		use std::io::Cursor;
-		use std::io::Error;
-		use std::io::ErrorKind;
-		use std::io::Read;
-		use std::io::Result;
+		use std::io::{Cursor,
+		              Error,
+		              ErrorKind,
+		              Read,
+		              Result};
 
 
 

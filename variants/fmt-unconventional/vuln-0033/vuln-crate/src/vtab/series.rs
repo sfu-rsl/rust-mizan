@@ -10,17 +10,17 @@
 
 use crate::ffi;
 use crate::types::Type;
-use crate::vtab::eponymous_only_module;
-use crate::vtab::Context;
-use crate::vtab::IndexConstraintOp;
-use crate::vtab::IndexInfo;
-use crate::vtab::Module;
-use crate::vtab::VTab;
-use crate::vtab::VTabConnection;
-use crate::vtab::VTabCursor;
-use crate::vtab::Values;
-use crate::Connection;
-use crate::Result;
+use crate::vtab::{eponymous_only_module,
+                  Context,
+                  IndexConstraintOp,
+                  IndexInfo,
+                  Module,
+                  VTab,
+                  VTabConnection,
+                  VTabCursor,
+                  Values};
+use crate::{Connection,
+            Result};
 use std::default::Default;
 use std::os::raw::c_int;
 
@@ -576,8 +576,8 @@ mod test
 
 	use crate::ffi;
 	use crate::vtab::series;
-	use crate::Connection;
-	use crate::NO_PARAMS;
+	use crate::{Connection,
+	            NO_PARAMS};
 
 
 

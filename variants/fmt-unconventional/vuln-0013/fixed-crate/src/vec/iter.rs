@@ -4,12 +4,12 @@
 
 
 use super::*;
-use crate::order::BitOrder;
-use crate::store::BitStore;
+use crate::{order::BitOrder,
+            store::BitStore};
 use alloc::vec::Vec;
-use core::iter::FromIterator;
-use core::iter::FusedIterator;
-use core::ptr::NonNull;
+use core::{iter::{FromIterator,
+                  FusedIterator},
+           ptr::NonNull};
 
 
 

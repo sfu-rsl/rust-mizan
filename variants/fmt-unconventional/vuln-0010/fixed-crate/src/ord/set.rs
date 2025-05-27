@@ -35,34 +35,34 @@
 
 
 use crate::hashset::HashSet;
-use crate::nodes::btree::BTreeValue;
-use crate::nodes::btree::ConsumingIter as ConsumingNodeIter;
 pub use crate::nodes::btree::DiffItem;
-use crate::nodes::btree::DiffIter as NodeDiffIter;
-use crate::nodes::btree::Insert;
-use crate::nodes::btree::Iter as NodeIter;
-use crate::nodes::btree::Node;
-use crate::nodes::btree::Remove;
+use crate::nodes::btree::{BTreeValue,
+                          ConsumingIter as ConsumingNodeIter,
+                          DiffIter as NodeDiffIter,
+                          Insert,
+                          Iter as NodeIter,
+                          Node,
+                          Remove};
 #[cfg(has_specialisation)]
 use crate::util::linear_search_by;
-use crate::util::Pool;
-use crate::util::PoolRef;
+use crate::util::{Pool,
+                  PoolRef};
 use std::borrow::Borrow;
 use std::cmp::Ordering;
 use std::collections;
-use std::fmt::Debug;
-use std::fmt::Error;
-use std::fmt::Formatter;
-use std::hash::BuildHasher;
-use std::hash::Hash;
-use std::hash::Hasher;
-use std::iter::FromIterator;
-use std::iter::IntoIterator;
-use std::iter::Sum;
-use std::ops::Add;
-use std::ops::Deref;
-use std::ops::Mul;
-use std::ops::RangeBounds;
+use std::fmt::{Debug,
+               Error,
+               Formatter};
+use std::hash::{BuildHasher,
+                Hash,
+                Hasher};
+use std::iter::{FromIterator,
+                IntoIterator,
+                Sum};
+use std::ops::{Add,
+               Deref,
+               Mul,
+               RangeBounds};
 
 
 

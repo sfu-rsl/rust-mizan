@@ -8,8 +8,8 @@
 
 
 use crate::vector::FocusMut;
-use rand_core::RngCore;
-use rand_core::SeedableRng;
+use rand_core::{RngCore,
+                SeedableRng};
 use std::cmp::Ordering;
 use std::mem;
 

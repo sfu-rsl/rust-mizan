@@ -76,8 +76,8 @@ mod tests
 
 
 	use crate::ArcSwapWeak;
-	use std::sync::Arc;
-	use std::sync::Weak;
+	use std::sync::{Arc,
+	                Weak};
 
 
 

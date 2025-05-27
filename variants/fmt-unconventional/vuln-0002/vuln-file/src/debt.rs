@@ -1,10 +1,10 @@
 use super::RefCnt;
 use std::cell::Cell;
 use std::ptr;
-use std::sync::atomic::AtomicBool;
-use std::sync::atomic::AtomicPtr;
-use std::sync::atomic::AtomicUsize;
-use std::sync::atomic::Ordering;
+use std::sync::atomic::{AtomicBool,
+                        AtomicPtr,
+                        AtomicUsize,
+                        Ordering};
 
 
 

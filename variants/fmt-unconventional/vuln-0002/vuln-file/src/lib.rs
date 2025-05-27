@@ -223,26 +223,26 @@ pub mod strategy;
 
 
 
-use crate::access::Access;
-use crate::access::Map;
+use crate::access::{Access,
+                    Map};
 pub use crate::as_raw::AsRaw;
 pub use crate::ref_cnt::RefCnt;
 use crate::strategy::sealed::Protected;
-use crate::strategy::CaS;
-pub use crate::strategy::DefaultStrategy;
-pub use crate::strategy::IndependentStrategy;
-use crate::strategy::Strategy;
+use crate::strategy::{CaS,
+                      Strategy};
+pub use crate::strategy::{DefaultStrategy,
+                          IndependentStrategy};
 use std::borrow::Borrow;
-use std::fmt::Debug;
-use std::fmt::Display;
-use std::fmt::Formatter;
-use std::fmt::Result as FmtResult;
+use std::fmt::{Debug,
+               Display,
+               Formatter,
+               Result as FmtResult};
 use std::marker::PhantomData;
 use std::mem;
 use std::ops::Deref;
 use std::ptr;
-use std::sync::atomic::AtomicPtr;
-use std::sync::atomic::Ordering;
+use std::sync::atomic::{AtomicPtr,
+                        Ordering};
 use std::sync::Arc;
 
 
@@ -1473,8 +1473,8 @@ mod tests
 	use super::*;
 	use crossbeam_utils::thread;
 	use std::panic;
-	use std::sync::atomic::AtomicUsize;
-	use std::sync::atomic::{self};
+	use std::sync::atomic::{self,
+	                        AtomicUsize};
 	use std::sync::Barrier;
 
 

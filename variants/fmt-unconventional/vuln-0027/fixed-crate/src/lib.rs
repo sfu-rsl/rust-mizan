@@ -88,12 +88,12 @@
 
 use error::fmt_err;
 use frame::FrameReader;
-use input::BufferedReader;
-use input::ReadBytes;
-use metadata::MetadataBlock;
-use metadata::MetadataBlockReader;
-use metadata::StreamInfo;
-use metadata::VorbisComment;
+use input::{BufferedReader,
+            ReadBytes};
+use metadata::{MetadataBlock,
+               MetadataBlockReader,
+               StreamInfo,
+               VorbisComment};
 use std::fs;
 use std::io;
 use std::mem;
@@ -110,8 +110,8 @@ pub mod subframe;
 
 
 
-pub use error::Error;
-pub use error::Result;
+pub use error::{Error,
+                Result};
 pub use frame::Block;
 
 

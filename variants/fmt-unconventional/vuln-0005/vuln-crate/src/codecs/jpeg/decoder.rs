@@ -1,15 +1,15 @@
 use crate::color::ColorType;
-use crate::error::DecodingError;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::image::ImageDecoder;
-use crate::image::ImageFormat;
+use crate::error::{DecodingError,
+                   ImageError,
+                   ImageResult,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
+use crate::image::{ImageDecoder,
+                   ImageFormat};
 use std::convert::TryFrom;
-use std::io::Cursor;
-use std::io::Read;
-use std::io::{self};
+use std::io::{self,
+              Cursor,
+              Read};
 use std::marker::PhantomData;
 use std::mem;
 

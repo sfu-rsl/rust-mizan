@@ -4,27 +4,27 @@
 
 
 use super::api::BitSliceIndex;
-use crate::access::BitAccess;
-use crate::domain::DomainMut;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
-use core::ops::BitAndAssign;
-use core::ops::BitOrAssign;
-use core::ops::BitXorAssign;
-use core::ops::Index;
-use core::ops::IndexMut;
-use core::ops::Not;
-use core::ops::Range;
-use core::ops::RangeFrom;
-use core::ops::RangeFull;
-use core::ops::RangeInclusive;
-use core::ops::RangeTo;
-use core::ops::RangeToInclusive;
-use core::ops::ShlAssign;
-use core::ops::ShrAssign;
-use core::ptr;
+use crate::{access::BitAccess,
+            domain::DomainMut,
+            mem::BitMemory,
+            order::BitOrder,
+            slice::BitSlice,
+            store::BitStore};
+use core::{ops::{BitAndAssign,
+                 BitOrAssign,
+                 BitXorAssign,
+                 Index,
+                 IndexMut,
+                 Not,
+                 Range,
+                 RangeFrom,
+                 RangeFull,
+                 RangeInclusive,
+                 RangeTo,
+                 RangeToInclusive,
+                 ShlAssign,
+                 ShrAssign},
+           ptr};
 
 
 

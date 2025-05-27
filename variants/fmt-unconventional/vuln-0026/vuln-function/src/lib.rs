@@ -1,12 +1,12 @@
-use serde::de::Deserialize;
-use serde::de::Deserializer;
-use serde::de::SeqAccess;
-use serde::de::Visitor;
-use serde::de::{self};
+use serde::de::{self,
+                Deserialize,
+                Deserializer,
+                SeqAccess,
+                Visitor};
 use std::fmt;
 use std::marker::PhantomData;
-use std::mem::size_of;
-use std::mem::{self};
+use std::mem::{self,
+               size_of};
 
 
 

@@ -13,9 +13,8 @@
 
 pub use self::decoder::IcoDecoder;
 #[allow(deprecated)]
-pub use self::encoder::ICOEncoder;
-#[allow(deprecated)]
-pub use self::encoder::IcoEncoder;
+pub use self::encoder::{ICOEncoder,
+                        IcoEncoder};
 
 
 

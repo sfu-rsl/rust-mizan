@@ -7,8 +7,8 @@
 
 
 
-use super::index::RawIndex;
-use super::RingBuffer;
+use super::{index::RawIndex,
+            RingBuffer};
 use crate::types::ChunkLength;
 use array_ops::HasLength;
 use core::iter::FusedIterator;

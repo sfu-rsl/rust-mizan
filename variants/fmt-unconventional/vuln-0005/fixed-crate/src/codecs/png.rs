@@ -12,40 +12,40 @@
 
 
 
-use crate::animation::Delay;
-use crate::animation::Frame;
-use crate::animation::Frames;
-use crate::color::Blend;
-use crate::color::ColorType;
-use crate::color::ExtendedColorType;
-use crate::error::DecodingError;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::LimitError;
-use crate::error::LimitErrorKind;
-use crate::error::ParameterError;
-use crate::error::ParameterErrorKind;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::image::AnimationDecoder;
-use crate::image::ImageDecoder;
-use crate::image::ImageEncoder;
-use crate::image::ImageFormat;
-use crate::DynamicImage;
-use crate::GenericImage;
-use crate::ImageBuffer;
-use crate::Luma;
-use crate::LumaA;
-use crate::Rgb;
-use crate::Rgba;
-use crate::RgbaImage;
+use crate::animation::{Delay,
+                       Frame,
+                       Frames};
+use crate::color::{Blend,
+                   ColorType,
+                   ExtendedColorType};
+use crate::error::{DecodingError,
+                   ImageError,
+                   ImageResult,
+                   LimitError,
+                   LimitErrorKind,
+                   ParameterError,
+                   ParameterErrorKind,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
+use crate::image::{AnimationDecoder,
+                   ImageDecoder,
+                   ImageEncoder,
+                   ImageFormat};
+use crate::{DynamicImage,
+            GenericImage,
+            ImageBuffer,
+            Luma,
+            LumaA,
+            Rgb,
+            Rgba,
+            RgbaImage};
 use num_rational::Ratio;
-use png::BlendOp;
-use png::DisposeOp;
+use png::{BlendOp,
+          DisposeOp};
 use std::convert::TryFrom;
-use std::io::Read;
-use std::io::Write;
-use std::io::{self};
+use std::io::{self,
+              Read,
+              Write};
 
 
 
@@ -482,9 +482,9 @@ impl<'a, R : 'a+Read> ImageDecoder<'a> for PngDecoder<R>
 
 
 
-		use byteorder::BigEndian;
-		use byteorder::ByteOrder;
-		use byteorder::NativeEndian;
+		use byteorder::{BigEndian,
+		                ByteOrder,
+		                NativeEndian};
 
 
 
@@ -1232,9 +1232,9 @@ impl<W : Write> ImageEncoder for PngEncoder<W>
 
 
 
-		use byteorder::BigEndian;
-		use byteorder::ByteOrder;
-		use byteorder::NativeEndian;
+		use byteorder::{BigEndian,
+		                ByteOrder,
+		                NativeEndian};
 
 
 

@@ -41,34 +41,34 @@
 
 
 
-use crate::nodes::hamt::hash_key;
-use crate::nodes::hamt::Drain as NodeDrain;
-use crate::nodes::hamt::HashValue;
-use crate::nodes::hamt::Iter as NodeIter;
-use crate::nodes::hamt::Node;
+use crate::nodes::hamt::{hash_key,
+                         Drain as NodeDrain,
+                         HashValue,
+                         Iter as NodeIter,
+                         Node};
 use crate::ordset::OrdSet;
-use crate::util::Pool;
-use crate::util::PoolRef;
-use crate::util::Ref;
+use crate::util::{Pool,
+                  PoolRef,
+                  Ref};
 use crate::Vector;
 use std::borrow::Borrow;
 use std::cmp::Ordering;
 use std::collections::hash_map::RandomState;
-use std::collections::BTreeSet;
-use std::collections::{self};
-use std::fmt::Debug;
-use std::fmt::Error;
-use std::fmt::Formatter;
-use std::hash::BuildHasher;
-use std::hash::Hash;
-use std::hash::Hasher;
-use std::iter::FromIterator;
+use std::collections::{self,
+                       BTreeSet};
+use std::fmt::{Debug,
+               Error,
+               Formatter};
+use std::hash::{BuildHasher,
+                Hash,
+                Hasher};
 use std::iter::FusedIterator;
-use std::iter::IntoIterator;
-use std::iter::Sum;
-use std::ops::Add;
-use std::ops::Deref;
-use std::ops::Mul;
+use std::iter::{FromIterator,
+                IntoIterator,
+                Sum};
+use std::ops::{Add,
+               Deref,
+               Mul};
 
 
 

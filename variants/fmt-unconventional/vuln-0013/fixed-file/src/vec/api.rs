@@ -4,15 +4,15 @@
 
 
 
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::pointer::BitPtr;
-use crate::store::BitStore;
-use crate::vec::BitVec;
-use alloc::boxed::Box;
-use alloc::vec::Vec;
-use core::marker::PhantomData;
-use core::mem;
+use crate::{mem::BitMemory,
+            order::BitOrder,
+            pointer::BitPtr,
+            store::BitStore,
+            vec::BitVec};
+use alloc::{boxed::Box,
+            vec::Vec};
+use core::{marker::PhantomData,
+           mem};
 use funty::IsInteger;
 
 

@@ -16,17 +16,17 @@
 
 
 
-use crate::errno::errno_result;
-use crate::errno::Error;
-use crate::errno::Result;
+use crate::errno::{errno_result,
+                   Error,
+                   Result};
 use std::env::temp_dir;
-use std::ffi::CString;
-use std::ffi::OsStr;
-use std::ffi::OsString;
+use std::ffi::{CString,
+               OsStr,
+               OsString};
 use std::fs;
 use std::os::unix::ffi::OsStringExt;
-use std::path::Path;
-use std::path::PathBuf;
+use std::path::{Path,
+                PathBuf};
 
 
 

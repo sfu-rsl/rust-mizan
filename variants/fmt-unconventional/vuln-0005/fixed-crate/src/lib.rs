@@ -160,32 +160,32 @@ extern crate quickcheck;
 
 
 
-pub use crate::animation::Delay;
-pub use crate::animation::Frame;
-pub use crate::animation::Frames;
+pub use crate::animation::{Delay,
+                           Frame,
+                           Frames};
 pub use crate::buffer_::{GrayAlphaImage,
                          GrayImage,
                          // Image types
                          ImageBuffer,
                          RgbImage,
                          RgbaImage};
-pub use crate::color::Bgr;
-pub use crate::color::Bgra;
-pub use crate::color::ColorType;
-pub use crate::color::ExtendedColorType;
-pub use crate::color::Luma;
-pub use crate::color::LumaA;
-pub use crate::color::Rgb;
-pub use crate::color::Rgba;
-pub use crate::dynimage::image_dimensions;
-pub use crate::dynimage::load_from_memory;
-pub use crate::dynimage::load_from_memory_with_format;
-pub use crate::dynimage::open;
-pub use crate::dynimage::save_buffer;
-pub use crate::dynimage::save_buffer_with_format;
+pub use crate::color::{Bgr,
+                       Bgra,
+                       Luma,
+                       LumaA,
+                       Rgb,
+                       Rgba};
+pub use crate::color::{ColorType,
+                       ExtendedColorType};
 pub use crate::dynimage::DynamicImage;
-pub use crate::error::ImageError;
-pub use crate::error::ImageResult;
+pub use crate::dynimage::{image_dimensions,
+                          load_from_memory,
+                          load_from_memory_with_format,
+                          open,
+                          save_buffer,
+                          save_buffer_with_format};
+pub use crate::error::{ImageError,
+                       ImageResult};
 pub use crate::flat::FlatSamples;
 pub use crate::image::{AnimationDecoder,
                        GenericImage,
@@ -228,15 +228,15 @@ pub mod buffer
 
 	// Only those not exported at
 	// the top-level
-	pub use crate::buffer_::ConvertBuffer;
-	pub use crate::buffer_::EnumeratePixels;
-	pub use crate::buffer_::EnumeratePixelsMut;
-	pub use crate::buffer_::EnumerateRows;
-	pub use crate::buffer_::EnumerateRowsMut;
-	pub use crate::buffer_::Pixels;
-	pub use crate::buffer_::PixelsMut;
-	pub use crate::buffer_::Rows;
-	pub use crate::buffer_::RowsMut;
+	pub use crate::buffer_::{ConvertBuffer,
+	                         EnumeratePixels,
+	                         EnumeratePixelsMut,
+	                         EnumerateRows,
+	                         EnumerateRowsMut,
+	                         Pixels,
+	                         PixelsMut,
+	                         Rows,
+	                         RowsMut};
 }
 
 
@@ -421,11 +421,9 @@ pub mod bmp
 
 
 	#[allow(deprecated)]
-	pub use crate::codecs::bmp::BMPEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::bmp::BmpDecoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::bmp::BmpEncoder;
+	pub use crate::codecs::bmp::{BMPEncoder,
+	                             BmpDecoder,
+	                             BmpEncoder};
 }
 
 
@@ -467,19 +465,13 @@ pub mod dxt
 
 
 	#[allow(deprecated)]
-	pub use crate::codecs::dxt::DXTEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::dxt::DXTReader;
-	#[allow(deprecated)]
-	pub use crate::codecs::dxt::DXTVariant;
-	#[allow(deprecated)]
-	pub use crate::codecs::dxt::DxtDecoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::dxt::DxtEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::dxt::DxtReader;
-	#[allow(deprecated)]
-	pub use crate::codecs::dxt::DxtVariant;
+	pub use crate::codecs::dxt::{DXTEncoder,
+	                             DXTReader,
+	                             DXTVariant,
+	                             DxtDecoder,
+	                             DxtEncoder,
+	                             DxtReader,
+	                             DxtVariant};
 }
 
 
@@ -499,9 +491,9 @@ pub mod farbfeld
 
 
 
-	pub use crate::codecs::farbfeld::FarbfeldDecoder;
-	pub use crate::codecs::farbfeld::FarbfeldEncoder;
-	pub use crate::codecs::farbfeld::FarbfeldReader;
+	pub use crate::codecs::farbfeld::{FarbfeldDecoder,
+	                                  FarbfeldEncoder,
+	                                  FarbfeldReader};
 }
 
 
@@ -522,13 +514,10 @@ pub mod gif
 
 
 	#[allow(deprecated)]
-	pub use crate::codecs::gif::Encoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::gif::GifDecoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::gif::GifEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::gif::GifReader;
+	pub use crate::codecs::gif::{Encoder,
+	                             GifDecoder,
+	                             GifEncoder,
+	                             GifReader};
 }
 
 
@@ -550,37 +539,22 @@ pub mod hdr
 
 
 	#[allow(deprecated)]
-	pub use crate::codecs::hdr::read_raw_file;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::rgbe8;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::to_rgbe8;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::HDRAdapter;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::HDREncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::HDRImageDecoderIterator;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::HDRMetadata;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::HdrAdapter;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::HdrDecoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::HdrEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::HdrImageDecoderIterator;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::HdrMetadata;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::HdrReader;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::RGBE8Pixel;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::Rgbe8Pixel;
-	#[allow(deprecated)]
-	pub use crate::codecs::hdr::SIGNATURE;
+	pub use crate::codecs::hdr::{read_raw_file,
+	                             rgbe8,
+	                             to_rgbe8,
+	                             HDRAdapter,
+	                             HDREncoder,
+	                             HDRImageDecoderIterator,
+	                             HDRMetadata,
+	                             HdrAdapter,
+	                             HdrDecoder,
+	                             HdrEncoder,
+	                             HdrImageDecoderIterator,
+	                             HdrMetadata,
+	                             HdrReader,
+	                             RGBE8Pixel,
+	                             Rgbe8Pixel,
+	                             SIGNATURE};
 }
 
 
@@ -602,11 +576,9 @@ pub mod ico
 
 
 	#[allow(deprecated)]
-	pub use crate::codecs::ico::ICOEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::ico::IcoDecoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::ico::IcoEncoder;
+	pub use crate::codecs::ico::{ICOEncoder,
+	                             IcoDecoder,
+	                             IcoEncoder};
 }
 
 
@@ -628,15 +600,11 @@ pub mod jpeg
 
 
 	#[allow(deprecated)]
-	pub use crate::codecs::jpeg::JPEGEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::jpeg::JpegDecoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::jpeg::JpegEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::jpeg::PixelDensity;
-	#[allow(deprecated)]
-	pub use crate::codecs::jpeg::PixelDensityUnit;
+	pub use crate::codecs::jpeg::{JPEGEncoder,
+	                              JpegDecoder,
+	                              JpegEncoder,
+	                              PixelDensity,
+	                              PixelDensityUnit};
 }
 
 
@@ -658,17 +626,12 @@ pub mod png
 
 
 	#[allow(deprecated)]
-	pub use crate::codecs::png::ApngDecoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::png::PNGEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::png::PNGReader;
-	#[allow(deprecated)]
-	pub use crate::codecs::png::PngDecoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::png::PngEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::png::PngReader;
+	pub use crate::codecs::png::{ApngDecoder,
+	                             PNGEncoder,
+	                             PNGReader,
+	                             PngDecoder,
+	                             PngEncoder,
+	                             PngReader};
 }
 
 
@@ -693,31 +656,19 @@ pub mod pnm
 
 
 	#[allow(deprecated)]
-	pub use crate::codecs::pnm::ArbitraryHeader;
-	#[allow(deprecated)]
-	pub use crate::codecs::pnm::ArbitraryTuplType;
-	#[allow(deprecated)]
-	pub use crate::codecs::pnm::BitmapHeader;
-	#[allow(deprecated)]
-	pub use crate::codecs::pnm::GraymapHeader;
-	#[allow(deprecated)]
-	pub use crate::codecs::pnm::PNMEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::pnm::PNMHeader;
-	#[allow(deprecated)]
-	pub use crate::codecs::pnm::PNMSubtype;
-	#[allow(deprecated)]
-	pub use crate::codecs::pnm::PixmapHeader;
-	#[allow(deprecated)]
-	pub use crate::codecs::pnm::PnmDecoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::pnm::PnmEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::pnm::PnmHeader;
-	#[allow(deprecated)]
-	pub use crate::codecs::pnm::PnmSubtype;
-	#[allow(deprecated)]
-	pub use crate::codecs::pnm::SampleEncoding;
+	pub use crate::codecs::pnm::{ArbitraryHeader,
+	                             ArbitraryTuplType,
+	                             BitmapHeader,
+	                             GraymapHeader,
+	                             PNMEncoder,
+	                             PNMHeader,
+	                             PNMSubtype,
+	                             PixmapHeader,
+	                             PnmDecoder,
+	                             PnmEncoder,
+	                             PnmHeader,
+	                             PnmSubtype,
+	                             SampleEncoding};
 }
 
 
@@ -739,9 +690,8 @@ pub mod tga
 
 
 	#[allow(deprecated)]
-	pub use crate::codecs::tga::TgaDecoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::tga::TgaEncoder;
+	pub use crate::codecs::tga::{TgaDecoder,
+	                             TgaEncoder};
 }
 
 
@@ -763,11 +713,9 @@ pub mod tiff
 
 
 	#[allow(deprecated)]
-	pub use crate::codecs::tiff::TiffDecoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::tiff::TiffEncoder;
-	#[allow(deprecated)]
-	pub use crate::codecs::tiff::TiffReader;
+	pub use crate::codecs::tiff::{TiffDecoder,
+	                              TiffEncoder,
+	                              TiffReader};
 }
 
 
@@ -788,9 +736,8 @@ pub mod webp
 
 
 	#[allow(deprecated)]
-	pub use crate::codecs::webp::vp8;
-	#[allow(deprecated)]
-	pub use crate::codecs::webp::WebPDecoder;
+	pub use crate::codecs::webp::{vp8,
+	                              WebPDecoder};
 }
 
 

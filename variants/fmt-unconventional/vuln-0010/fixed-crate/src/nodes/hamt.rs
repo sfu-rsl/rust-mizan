@@ -8,29 +8,29 @@
 
 
 use crate::config::HashLevelSize;
-use crate::util::clone_ref;
-use crate::util::Pool;
-use crate::util::PoolClone;
-use crate::util::PoolDefault;
-use crate::util::PoolRef;
-use crate::util::Ref;
+use crate::util::{clone_ref,
+                  Pool,
+                  PoolClone,
+                  PoolDefault,
+                  PoolRef,
+                  Ref};
 use bitmaps::Bits;
-use sized_chunks::sparse_chunk::Iter as ChunkIter;
-use sized_chunks::sparse_chunk::IterMut as ChunkIterMut;
-use sized_chunks::sparse_chunk::SparseChunk;
+use sized_chunks::sparse_chunk::{Iter as ChunkIter,
+                                 IterMut as ChunkIterMut,
+                                 SparseChunk};
 use std::borrow::Borrow;
 use std::fmt;
-use std::hash::BuildHasher;
-use std::hash::Hash;
-use std::hash::Hasher;
+use std::hash::{BuildHasher,
+                Hash,
+                Hasher};
 use std::iter::FusedIterator;
-use std::mem;
-use std::ptr;
-use std::slice::Iter as SliceIter;
-use std::slice::IterMut as SliceIterMut;
-use typenum::Pow;
-use typenum::Unsigned;
-use typenum::U2;
+use std::slice::{Iter as SliceIter,
+                 IterMut as SliceIterMut};
+use std::{mem,
+          ptr};
+use typenum::{Pow,
+              Unsigned,
+              U2};
 
 
 

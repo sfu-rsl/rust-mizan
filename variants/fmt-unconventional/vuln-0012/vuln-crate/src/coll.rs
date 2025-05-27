@@ -152,14 +152,14 @@
 
 
 use self::hash::BuildHashU64;
-use crate::HConsed;
-use crate::HashConsed;
-use std::collections::HashMap;
-use std::collections::HashSet;
-use std::hash::Hash;
-use std::hash::Hasher;
-use std::ops::Deref;
-use std::ops::DerefMut;
+use crate::{HConsed,
+            HashConsed};
+use std::collections::{HashMap,
+                       HashSet};
+use std::hash::{Hash,
+                Hasher};
+use std::ops::{Deref,
+               DerefMut};
 
 
 
@@ -731,8 +731,8 @@ mod hash
 
 
 
-	use std::hash::BuildHasher;
-	use std::hash::Hasher;
+	use std::hash::{BuildHasher,
+	                Hasher};
 
 
 

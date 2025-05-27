@@ -22,20 +22,20 @@
 
 
 use super::transform;
-use crate::error::DecodingError;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
+use crate::error::{DecodingError,
+                   ImageError,
+                   ImageResult,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
 use crate::image::ImageFormat;
 use crate::utils::clamp;
-use byteorder::LittleEndian;
-use byteorder::ReadBytesExt;
-use std::cmp;
+use byteorder::{LittleEndian,
+                ReadBytesExt};
 use std::default::Default;
-use std::error;
-use std::fmt;
 use std::io::Read;
+use std::{cmp,
+          error,
+          fmt};
 
 
 
@@ -5832,23 +5832,21 @@ mod test
 
 
 
-	use super::add_residue;
-	use super::avg2;
-	use super::avg3;
-	use super::edge_pixels;
+	use super::{add_residue,
+	            avg2,
+	            avg3,
+	            edge_pixels,
+	            predict_bhepred,
+	            predict_bldpred,
+	            predict_brdpred,
+	            predict_bvepred,
+	            top_pixels};
 	#[cfg(feature = "benchmarks")]
-	use super::predict_4x4;
-	use super::predict_bhepred;
-	use super::predict_bldpred;
-	use super::predict_brdpred;
-	use super::predict_bvepred;
-	use super::top_pixels;
+	use super::{predict_4x4,
+	            IntraMode};
 	#[cfg(feature = "benchmarks")]
-	use super::IntraMode;
-	#[cfg(feature = "benchmarks")]
-	use test::black_box;
-	#[cfg(feature = "benchmarks")]
-	use test::Bencher;
+	use test::{black_box,
+	           Bencher};
 
 
 

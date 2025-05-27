@@ -88,9 +88,9 @@ impl PartialEq for Error
 
 
 
-		use error::Error::FormatError;
-		use error::Error::IoError;
-		use error::Error::Unsupported;
+		use error::Error::{FormatError,
+		                   IoError,
+		                   Unsupported};
 
 
 

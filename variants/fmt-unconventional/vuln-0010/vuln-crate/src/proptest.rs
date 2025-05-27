@@ -6,15 +6,15 @@
 
 
 
-use crate::HashMap;
-use crate::HashSet;
-use crate::OrdMap;
-use crate::OrdSet;
-use crate::Vector;
+use crate::{HashMap,
+            HashSet,
+            OrdMap,
+            OrdSet,
+            Vector};
 use ::proptest::collection::vec;
-use ::proptest::strategy::BoxedStrategy;
-use ::proptest::strategy::Strategy;
-use ::proptest::strategy::ValueTree;
+use ::proptest::strategy::{BoxedStrategy,
+                           Strategy,
+                           ValueTree};
 use std::hash::Hash;
 use std::iter::FromIterator;
 use std::ops::Range;

@@ -15,29 +15,29 @@ use crate::syscall::SyscallReturnCode;
 #[cfg(any(target_os = "linux",
               target_os = "android"))]
 use bitflags::bitflags;
-use libc::epoll_create1;
-use libc::epoll_ctl;
-use libc::epoll_event;
-use libc::epoll_wait;
-use libc::EPOLLERR;
-use libc::EPOLLET;
-use libc::EPOLLEXCLUSIVE;
-use libc::EPOLLHUP;
-use libc::EPOLLIN;
-use libc::EPOLLONESHOT;
-use libc::EPOLLOUT;
-use libc::EPOLLPRI;
-use libc::EPOLLRDHUP;
-use libc::EPOLLWAKEUP;
-use libc::EPOLL_CLOEXEC;
-use libc::EPOLL_CTL_ADD;
-use libc::EPOLL_CTL_DEL;
-use libc::EPOLL_CTL_MOD;
+use libc::{epoll_create1,
+           epoll_ctl,
+           epoll_event,
+           epoll_wait,
+           EPOLLERR,
+           EPOLLET,
+           EPOLLEXCLUSIVE,
+           EPOLLHUP,
+           EPOLLIN,
+           EPOLLONESHOT,
+           EPOLLOUT,
+           EPOLLPRI,
+           EPOLLRDHUP,
+           EPOLLWAKEUP,
+           EPOLL_CLOEXEC,
+           EPOLL_CTL_ADD,
+           EPOLL_CTL_DEL,
+           EPOLL_CTL_MOD};
 use std::io;
-use std::ops::Deref;
-use std::ops::Drop;
-use std::os::unix::io::AsRawFd;
-use std::os::unix::io::RawFd;
+use std::ops::{Deref,
+               Drop};
+use std::os::unix::io::{AsRawFd,
+                        RawFd};
 
 
 

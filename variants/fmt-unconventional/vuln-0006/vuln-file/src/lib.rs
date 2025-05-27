@@ -160,48 +160,41 @@ extern crate std;
 
 
 #[allow(deprecated)]
-use alloc::alloc::Layout;
-#[allow(deprecated)]
-use alloc::alloc::LayoutErr;
+use alloc::alloc::{Layout,
+                   LayoutErr};
 use alloc::boxed::Box;
-use alloc::vec;
-use alloc::vec::Vec;
-use core::borrow::Borrow;
-use core::borrow::BorrowMut;
+use alloc::{vec,
+            vec::Vec};
+use core::borrow::{Borrow,
+                   BorrowMut};
 use core::cmp;
 use core::fmt;
-use core::hash::Hash;
-use core::hash::Hasher;
+use core::hash::{Hash,
+                 Hasher};
 use core::hint::unreachable_unchecked;
-use core::iter::repeat;
-use core::iter::FromIterator;
-use core::iter::FusedIterator;
-use core::iter::IntoIterator;
+use core::iter::{repeat,
+                 FromIterator,
+                 FusedIterator,
+                 IntoIterator};
 #[cfg(feature = "serde")]
 use core::marker::PhantomData;
 use core::mem;
 use core::mem::MaybeUninit;
-use core::ops::Range;
-use core::ops::RangeBounds;
-use core::ops::{self};
-use core::ptr::NonNull;
-use core::ptr::{self};
-use core::slice::SliceIndex;
-use core::slice::{self};
+use core::ops::{self,
+                Range,
+                RangeBounds};
+use core::ptr::{self,
+                NonNull};
+use core::slice::{self,
+                  SliceIndex};
 #[cfg(feature = "serde")]
-use serde::de::Deserialize;
-#[cfg(feature = "serde")]
-use serde::de::Deserializer;
-#[cfg(feature = "serde")]
-use serde::de::SeqAccess;
-#[cfg(feature = "serde")]
-use serde::de::Visitor;
-#[cfg(feature = "serde")]
-use serde::ser::Serialize;
-#[cfg(feature = "serde")]
-use serde::ser::SerializeSeq;
-#[cfg(feature = "serde")]
-use serde::ser::Serializer;
+use serde::{de::{Deserialize,
+                 Deserializer,
+                 SeqAccess,
+                 Visitor},
+            ser::{Serialize,
+                  SerializeSeq,
+                  Serializer}};
 #[cfg(feature = "write")]
 use std::io;
 

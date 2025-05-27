@@ -3,29 +3,29 @@
 
 
 
-use crate::errmsg_to_string;
 use crate::error::error_from_sqlite_code;
 use crate::ffi;
 use crate::hooks::Action;
-use crate::str_to_cstring;
 use crate::types::ValueRef;
-use crate::Connection;
-use crate::DatabaseName;
-use crate::Result;
+use crate::{errmsg_to_string,
+            str_to_cstring,
+            Connection,
+            DatabaseName,
+            Result};
 use fallible_streaming_iterator::FallibleStreamingIterator;
 use std::ffi::CStr;
-use std::io::Read;
-use std::io::Write;
+use std::io::{Read,
+              Write};
 use std::marker::PhantomData;
-use std::os::raw::c_char;
-use std::os::raw::c_int;
-use std::os::raw::c_uchar;
-use std::os::raw::c_void;
-use std::panic::catch_unwind;
-use std::panic::RefUnwindSafe;
+use std::os::raw::{c_char,
+                   c_int,
+                   c_uchar,
+                   c_void};
+use std::panic::{catch_unwind,
+                 RefUnwindSafe};
 use std::ptr;
-use std::slice::from_raw_parts;
-use std::slice::from_raw_parts_mut;
+use std::slice::{from_raw_parts,
+                 from_raw_parts_mut};
 
 
 
@@ -1832,17 +1832,17 @@ mod test
 
 
 
-	use super::Changeset;
-	use super::ChangesetIter;
-	use super::ConflictAction;
-	use super::ConflictType;
-	use super::Session;
+	use super::{Changeset,
+	            ChangesetIter,
+	            ConflictAction,
+	            ConflictType,
+	            Session};
 	use crate::hooks::Action;
 	use crate::Connection;
 	use fallible_streaming_iterator::FallibleStreamingIterator;
 	use std::io::Read;
-	use std::sync::atomic::AtomicBool;
-	use std::sync::atomic::Ordering;
+	use std::sync::atomic::{AtomicBool,
+	                        Ordering};
 
 
 

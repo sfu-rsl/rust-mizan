@@ -15,9 +15,9 @@
 
 
 
-use super::Array;
-use super::SmallVec;
-use super::SpecFrom;
+use super::{Array,
+            SmallVec,
+            SpecFrom};
 
 
 

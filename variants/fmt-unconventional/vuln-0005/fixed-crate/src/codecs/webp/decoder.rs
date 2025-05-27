@@ -1,24 +1,24 @@
 use super::vp8::Frame;
 use super::vp8::Vp8Decoder;
 use crate::color;
-use crate::error::DecodingError;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::image::ImageDecoder;
-use crate::image::ImageFormat;
-use byteorder::LittleEndian;
-use byteorder::ReadBytesExt;
+use crate::error::{DecodingError,
+                   ImageError,
+                   ImageResult,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
+use crate::image::{ImageDecoder,
+                   ImageFormat};
+use byteorder::{LittleEndian,
+                ReadBytesExt};
 use std::convert::TryFrom;
 use std::default::Default;
-use std::error;
-use std::fmt;
-use std::io::Cursor;
-use std::io::Read;
-use std::io::{self};
+use std::io::{self,
+              Cursor,
+              Read};
 use std::marker::PhantomData;
-use std::mem;
+use std::{error,
+          fmt,
+          mem};
 
 
 

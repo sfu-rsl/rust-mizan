@@ -12,18 +12,18 @@ use crate::hashset::HashSet;
 use crate::ordmap::OrdMap;
 use crate::ordset::OrdSet;
 use crate::vector::Vector;
-use serde::de::Deserialize;
-use serde::de::Deserializer;
-use serde::de::MapAccess;
-use serde::de::SeqAccess;
-use serde::de::Visitor;
-use serde::ser::Serialize;
-use serde::ser::SerializeMap;
-use serde::ser::SerializeSeq;
-use serde::ser::Serializer;
+use serde::de::{Deserialize,
+                Deserializer,
+                MapAccess,
+                SeqAccess,
+                Visitor};
+use serde::ser::{Serialize,
+                 SerializeMap,
+                 SerializeSeq,
+                 Serializer};
 use std::fmt;
-use std::hash::BuildHasher;
-use std::hash::Hash;
+use std::hash::{BuildHasher,
+                Hash};
 use std::marker::PhantomData;
 use std::ops::Deref;
 
@@ -477,15 +477,15 @@ mod test
 
 
 	use super::*;
-	use crate::proptest::hash_map;
-	use crate::proptest::hash_set;
-	use crate::proptest::ord_map;
-	use crate::proptest::ord_set;
-	use crate::proptest::vector;
+	use crate::proptest::{hash_map,
+	                      hash_set,
+	                      ord_map,
+	                      ord_set,
+	                      vector};
 	use ::proptest::num::i32;
 	use ::proptest::proptest;
-	use serde_json::from_str;
-	use serde_json::to_string;
+	use serde_json::{from_str,
+	                 to_string};
 
 
 

@@ -10,13 +10,12 @@
 
 
 #[cfg(feature = "alloc")]
-pub use crate::boxed::BitBox;
-pub use crate::mem::BitMemory;
-pub use crate::order::BitOrder;
-pub use crate::order::Local;
-pub use crate::order::Lsb0;
-pub use crate::order::Msb0;
-pub use crate::slice::BitSlice;
-pub use crate::store::BitStore;
-#[cfg(feature = "alloc")]
-pub use crate::vec::BitVec;
+pub use crate::{boxed::BitBox,
+                vec::BitVec};
+pub use crate::{mem::BitMemory,
+                order::{BitOrder,
+                        Local,
+                        Lsb0,
+                        Msb0},
+                slice::BitSlice,
+                store::BitStore};

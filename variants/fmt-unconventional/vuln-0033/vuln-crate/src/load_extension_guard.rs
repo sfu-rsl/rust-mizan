@@ -1,5 +1,5 @@
-use crate::Connection;
-use crate::Result;
+use crate::{Connection,
+            Result};
 
 
 

@@ -3,9 +3,9 @@
 
 
 
-use crate::boxed::BitBox;
-use crate::order::BitOrder;
-use crate::store::BitStore;
+use crate::{boxed::BitBox,
+            order::BitOrder,
+            store::BitStore};
 use alloc::vec::Vec;
 
 

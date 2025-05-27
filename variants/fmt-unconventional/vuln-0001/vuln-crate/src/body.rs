@@ -1,10 +1,10 @@
 use crate::error::Error;
 use std::fs::File;
-use std::io::Cursor;
-use std::io::Read;
-use std::io::Seek;
-use std::io::SeekFrom;
-use std::io::{self};
+use std::io::{self,
+              Cursor,
+              Read,
+              Seek,
+              SeekFrom};
 
 
 

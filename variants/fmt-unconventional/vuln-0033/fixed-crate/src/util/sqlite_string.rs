@@ -15,8 +15,8 @@
 
 use crate::ffi;
 use std::marker::PhantomData;
-use std::os::raw::c_char;
-use std::os::raw::c_int;
+use std::os::raw::{c_char,
+                   c_int};
 use std::ptr::NonNull;
 
 

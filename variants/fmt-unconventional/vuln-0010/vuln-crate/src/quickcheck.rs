@@ -1,12 +1,12 @@
-use crate::HashMap;
-use crate::HashSet;
-use crate::OrdMap;
-use crate::OrdSet;
-use crate::Vector;
-use ::quickcheck::Arbitrary;
-use ::quickcheck::Gen;
-use std::hash::BuildHasher;
-use std::hash::Hash;
+use crate::{HashMap,
+            HashSet,
+            OrdMap,
+            OrdSet,
+            Vector};
+use ::quickcheck::{Arbitrary,
+                   Gen};
+use std::hash::{BuildHasher,
+                Hash};
 use std::iter::FromIterator;
 
 

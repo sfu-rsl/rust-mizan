@@ -17,21 +17,21 @@
 
 
 
-use crate::index::BitIdx;
-use crate::index::BitTail;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
-use core::cell::UnsafeCell;
-use core::fmt::Binary;
-use core::fmt::Debug;
-use core::fmt::Formatter;
-use core::fmt::LowerHex;
-use core::fmt::Octal;
-use core::fmt::UpperHex;
-use core::fmt::{self};
-use core::iter::FusedIterator;
+use crate::{index::{BitIdx,
+                    BitTail},
+            mem::BitMemory,
+            order::BitOrder,
+            slice::BitSlice,
+            store::BitStore};
+use core::{cell::UnsafeCell,
+           fmt::{self,
+                 Binary,
+                 Debug,
+                 Formatter,
+                 LowerHex,
+                 Octal,
+                 UpperHex},
+           iter::FusedIterator};
 
 
 

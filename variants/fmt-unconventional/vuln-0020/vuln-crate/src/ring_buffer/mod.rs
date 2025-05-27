@@ -16,23 +16,23 @@
 
 
 use crate::types::ChunkLength;
-pub use array_ops::Array;
-pub use array_ops::ArrayMut;
-pub use array_ops::HasLength;
+pub use array_ops::{Array,
+                    ArrayMut,
+                    HasLength};
 use core::borrow::Borrow;
 use core::cmp::Ordering;
-use core::fmt::Debug;
-use core::fmt::Error;
-use core::fmt::Formatter;
-use core::hash::Hash;
-use core::hash::Hasher;
+use core::fmt::{Debug,
+                Error,
+                Formatter};
+use core::hash::{Hash,
+                 Hasher};
 use core::iter::FromIterator;
 use core::mem::MaybeUninit;
-use core::ops::Bound;
-use core::ops::Index;
-use core::ops::IndexMut;
-use core::ops::Range;
-use core::ops::RangeBounds;
+use core::ops::{Bound,
+                Range,
+                RangeBounds};
+use core::ops::{Index,
+                IndexMut};
 use typenum::U64;
 
 
@@ -41,8 +41,8 @@ mod index;
 
 
 
-use index::IndexIter;
-use index::RawIndex;
+use index::{IndexIter,
+            RawIndex};
 
 
 
@@ -50,10 +50,10 @@ mod iter;
 
 
 
-pub use iter::Drain;
-pub use iter::Iter;
-pub use iter::IterMut;
-pub use iter::OwnedIter;
+pub use iter::{Drain,
+               Iter,
+               IterMut,
+               OwnedIter};
 
 
 
@@ -61,8 +61,8 @@ mod slice;
 
 
 
-pub use slice::Slice;
-pub use slice::SliceMut;
+pub use slice::{Slice,
+                SliceMut};
 
 
 
@@ -3093,8 +3093,8 @@ mod test
 
 
 	use crate::tests::DropTest;
-	use std::sync::atomic::AtomicUsize;
-	use std::sync::atomic::Ordering;
+	use std::sync::atomic::{AtomicUsize,
+	                        Ordering};
 
 
 

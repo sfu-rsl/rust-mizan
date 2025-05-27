@@ -1,27 +1,27 @@
 use self::InnerDecoder::*;
 use crate::bmp::BmpDecoder;
 use crate::color::ColorType;
-use crate::error::DecodingError;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::image::ImageDecoder;
-use crate::image::ImageFormat;
-use crate::image::{self};
+use crate::error::{DecodingError,
+                   ImageError,
+                   ImageResult,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
+use crate::image::{self,
+                   ImageDecoder,
+                   ImageFormat};
 use crate::png::PngDecoder;
-use byteorder::LittleEndian;
-use byteorder::ReadBytesExt;
+use byteorder::{LittleEndian,
+                ReadBytesExt};
 use std::convert::TryFrom;
-use std::error;
-use std::fmt;
-use std::io::Cursor;
-use std::io::Read;
-use std::io::Seek;
-use std::io::SeekFrom;
-use std::io::{self};
+use std::io::{self,
+              Cursor,
+              Read,
+              Seek,
+              SeekFrom};
 use std::marker::PhantomData;
-use std::mem;
+use std::{error,
+          fmt,
+          mem};
 
 
 

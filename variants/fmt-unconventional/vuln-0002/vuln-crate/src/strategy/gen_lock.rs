@@ -1,12 +1,12 @@
-use crate::gen_lock::GenLock;
-use crate::gen_lock::LockStorage;
-use crate::gen_lock::{self};
-use crate::strategy::sealed::CaS;
-use crate::strategy::sealed::InnerStrategy;
+use crate::gen_lock::{self,
+                      GenLock,
+                      LockStorage};
+use crate::strategy::sealed::{CaS,
+                              InnerStrategy};
 use crate::RefCnt;
 use std::ptr;
-use std::sync::atomic::AtomicPtr;
-use std::sync::atomic::Ordering;
+use std::sync::atomic::{AtomicPtr,
+                        Ordering};
 
 
 
