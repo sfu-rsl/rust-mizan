@@ -11,7 +11,7 @@ from typing import Dict, List, Tuple, Any, Optional
 import pandas as pd
 from tqdm import tqdm
 
-from sprout_pipeline.runner import run_pipeline, Provider
+from sprout_pipeline.runner import run_pipeline, Provider, LLMError
 from sprout_pipeline.tasks import TASK_REGISTRY
 
 
@@ -66,7 +66,7 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def setup_output_paths(task: str, provider: str, model: str) -> Tuple[Path, Path]:
+def setup_output_paths(task: str, provider: str, model: str) -> Tuple[Path, Path, Path]:
     """
     Create output directories and determine output file paths.
     
@@ -76,7 +76,7 @@ def setup_output_paths(task: str, provider: str, model: str) -> Tuple[Path, Path
         model: The model name
         
     Returns:
-        Tuple of (json_path, csv_path)
+        Tuple of (json_path, csv_path, failures_path)
     """
     timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H-%M-%S")
     model_dir = f"{provider}-{model}"
@@ -84,12 +84,13 @@ def setup_output_paths(task: str, provider: str, model: str) -> Tuple[Path, Path
     # Set up paths
     json_path = Path("output") / task / model_dir / f"{timestamp}.json"
     csv_path = Path("datasets") / task / model_dir / f"{timestamp}.csv"
+    failures_path = Path("output") / task / model_dir / f"{timestamp}_failures.json"
     
     # Create directories
     json_path.parent.mkdir(parents=True, exist_ok=True)
     csv_path.parent.mkdir(parents=True, exist_ok=True)
     
-    return json_path, csv_path
+    return json_path, csv_path, failures_path
 
 
 def save_results(
@@ -129,6 +130,27 @@ def save_results(
     df.to_csv(csv_path, mode="w" if is_first else "a", header=is_first, index=False)
 
 
+def save_failure(
+    failure_record: Dict,
+    failures_path: Path,
+    is_first_failure: bool
+) -> None:
+    """
+    Save failure information to the failures JSON file.
+    
+    Args:
+        failure_record: Failure information to save
+        failures_path: Path to failures JSON file
+        is_first_failure: Whether this is the first failure being saved
+    """
+    if is_first_failure:
+        failures_path.write_text(json.dumps([failure_record], indent=2))
+    else:
+        data = json.loads(failures_path.read_text())
+        data.append(failure_record)
+        failures_path.write_text(json.dumps(data, indent=2))
+
+
 def analyze_sample(
     sample_data: Tuple[Path, Any, Optional[Dict]],
     task_instance: Any,
@@ -137,7 +159,7 @@ def analyze_sample(
     provider: Provider,
     sample_index: int,
     total_samples: int
-) -> Tuple[Dict, Dict, str]:
+) -> Tuple[Optional[Dict], Optional[Dict], str, Optional[Dict]]:
     """
     Analyze a single code sample using the specified task and model.
     
@@ -151,7 +173,8 @@ def analyze_sample(
         total_samples: Total number of samples
         
     Returns:
-        Tuple of (record, csv_row, code_label)
+        Tuple of (record, csv_row, code_label, failure_info)
+        If failure_info is not None, then record and csv_row will be None
     """
     # Unpack sample data
     if len(sample_data) == 3:
@@ -185,6 +208,20 @@ def analyze_sample(
         provider=provider,
     )
     
+    # Check if the prediction is an error
+    if isinstance(prediction, LLMError):
+        failure_info = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "llm_provider": provider,
+            "llm_model": model_name,
+            "code_sample": code_label,
+            "error_type": prediction.error_type,
+            "error_message": prediction.error_message,
+            "context": ctx if ctx else None,
+            "ground_truth": ground_truth
+        }
+        return None, None, code_label, failure_info
+    
     # Score the prediction
     score = task_instance.score(prediction, ground_truth)
     
@@ -198,7 +235,7 @@ def analyze_sample(
     record = {**meta, "answer": prediction, "scoring": score}
     csv_row = task_instance.dataset_row(meta, score)
     
-    return record, csv_row, code_label
+    return record, csv_row, code_label, None
 
 
 def main():
@@ -216,14 +253,19 @@ def main():
         sys.exit("No samples found in the input file")
     
     # Set up output paths
-    json_path, csv_path = setup_output_paths(args.task, args.provider, args.model)
+    json_path, csv_path, failures_path = setup_output_paths(args.task, args.provider, args.model)
+    
+    # Track successful results and failures
+    successful_count = 0
+    failure_count = 0
+    first_failure = True
     
     # Process samples with progress bar
     for idx, sample in enumerate(
         tqdm(samples, desc="Processing samples", unit="sample", colour="green"), 1
     ):
         # Analyze sample
-        record, csv_row, _ = analyze_sample(
+        record, csv_row, _, failure_info = analyze_sample(
             sample_data=sample,
             task_instance=task,
             prompt_input=prompt_file,
@@ -233,8 +275,18 @@ def main():
             total_samples=len(samples)
         )
         
-        # Save results
-        is_first = idx == 1 and (not args.out or args.out != "-")
+        # Handle failure
+        if failure_info is not None:
+            failure_count += 1
+            if args.out != "-":  # Don't save failures in stdout mode
+                save_failure(failure_info, failures_path, first_failure)
+                first_failure = False
+            print(f"  → Failed: {failure_info['error_type']}", file=sys.stderr)
+            continue
+        
+        # Save successful results
+        successful_count += 1
+        is_first = successful_count == 1 and (not args.out or args.out != "-")
         stdout_mode = args.out == "-"
         save_results(
             record=record,
@@ -247,8 +299,12 @@ def main():
     
     # Show summary
     if args.out != "-":
-        print(f"\nFinished. Full JSON → {(args.out or json_path).resolve()}")
-        print(f"Dataset CSV   → {csv_path.resolve()}")
+        print(f"\nFinished. Successful: {successful_count}, Failed: {failure_count}")
+        if successful_count > 0:
+            print(f"Full JSON → {(args.out or json_path).resolve()}")
+            print(f"Dataset CSV → {csv_path.resolve()}")
+        if failure_count > 0:
+            print(f"Failures → {failures_path.resolve()}")
 
 
 if __name__ == "__main__":
