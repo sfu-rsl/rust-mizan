@@ -1,11 +1,11 @@
-use std::ffi::OsString;
-use std::fs::File;
-use std::io::{BufRead, BufReader, BufWriter, Seek};
-use std::path::Path;
-use std::u32;
-
+#[cfg(feature = "avif")]
+use crate::avif;
 #[cfg(feature = "bmp")]
 use crate::codecs::bmp;
+#[cfg(feature = "dds")]
+use crate::codecs::dds;
+#[cfg(feature = "farbfeld")]
+use crate::codecs::farbfeld;
 #[cfg(feature = "gif")]
 use crate::codecs::gif;
 #[cfg(feature = "hdr")]
@@ -20,52 +20,99 @@ use crate::codecs::png;
 use crate::codecs::pnm;
 #[cfg(feature = "tga")]
 use crate::codecs::tga;
-#[cfg(feature = "dds")]
-use crate::codecs::dds;
 #[cfg(feature = "tiff")]
 use crate::codecs::tiff;
 #[cfg(feature = "webp")]
 use crate::codecs::webp;
-#[cfg(feature = "farbfeld")]
-use crate::codecs::farbfeld;
-#[cfg(feature = "avif")]
-use crate::avif;
-
 use crate::color;
-use crate::image;
 use crate::dynimage::DynamicImage;
-use crate::error::{ImageError, ImageFormatHint, ImageResult};
+use crate::error::ImageError;
+use crate::error::ImageFormatHint;
+use crate::error::ImageResult;
+use crate::image;
+#[allow(unused_imports)]
+// When no features are supported
+use crate::image::ImageDecoder;
+#[allow(unused_imports)]
+// When no features are supported
+use crate::image::ImageEncoder;
 use crate::image::ImageFormat;
-#[allow(unused_imports)]  // When no features are supported
-use crate::image::{ImageDecoder, ImageEncoder};
+use std::ffi::OsString;
+use std::fs::File;
+use std::io::BufRead;
+use std::io::BufReader;
+use std::io::BufWriter;
+use std::io::Seek;
+use std::path::Path;
+use std::u32;
 
-/// Internal error type for guessing format from path.
-pub(crate) enum PathError {
-    /// The extension did not fit a supported format.
-    UnknownExtension(OsString),
-    /// Extension could not be converted to `str`.
-    NoExtension,
+
+
+/// Internal error type for
+/// guessing format from path.
+
+
+
+pub(crate) enum PathError
+{
+	/// The extension
+	/// did not fit a
+	/// supported format.
+	///
+	UnknownExtension(OsString),
+	/// Extension could not be converted to `str`.
+	NoExtension,
 }
 
-pub(crate) fn open_impl(path: &Path) -> ImageResult<DynamicImage> {
-    let fin = match File::open(path) {
+
+
+pub(crate) fn open_impl(path : &Path)
+                        -> ImageResult<DynamicImage>
+{
+
+
+
+	let fin = match File::open(path) {
         Ok(f) => f,
         Err(err) => return Err(ImageError::IoError(err)),
     };
-    let fin = BufReader::new(fin);
 
-    load(fin, ImageFormat::from_path(path)?)
+
+
+	let fin = BufReader::new(fin);
+
+
+
+	load(
+	     fin,
+	     ImageFormat::from_path(path,)?,
+	)
 }
 
-/// Create a new image from a Reader
+
+
+/// Create a new image from a
+/// Reader
 ///
-/// Try [`io::Reader`] for more advanced uses.
+/// Try [`io::Reader`] for
+/// more advanced uses.
 ///
 /// [`io::Reader`]: io/struct.Reader.html
 #[allow(unused_variables)]
-// r is unused if no features are supported.
-pub fn load<R: BufRead + Seek>(r: R, format: ImageFormat) -> ImageResult<DynamicImage> {
-    #[allow(unreachable_patterns)]
+
+
+
+// r is unused if no features
+// are supported.
+pub fn load<R : BufRead+Seek>(
+	r : R,
+	format : ImageFormat)
+	-> ImageResult<DynamicImage>
+{
+
+
+
+	#[allow(unreachable_patterns)]
     // Default is unreachable if all features are supported.
     match format {
         #[cfg(feature = "png")]
@@ -96,21 +143,45 @@ pub fn load<R: BufRead + Seek>(r: R, format: ImageFormat) -> ImageResult<Dynamic
     }
 }
 
-pub(crate) fn image_dimensions_impl(path: &Path) -> ImageResult<(u32, u32)> {
-    let format = image::ImageFormat::from_path(path)?;
 
-    let fin = File::open(path)?;
-    let fin = BufReader::new(fin);
 
-    image_dimensions_with_format_impl(fin, format)
+pub(crate) fn image_dimensions_impl(
+	path : &Path)
+	-> ImageResult<(u32, u32)>
+{
+
+
+
+	let format = image::ImageFormat::from_path(path)?;
+
+
+
+	let fin = File::open(path)?;
+
+
+
+	let fin = BufReader::new(fin);
+
+
+
+	image_dimensions_with_format_impl(fin, format)
 }
 
+
+
 #[allow(unused_variables)]
-// fin is unused if no features are supported.
+
+
+
+// fin is unused if no
+// features are supported.
 pub(crate) fn image_dimensions_with_format_impl<R: BufRead + Seek>(fin: R, format: ImageFormat)
     -> ImageResult<(u32, u32)>
 {
-    #[allow(unreachable_patterns,unreachable_code)]
+
+
+
+	#[allow(unreachable_patterns,unreachable_code)]
     // Default is unreachable if all features are supported.
     // Code after the match is unreachable if none are.
     Ok(match format {
@@ -142,21 +213,38 @@ pub(crate) fn image_dimensions_with_format_impl<R: BufRead + Seek>(fin: R, forma
     })
 }
 
-#[allow(unused_variables)]
-// Most variables when no features are supported
-pub(crate) fn save_buffer_impl(
-    path: &Path,
-    buf: &[u8],
-    width: u32,
-    height: u32,
-    color: color::ColorType,
-) -> ImageResult<()> {
-    let fout = &mut BufWriter::new(File::create(path)?);
-    let ext = path.extension()
-        .and_then(|s| s.to_str())
-        .map_or("".to_string(), |s| s.to_ascii_lowercase());
 
-    match &*ext {
+
+#[allow(unused_variables)]
+
+
+
+// Most variables when no
+// features are supported
+pub(crate) fn save_buffer_impl(path : &Path,
+                               buf : &[u8],
+                               width : u32,
+                               height : u32,
+                               color : color::ColorType)
+                               -> ImageResult<()>
+{
+
+
+
+	let fout = &mut BufWriter::new(File::create(path)?);
+
+
+
+	let ext = path.extension()
+	              .and_then(|s| s.to_str())
+	              .map_or(
+	                      "".to_string(),
+	                      |s| s.to_ascii_lowercase(),
+	);
+
+
+
+	match &*ext {
         #[cfg(feature = "gif")]
         "gif" => gif::GifEncoder::new(fout).encode(buf, width, height, color),
         #[cfg(feature = "ico")]
@@ -192,19 +280,31 @@ pub(crate) fn save_buffer_impl(
     }
 }
 
-#[allow(unused_variables)]
-// Most variables when no features are supported
-pub(crate) fn save_buffer_with_format_impl(
-    path: &Path,
-    buf: &[u8],
-    width: u32,
-    height: u32,
-    color: color::ColorType,
-    format: ImageFormat,
-) -> ImageResult<()> {
-    let fout = &mut BufWriter::new(File::create(path)?);
 
-    match format {
+
+#[allow(unused_variables)]
+
+
+
+// Most variables when no
+// features are supported
+pub(crate) fn save_buffer_with_format_impl(
+	path : &Path,
+	buf : &[u8],
+	width : u32,
+	height : u32,
+	color : color::ColorType,
+	format : ImageFormat)
+	-> ImageResult<()>
+{
+
+
+
+	let fout = &mut BufWriter::new(File::create(path)?);
+
+
+
+	match format {
         #[cfg(feature = "gif")]
         image::ImageFormat::Gif => gif::GifEncoder::new(fout).encode(buf, width, height, color),
         #[cfg(feature = "ico")]
@@ -224,17 +324,35 @@ pub(crate) fn save_buffer_with_format_impl(
     }
 }
 
+
+
 /// Guess format from a path.
 ///
 /// Returns `PathError::NoExtension` if the path has no extension or returns a
 /// `PathError::UnknownExtension` containing the extension if  it can not be convert to a `str`.
-pub(crate) fn guess_format_from_path_impl(path: &Path) -> Result<ImageFormat, PathError> {
-    let exact_ext = path.extension();
-    let ext = exact_ext
-        .and_then(|s| s.to_str())
-        .map_or("".to_string(), |s| s.to_ascii_lowercase());
 
-    Ok(match ext.as_str() {
+
+
+pub(crate) fn guess_format_from_path_impl(
+	path : &Path)
+	-> Result<ImageFormat, PathError>
+{
+
+
+
+	let exact_ext = path.extension();
+
+
+
+	let ext = exact_ext.and_then(|s| s.to_str())
+	                   .map_or(
+	                           "".to_string(),
+	                           |s| s.to_ascii_lowercase(),
+	);
+
+
+
+	Ok(match ext.as_str() {
         "jpg" | "jpeg" => image::ImageFormat::Jpeg,
         "png" => image::ImageFormat::Png,
         "gif" => image::ImageFormat::Gif,
@@ -255,56 +373,164 @@ pub(crate) fn guess_format_from_path_impl(path: &Path) -> Result<ImageFormat, Pa
     })
 }
 
-static MAGIC_BYTES: [(&[u8], ImageFormat); 19] = [
-    (b"\x89PNG\r\n\x1a\n", ImageFormat::Png),
-    (&[0xff, 0xd8, 0xff], ImageFormat::Jpeg),
-    (b"GIF89a", ImageFormat::Gif),
-    (b"GIF87a", ImageFormat::Gif),
-    (b"RIFF", ImageFormat::WebP), // TODO: better magic byte detection, see https://github.com/image-rs/image/issues/660
-    (b"MM\x00*", ImageFormat::Tiff),
-    (b"II*\x00", ImageFormat::Tiff),
-    (b"DDS ", ImageFormat::Dds),
-    (b"BM", ImageFormat::Bmp),
-    (&[0, 0, 1, 0], ImageFormat::Ico),
-    (b"#?RADIANCE", ImageFormat::Hdr),
-    (b"P1", ImageFormat::Pnm),
-    (b"P2", ImageFormat::Pnm),
-    (b"P3", ImageFormat::Pnm),
-    (b"P4", ImageFormat::Pnm),
-    (b"P5", ImageFormat::Pnm),
-    (b"P6", ImageFormat::Pnm),
-    (b"P7", ImageFormat::Pnm),
-    (b"farbfeld", ImageFormat::Farbfeld),
-];
 
-/// Guess image format from memory block
+
+static MAGIC_BYTES : [(&[u8], ImageFormat); 19] =
+	[
+	 (
+		b"\x89PNG\r\n\x1a\n",
+		ImageFormat::Png,
+	),
+	 (
+		&[
+			0xff, 0xd8, 0xff,
+		],
+		ImageFormat::Jpeg,
+	),
+	 (
+		b"GIF89a",
+		ImageFormat::Gif,
+	),
+	 (
+		b"GIF87a",
+		ImageFormat::Gif,
+	),
+	 (
+		b"RIFF",
+		ImageFormat::WebP,
+	), /* TODO: better magic byte detection, see https://github.com/image-rs/image/issues/660 */
+	 (
+		b"MM\x00*",
+		ImageFormat::Tiff,
+	),
+	 (
+		b"II*\x00",
+		ImageFormat::Tiff,
+	),
+	 (
+		b"DDS ",
+		ImageFormat::Dds,
+	),
+	 (
+		b"BM",
+		ImageFormat::Bmp,
+	),
+	 (
+		&[
+			0, 0, 1, 0,
+		],
+		ImageFormat::Ico,
+	),
+	 (
+		b"#?RADIANCE",
+		ImageFormat::Hdr,
+	),
+	 (
+		b"P1",
+		ImageFormat::Pnm,
+	),
+	 (
+		b"P2",
+		ImageFormat::Pnm,
+	),
+	 (
+		b"P3",
+		ImageFormat::Pnm,
+	),
+	 (
+		b"P4",
+		ImageFormat::Pnm,
+	),
+	 (
+		b"P5",
+		ImageFormat::Pnm,
+	),
+	 (
+		b"P6",
+		ImageFormat::Pnm,
+	),
+	 (
+		b"P7",
+		ImageFormat::Pnm,
+	),
+	 (
+		b"farbfeld",
+		ImageFormat::Farbfeld,
+	),
+	];
+
+
+
+/// Guess image format from
+/// memory block
 ///
-/// Makes an educated guess about the image format based on the Magic Bytes at the beginning.
-/// TGA is not supported by this function.
-/// This is not to be trusted on the validity of the whole memory block
-pub fn guess_format(buffer: &[u8]) -> ImageResult<ImageFormat> {
-    match guess_format_impl(buffer) {
+/// Makes an educated guess
+/// about the image format
+/// based on the Magic Bytes
+/// at the beginning.
+/// TGA is not supported by
+/// this function. This is not
+/// to be trusted on the
+/// validity of the whole
+/// memory block
+
+
+
+pub fn guess_format(buffer : &[u8])
+                    -> ImageResult<ImageFormat>
+{
+
+
+
+	match guess_format_impl(buffer) {
         Some(format) => Ok(format),
         None => Err(ImageError::Unsupported(ImageFormatHint::Unknown.into())),
     }
 }
 
-pub(crate) fn guess_format_impl(buffer: &[u8]) -> Option<ImageFormat> {
-    for &(signature, format) in &MAGIC_BYTES {
-        if buffer.starts_with(signature) {
-            return Some(format);
-        }
-    }
 
-    None
+
+pub(crate) fn guess_format_impl(buffer : &[u8])
+                                -> Option<ImageFormat>
+{
+
+
+
+	for &(signature, format) in &MAGIC_BYTES
+	{
+
+
+
+		if buffer.starts_with(signature)
+		{
+
+
+
+			return Some(format);
+		}
+	}
+
+
+
+	None
 }
 
-impl From<PathError> for ImageError {
-    fn from(path: PathError) -> Self {
-        let format_hint = match path {
+
+
+impl From<PathError> for ImageError
+{
+	fn from(path : PathError) -> Self
+	{
+
+
+
+		let format_hint = match path {
             PathError::NoExtension => ImageFormatHint::Unknown,
             PathError::UnknownExtension(ext) => ImageFormatHint::PathExtension(ext.into()),
         };
-        ImageError::Unsupported(format_hint.into())
-    }
+
+
+
+		ImageError::Unsupported(format_hint.into())
+	}
 }

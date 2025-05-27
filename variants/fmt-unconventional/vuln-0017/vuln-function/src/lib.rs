@@ -1,14 +1,25 @@
-use std::alloc::{alloc, alloc_zeroed, dealloc, Layout};
+use std::alloc::alloc;
+use std::alloc::alloc_zeroed;
+use std::alloc::dealloc;
+use std::alloc::Layout;
 
-pub struct Array<T> {
-    size: usize,
-    ptr: *mut T,
+
+
+pub struct Array<T>
+{
+	size : usize,
+	ptr : *mut T,
 }
 
-impl<T> Array<T>
-  where T: Clone {
-    /// More generic initialization instantiating all elements as copies of some template
-    pub fn new_from_template(size: usize, template: &T) -> Self {
+
+
+impl<T> Array<T> where T : Clone,
+{
+	/// More generic
+	/// initialization
+	/// instantiating all elements
+	/// as copies of some template
+	pub fn new_from_template(size: usize, template: &T) -> Self {
         let objsize = std::mem::size_of::<T>();
         let layout = Layout::from_size_align(size * objsize, 8).unwrap();
         let ptr = unsafe {

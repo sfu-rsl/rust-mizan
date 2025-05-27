@@ -4,64 +4,134 @@ use std::error::Error as StdError;
 use std::fmt;
 use std::io;
 
-/// All possible types of errors that can be returned from cHTTP.
+
+
+/// All possible types of
+/// errors that can be
+/// returned from cHTTP.
 #[derive(Debug)]
-pub enum Error {
-    /// A problem occurred with the local certificate.
-    BadClientCertificate(Option<String>),
-    /// The server certificate could not be validated.
-    BadServerCertificate(Option<String>),
-    /// Failed to connect to the server.
-    ConnectFailed,
-    /// Couldn't resolve host name.
-    CouldntResolveHost,
-    /// Couldn't resolve proxy host name.
-    CouldntResolveProxy,
-    /// An unrecognized error thrown by libcurl.
-    Curl(String),
-    /// Unrecognized or bad content encoding returned by the server.
-    InvalidContentEncoding(Option<String>),
-    /// Provided credentials were rejected by the server.
-    InvalidCredentials,
-    /// Validation error when constructing the request or parsing the response.
-    InvalidHttpFormat(http::Error),
-    /// JSON syntax error when constructing or parsing JSON values.
-    InvalidJson,
-    /// Invalid UTF-8 string error.
-    InvalidUtf8,
-    /// An unknown I/O error.
-    Io(io::Error),
-    /// The server did not send a response.
-    NoResponse,
-    /// The server does not support or accept range requests.
-    RangeRequestUnsupported,
-    /// An error occurred while writing the request body.
-    RequestBodyError(Option<String>),
-    /// An error occurred while reading the response body.
-    ResponseBodyError(Option<String>),
-    /// Failed to connect over a secure socket.
-    SSLConnectFailed(Option<String>),
-    /// An error ocurred in the secure socket engine.
-    SSLEngineError(Option<String>),
-    /// An ongoing request took longer than the configured timeout time.
-    Timeout,
-    /// Returned when making more simultaneous requests would exceed the configured TCP connection limit.
-    TooManyConnections,
-    /// Number of redirects hit the maximum amount.
-    TooManyRedirects,
-    /// An attempt was made to re-use a transport for a new request that already has another request in progress.
-    TransportBusy,
+
+
+
+pub enum Error
+{
+	/// A problem occurred with the local certificate.
+	BadClientCertificate(Option<String>),
+	/// The server
+	/// certificate
+	/// could not be
+	/// validated.
+	BadServerCertificate(Option<String>),
+	/// Failed to connect to the server.
+	ConnectFailed,
+	/// Couldn't resolve host name.
+	CouldntResolveHost,
+	/// Couldn't resolve proxy host name.
+	CouldntResolveProxy,
+	/// An unrecognized error thrown by libcurl.
+	Curl(String),
+	/// Unrecognized
+	/// or bad content
+	/// encoding returned
+	/// by the server.
+	///
+	InvalidContentEncoding(Option<String>),
+	/// Provided credentials were rejected by the server.
+	InvalidCredentials,
+	/// Validation
+	/// error when
+	/// constructing
+	/// the request
+	/// or parsing
+	/// the response.
+	InvalidHttpFormat(http::Error),
+	/// JSON syntax
+	/// error when
+	/// constructing
+	/// or parsing
+	/// JSON values.
+	InvalidJson,
+	/// Invalid UTF-8
+	/// string error.
+	InvalidUtf8,
+	/// An unknown
+	/// I/O error.
+	Io(io::Error),
+	/// The server
+	/// did not send
+	/// a response.
+	NoResponse,
+	/// The server
+	/// does not support
+	/// or accept range
+	/// requests.
+	RangeRequestUnsupported,
+	/// An error occurred while writing the request body.
+	RequestBodyError(Option<String>),
+	/// An error occurred while reading the response body.
+	ResponseBodyError(Option<String>),
+	/// Failed to connect over a secure socket.
+	SSLConnectFailed(Option<String>),
+	/// An error ocurred in the secure socket engine.
+	SSLEngineError(Option<String>),
+	/// An ongoing
+	/// request took
+	/// longer than
+	/// the configured
+	/// timeout time.
+	Timeout,
+	/// Returned when
+	/// making more
+	/// simultaneous
+	/// requests would
+	/// exceed the
+	/// configured
+	/// TCP connection
+	/// limit.
+	TooManyConnections,
+	/// Number of redirects hit the maximum amount.
+	TooManyRedirects,
+	/// An attempt
+	/// was made to
+	/// re-use a transport
+	/// for a new request
+	/// that already
+	/// has another
+	/// request in
+	/// progress.
+	TransportBusy,
 }
 
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{:?}: {}", self, Error::description(self))
-    }
+
+
+impl fmt::Display for Error
+{
+	fn fmt(&self,
+	       f : &mut fmt::Formatter)
+	       -> fmt::Result
+	{
+
+
+
+		write!(
+		       f,
+		       "{:?}: {}",
+		       self,
+		       Error::description(self)
+		)
+	}
 }
 
-impl StdError for Error {
-    fn description(&self) -> &str {
-        match self {
+
+
+impl StdError for Error
+{
+	fn description(&self) -> &str
+	{
+
+
+
+		match self {
             &Error::BadClientCertificate(Some(ref e)) => e,
             &Error::BadServerCertificate(Some(ref e)) => e,
             &Error::ConnectFailed => "failed to connect to the server",
@@ -86,20 +156,31 @@ impl StdError for Error {
             &Error::TransportBusy => "transport is already in use",
             _ => "unknown error",
         }
-    }
+	}
 
-    fn cause(&self) -> Option<&dyn StdError> {
-        match self {
+	fn cause(&self) -> Option<&dyn StdError>
+	{
+
+
+
+		match self {
             Error::InvalidHttpFormat(ref e) => Some(e),
             Error::Io(ref e) => Some(e),
             _ => None,
         }
-    }
+	}
 }
 
-impl From<curl::Error> for Error {
-    fn from(error: curl::Error) -> Error {
-        if error.is_ssl_certproblem() || error.is_ssl_cacert_badfile() {
+
+
+impl From<curl::Error> for Error
+{
+	fn from(error : curl::Error) -> Error
+	{
+
+
+
+		if error.is_ssl_certproblem() || error.is_ssl_cacert_badfile() {
             Error::BadClientCertificate(error.extra_description().map(str::to_owned))
         } else if error.is_peer_failed_verification() || error.is_ssl_cacert() {
             Error::BadServerCertificate(error.extra_description().map(str::to_owned))
@@ -133,54 +214,103 @@ impl From<curl::Error> for Error {
         } else {
             Error::Curl(error.description().to_owned())
         }
-    }
+	}
 }
 
-impl From<curl::MultiError> for Error {
-    fn from(error: curl::MultiError) -> Error {
-        Error::Curl(error.description().to_owned())
-    }
+
+
+impl From<curl::MultiError> for Error
+{
+	fn from(error : curl::MultiError) -> Error
+	{
+
+
+
+		Error::Curl(
+		            error.description()
+		                 .to_owned(),
+		)
+	}
 }
 
-impl From<http::Error> for Error {
-    fn from(error: http::Error) -> Error {
-        Error::InvalidHttpFormat(error)
-    }
+
+
+impl From<http::Error> for Error
+{
+	fn from(error : http::Error) -> Error
+	{
+
+
+
+		Error::InvalidHttpFormat(error)
+	}
 }
 
-impl From<io::Error> for Error {
-    fn from(error: io::Error) -> Error {
-        match error.kind() {
+
+
+impl From<io::Error> for Error
+{
+	fn from(error : io::Error) -> Error
+	{
+
+
+
+		match error.kind() {
             io::ErrorKind::ConnectionRefused => Error::ConnectFailed,
             io::ErrorKind::TimedOut => Error::Timeout,
             _ => Error::Io(error),
         }
-    }
+	}
 }
 
-impl From<Error> for io::Error {
-    fn from(error: Error) -> io::Error {
-        match error {
+
+
+impl From<Error> for io::Error
+{
+	fn from(error : Error) -> io::Error
+	{
+
+
+
+		match error {
             Error::ConnectFailed => io::ErrorKind::ConnectionRefused.into(),
             Error::Io(e) => e,
             Error::Timeout => io::ErrorKind::TimedOut.into(),
             _ => io::ErrorKind::Other.into(),
         }
-    }
+	}
 }
 
-impl From<::std::string::FromUtf8Error> for Error {
-    fn from(_: ::std::string::FromUtf8Error) -> Error {
-        Error::InvalidUtf8
-    }
+
+
+impl From<::std::string::FromUtf8Error> for Error
+{
+	fn from(_ : ::std::string::FromUtf8Error)
+	        -> Error
+	{
+
+
+
+		Error::InvalidUtf8
+	}
 }
+
+
 
 #[cfg(feature = "json")]
-impl From<::json::Error> for Error {
-    fn from(error: ::json::Error) -> Error {
-        match error {
+
+
+
+impl From<::json::Error> for Error
+{
+	fn from(error : ::json::Error) -> Error
+	{
+
+
+
+		match error {
             ::json::Error::FailedUtf8Parsing => Error::InvalidUtf8,
             _ => Error::InvalidJson,
         }
-    }
+	}
 }

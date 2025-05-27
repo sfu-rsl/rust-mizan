@@ -2,69 +2,109 @@ use std::error;
 use std::fmt;
 use std::os::raw::c_int;
 
+
+
 /// Error Codes
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[non_exhaustive]
-pub enum ErrorCode {
-    /// Internal logic error in SQLite
-    InternalMalfunction,
-    /// Access permission denied
-    PermissionDenied,
-    /// Callback routine requested an abort
-    OperationAborted,
-    /// The database file is locked
-    DatabaseBusy,
-    /// A table in the database is locked
-    DatabaseLocked,
-    /// A malloc() failed
-    OutOfMemory,
-    /// Attempt to write a readonly database
-    ReadOnly,
-    /// Operation terminated by sqlite3_interrupt()
-    OperationInterrupted,
-    /// Some kind of disk I/O error occurred
-    SystemIOFailure,
-    /// The database disk image is malformed
-    DatabaseCorrupt,
-    /// Unknown opcode in sqlite3_file_control()
-    NotFound,
-    /// Insertion failed because database is full
-    DiskFull,
-    /// Unable to open the database file
-    CannotOpen,
-    /// Database lock protocol error
-    FileLockingProtocolFailed,
-    /// The database schema changed
-    SchemaChanged,
-    /// String or BLOB exceeds size limit
-    TooBig,
-    /// Abort due to constraint violation
-    ConstraintViolation,
-    /// Data type mismatch
-    TypeMismatch,
-    /// Library used incorrectly
-    APIMisuse,
-    /// Uses OS features not supported on host
-    NoLargeFileSupport,
-    /// Authorization denied
-    AuthorizationForStatementDenied,
-    /// 2nd parameter to sqlite3_bind out of range
-    ParameterOutOfRange,
-    /// File opened that is not a database file
-    NotADatabase,
-    /// SQL error or missing database
-    Unknown,
+
+
+
+pub enum ErrorCode
+{
+	/// Internal logic error in SQLite
+	InternalMalfunction,
+	/// Access permission denied
+	PermissionDenied,
+	/// Callback routine requested an abort
+	OperationAborted,
+	/// The database
+	/// file is locked
+	DatabaseBusy,
+	/// A table in
+	/// the database
+	/// is locked
+	DatabaseLocked,
+	/// A malloc()
+	/// failed
+	OutOfMemory,
+	/// Attempt to
+	/// write a readonly
+	/// database
+	ReadOnly,
+	/// Operation terminated by sqlite3_interrupt()
+	OperationInterrupted,
+	/// Some kind of
+	/// disk I/O error
+	/// occurred
+	SystemIOFailure,
+	/// The database
+	/// disk image is
+	/// malformed
+	DatabaseCorrupt,
+	/// Unknown opcode in sqlite3_file_control()
+	NotFound,
+	/// Insertion failed because database is full
+	DiskFull,
+	/// Unable to open the database file
+	CannotOpen,
+	/// Database lock
+	/// protocol error
+	FileLockingProtocolFailed,
+	/// The database
+	/// schema changed
+	SchemaChanged,
+	/// String or BLOB exceeds size limit
+	TooBig,
+	/// Abort due to
+	/// constraint
+	/// violation
+	ConstraintViolation,
+	/// Data type mismatch
+	TypeMismatch,
+	/// Library used
+	/// incorrectly
+	APIMisuse,
+	/// Uses OS features not supported on host
+	NoLargeFileSupport,
+	/// Authorization
+	/// denied
+	AuthorizationForStatementDenied,
+	/// 2nd parameter
+	/// to sqlite3_bind
+	/// out of range
+	ParameterOutOfRange,
+	/// File opened
+	/// that is not a
+	/// database file
+	NotADatabase,
+	/// SQL error or
+	/// missing database
+	Unknown,
 }
+
+
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct Error {
-    pub code: ErrorCode,
-    pub extended_code: c_int,
+
+
+
+pub struct Error
+{
+	pub code : ErrorCode,
+	pub extended_code : c_int,
 }
 
-impl Error {
-    pub fn new(result_code: c_int) -> Error {
-        let code = match result_code & 0xff {
+
+
+impl Error
+{
+	pub fn new(result_code : c_int) -> Error
+	{
+
+
+
+		let code = match result_code & 0xff {
             super::SQLITE_INTERNAL => ErrorCode::InternalMalfunction,
             super::SQLITE_PERM => ErrorCode::PermissionDenied,
             super::SQLITE_ABORT => ErrorCode::OperationAborted,
@@ -91,105 +131,333 @@ impl Error {
             _ => ErrorCode::Unknown,
         };
 
-        Error {
-            code,
-            extended_code: result_code,
-        }
-    }
+
+
+		Error { code,
+		        extended_code:
+			        result_code }
+	}
 }
 
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
+
+
+impl fmt::Display for Error
+{
+	fn fmt(&self,
+	       f : &mut fmt::Formatter<'_>)
+	       -> fmt::Result
+	{
+
+
+
+		write!(
             f,
             "Error code {}: {}",
             self.extended_code,
             code_to_str(self.extended_code)
         )
-    }
+	}
 }
 
-impl error::Error for Error {
-    fn description(&self) -> &str {
-        code_to_str(self.extended_code)
-    }
+
+
+impl error::Error for Error
+{
+	fn description(&self) -> &str
+	{
+
+
+
+		code_to_str(self.extended_code)
+	}
 }
+
+
 
 // Result codes.
-// Note: These are not public because our bindgen bindings export whichever
-// constants are present in the current version of SQLite. We repeat them here
-// so we don't have to worry about which version of SQLite added which
-// constants, and we only use them to implement code_to_str below.
+// Note: These are not public
+// because our bindgen
+// bindings export whichever
+// constants are present in
+// the current version of
+// SQLite. We repeat them here
+// so we don't have to worry
+// about which version of
+// SQLite added which
+// constants, and we only use
+// them to implement
+// code_to_str below.
 
-const SQLITE_NOTICE: c_int = 27;
-const SQLITE_WARNING: c_int = 28;
+
+
+const SQLITE_NOTICE : c_int = 27;
+
+
+
+const SQLITE_WARNING : c_int = 28;
+
+
 
 // Extended result codes.
 
-const SQLITE_ERROR_MISSING_COLLSEQ: c_int = super::SQLITE_ERROR | (1 << 8);
-const SQLITE_ERROR_RETRY: c_int = super::SQLITE_ERROR | (2 << 8);
-const SQLITE_ERROR_SNAPSHOT: c_int = super::SQLITE_ERROR | (3 << 8);
 
-const SQLITE_IOERR_SHMOPEN: c_int = super::SQLITE_IOERR | (18 << 8);
-const SQLITE_IOERR_SHMSIZE: c_int = super::SQLITE_IOERR | (19 << 8);
-const SQLITE_IOERR_SHMLOCK: c_int = super::SQLITE_IOERR | (20 << 8);
-const SQLITE_IOERR_SHMMAP: c_int = super::SQLITE_IOERR | (21 << 8);
-const SQLITE_IOERR_SEEK: c_int = super::SQLITE_IOERR | (22 << 8);
-const SQLITE_IOERR_DELETE_NOENT: c_int = super::SQLITE_IOERR | (23 << 8);
-const SQLITE_IOERR_MMAP: c_int = super::SQLITE_IOERR | (24 << 8);
-const SQLITE_IOERR_GETTEMPPATH: c_int = super::SQLITE_IOERR | (25 << 8);
-const SQLITE_IOERR_CONVPATH: c_int = super::SQLITE_IOERR | (26 << 8);
-const SQLITE_IOERR_VNODE: c_int = super::SQLITE_IOERR | (27 << 8);
-const SQLITE_IOERR_AUTH: c_int = super::SQLITE_IOERR | (28 << 8);
-const SQLITE_IOERR_BEGIN_ATOMIC: c_int = super::SQLITE_IOERR | (29 << 8);
-const SQLITE_IOERR_COMMIT_ATOMIC: c_int = super::SQLITE_IOERR | (30 << 8);
-const SQLITE_IOERR_ROLLBACK_ATOMIC: c_int = super::SQLITE_IOERR | (31 << 8);
 
-const SQLITE_LOCKED_SHAREDCACHE: c_int = super::SQLITE_LOCKED | (1 << 8);
-const SQLITE_LOCKED_VTAB: c_int = super::SQLITE_LOCKED | (2 << 8);
+const SQLITE_ERROR_MISSING_COLLSEQ : c_int =
+	super::SQLITE_ERROR | (1 << 8);
 
-const SQLITE_BUSY_RECOVERY: c_int = super::SQLITE_BUSY | (1 << 8);
-const SQLITE_BUSY_SNAPSHOT: c_int = super::SQLITE_BUSY | (2 << 8);
 
-const SQLITE_CANTOPEN_NOTEMPDIR: c_int = super::SQLITE_CANTOPEN | (1 << 8);
-const SQLITE_CANTOPEN_ISDIR: c_int = super::SQLITE_CANTOPEN | (2 << 8);
-const SQLITE_CANTOPEN_FULLPATH: c_int = super::SQLITE_CANTOPEN | (3 << 8);
-const SQLITE_CANTOPEN_CONVPATH: c_int = super::SQLITE_CANTOPEN | (4 << 8);
-const SQLITE_CANTOPEN_SYMLINK: c_int = super::SQLITE_CANTOPEN | (6 << 8);
 
-const SQLITE_CORRUPT_VTAB: c_int = super::SQLITE_CORRUPT | (1 << 8);
-const SQLITE_CORRUPT_SEQUENCE: c_int = super::SQLITE_CORRUPT | (2 << 8);
+const SQLITE_ERROR_RETRY : c_int =
+	super::SQLITE_ERROR | (2 << 8);
 
-const SQLITE_READONLY_RECOVERY: c_int = super::SQLITE_READONLY | (1 << 8);
-const SQLITE_READONLY_CANTLOCK: c_int = super::SQLITE_READONLY | (2 << 8);
-const SQLITE_READONLY_ROLLBACK: c_int = super::SQLITE_READONLY | (3 << 8);
-const SQLITE_READONLY_DBMOVED: c_int = super::SQLITE_READONLY | (4 << 8);
-const SQLITE_READONLY_CANTINIT: c_int = super::SQLITE_READONLY | (5 << 8);
-const SQLITE_READONLY_DIRECTORY: c_int = super::SQLITE_READONLY | (6 << 8);
 
-const SQLITE_ABORT_ROLLBACK: c_int = super::SQLITE_ABORT | (2 << 8);
 
-const SQLITE_CONSTRAINT_CHECK: c_int = super::SQLITE_CONSTRAINT | (1 << 8);
-const SQLITE_CONSTRAINT_COMMITHOOK: c_int = super::SQLITE_CONSTRAINT | (2 << 8);
-const SQLITE_CONSTRAINT_FOREIGNKEY: c_int = super::SQLITE_CONSTRAINT | (3 << 8);
-const SQLITE_CONSTRAINT_FUNCTION: c_int = super::SQLITE_CONSTRAINT | (4 << 8);
-const SQLITE_CONSTRAINT_NOTNULL: c_int = super::SQLITE_CONSTRAINT | (5 << 8);
-const SQLITE_CONSTRAINT_PRIMARYKEY: c_int = super::SQLITE_CONSTRAINT | (6 << 8);
-const SQLITE_CONSTRAINT_TRIGGER: c_int = super::SQLITE_CONSTRAINT | (7 << 8);
-const SQLITE_CONSTRAINT_UNIQUE: c_int = super::SQLITE_CONSTRAINT | (8 << 8);
-const SQLITE_CONSTRAINT_VTAB: c_int = super::SQLITE_CONSTRAINT | (9 << 8);
-const SQLITE_CONSTRAINT_ROWID: c_int = super::SQLITE_CONSTRAINT | (10 << 8);
-const SQLITE_CONSTRAINT_PINNED: c_int = super::SQLITE_CONSTRAINT | (11 << 8);
+const SQLITE_ERROR_SNAPSHOT : c_int =
+	super::SQLITE_ERROR | (3 << 8);
 
-const SQLITE_NOTICE_RECOVER_WAL: c_int = SQLITE_NOTICE | (1 << 8);
-const SQLITE_NOTICE_RECOVER_ROLLBACK: c_int = SQLITE_NOTICE | (2 << 8);
 
-const SQLITE_WARNING_AUTOINDEX: c_int = SQLITE_WARNING | (1 << 8);
 
-const SQLITE_AUTH_USER: c_int = super::SQLITE_AUTH | (1 << 8);
+const SQLITE_IOERR_SHMOPEN : c_int =
+	super::SQLITE_IOERR | (18 << 8);
 
-pub fn code_to_str(code: c_int) -> &'static str {
-    match code {
+
+
+const SQLITE_IOERR_SHMSIZE : c_int =
+	super::SQLITE_IOERR | (19 << 8);
+
+
+
+const SQLITE_IOERR_SHMLOCK : c_int =
+	super::SQLITE_IOERR | (20 << 8);
+
+
+
+const SQLITE_IOERR_SHMMAP : c_int =
+	super::SQLITE_IOERR | (21 << 8);
+
+
+
+const SQLITE_IOERR_SEEK : c_int =
+	super::SQLITE_IOERR | (22 << 8);
+
+
+
+const SQLITE_IOERR_DELETE_NOENT : c_int =
+	super::SQLITE_IOERR | (23 << 8);
+
+
+
+const SQLITE_IOERR_MMAP : c_int =
+	super::SQLITE_IOERR | (24 << 8);
+
+
+
+const SQLITE_IOERR_GETTEMPPATH : c_int =
+	super::SQLITE_IOERR | (25 << 8);
+
+
+
+const SQLITE_IOERR_CONVPATH : c_int =
+	super::SQLITE_IOERR | (26 << 8);
+
+
+
+const SQLITE_IOERR_VNODE : c_int =
+	super::SQLITE_IOERR | (27 << 8);
+
+
+
+const SQLITE_IOERR_AUTH : c_int =
+	super::SQLITE_IOERR | (28 << 8);
+
+
+
+const SQLITE_IOERR_BEGIN_ATOMIC : c_int =
+	super::SQLITE_IOERR | (29 << 8);
+
+
+
+const SQLITE_IOERR_COMMIT_ATOMIC : c_int =
+	super::SQLITE_IOERR | (30 << 8);
+
+
+
+const SQLITE_IOERR_ROLLBACK_ATOMIC : c_int =
+	super::SQLITE_IOERR | (31 << 8);
+
+
+
+const SQLITE_LOCKED_SHAREDCACHE : c_int =
+	super::SQLITE_LOCKED | (1 << 8);
+
+
+
+const SQLITE_LOCKED_VTAB : c_int =
+	super::SQLITE_LOCKED | (2 << 8);
+
+
+
+const SQLITE_BUSY_RECOVERY : c_int =
+	super::SQLITE_BUSY | (1 << 8);
+
+
+
+const SQLITE_BUSY_SNAPSHOT : c_int =
+	super::SQLITE_BUSY | (2 << 8);
+
+
+
+const SQLITE_CANTOPEN_NOTEMPDIR : c_int =
+	super::SQLITE_CANTOPEN | (1 << 8);
+
+
+
+const SQLITE_CANTOPEN_ISDIR : c_int =
+	super::SQLITE_CANTOPEN | (2 << 8);
+
+
+
+const SQLITE_CANTOPEN_FULLPATH : c_int =
+	super::SQLITE_CANTOPEN | (3 << 8);
+
+
+
+const SQLITE_CANTOPEN_CONVPATH : c_int =
+	super::SQLITE_CANTOPEN | (4 << 8);
+
+
+
+const SQLITE_CANTOPEN_SYMLINK : c_int =
+	super::SQLITE_CANTOPEN | (6 << 8);
+
+
+
+const SQLITE_CORRUPT_VTAB : c_int =
+	super::SQLITE_CORRUPT | (1 << 8);
+
+
+
+const SQLITE_CORRUPT_SEQUENCE : c_int =
+	super::SQLITE_CORRUPT | (2 << 8);
+
+
+
+const SQLITE_READONLY_RECOVERY : c_int =
+	super::SQLITE_READONLY | (1 << 8);
+
+
+
+const SQLITE_READONLY_CANTLOCK : c_int =
+	super::SQLITE_READONLY | (2 << 8);
+
+
+
+const SQLITE_READONLY_ROLLBACK : c_int =
+	super::SQLITE_READONLY | (3 << 8);
+
+
+
+const SQLITE_READONLY_DBMOVED : c_int =
+	super::SQLITE_READONLY | (4 << 8);
+
+
+
+const SQLITE_READONLY_CANTINIT : c_int =
+	super::SQLITE_READONLY | (5 << 8);
+
+
+
+const SQLITE_READONLY_DIRECTORY : c_int =
+	super::SQLITE_READONLY | (6 << 8);
+
+
+
+const SQLITE_ABORT_ROLLBACK : c_int =
+	super::SQLITE_ABORT | (2 << 8);
+
+
+
+const SQLITE_CONSTRAINT_CHECK : c_int =
+	super::SQLITE_CONSTRAINT | (1 << 8);
+
+
+
+const SQLITE_CONSTRAINT_COMMITHOOK : c_int =
+	super::SQLITE_CONSTRAINT | (2 << 8);
+
+
+
+const SQLITE_CONSTRAINT_FOREIGNKEY : c_int =
+	super::SQLITE_CONSTRAINT | (3 << 8);
+
+
+
+const SQLITE_CONSTRAINT_FUNCTION : c_int =
+	super::SQLITE_CONSTRAINT | (4 << 8);
+
+
+
+const SQLITE_CONSTRAINT_NOTNULL : c_int =
+	super::SQLITE_CONSTRAINT | (5 << 8);
+
+
+
+const SQLITE_CONSTRAINT_PRIMARYKEY : c_int =
+	super::SQLITE_CONSTRAINT | (6 << 8);
+
+
+
+const SQLITE_CONSTRAINT_TRIGGER : c_int =
+	super::SQLITE_CONSTRAINT | (7 << 8);
+
+
+
+const SQLITE_CONSTRAINT_UNIQUE : c_int =
+	super::SQLITE_CONSTRAINT | (8 << 8);
+
+
+
+const SQLITE_CONSTRAINT_VTAB : c_int =
+	super::SQLITE_CONSTRAINT | (9 << 8);
+
+
+
+const SQLITE_CONSTRAINT_ROWID : c_int =
+	super::SQLITE_CONSTRAINT | (10 << 8);
+
+
+
+const SQLITE_CONSTRAINT_PINNED : c_int =
+	super::SQLITE_CONSTRAINT | (11 << 8);
+
+
+
+const SQLITE_NOTICE_RECOVER_WAL : c_int =
+	SQLITE_NOTICE | (1 << 8);
+
+
+
+const SQLITE_NOTICE_RECOVER_ROLLBACK : c_int =
+	SQLITE_NOTICE | (2 << 8);
+
+
+
+const SQLITE_WARNING_AUTOINDEX : c_int =
+	SQLITE_WARNING | (1 << 8);
+
+
+
+const SQLITE_AUTH_USER : c_int =
+	super::SQLITE_AUTH | (1 << 8);
+
+
+
+pub fn code_to_str(code : c_int) -> &'static str
+{
+
+
+
+	match code {
         super::SQLITE_OK        => "Successful result",
         super::SQLITE_ERROR     => "SQL error or missing database",
         super::SQLITE_INTERNAL  => "Internal logic error in SQLite",

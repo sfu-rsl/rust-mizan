@@ -1,38 +1,64 @@
-//! Code related to `sqlite3_context` common to `functions` and `vtab` modules.
+//! Code related to
+//! `sqlite3_context` common
+//! to `functions` and `vtab`
+//! modules.
 
-use std::os::raw::{c_int, c_void};
-#[cfg(feature = "array")]
-use std::rc::Rc;
+
 
 use crate::ffi;
 use crate::ffi::sqlite3_context;
-
 use crate::str_for_sqlite;
-use crate::types::{ToSqlOutput, ValueRef};
+use crate::types::ToSqlOutput;
+use crate::types::ValueRef;
 #[cfg(feature = "array")]
-use crate::vtab::array::{free_array, ARRAY_TYPE};
+use crate::vtab::array::free_array;
+#[cfg(feature = "array")]
+use crate::vtab::array::ARRAY_TYPE;
+use std::os::raw::c_int;
+use std::os::raw::c_void;
+#[cfg(feature = "array")]
+use std::rc::Rc;
 
-pub(crate) unsafe fn set_result(ctx: *mut sqlite3_context, result: &ToSqlOutput<'_>) {
-    let value = match *result {
-        ToSqlOutput::Borrowed(v) => v,
-        ToSqlOutput::Owned(ref v) => ValueRef::from(v),
 
-        #[cfg(feature = "blob")]
-        ToSqlOutput::ZeroBlob(len) => {
-            return ffi::sqlite3_result_zeroblob(ctx, len);
-        }
-        #[cfg(feature = "array")]
-        ToSqlOutput::Array(ref a) => {
-            return ffi::sqlite3_result_pointer(
+
+pub(crate) unsafe fn set_result(ctx : *mut sqlite3_context,
+                                result : &ToSqlOutput<'_>)
+{
+
+
+
+	let value = match *result
+	{
+		| ToSqlOutput::Borrowed(v) => v,
+		| ToSqlOutput::Owned(ref v) =>
+			ValueRef::from(v),
+
+		#[cfg(feature = "blob")]
+		| ToSqlOutput::ZeroBlob(len) =>
+		{
+
+
+
+			return ffi::sqlite3_result_zeroblob(ctx, len);
+		},
+		#[cfg(feature = "array")]
+		| ToSqlOutput::Array(ref a) =>
+		{
+
+
+
+			return ffi::sqlite3_result_pointer(
                 ctx,
                 Rc::into_raw(a.clone()) as *mut c_void,
                 ARRAY_TYPE,
                 Some(free_array),
             );
-        }
-    };
+		},
+	};
 
-    match value {
+
+
+	match value {
         ValueRef::Null => ffi::sqlite3_result_null(ctx),
         ValueRef::Integer(i) => ffi::sqlite3_result_int64(ctx, i),
         ValueRef::Real(r) => ffi::sqlite3_result_double(ctx, r),

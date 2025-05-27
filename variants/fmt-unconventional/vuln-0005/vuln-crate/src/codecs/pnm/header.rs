@@ -1,57 +1,111 @@
-use std::{fmt, io};
+use std::fmt;
+use std::io;
 
-/// The kind of encoding used to store sample values
+
+
+/// The kind of encoding used
+/// to store sample values
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
-pub enum SampleEncoding {
-    /// Samples are unsigned binary integers in big endian
-    Binary,
 
-    /// Samples are encoded as decimal ascii strings separated by whitespace
-    Ascii,
+
+
+pub enum SampleEncoding
+{
+	/// Samples are
+	/// unsigned binary
+	/// integers in
+	/// big endian
+	Binary,
+
+	/// Samples are
+	/// encoded as
+	/// decimal ascii
+	/// strings separated
+	/// by whitespace
+	Ascii,
 }
 
-/// Denotes the category of the magic number
+
+
+/// Denotes the category of
+/// the magic number
 ///
-/// DEPRECATED: The name of this enum will be changed to [`PnmSubtype`].
+/// DEPRECATED: The name of
+/// this enum will be changed
+/// to [`PnmSubtype`].
 ///
-/// TODO: rename to [`PnmSubtype`].
+/// TODO: rename to
+/// [`PnmSubtype`].
 ///
 /// [`PnmSubtype`]: type.PnmSubtype.html
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
-pub enum PNMSubtype {
-    /// Magic numbers P1 and P4
-    Bitmap(SampleEncoding),
 
-    /// Magic numbers P2 and P5
-    Graymap(SampleEncoding),
 
-    /// Magic numbers P3 and P6
-    Pixmap(SampleEncoding),
 
-    /// Magic number P7
-    ArbitraryMap,
+pub enum PNMSubtype
+{
+	/// Magic numbers
+	/// P1 and P4
+	Bitmap(SampleEncoding),
+
+	/// Magic numbers
+	/// P2 and P5
+	Graymap(SampleEncoding),
+
+	/// Magic numbers
+	/// P3 and P6
+	Pixmap(SampleEncoding),
+
+	/// Magic number
+	/// P7
+	ArbitraryMap,
 }
+
+
 
 /// PNM Subtype
 ///
-/// An alias of [`PNMSubtype`].
+/// An alias of
+/// [`PNMSubtype`].
 ///
-/// TODO: remove when [`DXTVariant`] is renamed.
+/// TODO: remove when
+/// [`DXTVariant`] is renamed.
 ///
 /// [`PNMSubtype`]: enum.PNMSubtype.html
 #[allow(dead_code)]
+
+
+
 pub type PnmSubtype = PNMSubtype;
 
-/// Stores the complete header data of a file.
+
+
+/// Stores the complete header
+/// data of a file.
 ///
-/// Internally, provides mechanisms for lossless reencoding. After reading a file with the decoder
-/// it is possible to recover the header and construct an encoder. Using the encoder on the just
-/// loaded image should result in a byte copy of the original file (for single image pnms without
-/// additional trailing data).
-pub struct PnmHeader {
-    pub(crate) decoded: HeaderRecord,
-    pub(crate) encoded: Option<Vec<u8>>,
+/// Internally, provides
+/// mechanisms for lossless
+/// reencoding. After reading
+/// a file with the decoder it
+/// is possible to recover the
+/// header and construct an
+/// encoder. Using the encoder
+/// on the just loaded image
+/// should result in a byte
+/// copy of the original file
+/// (for single image pnms
+/// without additional
+/// trailing data).
+
+
+
+pub struct PnmHeader
+{
+	pub(crate) decoded : HeaderRecord,
+	pub(crate) encoded : Option<Vec<u8>>,
 }
+
+
 
 /// PNM Header
 ///
@@ -62,107 +116,173 @@ pub struct PnmHeader {
 /// [`PnmHeader`]: struct.PnmHeader.html
 #[allow(dead_code)]
 #[deprecated(note = "Use `PnmHeader` instead")]
+
+
+
 pub type PNMHeader = PnmHeader;
 
-pub(crate) enum HeaderRecord {
-    Bitmap(BitmapHeader),
-    Graymap(GraymapHeader),
-    Pixmap(PixmapHeader),
-    Arbitrary(ArbitraryHeader),
+
+
+pub(crate) enum HeaderRecord
+{
+	Bitmap(BitmapHeader),
+	Graymap(GraymapHeader),
+	Pixmap(PixmapHeader),
+	Arbitrary(ArbitraryHeader),
 }
 
-/// Header produced by a `pbm` file ("Portable Bit Map")
+
+
+/// Header produced by a `pbm`
+/// file ("Portable Bit Map")
 #[derive(Clone, Copy, Debug)]
-pub struct BitmapHeader {
-    /// Binary or Ascii encoded file
-    pub encoding: SampleEncoding,
 
-    /// Height of the image file
-    pub height: u32,
 
-    /// Width of the image file
-    pub width: u32,
+
+pub struct BitmapHeader
+{
+	/// Binary or Ascii encoded file
+	pub encoding : SampleEncoding,
+
+	/// Height of the
+	/// image file
+	pub height : u32,
+
+	/// Width of the
+	/// image file
+	pub width : u32,
 }
 
-/// Header produced by a `pgm` file ("Portable Gray Map")
+
+
+/// Header produced by a `pgm`
+/// file ("Portable Gray Map")
 #[derive(Clone, Copy, Debug)]
-pub struct GraymapHeader {
-    /// Binary or Ascii encoded file
-    pub encoding: SampleEncoding,
 
-    /// Height of the image file
-    pub height: u32,
 
-    /// Width of the image file
-    pub width: u32,
 
-    /// Maximum sample value within the image
-    pub maxwhite: u32,
+pub struct GraymapHeader
+{
+	/// Binary or Ascii encoded file
+	pub encoding : SampleEncoding,
+
+	/// Height of the
+	/// image file
+	pub height : u32,
+
+	/// Width of the
+	/// image file
+	pub width : u32,
+
+	/// Maximum sample value within the image
+	pub maxwhite : u32,
 }
 
-/// Header produced by a `ppm` file ("Portable Pixel Map")
+
+
+/// Header produced by a `ppm`
+/// file ("Portable Pixel
+/// Map")
 #[derive(Clone, Copy, Debug)]
-pub struct PixmapHeader {
-    /// Binary or Ascii encoded file
-    pub encoding: SampleEncoding,
 
-    /// Height of the image file
-    pub height: u32,
 
-    /// Width of the image file
-    pub width: u32,
 
-    /// Maximum sample value within the image
-    pub maxval: u32,
+pub struct PixmapHeader
+{
+	/// Binary or Ascii encoded file
+	pub encoding : SampleEncoding,
+
+	/// Height of the
+	/// image file
+	pub height : u32,
+
+	/// Width of the
+	/// image file
+	pub width : u32,
+
+	/// Maximum sample value within the image
+	pub maxval : u32,
 }
 
-/// Header produced by a `pam` file ("Portable Arbitrary Map")
+
+
+/// Header produced by a `pam`
+/// file ("Portable Arbitrary
+/// Map")
 #[derive(Clone, Debug)]
-pub struct ArbitraryHeader {
-    /// Height of the image file
-    pub height: u32,
 
-    /// Width of the image file
-    pub width: u32,
 
-    /// Number of color channels
-    pub depth: u32,
 
-    /// Maximum sample value within the image
-    pub maxval: u32,
+pub struct ArbitraryHeader
+{
+	/// Height of the
+	/// image file
+	pub height : u32,
 
-    /// Color interpretation of image pixels
-    pub tupltype: Option<ArbitraryTuplType>,
+	/// Width of the
+	/// image file
+	pub width : u32,
+
+	/// Number of color channels
+	pub depth : u32,
+
+	/// Maximum sample value within the image
+	pub maxval : u32,
+
+	/// Color interpretation of image pixels
+	pub tupltype : Option<ArbitraryTuplType>,
 }
 
-/// Standardized tuple type specifiers in the header of a `pam`.
+
+
+/// Standardized tuple type
+/// specifiers in the header
+/// of a `pam`.
 #[derive(Clone, Debug)]
-pub enum ArbitraryTuplType {
-    /// Pixels are either black (0) or white (1)
-    BlackAndWhite,
 
-    /// Pixels are either black (0) or white (1) and a second alpha channel
-    BlackAndWhiteAlpha,
 
-    /// Pixels represent the amount of white
-    Grayscale,
 
-    /// Grayscale with an additional alpha channel
-    GrayscaleAlpha,
+pub enum ArbitraryTuplType
+{
+	/// Pixels are
+	/// either black
+	/// (0) or white
+	/// (1)
+	BlackAndWhite,
 
-    /// Three channels: Red, Green, Blue
-    RGB,
+	/// Pixels are
+	/// either black
+	/// (0) or white
+	/// (1) and a second
+	/// alpha channel
+	BlackAndWhiteAlpha,
 
-    /// Four channels: Red, Green, Blue, Alpha
-    RGBAlpha,
+	/// Pixels represent the amount of white
+	Grayscale,
 
-    /// An image format which is not standardized
-    Custom(String),
+	/// Grayscale with an additional alpha channel
+	GrayscaleAlpha,
+
+	/// Three channels: Red, Green, Blue
+	RGB,
+
+	/// Four channels: Red, Green, Blue, Alpha
+	RGBAlpha,
+
+	/// An image format which is not standardized
+	Custom(String),
 }
 
-impl ArbitraryTuplType {
-    pub(crate) fn name(&self) -> &str {
-        match self {
+
+
+impl ArbitraryTuplType
+{
+	pub(crate) fn name(&self) -> &str
+	{
+
+
+
+		match self {
             ArbitraryTuplType::BlackAndWhite => "BLACKANDWHITE",
             ArbitraryTuplType::BlackAndWhiteAlpha => "BLACKANDWHITE_ALPHA",
             ArbitraryTuplType::Grayscale => "GRAYSCALE",
@@ -171,13 +291,28 @@ impl ArbitraryTuplType {
             ArbitraryTuplType::RGBAlpha => "RGB_ALPHA",
             ArbitraryTuplType::Custom(custom) => custom,
         }
-    }
+	}
 }
 
-impl PNMSubtype {
-    /// Get the two magic constant bytes corresponding to this format subtype.
-    pub fn magic_constant(self) -> &'static [u8; 2] {
-        match self {
+
+
+impl PNMSubtype
+{
+	/// Get the two
+	/// magic constant
+	/// bytes corresponding
+	/// to this format
+	/// subtype.
+
+
+
+	pub fn magic_constant(self)
+	                      -> &'static [u8; 2]
+	{
+
+
+
+		match self {
             PNMSubtype::Bitmap(SampleEncoding::Ascii) => b"P1",
             PNMSubtype::Graymap(SampleEncoding::Ascii) => b"P2",
             PNMSubtype::Pixmap(SampleEncoding::Ascii) => b"P3",
@@ -186,96 +321,211 @@ impl PNMSubtype {
             PNMSubtype::Pixmap(SampleEncoding::Binary) => b"P6",
             PNMSubtype::ArbitraryMap => b"P7",
         }
-    }
+	}
 
-    /// Whether samples are stored as binary or as decimal ascii
-    pub fn sample_encoding(self) -> SampleEncoding {
-        match self {
+	/// Whether samples are stored as binary or as decimal ascii
+
+
+
+	pub fn sample_encoding(self)
+	                       -> SampleEncoding
+	{
+
+
+
+		match self {
             PNMSubtype::ArbitraryMap => SampleEncoding::Binary,
             PNMSubtype::Bitmap(enc) => enc,
             PNMSubtype::Graymap(enc) => enc,
             PNMSubtype::Pixmap(enc) => enc,
         }
-    }
+	}
 }
 
-impl PnmHeader {
-    /// Retrieve the format subtype from which the header was created.
-    pub fn subtype(&self) -> PNMSubtype {
-        match self.decoded {
+
+
+impl PnmHeader
+{
+	/// Retrieve the
+	/// format subtype
+	/// from which
+	/// the header
+	/// was created.
+
+
+
+	pub fn subtype(&self) -> PNMSubtype
+	{
+
+
+
+		match self.decoded {
             HeaderRecord::Bitmap(BitmapHeader { encoding, .. }) => PNMSubtype::Bitmap(encoding),
             HeaderRecord::Graymap(GraymapHeader { encoding, .. }) => PNMSubtype::Graymap(encoding),
             HeaderRecord::Pixmap(PixmapHeader { encoding, .. }) => PNMSubtype::Pixmap(encoding),
             HeaderRecord::Arbitrary(ArbitraryHeader { .. }) => PNMSubtype::ArbitraryMap,
         }
-    }
+	}
 
-    /// The width of the image this header is for.
-    pub fn width(&self) -> u32 {
-        match self.decoded {
+	/// The width of
+	/// the image this
+	/// header is for.
+	///
+
+
+
+	pub fn width(&self) -> u32
+	{
+
+
+
+		match self.decoded {
             HeaderRecord::Bitmap(BitmapHeader { width, .. }) => width,
             HeaderRecord::Graymap(GraymapHeader { width, .. }) => width,
             HeaderRecord::Pixmap(PixmapHeader { width, .. }) => width,
             HeaderRecord::Arbitrary(ArbitraryHeader { width, .. }) => width,
         }
-    }
+	}
 
-    /// The height of the image this header is for.
-    pub fn height(&self) -> u32 {
-        match self.decoded {
+	/// The height of
+	/// the image this
+	/// header is for.
+	///
+
+
+
+	pub fn height(&self) -> u32
+	{
+
+
+
+		match self.decoded {
             HeaderRecord::Bitmap(BitmapHeader { height, .. }) => height,
             HeaderRecord::Graymap(GraymapHeader { height, .. }) => height,
             HeaderRecord::Pixmap(PixmapHeader { height, .. }) => height,
             HeaderRecord::Arbitrary(ArbitraryHeader { height, .. }) => height,
         }
-    }
+	}
 
-    /// The biggest value a sample can have. In other words, the colour resolution.
-    pub fn maximal_sample(&self) -> u32 {
-        match self.decoded {
+	/// The biggest
+	/// value a sample
+	/// can have. In
+	/// other words,
+	/// the colour
+	/// resolution.
+
+
+
+	pub fn maximal_sample(&self) -> u32
+	{
+
+
+
+		match self.decoded {
             HeaderRecord::Bitmap(BitmapHeader { .. }) => 1,
             HeaderRecord::Graymap(GraymapHeader { maxwhite, .. }) => maxwhite,
             HeaderRecord::Pixmap(PixmapHeader { maxval, .. }) => maxval,
             HeaderRecord::Arbitrary(ArbitraryHeader { maxval, .. }) => maxval,
         }
-    }
+	}
 
-    /// Retrieve the underlying bitmap header if any
-    pub fn as_bitmap(&self) -> Option<&BitmapHeader> {
-        match self.decoded {
+	/// Retrieve the
+	/// underlying
+	/// bitmap header
+	/// if any
+
+
+
+	pub fn as_bitmap(&self)
+	                 -> Option<&BitmapHeader>
+	{
+
+
+
+		match self.decoded {
             HeaderRecord::Bitmap(ref bitmap) => Some(bitmap),
             _ => None,
         }
-    }
+	}
 
-    /// Retrieve the underlying graymap header if any
-    pub fn as_graymap(&self) -> Option<&GraymapHeader> {
-        match self.decoded {
+	/// Retrieve the
+	/// underlying
+	/// graymap header
+	/// if any
+
+
+
+	pub fn as_graymap(&self)
+	                  -> Option<&GraymapHeader>
+	{
+
+
+
+		match self.decoded {
             HeaderRecord::Graymap(ref graymap) => Some(graymap),
             _ => None,
         }
-    }
+	}
 
-    /// Retrieve the underlying pixmap header if any
-    pub fn as_pixmap(&self) -> Option<&PixmapHeader> {
-        match self.decoded {
+	/// Retrieve the
+	/// underlying
+	/// pixmap header
+	/// if any
+
+
+
+	pub fn as_pixmap(&self)
+	                 -> Option<&PixmapHeader>
+	{
+
+
+
+		match self.decoded {
             HeaderRecord::Pixmap(ref pixmap) => Some(pixmap),
             _ => None,
         }
-    }
+	}
 
-    /// Retrieve the underlying arbitrary header if any
-    pub fn as_arbitrary(&self) -> Option<&ArbitraryHeader> {
-        match self.decoded {
+	/// Retrieve the
+	/// underlying
+	/// arbitrary header
+	/// if any
+
+
+
+	pub fn as_arbitrary(
+		&self)
+		-> Option<&ArbitraryHeader>
+	{
+
+
+
+		match self.decoded {
             HeaderRecord::Arbitrary(ref arbitrary) => Some(arbitrary),
             _ => None,
         }
-    }
+	}
 
-    /// Write the header back into a binary stream
-    pub fn write(&self, writer: &mut dyn io::Write) -> io::Result<()> {
-        writer.write_all(self.subtype().magic_constant())?;
-        match *self {
+	/// Write the header back into a binary stream
+
+
+
+	pub fn write(&self,
+	             writer : &mut dyn io::Write)
+	             -> io::Result<()>
+	{
+
+
+
+		writer.write_all(
+		                 self.subtype()
+		                     .magic_constant(
+		),
+		)?;
+
+
+
+		match *self {
             PnmHeader {
                 encoded: Some(ref content),
                 ..
@@ -337,41 +587,69 @@ impl PnmHeader {
                 )
             }
         }
-    }
+	}
 }
 
-impl From<BitmapHeader> for PnmHeader {
-    fn from(header: BitmapHeader) -> Self {
-        PnmHeader {
+
+
+impl From<BitmapHeader> for PnmHeader
+{
+	fn from(header : BitmapHeader) -> Self
+	{
+
+
+
+		PnmHeader {
             decoded: HeaderRecord::Bitmap(header),
             encoded: None,
         }
-    }
+	}
 }
 
-impl From<GraymapHeader> for PnmHeader {
-    fn from(header: GraymapHeader) -> Self {
-        PnmHeader {
+
+
+impl From<GraymapHeader> for PnmHeader
+{
+	fn from(header : GraymapHeader) -> Self
+	{
+
+
+
+		PnmHeader {
             decoded: HeaderRecord::Graymap(header),
             encoded: None,
         }
-    }
+	}
 }
 
-impl From<PixmapHeader> for PnmHeader {
-    fn from(header: PixmapHeader) -> Self {
-        PnmHeader {
+
+
+impl From<PixmapHeader> for PnmHeader
+{
+	fn from(header : PixmapHeader) -> Self
+	{
+
+
+
+		PnmHeader {
             decoded: HeaderRecord::Pixmap(header),
             encoded: None,
         }
-    }
+	}
 }
 
-impl From<ArbitraryHeader> for PnmHeader {
-    fn from(header: ArbitraryHeader) -> Self {
-        PnmHeader {
+
+
+impl From<ArbitraryHeader> for PnmHeader
+{
+	fn from(header : ArbitraryHeader) -> Self
+	{
+
+
+
+		PnmHeader {
             decoded: HeaderRecord::Arbitrary(header),
             encoded: None,
         }
-    }
+	}
 }

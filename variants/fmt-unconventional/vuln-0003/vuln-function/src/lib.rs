@@ -1,6 +1,8 @@
 use core::mem::forget;
 use core::mem::size_of;
 
+
+
 pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8> {
     let capacity = from.capacity() * size_of::<T>();
     let len = from.len() * size_of::<T>();

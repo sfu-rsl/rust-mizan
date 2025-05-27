@@ -1,3 +1,6 @@
-//! Common data structures: Matrix
+//! Common data structures:
+//! Matrix
+
+
 
 pub mod matrix;

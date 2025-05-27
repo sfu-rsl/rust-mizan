@@ -1,16 +1,30 @@
-// Claxon -- A FLAC decoding library in Rust
-// Copyright 2014 Ruud van Asseldonk
+// Claxon -- A FLAC decoding
+// library in Rust
+// Copyright 2014 Ruud van
+// Asseldonk
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// A copy of the License has been included in the root of the repository.
+// Licensed under the Apache
+// License, Version 2.0 (the
+// "License"); you may not use
+// this file except in
+// compliance with the
+// License. A copy of the
+// License has been included
+// in the root of the
+// repository.
 
-//! Claxon, a FLAC decoding library.
+
+
+//! Claxon, a FLAC decoding
+//! library.
 //!
 //! Examples
 //! ========
 //!
-//! The following example computes the root mean square (RMS) of a FLAC file.
+//! The following example
+//! computes the root mean
+//! square (RMS) of a FLAC
+//! file.
 //!
 //! ```
 //! # use claxon;
@@ -25,8 +39,9 @@
 //! println!("RMS is {}", (sqr_sum / count as f64).sqrt());
 //! ```
 //!
-//! A simple way to decode a file to wav with Claxon and
-//! [Hound](https://github.com/ruuda/hound):
+//! A simple way to decode a
+//! file to wav with Claxon
+//! and [Hound](https://github.com/ruuda/hound):
 //!
 //! ```
 //! # extern crate hound;
@@ -53,7 +68,8 @@
 //! # }
 //! ```
 //!
-//! Retrieving the artist metadata:
+//! Retrieving the artist
+//! metadata:
 //!
 //! ```
 //! # use claxon;
@@ -67,6 +83,8 @@
 //! directory in the crate.
 
 #![warn(missing_docs)]
+
+
 
 mod crc;
 mod error;

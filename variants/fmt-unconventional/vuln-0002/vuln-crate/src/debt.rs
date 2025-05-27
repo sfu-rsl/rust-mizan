@@ -1,46 +1,89 @@
+use super::RefCnt;
 use std::cell::Cell;
 use std::ptr;
-use std::sync::atomic::{AtomicBool, AtomicPtr, AtomicUsize, Ordering};
+use std::sync::atomic::AtomicBool;
+use std::sync::atomic::AtomicPtr;
+use std::sync::atomic::AtomicUsize;
+use std::sync::atomic::Ordering;
 
-use super::RefCnt;
 
-const DEBT_SLOT_CNT: usize = 8;
+
+const DEBT_SLOT_CNT : usize = 8;
+
+
 
 /// One debt slot.
+
+
+
 pub(crate) struct Debt(AtomicUsize);
 
-impl Default for Debt {
-    fn default() -> Self {
-        Debt(AtomicUsize::new(NO_DEBT))
-    }
+
+
+impl Default for Debt
+{
+	fn default() -> Self
+	{
+
+
+
+		Debt(AtomicUsize::new(NO_DEBT))
+	}
 }
+
+
 
 #[repr(align(64))]
 #[derive(Default)]
+
+
+
 struct Slots([Debt; DEBT_SLOT_CNT]);
 
-/// One thread-local node for debts.
+
+
+/// One thread-local node for
+/// debts.
 #[repr(C)]
-struct Node {
-    slots: Slots,
-    next: Option<&'static Node>,
-    in_use: AtomicBool,
+
+
+
+struct Node
+{
+	slots : Slots,
+	next : Option<&'static Node>,
+	in_use : AtomicBool,
 }
 
-impl Default for Node {
-    fn default() -> Self {
-        Node {
+
+
+impl Default for Node
+{
+	fn default() -> Self
+	{
+
+
+
+		Node {
             next: None,
             in_use: AtomicBool::new(true),
             slots: Default::default(),
         }
-    }
+	}
 }
 
-impl Node {
-    fn get() -> &'static Self {
-        // Try to find an unused one in the chain and reuse it.
-        traverse(|node| {
+
+
+impl Node
+{
+	fn get() -> &'static Self
+	{
+
+
+
+		// Try to find an unused one
+		// in the chain and reuse it.
+		traverse(|node| {
             // Try to claim this node. Nothing is synchronized through this atomic, we only
             // track if someone claims ownership of it.
             if !node.in_use.compare_and_swap(false, true, Ordering::Relaxed) {
@@ -76,37 +119,83 @@ impl Node {
                 }
             }
         })
-    }
+	}
 }
 
-/// The value of pointer `1` should be pretty safe, for two reasons:
+
+
+/// The value of pointer `1`
+/// should be pretty safe, for
+/// two reasons:
 ///
-/// * It's an odd number, but the pointers we have are likely aligned at least to the word size,
-///   because the data at the end of the `Arc` has the counters.
-/// * It's in the very first page where NULL lives, so it's not mapped.
-pub(crate) const NO_DEBT: usize = 1;
+/// * It's an odd number, but
+///   the pointers we have are
+///   likely aligned at least
+///   to the word size,
+///   because the data at the
+///   end of the `Arc` has the
+///   counters.
+/// * It's in the very first
+///   page where NULL lives,
+///   so it's not mapped.
 
-/// The head of the debt chain.
-static DEBT_HEAD: AtomicPtr<Node> = AtomicPtr::new(ptr::null_mut());
 
-/// A wrapper around a node pointer, to un-claim the node on thread shutdown.
-struct DebtHead {
-    // Node for this thread.
-    node: Cell<Option<&'static Node>>,
-    // The next slot in round-robin rotation. Heuristically tries to balance the load across them
-    // instead of having all of them stuffed towards the start of the array which gets
-    // unsuccessfully iterated through every time.
-    offset: Cell<usize>,
+
+pub(crate) const NO_DEBT : usize = 1;
+
+
+
+/// The head of the debt
+/// chain.
+
+
+
+static DEBT_HEAD : AtomicPtr<Node> =
+	AtomicPtr::new(ptr::null_mut());
+
+
+
+/// A wrapper around a node
+/// pointer, to un-claim the
+/// node on thread shutdown.
+
+
+
+struct DebtHead
+{
+	// Node for this thread.
+	node : Cell<Option<&'static Node>>,
+	// The next slot in round-robin rotation.
+	// Heuristically tries to balance the load
+	// across them instead of having all of them
+	// stuffed towards the start of the array
+	// which gets unsuccessfully iterated through
+	// every time.
+	offset : Cell<usize>,
 }
 
-impl Drop for DebtHead {
-    fn drop(&mut self) {
-        if let Some(node) = self.node.get() {
-            // Nothing synchronized by this atomic.
-            assert!(node.in_use.swap(false, Ordering::Relaxed));
-        }
-    }
+
+
+impl Drop for DebtHead
+{
+	fn drop(&mut self)
+	{
+
+
+
+		if let Some(node) = self.node
+		                        .get()
+		{
+
+
+
+			// Nothing synchronized by this atomic.
+			assert!(node.in_use.swap(false, Ordering::Relaxed));
+		}
+	}
 }
+
+
 
 thread_local! {
     /// A debt node assigned to this thread.
@@ -116,39 +205,113 @@ thread_local! {
     };
 }
 
-/// Goes through the debt linked list.
+
+
+/// Goes through the debt
+/// linked list.
 ///
-/// This traverses the linked list, calling the closure on each node. If the closure returns
-/// `Some`, it terminates with that value early, otherwise it runs to the end.
-fn traverse<R, F: FnMut(&'static Node) -> Option<R>>(mut f: F) -> Option<R> {
-    // Acquire ‒ we want to make sure we read the correct version of data at the end of the
-    // pointer. Any write to the DEBT_HEAD is with Release.
-    //
-    // Note that the other pointers in the chain never change and are *ordinary* pointers. The
-    // whole linked list is synchronized through the head.
-    let mut current = unsafe { DEBT_HEAD.load(Ordering::Acquire).as_ref() };
-    while let Some(node) = current {
-        let result = f(node);
-        if result.is_some() {
-            return result;
-        }
-        current = node.next;
-    }
-    None
+/// This traverses the linked
+/// list, calling the closure
+/// on each node. If the
+/// closure returns `Some`, it
+/// terminates with that value
+/// early, otherwise it runs
+/// to the end.
+
+
+
+fn traverse<R, F : FnMut(&'static Node) -> Option<R>>(
+	mut f : F)
+	-> Option<R>
+{
+
+
+
+	// Acquire ‒ we want to make
+	// sure we read the correct
+	// version of data at the end
+	// of the pointer. Any write
+	// to the DEBT_HEAD is with
+	// Release.
+	//
+	// Note that the other
+	// pointers in the chain never
+	// change and are *ordinary*
+	// pointers. The whole linked
+	// list is synchronized
+	// through the head.
+	let mut current = unsafe {
+
+
+
+		DEBT_HEAD.load(Ordering::Acquire)
+		         .as_ref()
+	};
+
+
+
+	while let Some(node) = current
+	{
+
+
+
+		let result = f(node);
+
+
+
+		if result.is_some()
+		{
+
+
+
+			return result;
+		}
+
+
+
+		current = node.next;
+	}
+
+
+
+	None
 }
 
-impl Debt {
-    /// Creates a new debt.
-    ///
-    /// This stores the debt of the given pointer (untyped, casted into an usize) and returns a
-    /// reference to that slot, or gives up with `None` if all the slots are currently full.
-    ///
-    /// This is technically lock-free on the first call in a given thread and wait-free on all the
-    /// other accesses.
-    #[allow(clippy::new_ret_no_self)]
-    #[inline]
-    pub(crate) fn new(ptr: usize) -> Option<&'static Self> {
-        THREAD_HEAD
+
+
+impl Debt
+{
+	/// Creates a new
+	/// debt.
+	///
+	/// This stores
+	/// the debt of
+	/// the given pointer
+	/// (untyped, casted
+	/// into an usize)
+	/// and returns a
+	/// reference to
+	/// that slot, or
+	/// gives up with
+	/// `None` if all
+	/// the slots are
+	/// currently full.
+	///
+	///
+	/// This is technically lock-free on the first call in a given thread and wait-free on all the
+	/// other accesses.
+	#[allow(clippy::new_ret_no_self)]
+	#[inline]
+
+
+
+	pub(crate) fn new(ptr : usize)
+	                  -> Option<&'static Self>
+	{
+
+
+
+		THREAD_HEAD
             .try_with(|head| {
                 let node = match head.node.get() {
                     // Already have my own node (most likely)?
@@ -186,40 +349,103 @@ impl Debt {
             })
             .ok()
             .and_then(|new| new)
-    }
+	}
 
-    /// Tries to pay the given debt.
-    ///
-    /// If the debt is still there, for the given pointer, it is paid and `true` is returned. If it
-    /// is empty or if there's some other pointer, it is not paid and `false` is returned, meaning
-    /// the debt was paid previously by someone else.
-    ///
-    /// # Notes
-    ///
-    /// * It is possible that someone paid the debt and then someone else put a debt for the same
-    ///   pointer in there. This is fine, as we'll just pay the debt for that someone else.
-    /// * This relies on the fact that the same pointer must point to the same object and
-    ///   specifically to the same type ‒ the caller provides the type, it's destructor, etc.
-    /// * It also relies on the fact the same thing is not stuffed both inside an `Arc` and `Rc` or
-    ///   something like that, but that sounds like a reasonable assumption. Someone storing it
-    ///   through `ArcSwap<T>` and someone else with `ArcSwapOption<T>` will work.
-    #[inline]
-    pub(crate) fn pay<T: RefCnt>(&self, ptr: *const T::Base) -> bool {
-        self.0
+	/// Tries to pay
+	/// the given debt.
+	///
+	///
+	/// If the debt
+	/// is still there,
+	/// for the given
+	/// pointer, it
+	/// is paid and
+	/// `true` is returned.
+	/// If it
+	/// is empty or
+	/// if there's
+	/// some other
+	/// pointer, it
+	/// is not paid
+	/// and `false`
+	/// is returned,
+	/// meaning
+	/// the debt was
+	/// paid previously
+	/// by someone
+	/// else.
+	///
+	/// # Notes
+	///
+	/// * It is possible that someone paid the debt and then someone else put a debt for the same
+	///   pointer in there. This is fine, as we'll just pay the debt for that someone else.
+	/// * This relies
+	///   on the fact
+	///   that the same
+	///   pointer must
+	///   point to the
+	///   same object
+	///   and specifically
+	///   to the same
+	///   type ‒ the
+	///   caller provides
+	///   the type, it'
+	///   s destructor,
+	///   etc.
+	/// * It also relies on the fact the same thing is not stuffed both inside an `Arc` and `Rc` or
+	///   something like that, but that sounds like a reasonable assumption. Someone storing it
+	///   through `ArcSwap<T>` and someone else with `ArcSwapOption<T>` will work.
+	#[inline]
+
+
+
+	pub(crate) fn pay<T : RefCnt>(&self,
+	                              ptr: *const T::Base)
+	                              -> bool
+	{
+
+
+
+		self.0
             // If we don't change anything because there's something else, Relaxed is fine.
             //
             // The Release works as kind of Mutex. We make sure nothing from the debt-protected
             // sections leaks below this point.
             .compare_exchange(ptr as usize, NO_DEBT, Ordering::Release, Ordering::Relaxed)
             .is_ok()
-    }
+	}
 
-    /// Pays all the debts on the given pointer.
-    pub(crate) fn pay_all<T: RefCnt>(ptr: *const T::Base) {
-        let val = unsafe { T::from_ptr(ptr) };
-        T::inc(&val);
-        traverse::<(), _>(|node| {
-            for slot in &node.slots.0 {
+	/// Pays all the
+	/// debts on the
+	/// given pointer.
+	///
+
+
+
+	pub(crate) fn pay_all<T : RefCnt>(ptr: *const T::Base)
+	{
+
+
+
+		let val = unsafe {
+
+
+
+			T::from_ptr(ptr)
+		};
+
+
+
+		T::inc(&val);
+
+
+
+		traverse::<(), _>(
+		                  |node| {
+
+
+
+			                  for slot in &node.slots.0 {
                 if slot
                     .0
                     .compare_exchange(ptr as usize, NO_DEBT, Ordering::AcqRel, Ordering::Relaxed)
@@ -228,29 +454,82 @@ impl Debt {
                     T::inc(&val);
                 }
             }
-            None
-        });
-    }
+
+
+
+			                  None
+		                  },
+		);
+	}
 }
 
+
+
 #[cfg(test)]
-mod tests {
-    use std::sync::Arc;
 
-    /// Checks the assumption that arcs to ZSTs have different pointer values.
-    #[test]
-    fn arc_zst() {
-        struct A;
-        struct B;
 
-        let a = Arc::new(A);
-        let b = Arc::new(B);
 
-        let aref: &A = &a;
-        let bref: &B = &b;
+mod tests
+{
 
-        let aptr = aref as *const _ as usize;
-        let bptr = bref as *const _ as usize;
-        assert_ne!(aptr, bptr);
-    }
+
+
+	use std::sync::Arc;
+
+
+
+	/// Checks the
+	/// assumption
+	/// that arcs to
+	/// ZSTs have different
+	/// pointer values.
+	///
+	#[test]
+
+
+
+	fn arc_zst()
+	{
+
+
+
+		struct A;
+
+
+
+		struct B;
+
+
+
+		let a = Arc::new(A);
+
+
+
+		let b = Arc::new(B);
+
+
+
+		let aref : &A = &a;
+
+
+
+		let bref : &B = &b;
+
+
+
+		let aptr = aref as *const _
+		           as usize;
+
+
+
+		let bptr = bref as *const _
+		           as usize;
+
+
+
+		assert_ne!(
+		           aptr,
+		           bptr
+		);
+	}
 }

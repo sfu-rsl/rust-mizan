@@ -1,34 +1,70 @@
 #![allow(clippy::unit_arg)]
 
-use std::collections::BTreeSet;
-use std::fmt::{Debug, Error, Formatter, Write};
+
 
 use crate::OrdSet;
-
 use proptest::proptest;
 use proptest_derive::Arbitrary;
+use std::collections::BTreeSet;
+use std::fmt::Debug;
+use std::fmt::Error;
+use std::fmt::Formatter;
+use std::fmt::Write;
+
+
 
 #[derive(Arbitrary, Debug)]
-enum Action<A> {
-    Insert(A),
-    Remove(A),
+
+
+
+enum Action<A>
+{
+	Insert(A),
+	Remove(A),
 }
 
-#[derive(Arbitrary)]
-struct Actions<A>(Vec<Action<A>>)
-where
-    A: Ord + Clone;
 
-impl<A> Debug for Actions<A>
-where
-    A: Ord + Debug + Clone,
+
+#[derive(Arbitrary)]
+
+
+
+struct Actions<A>(Vec<Action<A>>) where A : Ord+Clone;
+
+
+
+impl<A> Debug for Actions<A> where A : Ord+Debug+Clone,
 {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
-        let mut out = String::new();
-        let mut expected = BTreeSet::new();
-        writeln!(out, "let mut set = OrdSet::new();")?;
-        for action in &self.0 {
-            match action {
+	fn fmt(&self,
+	       f : &mut Formatter<'_>)
+	       -> Result<(), Error>
+	{
+
+
+
+		let mut out = String::new();
+
+
+
+		let mut expected =
+			BTreeSet::new();
+
+
+
+		writeln!(
+		         out,
+		         "let mut set = \
+		          OrdSet::new();"
+		)?;
+
+
+
+		for action in &self.0
+		{
+
+
+
+			match action {
                 Action::Insert(ref value) => {
                     expected.insert(value.clone());
                     writeln!(out, "set.insert({:?});", value)?;
@@ -38,16 +74,34 @@ where
                     writeln!(out, "set.remove({:?});", value)?;
                 }
             }
-        }
-        writeln!(
-            out,
-            "let expected = vec!{:?};",
-            expected.into_iter().collect::<Vec<_>>()
-        )?;
-        writeln!(out, "assert_eq!(OrdSet::from(expected), set);")?;
-        write!(f, "{}", super::code_fmt(&out))
-    }
+		}
+
+
+
+		writeln!(
+		         out,
+		         "let expected = \
+		          vec!{:?};",
+		         expected.into_iter()
+		                 .collect::<Vec<_,>>(
+		)
+		)?;
+
+
+
+		writeln!(out, "assert_eq!(OrdSet::from(expected), set);")?;
+
+
+
+		write!(
+		       f,
+		       "{}",
+		       super::code_fmt(&out)
+		)
+	}
 }
+
+
 
 proptest! {
     #[test]
@@ -56,26 +110,26 @@ proptest! {
         let mut nat = BTreeSet::new();
         for action in actions.0 {
             match action {
-                Action::Insert(value) => {
-                    let len = nat.len() + if nat.contains(&value) {
-                        0
-                    } else {
-                        1
-                    };
-                    nat.insert(value);
-                    set.insert(value);
-                    assert_eq!(len, set.len());
-                }
-                Action::Remove(value) => {
-                    let len = nat.len() - if nat.contains(&value) {
-                        1
-                    } else {
-                        0
-                    };
-                    nat.remove(&value);
-                    set.remove(&value);
-                    assert_eq!(len, set.len());
-                }
+	   Action::Insert(value) => {
+	       let len = nat.len() + if nat.contains(&value) {
+	           0
+	       } else {
+	           1
+	       };
+	       nat.insert(value);
+	       set.insert(value);
+	       assert_eq!(len, set.len());
+	   }
+	   Action::Remove(value) => {
+	       let len = nat.len() - if nat.contains(&value) {
+	           1
+	       } else {
+	           0
+	       };
+	       nat.remove(&value);
+	       set.remove(&value);
+	       assert_eq!(len, set.len());
+	   }
             }
             assert_eq!(nat.len(), set.len());
             assert_eq!(OrdSet::from(nat.clone()), set);

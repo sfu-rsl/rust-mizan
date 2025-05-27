@@ -1,29 +1,35 @@
-//! Operator trait implementations.
+//! Operator trait
+//! implementations.
+
+
 
 use super::*;
+use crate::order::BitOrder;
+use crate::store::BitStore;
+use core::ops::Deref;
+use core::ops::DerefMut;
 
-use crate::{
-	order::BitOrder,
-	store::BitStore,
-};
 
-use core::ops::{
-	Deref,
-	DerefMut,
-};
 
-/** Reborrows the `BitVec` as a `BitSlice`.
+/// Reborrows the `BitVec` as
+/// a `BitSlice`.
+///
+/// This mimics the separation
+/// between `Vec<T>` and
+/// `[T]`.
 
-This mimics the separation between `Vec<T>` and `[T]`.
-**/
+
+
 impl<O, T> Deref for BitVec<O, T>
-where
-	O: BitOrder,
-	T: BitStore,
+	where O : BitOrder,
+	      T : BitStore,
 {
 	type Target = BitSlice<O, T>;
 
-	/// Dereferences `&BitVec` down to `&BitSlice`.
+	/// Dereferences
+	/// `&BitVec` down
+	/// to `&BitSlice`.
+	///
 	///
 	/// # Examples
 	///
@@ -34,21 +40,37 @@ where
 	/// let bref: &BitSlice = &bv;
 	/// assert!(bref[2]);
 	/// ```
-	fn deref(&self) -> &Self::Target {
+
+
+
+	fn deref(&self) -> &Self::Target
+	{
+
+
+
 		self.as_bitslice()
 	}
 }
 
-/** Mutably reborrows the `BitVec` as a `BitSlice`.
 
-This mimics the separation between `Vec<T>` and `[T]`.
-**/
+
+/// Mutably reborrows the
+/// `BitVec` as a `BitSlice`.
+///
+/// This mimics the separation
+/// between `Vec<T>` and
+/// `[T]`.
+
+
+
 impl<O, T> DerefMut for BitVec<O, T>
-where
-	O: BitOrder,
-	T: BitStore,
+	where O : BitOrder,
+	      T : BitStore,
 {
-	/// Dereferences `&mut BitVec` down to `&mut BitSlice`.
+	/// Dereferences
+	/// `&mut BitVec`
+	/// down to `&mut
+	/// BitSlice`.
 	///
 	/// # Examples
 	///
@@ -61,7 +83,14 @@ where
 	/// bref.set(5, true);
 	/// assert!(bref[5]);
 	/// ```
-	fn deref_mut(&mut self) -> &mut Self::Target {
+
+
+
+	fn deref_mut(&mut self) -> &mut Self::Target
+	{
+
+
+
 		self.as_mut_bitslice()
 	}
 }

@@ -1,109 +1,245 @@
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// This Source Code Form is
+// subject to the terms of the
+// Mozilla Public License, v.
+// 2.0. If a copy of the MPL
+// was not distributed with
+// this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-// Every codebase needs a `util` module.
 
-use std::cmp::Ordering;
-use std::ops::{Bound, IndexMut, Range, RangeBounds};
-use std::ptr;
 
-#[cfg(feature = "pool")]
-pub(crate) use refpool::{PoolClone, PoolDefault};
+// Every codebase needs a
+// `util` module.
 
-// The `Ref` type is an alias for either `Rc` or `Arc`, user's choice.
+
+
+// The `Ref` type is an alias for either `Rc` or `Arc`,
+// user's choice.
 
 // `Arc` without refpool
 #[cfg(all(threadsafe))]
-pub(crate) use crate::fakepool::{Arc as PoolRef, Pool, PoolClone, PoolDefault};
+pub(crate) use crate::fakepool::{Arc as PoolRef,
+                                 Pool,
+                                 PoolClone,
+                                 PoolDefault};
+#[cfg(feature = "pool")]
+pub(crate) use refpool::PoolClone;
+#[cfg(feature = "pool")]
+pub(crate) use refpool::PoolDefault;
+use std::cmp::Ordering;
+use std::ops::Bound;
+use std::ops::IndexMut;
+use std::ops::Range;
+use std::ops::RangeBounds;
+use std::ptr;
 
-// `Ref` == `Arc` when threadsafe
+
+
+// `Ref` == `Arc` when
+// threadsafe
 #[cfg(threadsafe)]
+
+
+
 pub(crate) type Ref<A> = std::sync::Arc<A>;
 
+
+
 // `Rc` without refpool
-#[cfg(all(not(threadsafe), not(feature = "pool")))]
-pub(crate) use crate::fakepool::{Pool, PoolClone, PoolDefault, Rc as PoolRef};
+#[cfg(all(not(threadsafe),
+              not(feature = "pool")))]
+pub(crate) use crate::fakepool::Pool;
+#[cfg(all(not(threadsafe),
+              not(feature = "pool")))]
+pub(crate) use crate::fakepool::PoolClone;
+#[cfg(all(not(threadsafe),
+              not(feature = "pool")))]
+pub(crate) use crate::fakepool::PoolDefault;
+#[cfg(all(not(threadsafe),
+              not(feature = "pool")))]
+pub(crate) use crate::fakepool::Rc as PoolRef;
+
+
 
 // `Rc` with refpool
-#[cfg(all(not(threadsafe), feature = "pool"))]
+#[cfg(all(not(threadsafe),
+          feature = "pool"))]
+
+
+
 pub(crate) type PoolRef<A> = refpool::PoolRef<A>;
-#[cfg(all(not(threadsafe), feature = "pool"))]
+
+
+
+#[cfg(all(not(threadsafe),
+          feature = "pool"))]
+
+
+
 pub(crate) type Pool<A> = refpool::Pool<A>;
 
-// `Ref` == `Rc` when not threadsafe
+
+
+// `Ref` == `Rc` when not
+// threadsafe
 #[cfg(not(threadsafe))]
+
+
+
 pub(crate) type Ref<A> = std::rc::Rc<A>;
 
-pub(crate) fn clone_ref<A>(r: Ref<A>) -> A
-where
-    A: Clone,
+
+
+pub(crate) fn clone_ref<A>(r : Ref<A>) -> A
+	where A : Clone,
 {
-    Ref::try_unwrap(r).unwrap_or_else(|r| (*r).clone())
+
+
+
+	Ref::try_unwrap(r).unwrap_or_else(
+	                                  |r| {
+		                                  (*r).clone()
+	                                  },
+	)
 }
+
+
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
-pub(crate) enum Side {
-    Left,
-    Right,
+
+
+
+pub(crate) enum Side
+{
+	Left,
+	Right,
 }
 
-/// Swap two values of anything implementing `IndexMut`.
+
+
+/// Swap two values of
+/// anything implementing
+/// `IndexMut`.
 ///
-/// Like `slice::swap`, but more generic.
+/// Like `slice::swap`, but
+/// more generic.
 #[allow(unsafe_code)]
-pub(crate) fn swap_indices<V>(vector: &mut V, a: usize, b: usize)
-where
-    V: IndexMut<usize>,
-    V::Output: Sized,
+
+
+
+pub(crate) fn swap_indices<V>(vector : &mut V,
+                              a : usize,
+                              b : usize)
+	where V : IndexMut<usize>,
+	      V::Output : Sized,
 {
-    if a == b {
-        return;
-    }
-    // so sorry, but there's no implementation for this in std that's
-    // sufficiently generic
-    let pa: *mut V::Output = &mut vector[a];
-    let pb: *mut V::Output = &mut vector[b];
-    unsafe {
-        ptr::swap(pa, pb);
-    }
+
+
+
+	if a == b
+	{
+
+
+
+		return;
+	}
+
+
+
+	// so sorry, but there's no
+	// implementation for this in
+	// std that's sufficiently
+	// generic
+	let pa : *mut V::Output = &mut vector[a];
+
+
+
+	let pb : *mut V::Output = &mut vector[b];
+
+
+
+	unsafe {
+
+
+
+		ptr::swap(pa, pb);
+	}
 }
+
+
 
 #[allow(dead_code)]
-pub(crate) fn linear_search_by<'a, A, I, F>(iterable: I, mut cmp: F) -> Result<usize, usize>
-where
-    A: 'a,
-    I: IntoIterator<Item = &'a A>,
-    F: FnMut(&A) -> Ordering,
+
+
+
+pub(crate) fn linear_search_by<'a, A, I, F>(
+	iterable : I,
+	mut cmp : F)
+	-> Result<usize, usize>
+	where A : 'a,
+	      I : IntoIterator<Item=&'a A>,
+	      F : FnMut(&A) -> Ordering,
 {
-    let mut pos = 0;
-    for value in iterable {
-        match cmp(value) {
+
+
+
+	let mut pos = 0;
+
+
+
+	for value in iterable
+	{
+
+
+
+		match cmp(value) {
             Ordering::Equal => return Ok(pos),
             Ordering::Greater => return Err(pos),
             Ordering::Less => {}
         }
-        pos += 1;
-    }
-    Err(pos)
+
+
+
+		pos += 1;
+	}
+
+
+
+	Err(pos)
 }
 
-pub(crate) fn to_range<R>(range: &R, right_unbounded: usize) -> Range<usize>
-where
-    R: RangeBounds<usize>,
+
+
+pub(crate) fn to_range<R>(range : &R,
+                          right_unbounded : usize)
+                          -> Range<usize>
+	where R : RangeBounds<usize>,
 {
-    let start_index = match range.start_bound() {
-        Bound::Included(i) => *i,
-        Bound::Excluded(i) => *i + 1,
-        Bound::Unbounded => 0,
-    };
-    let end_index = match range.end_bound() {
-        Bound::Included(i) => *i + 1,
-        Bound::Excluded(i) => *i,
-        Bound::Unbounded => right_unbounded,
-    };
-    start_index..end_index
+
+
+
+	let start_index = match range.start_bound()
+	{
+		| Bound::Included(i) => *i,
+		| Bound::Excluded(i) => *i + 1,
+		| Bound::Unbounded => 0,
+	};
+
+
+
+	let end_index = match range.end_bound()
+	{
+		| Bound::Included(i) => *i + 1,
+		| Bound::Excluded(i) => *i,
+		| Bound::Unbounded =>
+			right_unbounded,
+	};
+
+
+
+	start_index .. end_index
 }
+
+
 
 macro_rules! def_pool {
     ($name:ident<$($arg:tt),*>, $pooltype:ty) => {

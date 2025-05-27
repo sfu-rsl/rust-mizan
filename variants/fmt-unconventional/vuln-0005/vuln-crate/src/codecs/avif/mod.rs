@@ -1,98 +1,232 @@
 //! Encoding of AVIF images.
-///
-/// The [AVIF] specification defines an image derivative of the AV1 bitstream, an open video codec.
+
+
+
+use crate::buffer::ConvertBuffer;
+use crate::color::Bgr;
+use crate::color::Bgra;
+use crate::color::FromColor;
+use crate::color::Luma;
+use crate::color::LumaA;
+use crate::color::Rgb;
+use crate::color::Rgba;
+use crate::error::EncodingError;
+use crate::error::ParameterError;
+use crate::error::ParameterErrorKind;
+use crate::error::UnsupportedError;
+use crate::error::UnsupportedErrorKind;
+use crate::ColorType;
+use crate::ImageBuffer;
+use crate::ImageError;
+use crate::ImageFormat;
+use crate::ImageResult;
+use crate::Pixel;
+use bytemuck::try_cast_slice;
+use bytemuck::try_cast_slice_mut;
+use bytemuck::Pod;
+use bytemuck::PodCastError;
+use num_traits::Zero;
+use ravif::encode_rgba;
+use ravif::ColorSpace;
+use ravif::Config;
+use ravif::Img;
+use ravif::RGBA8;
+use rgb::AsPixels;
+/// The [AVIF] specification
+/// defines an image
+/// derivative of the AV1
+/// bitstream, an open video
+/// codec.
 ///
 /// [AVIF]: https://aomediacodec.github.io/av1-avif/
 use std::borrow::Cow;
 use std::io::Write;
 
-use crate::{ColorType, ImageBuffer, ImageFormat, Pixel};
-use crate::{ImageError, ImageResult};
-use crate::buffer::ConvertBuffer;
-use crate::color::{FromColor, Luma, LumaA, Bgr, Bgra, Rgb, Rgba};
-use crate::error::{EncodingError, ParameterError, ParameterErrorKind, UnsupportedError, UnsupportedErrorKind};
 
-use bytemuck::{Pod, PodCastError, try_cast_slice, try_cast_slice_mut};
-use num_traits::Zero;
-use ravif::{Img, ColorSpace, Config, RGBA8, encode_rgba};
-use rgb::AsPixels;
 
 /// AVIF Encoder.
 ///
-/// Writes one image into the chosen output.
-pub struct AvifEncoder<W> {
-    inner: W,
-    fallback: Vec<u8>,
+/// Writes one image into the
+/// chosen output.
+
+
+
+pub struct AvifEncoder<W>
+{
+	inner : W,
+	fallback : Vec<u8>,
 }
 
-impl<W: Write> AvifEncoder<W> {
-    /// Create a new encoder that writes its output to `w`.
-    pub fn new(w: W) -> Self {
-        AvifEncoder { inner: w, fallback: vec![] }
-    }
 
-    /// Encode image data with the indicated color type.
-    ///
-    /// The encoder currently requires all data to be RGBA8, it will be converted internally if
-    /// necessary. When data is suitably aligned, i.e. u16 channels to two bytes, then the
-    /// conversion may be more efficient.
-    pub fn write_image(mut self, data: &[u8], width: u32, height: u32, color: ColorType) -> ImageResult<()> {
-        let config = self.config(color);
-        // `ravif` needs strongly typed data so let's convert. We can either use a temporarily
-        // owned version in our own buffer or zero-copy if possible by using the input buffer.
-        // This requires going through `rgb`.
-        let buffer = self.encode_as_img(data, width, height, color)?;
-        let (data, _color_size, _alpha_size) = encode_rgba(buffer, &config)
+
+impl<W : Write> AvifEncoder<W>
+{
+	/// Create a new
+	/// encoder that
+	/// writes its
+	/// output to `w`.
+	///
+
+
+
+	pub fn new(w : W) -> Self
+	{
+
+
+
+		AvifEncoder { inner : w,
+		              fallback : vec![] }
+	}
+
+	/// Encode image
+	/// data with the
+	/// indicated color
+	/// type.
+	///
+	/// The encoder
+	/// currently requires
+	/// all data to
+	/// be RGBA8, it
+	/// will be converted
+	/// internally if
+	/// necessary.
+	/// When data is
+	/// suitably aligned,
+	/// i.e. u16 channels
+	/// to two bytes,
+	/// then the
+	/// conversion
+	/// may be more
+	/// efficient.
+
+
+
+	pub fn write_image(mut self,
+	                   data : &[u8],
+	                   width : u32,
+	                   height : u32,
+	                   color : ColorType)
+	                   -> ImageResult<()>
+	{
+
+
+
+		let config = self.config(color);
+
+
+
+		// `ravif` needs strongly
+		// typed data so let's
+		// convert. We can either use
+		// a temporarily
+		// owned version in our own
+		// buffer or zero-copy if
+		// possible by using the input
+		// buffer. This requires
+		// going through `rgb`.
+		let buffer = self.encode_as_img(data, width, height, color)?;
+
+
+
+		let (data, _color_size, _alpha_size) = encode_rgba(buffer, &config)
             .map_err(|err| ImageError::Encoding(
                 EncodingError::new(ImageFormat::Avif.into(), err)
             ))?;
-        self.inner.write_all(&data)?;
-        Ok(())
-    }
 
-    fn config(&self, _color: ColorType) -> Config {
-        Config {
+
+
+		self.inner
+		    .write_all(&data)?;
+
+
+
+		Ok(())
+	}
+
+	fn config(&self,
+	          _color : ColorType)
+	          -> Config
+	{
+
+
+
+		Config {
             quality: 100,
             alpha_quality: 100,
             speed: 1,
             premultiplied_alpha: false,
             color_space: ColorSpace::RGB,
         }
-    }
+	}
 
-    fn encode_as_img<'buf>(&'buf mut self, data: &'buf [u8], width: u32, height: u32, color: ColorType)
+	fn encode_as_img<'buf>(&'buf mut self, data: &'buf [u8], width: u32, height: u32, color: ColorType)
         -> ImageResult<Img<&'buf [RGBA8]>>
     {
-        // Error wrapping utility for color dependent buffer dimensions.
+
+
+
+		// Error wrapping utility for
+		// color dependent buffer
+		// dimensions.
         fn try_from_raw<P: Pixel + 'static>(data: &[P::Subpixel], width: u32, height: u32)
             -> ImageResult<ImageBuffer<P, &[P::Subpixel]>>
         {
-            ImageBuffer::from_raw(width, height, data).ok_or_else(|| {
+
+
+
+			ImageBuffer::from_raw(width, height, data).ok_or_else(|| {
                 ImageError::Parameter(ParameterError::from_kind(ParameterErrorKind::DimensionMismatch))
             })
-        };
+		};
 
-        // Convert to target color type using few buffer allocations.
+
+
+		// Convert to target color
+		// type using few buffer
+		// allocations.
         fn convert_into<'buf, P>(buf: &'buf mut Vec<u8>, image: ImageBuffer<P, &[P::Subpixel]>)
             -> Img<&'buf [RGBA8]>
         where
             P: Pixel + 'static,
             Rgba<u8>: FromColor<P>,
         {
-            let (width, height) = image.dimensions();
-            // TODO: conversion re-using the target buffer?
-            let image: ImageBuffer<Rgba<u8>, _> = image.convert();
-            *buf = image.into_raw();
-            Img::new(buf.as_pixels(), width as usize, height as usize)
-        }
 
-        // Cast the input slice using few buffer allocations if possible.
-        // In particular try not to allocate if the caller did the infallible reverse.
+
+
+			let (width, height) = image.dimensions();
+
+
+
+			// TODO: conversion
+			// re-using the
+			// target buffer?
+			let image: ImageBuffer<Rgba<u8>, _> = image.convert();
+
+
+
+			*buf = image.into_raw();
+
+
+
+			Img::new(buf.as_pixels(), width as usize, height as usize)
+		}
+
+
+
+		// Cast the input slice using
+		// few buffer allocations if
+		// possible. In particular
+		// try not to allocate if the
+		// caller did the infallible
+		// reverse.
         fn cast_buffer<Channel>(buf: &[u8]) -> ImageResult<Cow<[Channel]>>
         where
             Channel: Pod + Zero,
         {
-            match try_cast_slice(buf) {
+
+
+
+			match try_cast_slice(buf) {
                 Ok(slice) => Ok(Cow::Borrowed(slice)),
                 Err(PodCastError::OutputSliceWouldHaveSlop) => {
                     Err(ImageError::Parameter(ParameterError::from_kind(ParameterErrorKind::DimensionMismatch)))
@@ -116,9 +250,11 @@ impl<W: Write> AvifEncoder<W> {
                     )))
                 }
             }
-        }
+		}
 
-        match color {
+
+
+		match color {
             ColorType::Rgba8 => {
                 // ravif doesn't do any checks but has some asserts, so we do the checks.
                 let img = try_from_raw::<Rgba<u8>>(data, width, height)?;
@@ -178,5 +314,5 @@ impl<W: Write> AvifEncoder<W> {
                     UnsupportedErrorKind::Color(color.into()),
                 )))
         }
-    }
+	}
 }

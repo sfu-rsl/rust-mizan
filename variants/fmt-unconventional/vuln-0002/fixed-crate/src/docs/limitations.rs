@@ -1,13 +1,26 @@
-//! Limitations and common pitfalls.
+//! Limitations and common
+//! pitfalls.
 //!
 //! # Sized types
 //!
-//! This currently works only for `Sized` types. Unsized types have „fat pointers“, which are twice
-//! as large as the normal ones. The [`AtomicPtr`] doesn't support them. One could use something
-//! like `AtomicU128` for them. The catch is this doesn't exist and the difference would make it
-//! really hard to implement the debt storage/stripped down hazard pointers.
+//! This currently works only
+//! for `Sized` types. Unsized
+//! types have „fat pointers“,
+//! which are twice
+//! as large as the normal
+//! ones. The [`AtomicPtr`]
+//! doesn't support them. One
+//! could use something
+//! like `AtomicU128` for
+//! them. The catch is this
+//! doesn't exist and the
+//! difference would make it
+//! really hard to implement
+//! the debt storage/stripped
+//! down hazard pointers.
 //!
-//! A workaround is to use double indirection:
+//! A workaround is to use
+//! double indirection:
 //!
 //! ```rust
 //! # use arc_swap::ArcSwap;
@@ -21,12 +34,23 @@
 //!
 //! # Too many [`Guard`]s
 //!
-//! There's only limited number of "fast" slots for borrowing from [`ArcSwap`] for each single
-//! thread (currently 8, but this might change in future versions). If these run out, the algorithm
+//! There's only limited
+//! number of "fast" slots for
+//! borrowing from [`ArcSwap`]
+//! for each single
+//! thread (currently 8, but
+//! this might change in
+//! future versions). If these
+//! run out, the algorithm
 //! falls back to slower path.
 //!
-//! If too many [`Guard`]s are kept around, the performance might be poor. These are not intended
-//! to be stored in data structures or used across async yield points.
+//! If too many [`Guard`]s are
+//! kept around, the
+//! performance might be poor.
+//! These are not intended
+//! to be stored in data
+//! structures or used across
+//! async yield points.
 //!
 //! [`ArcSwap`]: crate::ArcSwap
 //! [`Guard`]: crate::Guard
@@ -34,11 +58,22 @@
 //!
 //! # No `Clone` implementation
 //!
-//! Previous version implemented [`Clone`], but it turned out to be very confusing to people, since
-//! it created fully independent [`ArcSwap`]. Users expected the instances to be tied to each
-//! other, that store in one would change the result of future load of the other.
+//! Previous version
+//! implemented [`Clone`], but
+//! it turned out to be very
+//! confusing to people, since
+//! it created fully
+//! independent [`ArcSwap`].
+//! Users expected the
+//! instances to be tied to
+//! each other, that store in
+//! one would change the
+//! result of future load of
+//! the other.
 //!
-//! To emulate the original behaviour, one can do something like this:
+//! To emulate the original
+//! behaviour, one can do
+//! something like this:
 //!
 //! ```rust
 //! # use arc_swap::ArcSwap;

@@ -1,7 +1,13 @@
-use crate::{Connection, Result};
+use crate::Connection;
+use crate::Result;
 
-/// `feature = "load_extension"` RAII guard temporarily enabling SQLite
-/// extensions to be loaded.
+
+
+/// `feature =
+/// "load_extension"` RAII
+/// guard temporarily enabling
+/// SQLite extensions to be
+/// loaded.
 ///
 /// ## Example
 ///
@@ -14,23 +20,61 @@ use crate::{Connection, Result};
 ///     conn.load_extension(Path::new("my_sqlite_extension"), None)
 /// }
 /// ```
-pub struct LoadExtensionGuard<'conn> {
-    conn: &'conn Connection,
+
+
+
+pub struct LoadExtensionGuard<'conn>
+{
+	conn : &'conn Connection,
 }
 
-impl LoadExtensionGuard<'_> {
-    /// Attempt to enable loading extensions. Loading extensions will be
-    /// disabled when this guard goes out of scope. Cannot be meaningfully
-    /// nested.
-    pub fn new(conn: &Connection) -> Result<LoadExtensionGuard<'_>> {
-        conn.load_extension_enable()
-            .map(|_| LoadExtensionGuard { conn })
-    }
+
+
+impl LoadExtensionGuard<'_>
+{
+	/// Attempt to
+	/// enable loading
+	/// extensions.
+	/// Loading extensions
+	/// will be
+	/// disabled when
+	/// this guard
+	/// goes out of
+	/// scope. Cannot
+	/// be meaningfully
+	/// nested.
+
+
+
+	pub fn new(conn : &Connection)
+	           -> Result<LoadExtensionGuard<'_>>
+	{
+
+
+
+		conn.load_extension_enable()
+		    .map(
+		         |_| {
+			         LoadExtensionGuard { conn }
+		         },
+		)
+	}
 }
+
+
 
 #[allow(unused_must_use)]
-impl Drop for LoadExtensionGuard<'_> {
-    fn drop(&mut self) {
-        self.conn.load_extension_disable();
-    }
+
+
+
+impl Drop for LoadExtensionGuard<'_>
+{
+	fn drop(&mut self)
+	{
+
+
+
+		self.conn
+		    .load_extension_disable();
+	}
 }
