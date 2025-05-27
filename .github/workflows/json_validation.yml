@@ -29,3 +29,6 @@ jobs:
       - name: Mutuation - Unconventional Formatting
         run: python ../../.github/scripts/validate_json.py
         working-directory: variants/fmt-unconventional
+
+      - name: Check mizan.json consistency across variants
+        run: python .github/scripts/check_mizan_consistency.py
