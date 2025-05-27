@@ -1,19 +1,19 @@
 use super::free_functions;
 use crate::dynimage::DynamicImage;
-use crate::error::ImageFormatHint;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
+use crate::error::{ImageFormatHint,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
 use crate::image::ImageFormat;
-use crate::ImageError;
-use crate::ImageResult;
+use crate::{ImageError,
+            ImageResult};
 use std::fs::File;
-use std::io::BufRead;
-use std::io::BufReader;
-use std::io::Cursor;
-use std::io::Read;
-use std::io::Seek;
-use std::io::SeekFrom;
-use std::io::{self};
+use std::io::{self,
+              BufRead,
+              BufReader,
+              Cursor,
+              Read,
+              Seek,
+              SeekFrom};
 use std::path::Path;
 
 

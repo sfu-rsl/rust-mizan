@@ -1,5 +1,5 @@
-use http::Uri;
-use http::{self};
+use http::{self,
+           Uri};
 use std::time::Duration;
 
 

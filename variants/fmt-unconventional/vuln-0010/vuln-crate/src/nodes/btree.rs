@@ -10,18 +10,18 @@
 use self::Insert::*;
 use self::InsertAction::*;
 use crate::config::OrdChunkSize as NodeSize;
-use crate::util::Pool;
-use crate::util::PoolClone;
-use crate::util::PoolDefault;
-use crate::util::PoolRef;
+use crate::util::{Pool,
+                  PoolClone,
+                  PoolDefault,
+                  PoolRef};
 use sized_chunks::Chunk;
 use std::borrow::Borrow;
 use std::cmp::Ordering;
 use std::mem;
-use std::ops::Bound;
-use std::ops::RangeBounds;
-use typenum::Add1;
-use typenum::Unsigned;
+use std::ops::{Bound,
+               RangeBounds};
+use typenum::{Add1,
+              Unsigned};
 
 
 

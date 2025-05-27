@@ -1,5 +1,5 @@
-use super::Value;
-use super::ValueRef;
+use super::{Value,
+            ValueRef};
 use std::error::Error;
 use std::fmt;
 
@@ -400,8 +400,8 @@ impl FromSql for i128
 
 
 
-		use byteorder::BigEndian;
-		use byteorder::ByteOrder;
+		use byteorder::{BigEndian,
+		                ByteOrder};
 
 
 
@@ -482,8 +482,8 @@ mod test
 
 
 	use super::FromSql;
-	use crate::Connection;
-	use crate::Error;
+	use crate::{Connection,
+	            Error};
 
 
 

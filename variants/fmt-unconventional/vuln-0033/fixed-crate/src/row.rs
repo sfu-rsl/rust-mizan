@@ -1,9 +1,9 @@
-use super::Error;
-use super::Result;
-use super::Statement;
-use crate::types::FromSql;
-use crate::types::FromSqlError;
-use crate::types::ValueRef;
+use super::{Error,
+            Result,
+            Statement};
+use crate::types::{FromSql,
+                   FromSqlError,
+                   ValueRef};
 use fallible_iterator::FallibleIterator;
 use fallible_streaming_iterator::FallibleStreamingIterator;
 use std::convert;

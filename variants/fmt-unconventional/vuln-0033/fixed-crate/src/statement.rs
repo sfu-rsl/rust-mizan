@@ -1,32 +1,31 @@
 use super::ffi;
-use super::len_as_c_int;
-use super::str_for_sqlite;
-use super::AndThenRows;
-use super::Connection;
-use super::Error;
-use super::MappedRows;
-use super::RawStatement;
-use super::Result;
-use super::Row;
-use super::Rows;
-use super::ValueRef;
-use crate::types::ToSql;
-use crate::types::ToSqlOutput;
+use super::{len_as_c_int,
+            str_for_sqlite};
+use super::{AndThenRows,
+            Connection,
+            Error,
+            MappedRows,
+            RawStatement,
+            Result,
+            Row,
+            Rows,
+            ValueRef};
+use crate::types::{ToSql,
+                   ToSqlOutput};
 #[cfg(feature = "array")]
-use crate::vtab::array::free_array;
-#[cfg(feature = "array")]
-use crate::vtab::array::ARRAY_TYPE;
-use std::convert;
-use std::fmt;
+use crate::vtab::array::{free_array,
+                         ARRAY_TYPE};
 use std::iter::IntoIterator;
-use std::mem;
-use std::os::raw::c_int;
-use std::os::raw::c_void;
-use std::ptr;
+use std::os::raw::{c_int,
+                   c_void};
 #[cfg(feature = "array")]
 use std::rc::Rc;
 use std::slice::from_raw_parts;
-use std::str;
+use std::{convert,
+          fmt,
+          mem,
+          ptr,
+          str};
 
 
 
@@ -1717,10 +1716,10 @@ mod test
 
 
 	use crate::types::ToSql;
-	use crate::Connection;
-	use crate::Error;
-	use crate::Result;
-	use crate::NO_PARAMS;
+	use crate::{Connection,
+	            Error,
+	            Result,
+	            NO_PARAMS};
 
 
 

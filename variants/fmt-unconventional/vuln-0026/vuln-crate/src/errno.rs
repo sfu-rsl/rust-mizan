@@ -21,8 +21,8 @@
 
 
 
-use std::fmt::Display;
-use std::fmt::Formatter;
+use std::fmt::{Display,
+               Formatter};
 use std::io;
 use std::result;
 
@@ -269,8 +269,8 @@ mod tests
 	use std::env::temp_dir;
 	use std::error::Error as _;
 	use std::fs::OpenOptions;
-	use std::io::Read;
-	use std::io::{self};
+	use std::io::{self,
+	              Read};
 
 
 

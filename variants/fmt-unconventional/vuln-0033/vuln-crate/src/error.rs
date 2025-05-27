@@ -1,7 +1,7 @@
-use crate::errmsg_to_string;
-use crate::ffi;
 use crate::types::FromSqlError;
 use crate::types::Type;
+use crate::{errmsg_to_string,
+            ffi};
 use std::error;
 use std::fmt;
 use std::os::raw::c_int;

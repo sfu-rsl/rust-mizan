@@ -24,29 +24,29 @@
 
 
 
-use crate::errno::Error;
-use crate::errno::Result;
-use libc::c_long;
-use libc::c_void;
-use libc::cmsghdr;
-use libc::iovec;
-use libc::msghdr;
-use libc::recvmsg;
-use libc::sendmsg;
-use libc::MSG_NOSIGNAL;
-use libc::SCM_RIGHTS;
-use libc::SOL_SOCKET;
+use crate::errno::{Error,
+                   Result};
+use libc::{c_long,
+           c_void,
+           cmsghdr,
+           iovec,
+           msghdr,
+           recvmsg,
+           sendmsg,
+           MSG_NOSIGNAL,
+           SCM_RIGHTS,
+           SOL_SOCKET};
 use std::fs::File;
 use std::mem::size_of;
 use std::os::raw::c_int;
-use std::os::unix::io::AsRawFd;
-use std::os::unix::io::FromRawFd;
-use std::os::unix::io::RawFd;
-use std::os::unix::net::UnixDatagram;
-use std::os::unix::net::UnixStream;
-use std::ptr::copy_nonoverlapping;
-use std::ptr::null_mut;
-use std::ptr::write_unaligned;
+use std::os::unix::io::{AsRawFd,
+                        FromRawFd,
+                        RawFd};
+use std::os::unix::net::{UnixDatagram,
+                         UnixStream};
+use std::ptr::{copy_nonoverlapping,
+               null_mut,
+               write_unaligned};
 
 
 

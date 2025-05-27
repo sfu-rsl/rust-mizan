@@ -93,24 +93,23 @@
 
 
 
-use crate::access::BitAccess;
+use crate::{access::BitAccess,
+            domain::{Domain,
+                     DomainMut},
+            index::{BitIdx,
+                    BitTail},
+            mem::BitMemory,
+            order::{BitOrder,
+                    Lsb0,
+                    Msb0},
+            slice::BitSlice,
+            store::BitStore};
 #[cfg(feature = "alloc")]
-use crate::boxed::BitBox;
-use crate::domain::Domain;
-use crate::domain::DomainMut;
-use crate::index::BitIdx;
-use crate::index::BitTail;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::order::Lsb0;
-use crate::order::Msb0;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
-#[cfg(feature = "alloc")]
-use crate::vec::BitVec;
-use core::cmp;
-use core::mem;
-use core::ptr;
+use crate::{boxed::BitBox,
+            vec::BitVec};
+use core::{cmp,
+           mem,
+           ptr};
 
 
 

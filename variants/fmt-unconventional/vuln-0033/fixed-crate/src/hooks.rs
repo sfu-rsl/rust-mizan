@@ -7,11 +7,11 @@
 
 
 use crate::ffi;
-use crate::Connection;
-use crate::InnerConnection;
-use std::os::raw::c_char;
-use std::os::raw::c_int;
-use std::os::raw::c_void;
+use crate::{Connection,
+            InnerConnection};
+use std::os::raw::{c_char,
+                   c_int,
+                   c_void};
 use std::panic::catch_unwind;
 use std::ptr;
 
@@ -531,8 +531,8 @@ mod test
 	use super::Action;
 	use crate::Connection;
 	use lazy_static::lazy_static;
-	use std::sync::atomic::AtomicBool;
-	use std::sync::atomic::Ordering;
+	use std::sync::atomic::{AtomicBool,
+	                        Ordering};
 
 
 

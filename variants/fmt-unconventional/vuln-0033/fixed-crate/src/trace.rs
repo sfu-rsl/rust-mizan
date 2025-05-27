@@ -7,14 +7,14 @@
 
 use super::ffi;
 use crate::error::error_from_sqlite_code;
-use crate::Connection;
-use crate::Result;
-use std::ffi::CStr;
-use std::ffi::CString;
+use crate::{Connection,
+            Result};
+use std::ffi::{CStr,
+               CString};
 use std::mem;
-use std::os::raw::c_char;
-use std::os::raw::c_int;
-use std::os::raw::c_void;
+use std::os::raw::{c_char,
+                   c_int,
+                   c_void};
 use std::panic::catch_unwind;
 use std::ptr;
 use std::time::Duration;

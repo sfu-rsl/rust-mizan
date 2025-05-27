@@ -8,29 +8,28 @@
 
 
 
-use crate::access::BitAccess;
-use crate::domain::Domain;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
+use crate::{access::BitAccess,
+            domain::Domain,
+            mem::BitMemory,
+            order::BitOrder,
+            slice::BitSlice,
+            store::BitStore};
+use core::{cmp::Ordering,
+           fmt::{self,
+                 Binary,
+                 Debug,
+                 Display,
+                 Formatter,
+                 LowerHex,
+                 Octal,
+                 UpperHex},
+           hash::{Hash,
+                  Hasher},
+           hint::unreachable_unchecked,
+           str};
 #[cfg(feature = "alloc")]
-use crate::vec::BitVec;
-#[cfg(feature = "alloc")]
-use alloc::borrow::ToOwned;
-use core::cmp::Ordering;
-use core::fmt::Binary;
-use core::fmt::Debug;
-use core::fmt::Display;
-use core::fmt::Formatter;
-use core::fmt::LowerHex;
-use core::fmt::Octal;
-use core::fmt::UpperHex;
-use core::fmt::{self};
-use core::hash::Hash;
-use core::hash::Hasher;
-use core::hint::unreachable_unchecked;
-use core::str;
+use {crate::vec::BitVec,
+     alloc::borrow::ToOwned};
 
 
 
@@ -776,8 +775,8 @@ mod tests
 
 
 
-	use crate::order::Msb0;
-	use crate::slice::AsBits;
+	use crate::{order::Msb0,
+	            slice::AsBits};
 
 
 

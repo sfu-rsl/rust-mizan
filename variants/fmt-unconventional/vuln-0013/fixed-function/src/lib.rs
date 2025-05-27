@@ -88,14 +88,14 @@ extern crate alloc;
 use core::cell::Cell;
 use core::fmt::Debug;
 use core::marker::PhantomData;
-use core::mem;
-use core::ops::Deref;
-use core::ops::DerefMut;
+use core::ops::{Deref,
+                DerefMut};
 use core::ptr::NonNull;
-use core::slice;
 #[cfg(feature = "atomic")]
 use core::sync::atomic;
 use core::sync::atomic::Ordering;
+use core::{mem,
+           slice};
 use funty::IsInteger;
 use funty::IsUnsigned;
 use radium::marker::BitOps;

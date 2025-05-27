@@ -1,5 +1,5 @@
-use super::Guard;
-use super::RefCnt;
+use super::{Guard,
+            RefCnt};
 
 
 

@@ -50,12 +50,12 @@
 
 
 
-use crate::error::error_from_handle;
-use crate::error::error_from_sqlite_code;
+use crate::error::{error_from_handle,
+                   error_from_sqlite_code};
 use crate::ffi;
-use crate::Connection;
-use crate::DatabaseName;
-use crate::Result;
+use crate::{Connection,
+            DatabaseName,
+            Result};
 use std::marker::PhantomData;
 use std::os::raw::c_int;
 use std::path::Path;
@@ -109,10 +109,10 @@ impl Connection
 
 
 
-		use self::StepResult::Busy;
-		use self::StepResult::Done;
-		use self::StepResult::Locked;
-		use self::StepResult::More;
+		use self::StepResult::{Busy,
+		                       Done,
+		                       Locked,
+		                       More};
 
 
 
@@ -213,10 +213,10 @@ impl Connection
 
 
 
-		use self::StepResult::Busy;
-		use self::StepResult::Done;
-		use self::StepResult::Locked;
-		use self::StepResult::More;
+		use self::StepResult::{Busy,
+		                       Done,
+		                       Locked,
+		                       More};
 
 
 
@@ -592,10 +592,10 @@ impl Backup<'_, '_>
 
 
 
-		use self::StepResult::Busy;
-		use self::StepResult::Done;
-		use self::StepResult::Locked;
-		use self::StepResult::More;
+		use self::StepResult::{Busy,
+		                       Done,
+		                       Locked,
+		                       More};
 
 
 
@@ -675,10 +675,10 @@ impl Backup<'_, '_>
 
 
 
-		use self::StepResult::Busy;
-		use self::StepResult::Done;
-		use self::StepResult::Locked;
-		use self::StepResult::More;
+		use self::StepResult::{Busy,
+		                       Done,
+		                       Locked,
+		                       More};
 
 
 
@@ -748,9 +748,9 @@ mod test
 
 
 	use super::Backup;
-	use crate::Connection;
-	use crate::DatabaseName;
-	use crate::NO_PARAMS;
+	use crate::{Connection,
+	            DatabaseName,
+	            NO_PARAMS};
 	use std::time::Duration;
 
 

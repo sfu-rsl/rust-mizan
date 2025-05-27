@@ -1,6 +1,6 @@
-use std::io::Read;
-use std::io::Write;
-use std::io::{self};
+use std::io::{self,
+              Read,
+              Write};
 use std::mem;
 use std::slice;
 

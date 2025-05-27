@@ -7,15 +7,15 @@
 
 
 use super::*;
-use ::rayon::iter::plumbing::bridge;
-use ::rayon::iter::plumbing::Consumer;
-use ::rayon::iter::plumbing::Producer;
-use ::rayon::iter::plumbing::ProducerCallback;
-use ::rayon::iter::plumbing::UnindexedConsumer;
-use ::rayon::iter::IndexedParallelIterator;
-use ::rayon::iter::IntoParallelRefIterator;
-use ::rayon::iter::IntoParallelRefMutIterator;
-use ::rayon::iter::ParallelIterator;
+use ::rayon::iter::plumbing::{bridge,
+                              Consumer,
+                              Producer,
+                              ProducerCallback,
+                              UnindexedConsumer};
+use ::rayon::iter::{IndexedParallelIterator,
+                    IntoParallelRefIterator,
+                    IntoParallelRefMutIterator,
+                    ParallelIterator};
 
 
 
@@ -295,9 +295,9 @@ mod test
 	use super::proptest::vector;
 	use ::proptest::num::i32;
 	use ::proptest::proptest;
-	use ::rayon::iter::IntoParallelRefIterator;
-	use ::rayon::iter::IntoParallelRefMutIterator;
-	use ::rayon::iter::ParallelIterator;
+	use ::rayon::iter::{IntoParallelRefIterator,
+	                    IntoParallelRefMutIterator,
+	                    ParallelIterator};
 
 
 

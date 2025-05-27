@@ -142,11 +142,11 @@ mod to_bytes;
 use core::mem::forget;
 use core::mem::size_of;
 use core::slice;
-use guard::Guard;
-use guard::PedanticGuard;
-use guard::PermissiveGuard;
-use guard::SingleManyGuard;
-use guard::SingleValueGuard;
+use guard::{Guard,
+            PedanticGuard,
+            PermissiveGuard,
+            SingleManyGuard,
+            SingleValueGuard};
 
 
 
@@ -155,35 +155,31 @@ pub mod util;
 
 
 
-pub use self::bool::guarded_transmute_bool_pedantic;
-pub use self::bool::guarded_transmute_bool_permissive;
+pub use self::bool::{guarded_transmute_bool_pedantic,
+                     guarded_transmute_bool_permissive};
 #[cfg(feature = "std")]
-pub use self::bool::guarded_transmute_bool_vec_pedantic;
+pub use self::bool::{guarded_transmute_bool_vec_pedantic,
+                     guarded_transmute_bool_vec_permissive};
+pub use self::error::{Error,
+                      ErrorReason,
+                      GuardError};
+pub use self::pod::{guarded_transmute_pod,
+                    guarded_transmute_pod_many,
+                    guarded_transmute_pod_many_pedantic,
+                    guarded_transmute_pod_many_permissive,
+                    guarded_transmute_pod_pedantic,
+                    PodTransmutable};
 #[cfg(feature = "std")]
-pub use self::bool::guarded_transmute_bool_vec_permissive;
-pub use self::error::Error;
-pub use self::error::ErrorReason;
-pub use self::error::GuardError;
-pub use self::pod::guarded_transmute_pod;
-pub use self::pod::guarded_transmute_pod_many;
-pub use self::pod::guarded_transmute_pod_many_pedantic;
-pub use self::pod::guarded_transmute_pod_many_permissive;
-pub use self::pod::guarded_transmute_pod_pedantic;
+pub use self::pod::{guarded_transmute_pod_vec,
+                    guarded_transmute_pod_vec_pedantic,
+                    guarded_transmute_pod_vec_permissive};
+pub use self::to_bytes::{guarded_transmute_to_bytes,
+                         guarded_transmute_to_bytes_many,
+                         guarded_transmute_to_bytes_pod,
+                         guarded_transmute_to_bytes_pod_many};
 #[cfg(feature = "std")]
-pub use self::pod::guarded_transmute_pod_vec;
-#[cfg(feature = "std")]
-pub use self::pod::guarded_transmute_pod_vec_pedantic;
-#[cfg(feature = "std")]
-pub use self::pod::guarded_transmute_pod_vec_permissive;
-pub use self::pod::PodTransmutable;
-pub use self::to_bytes::guarded_transmute_to_bytes;
-pub use self::to_bytes::guarded_transmute_to_bytes_many;
-pub use self::to_bytes::guarded_transmute_to_bytes_pod;
-pub use self::to_bytes::guarded_transmute_to_bytes_pod_many;
-#[cfg(feature = "std")]
-pub use self::to_bytes::guarded_transmute_to_bytes_pod_vec;
-#[cfg(feature = "std")]
-pub use self::to_bytes::guarded_transmute_to_bytes_vec;
+pub use self::to_bytes::{guarded_transmute_to_bytes_pod_vec,
+                         guarded_transmute_to_bytes_vec};
 
 
 

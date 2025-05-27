@@ -1,28 +1,28 @@
 use super::ffi;
-use super::str_for_sqlite;
-use super::str_to_cstring;
-use super::Connection;
-use super::InterruptHandle;
-use super::OpenFlags;
-use super::Result;
-use crate::error::error_from_handle;
-use crate::error::error_from_sqlite_code;
-use crate::error::Error;
+use super::{str_for_sqlite,
+            str_to_cstring};
+use super::{Connection,
+            InterruptHandle,
+            OpenFlags,
+            Result};
+use crate::error::{error_from_handle,
+                   error_from_sqlite_code,
+                   Error};
 use crate::raw_statement::RawStatement;
 use crate::statement::Statement;
 use crate::unlock_notify;
 use crate::version::version_number;
 use std::ffi::CString;
-use std::os::raw::c_char;
-use std::os::raw::c_int;
+use std::os::raw::{c_char,
+                   c_int};
 #[cfg(feature = "load_extension")]
 use std::path::Path;
 use std::ptr;
 use std::str;
-use std::sync::atomic::AtomicBool;
-use std::sync::atomic::Ordering;
-use std::sync::Arc;
-use std::sync::Mutex;
+use std::sync::atomic::{AtomicBool,
+                        Ordering};
+use std::sync::{Arc,
+                Mutex};
 
 
 

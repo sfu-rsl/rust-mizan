@@ -5,10 +5,10 @@
 use crate::Vector;
 use proptest::proptest;
 use proptest_derive::Arbitrary;
-use std::fmt::Debug;
-use std::fmt::Error;
-use std::fmt::Formatter;
-use std::fmt::Write;
+use std::fmt::{Debug,
+               Error,
+               Formatter,
+               Write};
 
 
 

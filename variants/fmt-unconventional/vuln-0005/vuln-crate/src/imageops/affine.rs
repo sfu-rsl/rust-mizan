@@ -3,11 +3,11 @@
 
 
 
-use crate::error::ImageError;
-use crate::error::ParameterError;
-use crate::error::ParameterErrorKind;
-use crate::image::GenericImage;
-use crate::image::GenericImageView;
+use crate::error::{ImageError,
+                   ParameterError,
+                   ParameterErrorKind};
+use crate::image::{GenericImage,
+                   GenericImageView};
 use crate::traits::Pixel;
 use crate::ImageBuffer;
 
@@ -659,18 +659,18 @@ mod test
 
 
 
-	use super::flip_horizontal;
-	use super::flip_horizontal_in_place;
-	use super::flip_vertical;
-	use super::flip_vertical_in_place;
-	use super::rotate180;
-	use super::rotate180_in_place;
-	use super::rotate270;
-	use super::rotate90;
+	use super::{flip_horizontal,
+	            flip_horizontal_in_place,
+	            flip_vertical,
+	            flip_vertical_in_place,
+	            rotate180,
+	            rotate180_in_place,
+	            rotate270,
+	            rotate90};
 	use crate::image::GenericImage;
 	use crate::traits::Pixel;
-	use crate::GrayImage;
-	use crate::ImageBuffer;
+	use crate::{GrayImage,
+	            ImageBuffer};
 
 
 

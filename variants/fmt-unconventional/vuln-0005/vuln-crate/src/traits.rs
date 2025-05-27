@@ -9,16 +9,16 @@
 
 
 
-use crate::color::Bgr;
-use crate::color::Bgra;
-use crate::color::ColorType;
-use crate::color::Luma;
-use crate::color::LumaA;
-use crate::color::Rgb;
-use crate::color::Rgba;
-use num_traits::Bounded;
-use num_traits::Num;
-use num_traits::NumCast;
+use crate::color::{Bgr,
+                   Bgra,
+                   ColorType,
+                   Luma,
+                   LumaA,
+                   Rgb,
+                   Rgba};
+use num_traits::{Bounded,
+                 Num,
+                 NumCast};
 use std::ops::AddAssign;
 
 

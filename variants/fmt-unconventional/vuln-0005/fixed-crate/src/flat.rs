@@ -53,26 +53,26 @@
 
 
 use crate::color::ColorType;
-use crate::error::DecodingError;
-use crate::error::ImageError;
-use crate::error::ImageFormatHint;
-use crate::error::ParameterError;
-use crate::error::ParameterErrorKind;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::image::GenericImage;
-use crate::image::GenericImageView;
-use crate::traits::Pixel;
-use crate::traits::Primitive;
+use crate::error::{DecodingError,
+                   ImageError,
+                   ImageFormatHint,
+                   ParameterError,
+                   ParameterErrorKind,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
+use crate::image::{GenericImage,
+                   GenericImageView};
+use crate::traits::{Pixel,
+                    Primitive};
 use crate::ImageBuffer;
 use num_traits::Zero;
-use std::cmp;
-use std::error;
-use std::fmt;
 use std::marker::PhantomData;
-use std::ops::Deref;
-use std::ops::Index;
-use std::ops::IndexMut;
+use std::ops::{Deref,
+               Index,
+               IndexMut};
+use std::{cmp,
+          error,
+          fmt};
 
 
 
@@ -3766,8 +3766,8 @@ mod tests
 
 	use super::*;
 	use crate::buffer_::GrayAlphaImage;
-	use crate::color::LumaA;
-	use crate::color::Rgb;
+	use crate::color::{LumaA,
+	                   Rgb};
 
 
 

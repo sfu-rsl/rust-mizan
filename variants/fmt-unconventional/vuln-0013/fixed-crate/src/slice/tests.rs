@@ -3,10 +3,10 @@
 
 
 
-use crate::order::Local;
-use crate::order::Msb0;
-use crate::slice::AsBits;
-use crate::slice::BitSlice;
+use crate::{order::{Local,
+                    Msb0},
+            slice::{AsBits,
+                    BitSlice}};
 
 
 

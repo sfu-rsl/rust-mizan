@@ -7,17 +7,17 @@
 
 
 
-use crate::HashMap;
-use crate::HashSet;
-use crate::OrdMap;
-use crate::OrdSet;
-use crate::Vector;
-use ::arbitrary::size_hint;
-use ::arbitrary::Arbitrary;
-use ::arbitrary::Result;
-use ::arbitrary::Unstructured;
-use std::hash::BuildHasher;
-use std::hash::Hash;
+use crate::{HashMap,
+            HashSet,
+            OrdMap,
+            OrdSet,
+            Vector};
+use ::arbitrary::{size_hint,
+                  Arbitrary,
+                  Result,
+                  Unstructured};
+use std::hash::{BuildHasher,
+                Hash};
 use std::iter;
 
 

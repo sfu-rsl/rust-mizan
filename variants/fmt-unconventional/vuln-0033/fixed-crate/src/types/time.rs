@@ -1,9 +1,9 @@
-use crate::types::FromSql;
-use crate::types::FromSqlError;
-use crate::types::FromSqlResult;
-use crate::types::ToSql;
-use crate::types::ToSqlOutput;
-use crate::types::ValueRef;
+use crate::types::{FromSql,
+                   FromSqlError,
+                   FromSqlResult,
+                   ToSql,
+                   ToSqlOutput,
+                   ValueRef};
 use crate::Result;
 
 
@@ -75,9 +75,9 @@ mod test
 
 
 
-	use crate::Connection;
-	use crate::Result;
-	use crate::NO_PARAMS;
+	use crate::{Connection,
+	            Result,
+	            NO_PARAMS};
 
 
 

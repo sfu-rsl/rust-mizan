@@ -11,15 +11,14 @@
 
 
 
-use self::super::guarded_transmute_many_pedantic;
-use self::super::guarded_transmute_many_permissive;
+use self::super::{guarded_transmute_many_pedantic,
+                  guarded_transmute_many_permissive,
+                  Error};
 #[cfg(feature = "std")]
-use self::super::guarded_transmute_vec_pedantic;
-#[cfg(feature = "std")]
-use self::super::guarded_transmute_vec_permissive;
-use self::super::Error;
-use core::mem::size_of;
-use core::mem::transmute;
+use self::super::{guarded_transmute_vec_pedantic,
+                  guarded_transmute_vec_permissive};
+use core::mem::{size_of,
+                transmute};
 
 
 

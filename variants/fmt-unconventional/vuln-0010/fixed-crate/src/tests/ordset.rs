@@ -6,10 +6,10 @@ use crate::OrdSet;
 use proptest::proptest;
 use proptest_derive::Arbitrary;
 use std::collections::BTreeSet;
-use std::fmt::Debug;
-use std::fmt::Error;
-use std::fmt::Formatter;
-use std::fmt::Write;
+use std::fmt::{Debug,
+               Error,
+               Formatter,
+               Write};
 
 
 

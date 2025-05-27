@@ -22,15 +22,15 @@
 
 
 
-use crate::boxed::BitBox;
-use crate::order::BitOrder;
-use crate::pointer::BitPtr;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
-use core::marker::PhantomData;
-use core::marker::Unpin;
-use core::mem;
-use core::pin::Pin;
+use crate::{boxed::BitBox,
+            order::BitOrder,
+            pointer::BitPtr,
+            slice::BitSlice,
+            store::BitStore};
+use core::{marker::{PhantomData,
+                    Unpin},
+           mem,
+           pin::Pin};
 
 
 

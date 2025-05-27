@@ -321,21 +321,21 @@
 
 
 pub use lazy_static::*;
-use std::cmp::Eq;
-use std::cmp::Ord;
-use std::cmp::Ordering;
-use std::cmp::PartialEq;
-use std::cmp::PartialOrd;
+use std::cmp::{Eq,
+               Ord,
+               Ordering,
+               PartialEq,
+               PartialOrd};
 use std::collections::HashMap;
 use std::fmt;
-use std::hash::Hash;
-use std::hash::Hasher;
-use std::marker::Send;
-use std::marker::Sync;
+use std::hash::{Hash,
+                Hasher};
+use std::marker::{Send,
+                  Sync};
 use std::ops::Deref;
-use std::sync::Arc;
-use std::sync::RwLock;
-use std::sync::Weak;
+use std::sync::{Arc,
+                RwLock,
+                Weak};
 
 
 

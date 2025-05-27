@@ -20,9 +20,9 @@ mod lock
 
 
 
-	use std::sync::Arc;
-	use std::sync::Mutex;
-	use std::sync::MutexGuard;
+	use std::sync::{Arc,
+	                Mutex,
+	                MutexGuard};
 
 
 
@@ -91,8 +91,8 @@ mod lock
 
 
 
-	use std::cell::RefCell;
-	use std::cell::RefMut;
+	use std::cell::{RefCell,
+	                RefMut};
 	use std::rc::Rc;
 
 

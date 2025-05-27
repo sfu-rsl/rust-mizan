@@ -1,7 +1,7 @@
-use std::alloc::alloc;
-use std::alloc::alloc_zeroed;
-use std::alloc::dealloc;
-use std::alloc::Layout;
+use std::alloc::{alloc,
+                 alloc_zeroed,
+                 dealloc,
+                 Layout};
 
 
 

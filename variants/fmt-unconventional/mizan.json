@@ -199,7 +199,7 @@
           },
           "vulnerable_lines": {
             "src/lib.rs": [
-              519
+              515
             ],
             "src/to_bytes.rs": [
               301
@@ -222,7 +222,7 @@
           },
           "vulnerable_lines": {
             "src/lib.rs": [
-              511
+              508
             ],
             "src/to_bytes.rs": [
               301
@@ -436,8 +436,8 @@
           },
           "vulnerable_lines": {
             "src/lib.rs": [
-              2402,
-              2414
+              2395,
+              2407
             ]
           }
         },
@@ -454,8 +454,8 @@
           },
           "vulnerable_lines": {
             "src/lib.rs": [
-              2397,
-              2409
+              2390,
+              2402
             ]
           }
         },
@@ -472,8 +472,8 @@
           },
           "vulnerable_lines": {
             "src/lib.rs": [
-              869,
-              881
+              868,
+              880
             ]
           }
         },
@@ -1192,8 +1192,8 @@
           },
           "vulnerable_lines": {
             "src/fam.rs": [
-              848,
-              1145
+              842,
+              1139
             ]
           }
         },
@@ -1210,8 +1210,8 @@
           },
           "vulnerable_lines": {
             "src/fam.rs": [
-              848,
-              1145
+              842,
+              1139
             ]
           }
         },
@@ -1350,8 +1350,8 @@
           },
           "vulnerable_lines": {
             "src/lib.rs": [
-              834,
-              1330
+              833,
+              1329
             ]
           }
         },
@@ -1369,8 +1369,8 @@
           },
           "vulnerable_lines": {
             "src/lib.rs": [
-              713,
-              1040
+              712,
+              1039
             ]
           }
         },

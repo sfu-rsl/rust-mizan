@@ -36,35 +36,35 @@
 
 
 use crate::hashmap::HashMap;
-use crate::nodes::btree::BTreeValue;
-pub use crate::nodes::btree::ConsumingIter;
-pub use crate::nodes::btree::DiffItem as NodeDiffItem;
-pub use crate::nodes::btree::DiffIter as NodeDiffIter;
-use crate::nodes::btree::Insert;
-pub use crate::nodes::btree::Iter as RangedIter;
-use crate::nodes::btree::Node;
-use crate::nodes::btree::Remove;
+use crate::nodes::btree::{BTreeValue,
+                          Insert,
+                          Node,
+                          Remove};
+pub use crate::nodes::btree::{ConsumingIter,
+                              DiffItem as NodeDiffItem,
+                              DiffIter as NodeDiffIter,
+                              Iter as RangedIter};
 #[cfg(has_specialisation)]
 use crate::util::linear_search_by;
-use crate::util::Pool;
-use crate::util::PoolRef;
+use crate::util::{Pool,
+                  PoolRef};
 use std::borrow::Borrow;
 use std::cmp::Ordering;
 use std::collections;
-use std::fmt::Debug;
-use std::fmt::Error;
-use std::fmt::Formatter;
-use std::hash::BuildHasher;
-use std::hash::Hash;
-use std::hash::Hasher;
-use std::iter::FromIterator;
-use std::iter::Iterator;
-use std::iter::Sum;
+use std::fmt::{Debug,
+               Error,
+               Formatter};
+use std::hash::{BuildHasher,
+                Hash,
+                Hasher};
+use std::iter::{FromIterator,
+                Iterator,
+                Sum};
 use std::mem;
-use std::ops::Add;
-use std::ops::Index;
-use std::ops::IndexMut;
-use std::ops::RangeBounds;
+use std::ops::{Add,
+               Index,
+               IndexMut,
+               RangeBounds};
 
 
 
@@ -4240,11 +4240,11 @@ mod test
 	use super::*;
 	use crate::proptest::*;
 	use crate::test::is_sorted;
-	use ::proptest::bool;
-	use ::proptest::collection;
-	use ::proptest::num::i16;
-	use ::proptest::num::usize;
-	use ::proptest::proptest;
+	use ::proptest::num::{i16,
+	                      usize};
+	use ::proptest::{bool,
+	                 collection,
+	                 proptest};
 
 
 

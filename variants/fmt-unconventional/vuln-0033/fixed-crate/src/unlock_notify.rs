@@ -9,9 +9,8 @@ use std::os::raw::c_void;
 #[cfg(feature = "unlock_notify")]
 use std::panic::catch_unwind;
 #[cfg(feature = "unlock_notify")]
-use std::sync::Condvar;
-#[cfg(feature = "unlock_notify")]
-use std::sync::Mutex;
+use std::sync::{Condvar,
+                Mutex};
 
 
 
@@ -263,12 +262,12 @@ mod test
 
 
 
-	use crate::Connection;
-	use crate::OpenFlags;
-	use crate::Result;
-	use crate::Transaction;
-	use crate::TransactionBehavior;
-	use crate::NO_PARAMS;
+	use crate::{Connection,
+	            OpenFlags,
+	            Result,
+	            Transaction,
+	            TransactionBehavior,
+	            NO_PARAMS};
 	use std::sync::mpsc::sync_channel;
 	use std::thread;
 	use std::time;

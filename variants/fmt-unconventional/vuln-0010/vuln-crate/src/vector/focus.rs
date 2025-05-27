@@ -9,24 +9,24 @@
 
 use crate::nodes::chunk::Chunk;
 use crate::sync::Lock;
-use crate::util::to_range;
-use crate::util::PoolRef;
-use crate::util::Ref;
-use crate::vector::Iter;
-use crate::vector::IterMut;
-use crate::vector::RRBPool;
-use crate::vector::Rrb;
-use crate::vector::Vector;
-use crate::vector::VectorInner::Full;
-use crate::vector::VectorInner::Inline;
-use crate::vector::VectorInner::Single;
-use std::mem::replace;
-use std::mem::swap;
-use std::ops::Range;
-use std::ops::RangeBounds;
+use crate::util::{to_range,
+                  PoolRef,
+                  Ref};
+use crate::vector::{Iter,
+                    IterMut,
+                    RRBPool,
+                    Rrb,
+                    Vector,
+                    VectorInner::{Full,
+                                  Inline,
+                                  Single}};
+use std::mem::{replace,
+               swap};
+use std::ops::{Range,
+               RangeBounds};
 use std::ptr::null;
-use std::sync::atomic::AtomicPtr;
-use std::sync::atomic::Ordering;
+use std::sync::atomic::{AtomicPtr,
+                        Ordering};
 
 
 

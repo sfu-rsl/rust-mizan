@@ -7,8 +7,8 @@
 
 
 use super::*;
-use core::hash::Hash;
-use core::hash::Hasher;
+use core::hash::{Hash,
+                 Hasher};
 use core::mem;
 
 

@@ -12,10 +12,10 @@
 
 
 
-use crate::order::BitOrder;
-use crate::order::Local;
-use crate::pointer::BitPtr;
-use crate::store::BitStore;
+use crate::{order::{BitOrder,
+                    Local},
+            pointer::BitPtr,
+            store::BitStore};
 use core::marker::PhantomData;
 
 

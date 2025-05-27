@@ -64,13 +64,13 @@ mod zeroable;
 
 
 use crate::zeroable::Zeroable;
-use std::alloc::alloc;
-use std::alloc::alloc_zeroed;
-use std::alloc::dealloc;
-use std::alloc::Layout;
-use std::ops::Index;
-use std::ops::IndexMut;
-use std::ops::Range;
+use std::alloc::{alloc,
+                 alloc_zeroed,
+                 dealloc,
+                 Layout};
+use std::ops::{Index,
+               IndexMut,
+               Range};
 
 
 
@@ -487,8 +487,8 @@ mod test
 
 
 	use super::*;
-	use std::sync::Arc;
-	use std::sync::Mutex;
+	use std::sync::{Arc,
+	                Mutex};
 	use std::thread;
 
 

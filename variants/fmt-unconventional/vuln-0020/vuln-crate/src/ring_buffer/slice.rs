@@ -7,13 +7,13 @@
 
 
 
-use super::Iter;
-use super::IterMut;
-use super::RingBuffer;
+use super::{Iter,
+            IterMut,
+            RingBuffer};
 use crate::types::ChunkLength;
-use array_ops::Array;
-use array_ops::ArrayMut;
-use array_ops::HasLength;
+use array_ops::{Array,
+                ArrayMut,
+                HasLength};
 use core::borrow::Borrow;
 use core::cmp::Ordering;
 use core::fmt::Debug;
@@ -21,11 +21,11 @@ use core::fmt::Error;
 use core::fmt::Formatter;
 use core::hash::Hash;
 use core::hash::Hasher;
-use core::ops::Bound;
-use core::ops::Index;
 use core::ops::IndexMut;
-use core::ops::Range;
-use core::ops::RangeBounds;
+use core::ops::{Bound,
+                Index,
+                Range,
+                RangeBounds};
 
 
 

@@ -29,29 +29,29 @@
 
 
 use crate::color::ColorType;
-use crate::error::DecodingError;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::image::ImageDecoder;
-use crate::image::ImageDecoderExt;
-use crate::image::ImageEncoder;
-use crate::image::ImageFormat;
-use crate::image::Progress;
-use crate::image::{self};
-use byteorder::BigEndian;
-use byteorder::ByteOrder;
-use byteorder::NativeEndian;
+use crate::error::{DecodingError,
+                   ImageError,
+                   ImageResult,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
+use crate::image::{self,
+                   ImageDecoder,
+                   ImageDecoderExt,
+                   ImageEncoder,
+                   ImageFormat,
+                   Progress};
+use byteorder::{BigEndian,
+                ByteOrder,
+                NativeEndian};
 use std::convert::TryFrom;
 use std::i64;
-use std::io::BufReader;
-use std::io::BufWriter;
-use std::io::Read;
-use std::io::Seek;
-use std::io::SeekFrom;
-use std::io::Write;
-use std::io::{self};
+use std::io::{self,
+              BufReader,
+              BufWriter,
+              Read,
+              Seek,
+              SeekFrom,
+              Write};
 
 
 
@@ -649,11 +649,11 @@ mod tests
 
 	use crate::farbfeld::FarbfeldDecoder;
 	use crate::ImageDecoderExt;
-	use byteorder::ByteOrder;
-	use byteorder::NativeEndian;
-	use std::io::Cursor;
-	use std::io::Seek;
-	use std::io::SeekFrom;
+	use byteorder::{ByteOrder,
+	                NativeEndian};
+	use std::io::{Cursor,
+	              Seek,
+	              SeekFrom};
 
 
 

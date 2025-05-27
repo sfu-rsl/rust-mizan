@@ -281,14 +281,13 @@ pub mod unsync
 
 
 
-	use core::cell::UnsafeCell;
-	use core::fmt;
-	use core::hint::unreachable_unchecked;
-	use core::ops::Deref;
+	use core::{cell::UnsafeCell,
+	           fmt,
+	           hint::unreachable_unchecked,
+	           ops::Deref};
 	#[cfg(feature = "std")]
-	use std::panic::RefUnwindSafe;
-	#[cfg(feature = "std")]
-	use std::panic::UnwindSafe;
+	use std::panic::{RefUnwindSafe,
+	                 UnwindSafe};
 
 
 
@@ -865,9 +864,9 @@ pub mod sync
 
 
 	use crate::imp::OnceCell as Imp;
-	use std::cell::UnsafeCell;
-	use std::fmt;
-	use std::hint::unreachable_unchecked;
+	use std::{cell::UnsafeCell,
+	          fmt,
+	          hint::unreachable_unchecked};
 
 
 

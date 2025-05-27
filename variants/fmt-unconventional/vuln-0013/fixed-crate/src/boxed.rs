@@ -12,16 +12,16 @@
 
 
 
-use crate::order::BitOrder;
-use crate::order::Local;
-use crate::pointer::BitPtr;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
-use crate::vec::BitVec;
-use alloc::boxed::Box;
-use alloc::vec::Vec;
-use core::marker::PhantomData;
-use core::mem;
+use crate::{order::{BitOrder,
+                    Local},
+            pointer::BitPtr,
+            slice::BitSlice,
+            store::BitStore,
+            vec::BitVec};
+use alloc::{boxed::Box,
+            vec::Vec};
+use core::{marker::PhantomData,
+           mem};
 
 
 

@@ -1,7 +1,7 @@
 use crate::types::ChunkLength;
 use crate::Chunk;
-use ::refpool::PoolClone;
-use ::refpool::PoolDefault;
+use ::refpool::{PoolClone,
+                PoolDefault};
 use core::mem::MaybeUninit;
 
 
@@ -102,8 +102,8 @@ mod test
 
 
 	use super::*;
-	use ::refpool::Pool;
-	use ::refpool::PoolRef;
+	use ::refpool::{Pool,
+	                PoolRef};
 	use std::iter::FromIterator;
 
 

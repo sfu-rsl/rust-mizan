@@ -4,8 +4,8 @@
 
 
 use crate::ffi;
-use crate::Connection;
-use crate::Result;
+use crate::{Connection,
+            Result};
 use std::os::raw::c_int;
 
 

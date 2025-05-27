@@ -43,15 +43,15 @@
 
 
 
-use crate::access::BitAccess;
-use crate::index::BitIdx;
-use crate::order::BitOrder;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
-use core::marker::PhantomData;
-use core::ops::Deref;
-use core::ops::DerefMut;
-use core::ptr::NonNull;
+use crate::{access::BitAccess,
+            index::BitIdx,
+            order::BitOrder,
+            slice::BitSlice,
+            store::BitStore};
+use core::{marker::PhantomData,
+           ops::{Deref,
+                 DerefMut},
+           ptr::NonNull};
 
 
 

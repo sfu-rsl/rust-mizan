@@ -20,36 +20,22 @@ use self::autobreak::AutoBreak;
 pub use self::decoder::PnmDecoder;
 #[allow(deprecated)]
 // TODO: when `PNMEncoder` is removed, remove this flag
-pub use self::encoder::PNMEncoder;
-#[allow(deprecated)]
-// TODO: when `PNMEncoder` is removed, remove this flag
-pub use self::encoder::PnmEncoder;
-pub use self::header::ArbitraryHeader;
-pub use self::header::ArbitraryTuplType;
-pub use self::header::BitmapHeader;
-pub use self::header::GraymapHeader;
+pub use self::encoder::{PNMEncoder,
+                        PnmEncoder};
 use self::header::HeaderRecord;
+pub use self::header::{ArbitraryHeader,
+                       ArbitraryTuplType,
+                       BitmapHeader,
+                       GraymapHeader,
+                       PixmapHeader};
 #[allow(deprecated)]
 // TODO: when `PnmHeader` and `PNMSubtype` are removed,
 // remove this flag
-pub use self::header::PNMHeader;
-#[allow(deprecated)]
-// TODO: when `PnmHeader` and `PNMSubtype` are removed,
-// remove this flag
-pub use self::header::PNMSubtype;
-pub use self::header::PixmapHeader;
-#[allow(deprecated)]
-// TODO: when `PnmHeader` and `PNMSubtype` are removed,
-// remove this flag
-pub use self::header::PnmHeader;
-#[allow(deprecated)]
-// TODO: when `PnmHeader` and `PNMSubtype` are removed,
-// remove this flag
-pub use self::header::PnmSubtype;
-#[allow(deprecated)]
-// TODO: when `PnmHeader` and `PNMSubtype` are removed,
-// remove this flag
-pub use self::header::SampleEncoding;
+pub use self::header::{PNMHeader,
+                       PNMSubtype,
+                       PnmHeader,
+                       PnmSubtype,
+                       SampleEncoding};
 
 
 
@@ -72,8 +58,8 @@ mod tests
 	use super::*;
 	use crate::color::ColorType;
 	use crate::image::ImageDecoder;
-	use byteorder::ByteOrder;
-	use byteorder::NativeEndian;
+	use byteorder::{ByteOrder,
+	                NativeEndian};
 
 
 

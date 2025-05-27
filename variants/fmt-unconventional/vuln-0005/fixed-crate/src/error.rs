@@ -45,8 +45,8 @@ use crate::color::ExtendedColorType;
 use crate::image::ImageFormat;
 use crate::utils::NonExhaustiveMarker;
 use std::error::Error;
-use std::fmt;
-use std::io;
+use std::{fmt,
+          io};
 
 
 

@@ -13,22 +13,22 @@
 
 
 use crate::color::ColorType;
-use crate::dxt::DXTVariant;
-use crate::dxt::DxtDecoder;
-use crate::dxt::DxtReader;
-use crate::error::DecodingError;
-use crate::error::ImageError;
-use crate::error::ImageFormatHint;
-use crate::error::ImageResult;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::image::ImageDecoder;
-use crate::image::ImageFormat;
-use byteorder::LittleEndian;
-use byteorder::ReadBytesExt;
-use std::error;
-use std::fmt;
+use crate::dxt::{DXTVariant,
+                 DxtDecoder,
+                 DxtReader};
+use crate::error::{DecodingError,
+                   ImageError,
+                   ImageFormatHint,
+                   ImageResult,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
+use crate::image::{ImageDecoder,
+                   ImageFormat};
+use byteorder::{LittleEndian,
+                ReadBytesExt};
 use std::io::Read;
+use std::{error,
+          fmt};
 
 
 

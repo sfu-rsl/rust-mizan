@@ -75,11 +75,11 @@
 
 
 
-pub use self::from_sql::FromSql;
-pub use self::from_sql::FromSqlError;
-pub use self::from_sql::FromSqlResult;
-pub use self::to_sql::ToSql;
-pub use self::to_sql::ToSqlOutput;
+pub use self::from_sql::{FromSql,
+                         FromSqlError,
+                         FromSqlResult};
+pub use self::to_sql::{ToSql,
+                       ToSqlOutput};
 pub use self::value::Value;
 pub use self::value_ref::ValueRef;
 use std::fmt;
@@ -168,12 +168,12 @@ mod test
 
 
 	use super::Value;
-	use crate::Connection;
-	use crate::Error;
-	use crate::NO_PARAMS;
+	use crate::{Connection,
+	            Error,
+	            NO_PARAMS};
 	use std::f64::EPSILON;
-	use std::os::raw::c_double;
-	use std::os::raw::c_int;
+	use std::os::raw::{c_double,
+	                   c_int};
 
 
 

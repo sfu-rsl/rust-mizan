@@ -15,24 +15,24 @@
 
 
 
-use crate::index::BitIdx;
 #[cfg(any(test,
               feature = "alloc"))]
 use crate::index::BitTail;
-use crate::index::Indexable;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
-use core::fmt::Binary;
-use core::fmt::Debug;
-use core::fmt::Formatter;
-use core::fmt::Pointer;
-use core::fmt::{self};
-use core::marker::PhantomData;
-use core::mem::size_of;
-use core::ptr::NonNull;
-use core::slice;
+use crate::{index::{BitIdx,
+                    Indexable},
+            mem::BitMemory,
+            order::BitOrder,
+            slice::BitSlice,
+            store::BitStore};
+use core::{fmt::{self,
+                 Binary,
+                 Debug,
+                 Formatter,
+                 Pointer},
+           marker::PhantomData,
+           mem::size_of,
+           ptr::NonNull,
+           slice};
 
 
 

@@ -8,11 +8,11 @@
 
 
 use metrohash::MetroHash64;
-use std::hash::BuildHasher;
-use std::hash::Hasher;
+use std::hash::{BuildHasher,
+                Hasher};
 use std::marker::PhantomData;
-use typenum::Unsigned;
-use typenum::U64;
+use typenum::{Unsigned,
+              U64};
 
 
 

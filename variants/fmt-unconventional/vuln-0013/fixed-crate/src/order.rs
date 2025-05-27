@@ -37,13 +37,13 @@
 
 
 
-use crate::index::BitIdx;
-use crate::index::BitMask;
-use crate::index::BitPos;
-use crate::index::BitSel;
-use crate::index::BitTail;
-use crate::index::Indexable;
-use crate::mem::BitMemory;
+use crate::{index::{BitIdx,
+                    BitMask,
+                    BitPos,
+                    BitSel,
+                    BitTail,
+                    Indexable},
+            mem::BitMemory};
 
 
 

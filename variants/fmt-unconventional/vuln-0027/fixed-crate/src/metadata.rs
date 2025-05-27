@@ -22,9 +22,9 @@
 
 
 
-use error::fmt_err;
-use error::Error;
-use error::Result;
+use error::{fmt_err,
+            Error,
+            Result};
 use input::ReadBytes;
 use std::slice;
 use std::str;

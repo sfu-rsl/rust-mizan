@@ -1,8 +1,8 @@
-use crate::Error;
-use crate::Result;
-use crate::Row;
-use crate::Rows;
-use crate::Statement;
+use crate::{Error,
+            Result,
+            Row,
+            Rows,
+            Statement};
 use std::str;
 
 
@@ -520,8 +520,8 @@ mod test
 
 
 
-		use crate::types::Type;
-		use crate::Error;
+		use crate::{types::Type,
+		            Error};
 
 
 

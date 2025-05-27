@@ -40,26 +40,20 @@
 
 
 #[cfg(feature = "with-serde")]
-use serde::de::Deserialize;
+use serde::de::{self,
+                Deserialize,
+                Deserializer,
+                SeqAccess,
+                Visitor};
 #[cfg(feature = "with-serde")]
-use serde::de::Deserializer;
-#[cfg(feature = "with-serde")]
-use serde::de::SeqAccess;
-#[cfg(feature = "with-serde")]
-use serde::de::Visitor;
-#[cfg(feature = "with-serde")]
-use serde::de::{self};
-#[cfg(feature = "with-serde")]
-use serde::ser::SerializeTuple;
-#[cfg(feature = "with-serde")]
-use serde::Serialize;
-#[cfg(feature = "with-serde")]
-use serde::Serializer;
+use serde::{ser::SerializeTuple,
+            Serialize,
+            Serializer};
 use std::fmt;
 #[cfg(feature = "with-serde")]
 use std::marker::PhantomData;
-use std::mem::size_of;
-use std::mem::{self};
+use std::mem::{self,
+               size_of};
 
 
 
@@ -1331,9 +1325,8 @@ mod tests
 
 	use super::*;
 	#[cfg(feature = "with-serde")]
-	use serde_derive::Deserialize;
-	#[cfg(feature = "with-serde")]
-	use serde_derive::Serialize;
+	use serde_derive::{Deserialize,
+	                   Serialize};
 
 
 

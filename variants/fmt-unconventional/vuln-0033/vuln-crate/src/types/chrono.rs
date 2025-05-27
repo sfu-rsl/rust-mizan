@@ -2,20 +2,20 @@
 
 
 
-use crate::types::FromSql;
-use crate::types::FromSqlError;
-use crate::types::FromSqlResult;
-use crate::types::ToSql;
-use crate::types::ToSqlOutput;
-use crate::types::ValueRef;
+use crate::types::{FromSql,
+                   FromSqlError,
+                   FromSqlResult,
+                   ToSql,
+                   ToSqlOutput,
+                   ValueRef};
 use crate::Result;
-use chrono::DateTime;
-use chrono::Local;
-use chrono::NaiveDate;
-use chrono::NaiveDateTime;
-use chrono::NaiveTime;
-use chrono::TimeZone;
-use chrono::Utc;
+use chrono::{DateTime,
+             Local,
+             NaiveDate,
+             NaiveDateTime,
+             NaiveTime,
+             TimeZone,
+             Utc};
 use std::borrow::Cow;
 
 
@@ -280,17 +280,17 @@ mod test
 
 
 
-	use crate::Connection;
-	use crate::Result;
-	use crate::NO_PARAMS;
-	use chrono::DateTime;
-	use chrono::Duration;
-	use chrono::Local;
-	use chrono::NaiveDate;
-	use chrono::NaiveDateTime;
-	use chrono::NaiveTime;
-	use chrono::TimeZone;
-	use chrono::Utc;
+	use crate::{Connection,
+	            Result,
+	            NO_PARAMS};
+	use chrono::{DateTime,
+	             Duration,
+	             Local,
+	             NaiveDate,
+	             NaiveDateTime,
+	             NaiveTime,
+	             TimeZone,
+	             Utc};
 
 
 

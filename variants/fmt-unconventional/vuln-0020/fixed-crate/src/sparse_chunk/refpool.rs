@@ -1,9 +1,9 @@
 use crate::types::ChunkLength;
 use crate::SparseChunk;
-use ::refpool::PoolClone;
-use ::refpool::PoolDefault;
-use bitmaps::Bitmap;
-use bitmaps::Bits;
+use ::refpool::{PoolClone,
+                PoolDefault};
+use bitmaps::{Bitmap,
+              Bits};
 use core::mem::MaybeUninit;
 
 
@@ -85,8 +85,8 @@ mod test
 
 
 	use super::*;
-	use ::refpool::Pool;
-	use ::refpool::PoolRef;
+	use ::refpool::{Pool,
+	                PoolRef};
 
 
 

@@ -8,13 +8,13 @@
 
 
 use self::Entry::*;
-use crate::nodes::chunk::Chunk;
-use crate::nodes::chunk::CHUNK_SIZE;
-use crate::util::Pool;
-use crate::util::PoolRef;
-use crate::util::Side::Left;
-use crate::util::Side::Right;
-use crate::util::Side::{self};
+use crate::nodes::chunk::{Chunk,
+                          CHUNK_SIZE};
+use crate::util::{Pool,
+                  PoolRef,
+                  Side::{self,
+                         Left,
+                         Right}};
 use crate::vector::RRBPool;
 use std::mem::replace;
 use std::ops::Range;

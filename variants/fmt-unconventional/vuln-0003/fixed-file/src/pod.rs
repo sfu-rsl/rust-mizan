@@ -1,15 +1,13 @@
-use self::super::guarded_transmute;
-use self::super::guarded_transmute_many;
-use self::super::guarded_transmute_many_pedantic;
-use self::super::guarded_transmute_many_permissive;
-use self::super::guarded_transmute_pedantic;
+use self::super::{guarded_transmute,
+                  guarded_transmute_many,
+                  guarded_transmute_many_pedantic,
+                  guarded_transmute_many_permissive,
+                  guarded_transmute_pedantic,
+                  Error};
 #[cfg(feature = "std")]
-use self::super::guarded_transmute_vec;
-#[cfg(feature = "std")]
-use self::super::guarded_transmute_vec_pedantic;
-#[cfg(feature = "std")]
-use self::super::guarded_transmute_vec_permissive;
-use self::super::Error;
+use self::super::{guarded_transmute_vec,
+                  guarded_transmute_vec_pedantic,
+                  guarded_transmute_vec_permissive};
 
 
 

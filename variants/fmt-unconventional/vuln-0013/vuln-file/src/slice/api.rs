@@ -24,20 +24,20 @@
 
 
 
-use crate::access::BitAccess;
-use crate::order::BitOrder;
-use crate::pointer::BitPtr;
-use crate::slice::proxy::BitMut;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
-use core::marker::PhantomData;
-use core::ops::Range;
-use core::ops::RangeFrom;
-use core::ops::RangeFull;
-use core::ops::RangeInclusive;
-use core::ops::RangeTo;
-use core::ops::RangeToInclusive;
-use core::ptr::NonNull;
+use crate::{access::BitAccess,
+            order::BitOrder,
+            pointer::BitPtr,
+            slice::{proxy::BitMut,
+                    BitSlice},
+            store::BitStore};
+use core::{marker::PhantomData,
+           ops::{Range,
+                 RangeFrom,
+                 RangeFull,
+                 RangeInclusive,
+                 RangeTo,
+                 RangeToInclusive},
+           ptr::NonNull};
 
 
 

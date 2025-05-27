@@ -1,5 +1,5 @@
-use super::Null;
-use super::Type;
+use super::{Null,
+            Type};
 
 
 
@@ -84,8 +84,8 @@ impl From<i128> for Value
 
 
 
-		use byteorder::BigEndian;
-		use byteorder::ByteOrder;
+		use byteorder::{BigEndian,
+		                ByteOrder};
 
 
 

@@ -8,29 +8,29 @@
 
 
 
-use crate::boxed::BitBox;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::pointer::BitPtr;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
-use crate::vec::BitVec;
-use alloc::borrow::Borrow;
-use alloc::borrow::BorrowMut;
-use alloc::boxed::Box;
-use core::cmp::Ordering;
-use core::fmt::Binary;
-use core::fmt::Debug;
-use core::fmt::Display;
-use core::fmt::Formatter;
-use core::fmt::LowerHex;
-use core::fmt::Octal;
-use core::fmt::UpperHex;
-use core::fmt::{self};
-use core::hash::Hash;
-use core::hash::Hasher;
-use core::marker::PhantomData;
-use core::mem;
+use crate::{boxed::BitBox,
+            mem::BitMemory,
+            order::BitOrder,
+            pointer::BitPtr,
+            slice::BitSlice,
+            store::BitStore,
+            vec::BitVec};
+use alloc::{borrow::{Borrow,
+                     BorrowMut},
+            boxed::Box};
+use core::{cmp::Ordering,
+           fmt::{self,
+                 Binary,
+                 Debug,
+                 Display,
+                 Formatter,
+                 LowerHex,
+                 Octal,
+                 UpperHex},
+           hash::{Hash,
+                  Hasher},
+           marker::PhantomData,
+           mem};
 
 
 

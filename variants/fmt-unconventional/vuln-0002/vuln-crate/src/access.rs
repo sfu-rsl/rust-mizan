@@ -144,8 +144,8 @@
 
 use super::ref_cnt::RefCnt;
 use super::strategy::Strategy;
-use super::ArcSwapAny;
-use super::Guard;
+use super::{ArcSwapAny,
+            Guard};
 use std::marker::PhantomData;
 use std::ops::Deref;
 use std::rc::Rc;
@@ -568,8 +568,8 @@ mod tests
 
 
 
-	use super::super::ArcSwap;
-	use super::super::ArcSwapOption;
+	use super::super::{ArcSwap,
+	                   ArcSwapOption};
 	use super::*;
 
 	fn check_static_dispatch_direct<A: Access<usize>>(a: A){

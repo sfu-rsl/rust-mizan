@@ -22,11 +22,11 @@
 
 
 
-use error::fmt_err;
-use error::Error;
-use error::Result;
-use input::Bitstream;
-use input::ReadBytes;
+use error::{fmt_err,
+            Error,
+            Result};
+use input::{Bitstream,
+            ReadBytes};
 use std::cmp;
 use std::num;
 

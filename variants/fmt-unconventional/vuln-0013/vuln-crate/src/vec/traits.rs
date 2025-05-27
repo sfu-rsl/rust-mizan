@@ -9,26 +9,26 @@
 
 
 use super::*;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::store::BitStore;
-use alloc::borrow::Borrow;
-use alloc::borrow::BorrowMut;
-use alloc::boxed::Box;
-use alloc::vec::Vec;
-use core::cmp::Ordering;
-use core::fmt::Binary;
-use core::fmt::Debug;
-use core::fmt::Display;
-use core::fmt::Formatter;
-use core::fmt::LowerHex;
-use core::fmt::Octal;
-use core::fmt::UpperHex;
-use core::fmt::{self};
-use core::hash::Hash;
-use core::hash::Hasher;
-use core::marker::PhantomData;
-use core::mem;
+use crate::{mem::BitMemory,
+            order::BitOrder,
+            store::BitStore};
+use alloc::{borrow::{Borrow,
+                     BorrowMut},
+            boxed::Box,
+            vec::Vec};
+use core::{cmp::Ordering,
+           fmt::{self,
+                 Binary,
+                 Debug,
+                 Display,
+                 Formatter,
+                 LowerHex,
+                 Octal,
+                 UpperHex},
+           hash::{Hash,
+                  Hasher},
+           marker::PhantomData,
+           mem};
 
 
 

@@ -41,33 +41,33 @@
 
 
 
-use crate::nodes::hamt::hash_key;
-use crate::nodes::hamt::Drain as NodeDrain;
-use crate::nodes::hamt::HashBits;
-use crate::nodes::hamt::HashValue;
-use crate::nodes::hamt::Iter as NodeIter;
-use crate::nodes::hamt::IterMut as NodeIterMut;
-use crate::nodes::hamt::Node;
-use crate::util::Pool;
-use crate::util::PoolRef;
-use crate::util::Ref;
+use crate::nodes::hamt::{hash_key,
+                         Drain as NodeDrain,
+                         HashBits,
+                         HashValue,
+                         Iter as NodeIter,
+                         IterMut as NodeIterMut,
+                         Node};
+use crate::util::{Pool,
+                  PoolRef,
+                  Ref};
 use std::borrow::Borrow;
 use std::cmp::Ordering;
 use std::collections;
 use std::collections::hash_map::RandomState;
-use std::fmt::Debug;
-use std::fmt::Error;
-use std::fmt::Formatter;
-use std::hash::BuildHasher;
-use std::hash::Hash;
-use std::hash::Hasher;
-use std::iter::FromIterator;
-use std::iter::FusedIterator;
-use std::iter::Sum;
+use std::fmt::{Debug,
+               Error,
+               Formatter};
+use std::hash::{BuildHasher,
+                Hash,
+                Hasher};
+use std::iter::{FromIterator,
+                FusedIterator,
+                Sum};
 use std::mem;
-use std::ops::Add;
-use std::ops::Index;
-use std::ops::IndexMut;
+use std::ops::{Add,
+               Index,
+               IndexMut};
 
 
 
@@ -4104,10 +4104,10 @@ mod test
 
 	use super::*;
 	use crate::test::LolHasher;
-	use ::proptest::collection;
-	use ::proptest::num::i16;
-	use ::proptest::num::usize;
-	use ::proptest::proptest;
+	use ::proptest::num::{i16,
+	                      usize};
+	use ::proptest::{collection,
+	                 proptest};
 	use std::hash::BuildHasherDefault;
 
 

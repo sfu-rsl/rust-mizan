@@ -1,21 +1,21 @@
-use super::header::Header;
-use super::header::ImageType;
-use super::header::ALPHA_BIT_MASK;
-use super::header::SCREEN_ORIGIN_BIT_MASK;
-use crate::color::ColorType;
-use crate::color::ExtendedColorType;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::image::ImageDecoder;
-use crate::image::ImageFormat;
-use crate::image::ImageReadBuffer;
+use super::header::{Header,
+                    ImageType,
+                    ALPHA_BIT_MASK,
+                    SCREEN_ORIGIN_BIT_MASK};
+use crate::{color::{ColorType,
+                    ExtendedColorType},
+            error::{ImageError,
+                    ImageResult,
+                    UnsupportedError,
+                    UnsupportedErrorKind},
+            image::{ImageDecoder,
+                    ImageFormat,
+                    ImageReadBuffer}};
 use byteorder::ReadBytesExt;
-use std::convert::TryFrom;
-use std::io::Read;
-use std::io::Seek;
-use std::io::{self};
+use std::{convert::TryFrom,
+          io::{self,
+               Read,
+               Seek}};
 
 
 

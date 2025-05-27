@@ -20,48 +20,34 @@
 
 
 #[cfg(feature = "alloc")]
-use crate::boxed::BitBox;
-use crate::domain::Domain;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
+use crate::{boxed::BitBox,
+            pointer::BitPtr,
+            vec::BitVec};
+use crate::{domain::Domain,
+            mem::BitMemory,
+            order::BitOrder,
+            slice::BitSlice,
+            store::BitStore};
 #[cfg(feature = "alloc")]
-use crate::pointer::BitPtr;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
+use core::{cmp,
+           convert::TryInto,
+           fmt::{self,
+                 Formatter},
+           marker::PhantomData,
+           mem};
 #[cfg(feature = "alloc")]
-use crate::vec::BitVec;
-#[cfg(feature = "alloc")]
-use core::cmp;
-#[cfg(feature = "alloc")]
-use core::convert::TryInto;
-#[cfg(feature = "alloc")]
-use core::fmt::Formatter;
-#[cfg(feature = "alloc")]
-use core::fmt::{self};
-#[cfg(feature = "alloc")]
-use core::marker::PhantomData;
-#[cfg(feature = "alloc")]
-use core::mem;
-#[cfg(feature = "alloc")]
-use serde::de::Deserializer;
-#[cfg(feature = "alloc")]
-use serde::de::Error;
-#[cfg(feature = "alloc")]
-use serde::de::MapAccess;
-#[cfg(feature = "alloc")]
-use serde::de::SeqAccess;
-#[cfg(feature = "alloc")]
-use serde::de::Unexpected;
-#[cfg(feature = "alloc")]
-use serde::de::Visitor;
-#[cfg(feature = "alloc")]
-use serde::de::{self};
-use serde::ser::SerializeSeq;
-use serde::ser::SerializeStruct;
-use serde::ser::Serializer;
-#[cfg(feature = "alloc")]
-use serde::Deserialize;
-use serde::Serialize;
+use serde::{de::{self,
+                 Deserializer,
+                 Error,
+                 MapAccess,
+                 SeqAccess,
+                 Unexpected,
+                 Visitor},
+            Deserialize};
+use serde::{ser::{SerializeSeq,
+                  SerializeStruct,
+                  Serializer},
+            Serialize};
 
 
 
@@ -491,8 +477,8 @@ mod tests
 	use crate::prelude::*;
 	#[cfg(feature = "alloc")]
 	use serde_test::assert_de_tokens;
-	use serde_test::assert_ser_tokens;
-	use serde_test::Token;
+	use serde_test::{assert_ser_tokens,
+	                 Token};
 
 
 

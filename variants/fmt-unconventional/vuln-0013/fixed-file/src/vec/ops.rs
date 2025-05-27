@@ -4,10 +4,10 @@
 
 
 use super::*;
-use crate::order::BitOrder;
-use crate::store::BitStore;
-use core::ops::Deref;
-use core::ops::DerefMut;
+use crate::{order::BitOrder,
+            store::BitStore};
+use core::ops::{Deref,
+                DerefMut};
 
 
 

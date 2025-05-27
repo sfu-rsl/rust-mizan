@@ -17,28 +17,28 @@ extern crate tiff;
 
 
 
-use crate::color::ColorType;
-use crate::color::ExtendedColorType;
-use crate::error::DecodingError;
-use crate::error::EncodingError;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::LimitError;
-use crate::error::LimitErrorKind;
-use crate::error::ParameterError;
-use crate::error::ParameterErrorKind;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::image::ImageDecoder;
-use crate::image::ImageEncoder;
-use crate::image::ImageFormat;
+use crate::color::{ColorType,
+                   ExtendedColorType};
+use crate::error::{DecodingError,
+                   EncodingError,
+                   ImageError,
+                   ImageResult,
+                   LimitError,
+                   LimitErrorKind,
+                   ParameterError,
+                   ParameterErrorKind,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
+use crate::image::{ImageDecoder,
+                   ImageEncoder,
+                   ImageFormat};
 use crate::utils;
 use std::convert::TryFrom;
-use std::io::Cursor;
-use std::io::Read;
-use std::io::Seek;
-use std::io::Write;
-use std::io::{self};
+use std::io::{self,
+              Cursor,
+              Read,
+              Seek,
+              Write};
 use std::marker::PhantomData;
 use std::mem;
 

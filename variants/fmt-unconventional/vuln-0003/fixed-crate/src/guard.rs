@@ -82,8 +82,8 @@
 
 
 
-use crate::error::ErrorReason;
-use crate::error::GuardError;
+use crate::error::{ErrorReason,
+                   GuardError};
 use core::mem::size_of;
 
 

@@ -59,9 +59,9 @@
 use std::borrow::Borrow;
 use std::cell::Cell;
 use std::process;
-use std::sync::atomic::AtomicUsize;
-use std::sync::atomic::Ordering;
-use std::sync::atomic::{self};
+use std::sync::atomic::{self,
+                        AtomicUsize,
+                        Ordering};
 use std::thread;
 
 

@@ -273,9 +273,8 @@ mod tests
 
 
 	#[allow(unused_imports)]
-	use crate::order::Lsb0;
-	#[allow(unused_imports)]
-	use crate::order::Msb0;
+	use crate::order::{Lsb0,
+	                   Msb0};
 
 
 

@@ -7,16 +7,16 @@
 
 
 
-use crate::types::ChunkLength;
-use crate::Chunk;
-use crate::InlineArray;
 #[cfg(feature = "ringbuffer")]
 use crate::RingBuffer;
-use crate::SparseChunk;
-use ::arbitrary::size_hint;
-use ::arbitrary::Arbitrary;
-use ::arbitrary::Result;
-use ::arbitrary::Unstructured;
+use crate::{types::ChunkLength,
+            Chunk,
+            InlineArray,
+            SparseChunk};
+use ::arbitrary::{size_hint,
+                  Arbitrary,
+                  Result,
+                  Unstructured};
 use bitmaps::Bits;
 use core::iter;
 

@@ -37,12 +37,12 @@
 
 
 
-use crate::index::BitIdx;
-use crate::index::BitMask;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use core::fmt::Debug;
-use core::sync::atomic::Ordering;
+use crate::{index::{BitIdx,
+                    BitMask},
+            mem::BitMemory,
+            order::BitOrder};
+use core::{fmt::Debug,
+           sync::atomic::Ordering};
 use radium::Radium;
 
 

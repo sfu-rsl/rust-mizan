@@ -1,14 +1,14 @@
 use super::header::Header;
-use crate::error::EncodingError;
-use crate::ColorType;
-use crate::ImageEncoder;
-use crate::ImageError;
-use crate::ImageFormat;
-use crate::ImageResult;
-use std::convert::TryFrom;
-use std::error;
-use std::fmt;
-use std::io::Write;
+use crate::{error::EncodingError,
+            ColorType,
+            ImageEncoder,
+            ImageError,
+            ImageFormat,
+            ImageResult};
+use std::{convert::TryFrom,
+          error,
+          fmt,
+          io::Write};
 
 
 
@@ -207,14 +207,14 @@ mod tests
 
 
 
-	use super::EncoderError;
-	use super::TgaEncoder;
-	use crate::tga::TgaDecoder;
-	use crate::ColorType;
-	use crate::ImageDecoder;
-	use crate::ImageError;
-	use std::error::Error;
-	use std::io::Cursor;
+	use super::{EncoderError,
+	            TgaEncoder};
+	use crate::{tga::TgaDecoder,
+	            ColorType,
+	            ImageDecoder,
+	            ImageError};
+	use std::{error::Error,
+	          io::Cursor};
 
 
 

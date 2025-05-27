@@ -1,13 +1,13 @@
 use crate::ffi;
-use crate::Connection;
-use crate::InnerConnection;
-use crate::Result;
+use crate::{Connection,
+            InnerConnection,
+            Result};
 /// ! Busy handler (when the
 /// database is locked)
 use std::convert::TryInto;
 use std::mem;
-use std::os::raw::c_int;
-use std::os::raw::c_void;
+use std::os::raw::{c_int,
+                   c_void};
 use std::panic::catch_unwind;
 use std::ptr;
 use std::time::Duration;
@@ -221,14 +221,14 @@ mod test
 
 
 
-	use crate::Connection;
-	use crate::Error;
-	use crate::ErrorCode;
-	use crate::Result;
-	use crate::TransactionBehavior;
-	use crate::NO_PARAMS;
-	use std::sync::atomic::AtomicBool;
-	use std::sync::atomic::Ordering;
+	use crate::{Connection,
+	            Error,
+	            ErrorCode,
+	            Result,
+	            TransactionBehavior,
+	            NO_PARAMS};
+	use std::sync::atomic::{AtomicBool,
+	                        Ordering};
 	use std::sync::mpsc::sync_channel;
 	use std::thread;
 	use std::time::Duration;

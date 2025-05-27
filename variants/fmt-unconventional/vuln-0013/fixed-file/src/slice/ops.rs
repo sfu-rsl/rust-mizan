@@ -4,12 +4,12 @@
 
 
 use super::api::BitSliceIndex;
-use crate::order::BitOrder;
-use crate::slice::BitSlice;
-use crate::store::BitStore;
-use core::ops::Index;
-use core::ops::Not;
-use core::ops::Range;
+use crate::{order::BitOrder,
+            slice::BitSlice,
+            store::BitStore};
+use core::ops::{Index,
+                Not,
+                Range};
 
 
 

@@ -1,11 +1,11 @@
 use crate::color::Rgb;
 use crate::error::ImageResult;
-use crate::hdr::rgbe8;
-use crate::hdr::Rgbe8Pixel;
-use crate::hdr::SIGNATURE;
+use crate::hdr::{rgbe8,
+                 Rgbe8Pixel,
+                 SIGNATURE};
 use std::cmp::Ordering;
-use std::io::Result;
-use std::io::Write;
+use std::io::{Result,
+              Write};
 
 
 
@@ -199,8 +199,8 @@ enum RunOrNot
 
 
 
-use self::RunOrNot::Norun;
-use self::RunOrNot::Run;
+use self::RunOrNot::{Norun,
+                     Run};
 
 
 

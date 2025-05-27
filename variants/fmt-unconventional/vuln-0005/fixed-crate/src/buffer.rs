@@ -3,36 +3,36 @@
 
 
 
-use crate::color::Bgr;
-use crate::color::Bgra;
-use crate::color::FromColor;
-use crate::color::Luma;
-use crate::color::LumaA;
-use crate::color::Rgb;
-use crate::color::Rgba;
-use crate::dynimage::save_buffer;
-use crate::dynimage::save_buffer_with_format;
+use crate::color::{Bgr,
+                   Bgra,
+                   FromColor,
+                   Luma,
+                   LumaA,
+                   Rgb,
+                   Rgba};
+use crate::dynimage::{save_buffer,
+                      save_buffer_with_format};
 use crate::error::ImageResult;
-use crate::flat::FlatSamples;
-use crate::flat::SampleLayout;
-use crate::image::GenericImage;
-use crate::image::GenericImageView;
-use crate::image::ImageFormat;
+use crate::flat::{FlatSamples,
+                  SampleLayout};
+use crate::image::{GenericImage,
+                   GenericImageView,
+                   ImageFormat};
 use crate::math::Rect;
-use crate::traits::EncodableLayout;
-use crate::traits::Pixel;
+use crate::traits::{EncodableLayout,
+                    Pixel};
 use crate::utils::expand_packed;
 use num_traits::Zero;
 use std::fmt;
 use std::marker::PhantomData;
-use std::ops::Deref;
-use std::ops::DerefMut;
-use std::ops::Index;
-use std::ops::IndexMut;
-use std::ops::Range;
+use std::ops::{Deref,
+               DerefMut,
+               Index,
+               IndexMut,
+               Range};
 use std::path::Path;
-use std::slice::ChunksExact;
-use std::slice::ChunksExactMut;
+use std::slice::{ChunksExact,
+                 ChunksExactMut};
 
 
 
@@ -2510,8 +2510,8 @@ mod test
 
 
 
-	use super::ImageBuffer;
-	use super::RgbImage;
+	use super::{ImageBuffer,
+	            RgbImage};
 	use crate::color;
 
 
@@ -2824,11 +2824,11 @@ mod benchmarks
 
 
 
-	use super::ConvertBuffer;
-	use super::GrayImage;
-	use super::ImageBuffer;
-	use super::Pixel;
-	use super::RgbImage;
+	use super::{ConvertBuffer,
+	            GrayImage,
+	            ImageBuffer,
+	            Pixel,
+	            RgbImage};
 	use crate::math::Rect;
 	use crate::GenericImage;
 	use test;

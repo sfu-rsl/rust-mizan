@@ -9,10 +9,10 @@
 
 use core::iter::FusedIterator;
 use core::marker::PhantomData;
-use core::ops::Add;
-use core::ops::AddAssign;
-use core::ops::Sub;
-use core::ops::SubAssign;
+use core::ops::{Add,
+                AddAssign,
+                Sub,
+                SubAssign};
 use typenum::Unsigned;
 
 

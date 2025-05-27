@@ -11,8 +11,8 @@
 
 
 
-use crate::access::BitAccess;
-use crate::mem::BitMemory;
+use crate::{access::BitAccess,
+            mem::BitMemory};
 use core::cell::Cell;
 #[cfg(feature = "atomic")]
 use core::sync::atomic;

@@ -29,25 +29,25 @@
 use crate::context::set_result;
 use crate::error::error_from_sqlite_code;
 use crate::ffi;
-pub use crate::ffi::sqlite3_vtab;
-pub use crate::ffi::sqlite3_vtab_cursor;
-use crate::str_to_cstring;
-use crate::types::FromSql;
-use crate::types::FromSqlError;
-use crate::types::ToSql;
-use crate::types::ValueRef;
-use crate::Connection;
-use crate::Error;
-use crate::InnerConnection;
-use crate::Result;
-use std::borrow::Cow::Borrowed;
-use std::borrow::Cow::Owned;
-use std::borrow::Cow::{self};
+pub use crate::ffi::{sqlite3_vtab,
+                     sqlite3_vtab_cursor};
+use crate::types::{FromSql,
+                   FromSqlError,
+                   ToSql,
+                   ValueRef};
+use crate::{str_to_cstring,
+            Connection,
+            Error,
+            InnerConnection,
+            Result};
+use std::borrow::Cow::{self,
+                       Borrowed,
+                       Owned};
 use std::marker::PhantomData;
 use std::marker::Sync;
-use std::os::raw::c_char;
-use std::os::raw::c_int;
-use std::os::raw::c_void;
+use std::os::raw::{c_char,
+                   c_int,
+                   c_void};
 use std::ptr;
 use std::slice;
 

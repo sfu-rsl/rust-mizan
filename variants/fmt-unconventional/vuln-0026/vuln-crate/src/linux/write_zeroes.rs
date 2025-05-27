@@ -21,15 +21,15 @@
 
 
 
-use crate::fallocate::fallocate;
-use crate::fallocate::FallocateMode;
+use crate::fallocate::{fallocate,
+                       FallocateMode};
 use std::cmp::min;
 use std::fs::File;
-use std::io::Error;
-use std::io::ErrorKind;
-use std::io::Result;
-use std::io::Seek;
-use std::io::SeekFrom;
+use std::io::{Error,
+              ErrorKind,
+              Result,
+              Seek,
+              SeekFrom};
 use std::os::unix::fs::FileExt;
 
 
@@ -360,10 +360,10 @@ mod tests
 
 	use super::*;
 	use crate::tempfile::TempFile;
-	use std::io::Read;
-	use std::io::Seek;
-	use std::io::SeekFrom;
-	use std::io::Write;
+	use std::io::{Read,
+	              Seek,
+	              SeekFrom,
+	              Write};
 
 
 

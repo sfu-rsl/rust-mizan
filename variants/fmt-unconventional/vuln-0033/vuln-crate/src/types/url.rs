@@ -4,12 +4,12 @@
 
 
 
-use crate::types::FromSql;
-use crate::types::FromSqlError;
-use crate::types::FromSqlResult;
-use crate::types::ToSql;
-use crate::types::ToSqlOutput;
-use crate::types::ValueRef;
+use crate::types::{FromSql,
+                   FromSqlError,
+                   FromSqlResult,
+                   ToSql,
+                   ToSqlOutput,
+                   ValueRef};
 use crate::Result;
 use url::Url;
 
@@ -65,12 +65,12 @@ mod test
 
 
 
-	use crate::params;
-	use crate::Connection;
-	use crate::Error;
-	use crate::Result;
-	use url::ParseError;
-	use url::Url;
+	use crate::{params,
+	            Connection,
+	            Error,
+	            Result};
+	use url::{ParseError,
+	          Url};
 
 
 

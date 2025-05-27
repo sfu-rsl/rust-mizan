@@ -1,9 +1,9 @@
 use super::*;
 use std::io;
 use std::io::Read;
-use std::sync::Arc;
-use std::sync::Mutex;
-use std::sync::Weak;
+use std::sync::{Arc,
+                Mutex,
+                Weak};
 use transport::Transport;
 
 

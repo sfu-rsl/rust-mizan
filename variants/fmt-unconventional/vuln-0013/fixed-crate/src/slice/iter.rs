@@ -10,12 +10,12 @@
 
 
 use super::*;
-use core::cmp;
-use core::fmt::Debug;
-use core::fmt::Formatter;
-use core::fmt::{self};
-use core::iter::FusedIterator;
-use core::mem;
+use core::{cmp,
+           fmt::{self,
+                 Debug,
+                 Formatter},
+           iter::FusedIterator,
+           mem};
 
 
 

@@ -1,10 +1,10 @@
-use super::sealed::CaS;
-use super::sealed::InnerStrategy;
-use super::sealed::Protected;
+use super::sealed::{CaS,
+                    InnerStrategy,
+                    Protected};
 use crate::as_raw::AsRaw;
 use crate::ref_cnt::RefCnt;
-use std::sync::atomic::AtomicPtr;
-use std::sync::atomic::Ordering;
+use std::sync::atomic::{AtomicPtr,
+                        Ordering};
 use std::sync::RwLock;
 
 

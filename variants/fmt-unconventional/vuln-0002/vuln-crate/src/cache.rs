@@ -456,8 +456,8 @@ mod tests
 
 
 	use super::*;
-	use crate::ArcSwap;
-	use crate::ArcSwapOption;
+	use crate::{ArcSwap,
+	            ArcSwapOption};
 	use std::sync::Arc;
 
 

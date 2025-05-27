@@ -8,16 +8,16 @@
 
 
 
-use std::cell::UnsafeCell;
-use std::marker::PhantomData;
-use std::panic::RefUnwindSafe;
-use std::panic::UnwindSafe;
-use std::ptr;
-use std::sync::atomic::AtomicBool;
-use std::sync::atomic::AtomicUsize;
-use std::sync::atomic::Ordering;
-use std::thread::Thread;
-use std::thread::{self};
+use std::{cell::UnsafeCell,
+          marker::PhantomData,
+          panic::{RefUnwindSafe,
+                  UnwindSafe},
+          ptr,
+          sync::atomic::{AtomicBool,
+                         AtomicUsize,
+                         Ordering},
+          thread::{self,
+                   Thread}};
 
 
 
@@ -460,10 +460,8 @@ mod tests
 	use std::panic;
 	#[cfg(not(miri))]
 	// miri doesn't support threads
-	use std::sync::mpsc::channel;
-	#[cfg(not(miri))]
-	// miri doesn't support threads
-	use std::thread;
+	use std::{sync::mpsc::channel,
+	          thread};
 
 
 

@@ -15,24 +15,23 @@
 
 
 use crate::types::ChunkLength;
-use bitmaps::Bitmap;
-use bitmaps::Bits;
-use bitmaps::Iter as BitmapIter;
-use core::fmt::Debug;
-use core::fmt::Error;
-use core::fmt::Formatter;
+use bitmaps::{Bitmap,
+              Bits,
+              Iter as BitmapIter};
+use core::fmt::{Debug,
+                Error,
+                Formatter};
 use core::iter::FromIterator;
-use core::mem::MaybeUninit;
-use core::mem::{self};
+use core::mem::{self,
+                MaybeUninit};
 use core::ops::Index;
 use core::ops::IndexMut;
 use core::ptr;
-use core::slice::from_raw_parts;
-use core::slice::from_raw_parts_mut;
+use core::slice::{from_raw_parts,
+                  from_raw_parts_mut};
 #[cfg(feature = "std")]
-use std::collections::BTreeMap;
-#[cfg(feature = "std")]
-use std::collections::HashMap;
+use std::collections::{BTreeMap,
+                       HashMap};
 use typenum::U64;
 
 
@@ -41,12 +40,12 @@ mod iter;
 
 
 
-pub use self::iter::Drain;
-pub use self::iter::Iter;
-pub use self::iter::IterMut;
-pub use self::iter::OptionDrain;
-pub use self::iter::OptionIter;
-pub use self::iter::OptionIterMut;
+pub use self::iter::{Drain,
+                     Iter,
+                     IterMut,
+                     OptionDrain,
+                     OptionIter,
+                     OptionIterMut};
 
 
 
@@ -1321,8 +1320,8 @@ mod test
 
 
 	use crate::tests::DropTest;
-	use std::sync::atomic::AtomicUsize;
-	use std::sync::atomic::Ordering;
+	use std::sync::atomic::{AtomicUsize,
+	                        Ordering};
 
 
 

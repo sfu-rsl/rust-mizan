@@ -20,18 +20,18 @@
 
 
 
-use crate::access::BitAccess;
-use crate::domain::BitDomain;
-use crate::domain::BitDomainMut;
-use crate::domain::Domain;
-use crate::domain::DomainMut;
-use crate::index::BitMask;
-use crate::index::Indexable;
-use crate::mem::BitMemory;
-use crate::order::BitOrder;
-use crate::order::Local;
-use crate::pointer::BitPtr;
-use crate::store::BitStore;
+use crate::{access::BitAccess,
+            domain::{BitDomain,
+                     BitDomainMut,
+                     Domain,
+                     DomainMut},
+            index::{BitMask,
+                    Indexable},
+            mem::BitMemory,
+            order::{BitOrder,
+                    Local},
+            pointer::BitPtr,
+            store::BitStore};
 use core::marker::PhantomData;
 use funty::IsInteger;
 
@@ -2232,9 +2232,9 @@ mod traits;
 
 
 
-pub use self::api::*;
-pub use self::iter::*;
-pub use self::proxy::*;
+pub use self::{api::*,
+               iter::*,
+               proxy::*};
 
 
 

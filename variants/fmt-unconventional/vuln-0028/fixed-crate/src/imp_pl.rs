@@ -1,12 +1,12 @@
-use parking_lot::lock_api::RawMutex as _RawMutex;
-use parking_lot::RawMutex;
-use std::cell::UnsafeCell;
-use std::fmt;
-use std::hint::unreachable_unchecked;
-use std::panic::RefUnwindSafe;
-use std::panic::UnwindSafe;
-use std::sync::atomic::AtomicBool;
-use std::sync::atomic::Ordering;
+use parking_lot::{lock_api::RawMutex as _RawMutex,
+                  RawMutex};
+use std::{cell::UnsafeCell,
+          fmt,
+          hint::unreachable_unchecked,
+          panic::{RefUnwindSafe,
+                  UnwindSafe},
+          sync::atomic::{AtomicBool,
+                         Ordering}};
 
 
 

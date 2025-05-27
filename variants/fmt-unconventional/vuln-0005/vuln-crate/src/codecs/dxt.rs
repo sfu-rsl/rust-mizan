@@ -21,21 +21,21 @@
 
 
 use crate::color::ColorType;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::ParameterError;
-use crate::error::ParameterErrorKind;
-use crate::image::ImageDecoder;
-use crate::image::ImageDecoderExt;
-use crate::image::ImageReadBuffer;
-use crate::image::Progress;
-use crate::image::{self};
+use crate::error::{ImageError,
+                   ImageResult,
+                   ParameterError,
+                   ParameterErrorKind};
+use crate::image::{self,
+                   ImageDecoder,
+                   ImageDecoderExt,
+                   ImageReadBuffer,
+                   Progress};
 use std::convert::TryFrom;
-use std::io::Read;
-use std::io::Seek;
-use std::io::SeekFrom;
-use std::io::Write;
-use std::io::{self};
+use std::io::{self,
+              Read,
+              Seek,
+              SeekFrom,
+              Write};
 
 
 

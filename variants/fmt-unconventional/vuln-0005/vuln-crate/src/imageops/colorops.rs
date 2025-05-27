@@ -4,18 +4,18 @@
 
 
 
-use crate::color::Luma;
-use crate::color::Rgba;
-use crate::image::GenericImage;
-use crate::image::GenericImageView;
+use crate::color::{Luma,
+                   Rgba};
+use crate::image::{GenericImage,
+                   GenericImageView};
 #[allow(deprecated)]
 use crate::math::nq;
-use crate::traits::Pixel;
-use crate::traits::Primitive;
+use crate::traits::{Pixel,
+                    Primitive};
 use crate::utils::clamp;
 use crate::ImageBuffer;
-use num_traits::Num;
-use num_traits::NumCast;
+use num_traits::{Num,
+                 NumCast};
 use std::f64::consts::PI;
 
 

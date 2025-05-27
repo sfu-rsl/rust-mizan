@@ -37,9 +37,9 @@
 
 
 
-use crate::index::BitIdx;
-use crate::index::BitSel;
-use crate::mem::BitMemory;
+use crate::{index::{BitIdx,
+                    BitSel},
+            mem::BitMemory};
 
 
 

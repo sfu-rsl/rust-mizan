@@ -8,14 +8,13 @@
 use crate::ffi;
 use crate::ffi::sqlite3_context;
 use crate::str_for_sqlite;
-use crate::types::ToSqlOutput;
-use crate::types::ValueRef;
+use crate::types::{ToSqlOutput,
+                   ValueRef};
 #[cfg(feature = "array")]
-use crate::vtab::array::free_array;
-#[cfg(feature = "array")]
-use crate::vtab::array::ARRAY_TYPE;
-use std::os::raw::c_int;
-use std::os::raw::c_void;
+use crate::vtab::array::{free_array,
+                         ARRAY_TYPE};
+use std::os::raw::{c_int,
+                   c_void};
 #[cfg(feature = "array")]
 use std::rc::Rc;
 

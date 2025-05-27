@@ -2,10 +2,10 @@ use crate::color::ColorType;
 use crate::error::ImageResult;
 use crate::image::ImageEncoder;
 use crate::png::PngEncoder;
-use byteorder::LittleEndian;
-use byteorder::WriteBytesExt;
-use std::io::Write;
-use std::io::{self};
+use byteorder::{LittleEndian,
+                WriteBytesExt};
+use std::io::{self,
+              Write};
 
 
 

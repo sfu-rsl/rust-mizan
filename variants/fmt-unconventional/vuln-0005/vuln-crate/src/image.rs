@@ -3,14 +3,14 @@
 
 
 use crate::animation::Frames;
-use crate::color::ColorType;
-use crate::color::ExtendedColorType;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::LimitError;
-use crate::error::LimitErrorKind;
-use crate::error::ParameterError;
-use crate::error::ParameterErrorKind;
+use crate::color::{ColorType,
+                   ExtendedColorType};
+use crate::error::{ImageError,
+                   ImageResult,
+                   LimitError,
+                   LimitErrorKind,
+                   ParameterError,
+                   ParameterErrorKind};
 use crate::math::Rect;
 #[cfg(feature = "pnm")]
 use crate::pnm::PNMSubtype;
@@ -19,8 +19,8 @@ use crate::ImageBuffer;
 use std::convert::TryFrom;
 use std::io;
 use std::io::Read;
-use std::ops::Deref;
-use std::ops::DerefMut;
+use std::ops::{Deref,
+               DerefMut};
 use std::path::Path;
 use std::usize;
 
@@ -2201,17 +2201,17 @@ mod tests
 
 
 
-	use super::load_rect;
-	use super::ColorType;
-	use super::GenericImage;
-	use super::GenericImageView;
-	use super::ImageDecoder;
-	use super::ImageFormat;
-	use super::ImageResult;
+	use super::{load_rect,
+	            ColorType,
+	            GenericImage,
+	            GenericImageView,
+	            ImageDecoder,
+	            ImageFormat,
+	            ImageResult};
 	use crate::color::Rgba;
 	use crate::math::Rect;
-	use crate::GrayImage;
-	use crate::ImageBuffer;
+	use crate::{GrayImage,
+	            ImageBuffer};
 	use std::io;
 	use std::path::Path;
 

@@ -17,16 +17,10 @@
 pub use self::decoder::JpegDecoder;
 #[allow(deprecated)]
 // TODO: when `JPEGEncoder` is removed, remove this tag
-pub use self::encoder::JPEGEncoder;
-#[allow(deprecated)]
-// TODO: when `JPEGEncoder` is removed, remove this tag
-pub use self::encoder::JpegEncoder;
-#[allow(deprecated)]
-// TODO: when `JPEGEncoder` is removed, remove this tag
-pub use self::encoder::PixelDensity;
-#[allow(deprecated)]
-// TODO: when `JPEGEncoder` is removed, remove this tag
-pub use self::encoder::PixelDensityUnit;
+pub use self::encoder::{JPEGEncoder,
+                        JpegEncoder,
+                        PixelDensity,
+                        PixelDensityUnit};
 
 
 

@@ -135,8 +135,8 @@ mod build_bundled
 
 
 
-			use super::bindings;
-			use super::HeaderLocation;
+			use super::{bindings,
+			            HeaderLocation};
 
 
 
@@ -384,9 +384,9 @@ mod build_linked
 
 
 
-	use super::bindings;
-	use super::env_prefix;
-	use super::HeaderLocation;
+	use super::{bindings,
+	            env_prefix,
+	            HeaderLocation};
 	use std::env;
 	use std::path::Path;
 
@@ -689,8 +689,8 @@ mod bindings
 
 
 	use super::HeaderLocation;
-	use bindgen::callbacks::IntKind;
-	use bindgen::callbacks::ParseCallbacks;
+	use bindgen::callbacks::{IntKind,
+	                         ParseCallbacks};
 	use std::fs::OpenOptions;
 	use std::io::Write;
 	use std::path::Path;

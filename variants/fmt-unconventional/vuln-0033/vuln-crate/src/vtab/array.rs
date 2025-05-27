@@ -32,24 +32,24 @@
 
 
 use crate::ffi;
-use crate::types::ToSql;
-use crate::types::ToSqlOutput;
-use crate::types::Value;
-use crate::vtab::eponymous_only_module;
-use crate::vtab::Context;
-use crate::vtab::IndexConstraintOp;
-use crate::vtab::IndexInfo;
-use crate::vtab::Module;
-use crate::vtab::VTab;
-use crate::vtab::VTabConnection;
-use crate::vtab::VTabCursor;
-use crate::vtab::Values;
-use crate::Connection;
-use crate::Result;
+use crate::types::{ToSql,
+                   ToSqlOutput,
+                   Value};
+use crate::vtab::{eponymous_only_module,
+                  Context,
+                  IndexConstraintOp,
+                  IndexInfo,
+                  Module,
+                  VTab,
+                  VTabConnection,
+                  VTabCursor,
+                  Values};
+use crate::{Connection,
+            Result};
 use std::default::Default;
-use std::os::raw::c_char;
-use std::os::raw::c_int;
-use std::os::raw::c_void;
+use std::os::raw::{c_char,
+                   c_int,
+                   c_void};
 use std::rc::Rc;
 
 

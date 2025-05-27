@@ -4,29 +4,29 @@
 
 use super::entropy::build_huff_lut;
 use super::transform;
-use crate::error::ImageError;
-use crate::error::ImageResult;
-use crate::error::ParameterError;
-use crate::error::ParameterErrorKind;
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::image::ImageEncoder;
-use crate::image::ImageFormat;
+use crate::error::{ImageError,
+                   ImageResult,
+                   ParameterError,
+                   ParameterErrorKind,
+                   UnsupportedError,
+                   UnsupportedErrorKind};
+use crate::image::{ImageEncoder,
+                   ImageFormat};
 use crate::utils::clamp;
-use crate::Bgr;
-use crate::Bgra;
-use crate::ColorType;
-use crate::GenericImageView;
-use crate::ImageBuffer;
-use crate::Luma;
-use crate::LumaA;
-use crate::Pixel;
-use crate::Rgb;
-use crate::Rgba;
+use crate::{Bgr,
+            Bgra,
+            ColorType,
+            GenericImageView,
+            ImageBuffer,
+            Luma,
+            LumaA,
+            Pixel,
+            Rgb,
+            Rgba};
 use num_iter::range_step;
 use std::convert::TryFrom;
-use std::io::Write;
-use std::io::{self};
+use std::io::{self,
+              Write};
 
 
 
@@ -1607,8 +1607,8 @@ fn rgb_to_ycbcr<P : Pixel>(pixel : P) -> (u8, u8, u8)
 
 
 
-	use num_traits::bounds::Bounded;
-	use num_traits::cast::ToPrimitive;
+	use num_traits::{bounds::Bounded,
+	                 cast::ToPrimitive};
 
 
 
@@ -1803,25 +1803,25 @@ mod tests
 
 
 	use super::super::JpegDecoder;
-	use super::build_frame_header;
-	use super::build_huffman_segment;
-	use super::build_jfif_header;
-	use super::build_quantization_segment;
-	use super::build_scan_header;
-	use super::Component;
-	use super::JpegEncoder;
-	use super::PixelDensity;
-	use super::DCCLASS;
-	use super::LUMADESTINATION;
-	use super::STD_LUMA_DC_CODE_LENGTHS;
-	use super::STD_LUMA_DC_VALUES;
+	use super::{build_frame_header,
+	            build_huffman_segment,
+	            build_jfif_header,
+	            build_quantization_segment,
+	            build_scan_header,
+	            Component,
+	            JpegEncoder,
+	            PixelDensity,
+	            DCCLASS,
+	            LUMADESTINATION,
+	            STD_LUMA_DC_CODE_LENGTHS,
+	            STD_LUMA_DC_VALUES};
 	use crate::color::ColorType;
 	use crate::error::ParameterErrorKind::DimensionMismatch;
 	use crate::image::ImageDecoder;
-	use crate::Bgra;
-	use crate::ImageBuffer;
-	use crate::ImageEncoder;
-	use crate::ImageError;
+	use crate::{Bgra,
+	            ImageBuffer,
+	            ImageEncoder,
+	            ImageError};
 	use std::io::Cursor;
 
 

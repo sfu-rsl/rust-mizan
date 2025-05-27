@@ -21,13 +21,13 @@
 
 
 
-use crc::Crc16Reader;
-use crc::Crc8Reader;
-use error::fmt_err;
-use error::Error;
-use error::Result;
-use input::Bitstream;
-use input::ReadBytes;
+use crc::{Crc16Reader,
+          Crc8Reader};
+use error::{fmt_err,
+            Error,
+            Result};
+use input::{Bitstream,
+            ReadBytes};
 use std::i32;
 use subframe;
 

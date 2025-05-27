@@ -1,11 +1,11 @@
-use std::alloc;
-use std::fmt;
-use std::mem;
-use std::ops;
-use std::ops::Index;
-use std::ops::IndexMut;
-use std::slice::Iter;
-use std::slice::IterMut;
+use std::ops::{Index,
+               IndexMut};
+use std::slice::{Iter,
+                 IterMut};
+use std::{alloc,
+          fmt,
+          mem,
+          ops};
 
 
 

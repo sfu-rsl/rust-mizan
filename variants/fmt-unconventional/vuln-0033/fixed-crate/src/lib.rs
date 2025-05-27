@@ -65,22 +65,22 @@ pub use crate::error::Error;
 pub use crate::ffi::ErrorCode;
 #[cfg(feature = "hooks")]
 pub use crate::hooks::Action;
-use crate::inner_connection::InnerConnection;
-use crate::inner_connection::BYPASS_SQLITE_INIT;
+use crate::inner_connection::{InnerConnection,
+                              BYPASS_SQLITE_INIT};
 #[cfg(feature = "load_extension")]
 pub use crate::load_extension_guard::LoadExtensionGuard;
 use crate::raw_statement::RawStatement;
-pub use crate::row::AndThenRows;
-pub use crate::row::MappedRows;
-pub use crate::row::Row;
-pub use crate::row::RowIndex;
-pub use crate::row::Rows;
-pub use crate::statement::Statement;
-pub use crate::statement::StatementStatus;
-pub use crate::transaction::DropBehavior;
-pub use crate::transaction::Savepoint;
-pub use crate::transaction::Transaction;
-pub use crate::transaction::TransactionBehavior;
+pub use crate::row::{AndThenRows,
+                     MappedRows,
+                     Row,
+                     RowIndex,
+                     Rows};
+pub use crate::statement::{Statement,
+                           StatementStatus};
+pub use crate::transaction::{DropBehavior,
+                             Savepoint,
+                             Transaction,
+                             TransactionBehavior};
 pub use crate::types::ToSql;
 use crate::types::ValueRef;
 pub use crate::version::*;
@@ -88,18 +88,18 @@ pub use libsqlite3_sys_18 as ffi;
 use std::cell::RefCell;
 use std::convert;
 use std::default::Default;
-use std::ffi::CStr;
-use std::ffi::CString;
+use std::ffi::{CStr,
+               CString};
 use std::fmt;
-use std::os::raw::c_char;
-use std::os::raw::c_int;
-use std::path::Path;
-use std::path::PathBuf;
+use std::os::raw::{c_char,
+                   c_int};
+use std::path::{Path,
+                PathBuf};
 use std::result;
 use std::str;
 use std::sync::atomic::Ordering;
-use std::sync::Arc;
-use std::sync::Mutex;
+use std::sync::{Arc,
+                Mutex};
 
 
 
@@ -529,9 +529,9 @@ impl DatabaseName<'_>
 
 
 
-		use self::DatabaseName::Attached;
-		use self::DatabaseName::Main;
-		use self::DatabaseName::Temp;
+		use self::DatabaseName::{Attached,
+		                         Main,
+		                         Temp};
 
 
 

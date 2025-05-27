@@ -1,10 +1,10 @@
-use crate::traits::Pixel;
-use crate::traits::Primitive;
-use num_traits::NumCast;
-use num_traits::ToPrimitive;
-use num_traits::Zero;
-use std::ops::Index;
-use std::ops::IndexMut;
+use crate::traits::{Pixel,
+                    Primitive};
+use num_traits::{NumCast,
+                 ToPrimitive,
+                 Zero};
+use std::ops::{Index,
+               IndexMut};
 
 
 
@@ -3143,13 +3143,13 @@ mod tests
 
 
 
-	use super::Bgr;
-	use super::Bgra;
-	use super::Luma;
-	use super::LumaA;
-	use super::Pixel;
-	use super::Rgb;
-	use super::Rgba;
+	use super::{Bgr,
+	            Bgra,
+	            Luma,
+	            LumaA,
+	            Pixel,
+	            Rgb,
+	            Rgba};
 
 
 

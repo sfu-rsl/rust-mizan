@@ -1,14 +1,14 @@
-use crate::error::UnsupportedError;
-use crate::error::UnsupportedErrorKind;
-use crate::ColorType;
-use crate::ImageError;
-use crate::ImageFormat;
-use crate::ImageResult;
-use byteorder::LittleEndian;
-use byteorder::ReadBytesExt;
-use byteorder::WriteBytesExt;
-use std::io::Read;
-use std::io::Write;
+use crate::{error::{UnsupportedError,
+                    UnsupportedErrorKind},
+            ColorType,
+            ImageError,
+            ImageFormat,
+            ImageResult};
+use byteorder::{LittleEndian,
+                ReadBytesExt,
+                WriteBytesExt};
+use std::io::{Read,
+              Write};
 
 
 

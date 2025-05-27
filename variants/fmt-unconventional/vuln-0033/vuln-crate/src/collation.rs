@@ -5,16 +5,16 @@
 
 
 use crate::ffi;
-use crate::str_to_cstring;
-use crate::Connection;
-use crate::InnerConnection;
-use crate::Result;
+use crate::{str_to_cstring,
+            Connection,
+            InnerConnection,
+            Result};
 use std::cmp::Ordering;
-use std::os::raw::c_char;
-use std::os::raw::c_int;
-use std::os::raw::c_void;
-use std::panic::catch_unwind;
-use std::panic::UnwindSafe;
+use std::os::raw::{c_char,
+                   c_int,
+                   c_void};
+use std::panic::{catch_unwind,
+                 UnwindSafe};
 use std::ptr;
 use std::slice;
 
@@ -309,9 +309,9 @@ mod test
 
 
 
-	use crate::Connection;
-	use crate::Result;
-	use crate::NO_PARAMS;
+	use crate::{Connection,
+	            Result,
+	            NO_PARAMS};
 	use fallible_streaming_iterator::FallibleStreamingIterator;
 	use std::cmp::Ordering;
 	use unicase::UniCase;

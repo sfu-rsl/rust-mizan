@@ -26,23 +26,21 @@ use crate::codecs::tiff;
 use crate::codecs::webp;
 use crate::color;
 use crate::dynimage::DynamicImage;
-use crate::error::ImageError;
-use crate::error::ImageFormatHint;
-use crate::error::ImageResult;
+use crate::error::{ImageError,
+                   ImageFormatHint,
+                   ImageResult};
 use crate::image;
-#[allow(unused_imports)]
-// When no features are supported
-use crate::image::ImageDecoder;
-#[allow(unused_imports)]
-// When no features are supported
-use crate::image::ImageEncoder;
 use crate::image::ImageFormat;
+#[allow(unused_imports)]
+// When no features are supported
+use crate::image::{ImageDecoder,
+                   ImageEncoder};
 use std::ffi::OsString;
 use std::fs::File;
-use std::io::BufRead;
-use std::io::BufReader;
-use std::io::BufWriter;
-use std::io::Seek;
+use std::io::{BufRead,
+              BufReader,
+              BufWriter,
+              Seek};
 use std::path::Path;
 use std::u32;
 
