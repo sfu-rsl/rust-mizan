@@ -1,3 +1,3 @@
-mod utils;
 mod color;
 mod traits;
+mod utils;

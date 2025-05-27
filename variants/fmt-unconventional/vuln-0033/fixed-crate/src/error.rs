@@ -1,18 +1,26 @@
+use crate::errmsg_to_string;
+use crate::ffi;
 use crate::types::FromSqlError;
 use crate::types::Type;
-use crate::{errmsg_to_string, ffi};
 use std::error;
 use std::fmt;
 use std::os::raw::c_int;
 use std::path::PathBuf;
 use std::str;
 
-/// Enum listing possible errors from rusqlite.
+
+
+/// Enum listing possible
+/// errors from rusqlite.
 #[derive(Debug)]
 #[allow(clippy::enum_variant_names)]
 #[non_exhaustive]
-pub enum Error {
-    /// An error from an underlying SQLite call.
+
+
+
+pub enum Error
+{
+	/// An error from an underlying SQLite call.
     SqliteFailure(ffi::Error, Option<String>),
 
     /// Error reported when attempting to open a connection when SQLite was
@@ -110,9 +118,18 @@ pub enum Error {
     InvalidParameterCount(usize, usize),
 }
 
-impl PartialEq for Error {
-    fn eq(&self, other: &Error) -> bool {
-        match (self, other) {
+
+
+impl PartialEq for Error
+{
+	fn eq(&self,
+	      other : &Error)
+	      -> bool
+	{
+
+
+
+		match (self, other) {
             (Error::SqliteFailure(e1, s1), Error::SqliteFailure(e2, s2)) => e1 == e2 && s1 == s2,
             (Error::SqliteSingleThreadedMode, Error::SqliteSingleThreadedMode) => true,
             (Error::IntegralValueOutOfRange(i1, n1), Error::IntegralValueOutOfRange(i2, n2)) => {
@@ -152,30 +169,63 @@ impl PartialEq for Error {
             }
             (..) => false,
         }
-    }
+	}
 }
 
-impl From<str::Utf8Error> for Error {
-    fn from(err: str::Utf8Error) -> Error {
-        Error::Utf8Error(err)
-    }
+
+
+impl From<str::Utf8Error> for Error
+{
+	fn from(err : str::Utf8Error) -> Error
+	{
+
+
+
+		Error::Utf8Error(err)
+	}
 }
 
-impl From<::std::ffi::NulError> for Error {
-    fn from(err: ::std::ffi::NulError) -> Error {
-        Error::NulError(err)
-    }
+
+
+impl From<::std::ffi::NulError> for Error
+{
+	fn from(err : ::std::ffi::NulError) -> Error
+	{
+
+
+
+		Error::NulError(err)
+	}
 }
 
-const UNKNOWN_COLUMN: usize = std::usize::MAX;
 
-/// The conversion isn't precise, but it's convenient to have it
-/// to allow use of `get_raw(…).as_…()?` in callbacks that take `Error`.
-impl From<FromSqlError> for Error {
-    fn from(err: FromSqlError) -> Error {
-        // The error type requires index and type fields, but they aren't known in this
-        // context.
-        match err {
+
+const UNKNOWN_COLUMN : usize = std::usize::MAX;
+
+
+
+/// The conversion isn't
+/// precise, but it's
+/// convenient to have it
+/// to allow use of
+/// `get_raw(…).as_…()?` in
+/// callbacks that take
+/// `Error`.
+
+
+
+impl From<FromSqlError> for Error
+{
+	fn from(err : FromSqlError) -> Error
+	{
+
+
+
+		// The error type requires
+		// index and type fields, but
+		// they aren't known in this
+		// context.
+		match err {
             FromSqlError::OutOfRange(val) => Error::IntegralValueOutOfRange(UNKNOWN_COLUMN, val),
             #[cfg(feature = "i128_blob")]
             FromSqlError::InvalidI128Size(_) => {
@@ -190,12 +240,21 @@ impl From<FromSqlError> for Error {
             }
             _ => Error::FromSqlConversionFailure(UNKNOWN_COLUMN, Type::Null, Box::new(err)),
         }
-    }
+	}
 }
 
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match *self {
+
+
+impl fmt::Display for Error
+{
+	fn fmt(&self,
+	       f : &mut fmt::Formatter<'_>)
+	       -> fmt::Result
+	{
+
+
+
+		match *self {
             Error::SqliteFailure(ref err, None) => err.fmt(f),
             Error::SqliteFailure(_, Some(ref s)) => write!(f, "{}", s),
             Error::SqliteSingleThreadedMode => write!(
@@ -262,12 +321,18 @@ impl fmt::Display for Error {
             Error::GetAuxWrongType => write!(f, "get_aux called with wrong type"),
             Error::MultipleStatement => write!(f, "Multiple statements provided"),
         }
-    }
+	}
 }
 
-impl error::Error for Error {
-    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
-        match *self {
+
+
+impl error::Error for Error
+{
+	fn source(&self) -> Option<&(dyn error::Error + 'static)>{
+
+
+
+		match *self {
             Error::SqliteFailure(ref err, _) => Some(err),
             Error::Utf8Error(ref err) => Some(err),
             Error::NulError(ref err) => Some(err),
@@ -306,23 +371,60 @@ impl error::Error for Error {
             #[cfg(feature = "functions")]
             Error::GetAuxWrongType => None,
         }
-    }
+	}
 }
 
-// These are public but not re-exported by lib.rs, so only visible within crate.
 
-pub fn error_from_sqlite_code(code: c_int, message: Option<String>) -> Error {
-    Error::SqliteFailure(ffi::Error::new(code), message)
+
+// These are public but not
+// re-exported by lib.rs, so
+// only visible within crate.
+
+
+
+pub fn error_from_sqlite_code(code : c_int,
+                              message : Option<String>)
+                              -> Error
+{
+
+
+
+	Error::SqliteFailure(
+	                     ffi::Error::new(code,),
+	                     message,
+	)
 }
 
-pub unsafe fn error_from_handle(db: *mut ffi::sqlite3, code: c_int) -> Error {
-    let message = if db.is_null() {
-        None
-    } else {
-        Some(errmsg_to_string(ffi::sqlite3_errmsg(db)))
-    };
-    error_from_sqlite_code(code, message)
+
+
+pub unsafe fn error_from_handle(db : *mut ffi::sqlite3,
+                                code : c_int)
+                                -> Error
+{
+
+
+
+	let message = if db.is_null()
+	{
+
+
+
+		None
+	}
+	else
+	{
+
+
+
+		Some(errmsg_to_string(ffi::sqlite3_errmsg(db)))
+	};
+
+
+
+	error_from_sqlite_code(code, message)
 }
+
+
 
 macro_rules! check {
     ($funcall:expr) => {{

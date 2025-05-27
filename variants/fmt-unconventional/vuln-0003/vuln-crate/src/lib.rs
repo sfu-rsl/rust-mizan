@@ -1,25 +1,55 @@
-//! This crate contains checked implementations of `transmute()`.
+//! This crate contains
+//! checked implementations of
+//! `transmute()`.
 //!
-//! The base functions in this crate are not inherently safe, but just guarded against common simple mistakes
-//! (like trying to create an 8-byte type from 7 bytes).
-//! These functions are exactly as safe as the data passed to them - creating a null pointer,
-//! for example, is not unsafe in and of itself, but dereferencing it certainly *is*,
-//! but they don't do that (see [here](https://github.com/nabijaczleweli/safe-transmute-rs/issues/1)
+//! The base functions in this
+//! crate are not inherently
+//! safe, but just guarded
+//! against common simple
+//! mistakes (like trying to
+//! create an 8-byte type from
+//! 7 bytes). These functions
+//! are exactly as safe as the
+//! data passed to them -
+//! creating a null pointer,
+//! for example, is not unsafe
+//! in and of itself, but
+//! dereferencing it certainly
+//! *is*, but they don't do that (see [here](https://github.com/nabijaczleweli/safe-transmute-rs/issues/1)
 //! for extended discussion).
 //!
-//! Other functions in this crate, on the other hand, provide enough safety measures to ensure safety in
-//! all circumstances. This is the case for those found in the `pod` and `bool` modules.
+//! Other functions in this
+//! crate, on the other hand,
+//! provide enough safety
+//! measures to ensure safety
+//! in all circumstances. This
+//! is the case for those
+//! found in the `pod` and
+//! `bool` modules.
 //!
-//! Take note, however, that alignment is *unaccounted for*: you may, in the course of using this crate,
-//! invoke unaligned access, which some CPUs *may* trap on; that did not, however, happen in any of our tests on
-//! MIPS64 (BE), x86_64 (LE), nor armv6l (LE).
+//! Take note, however, that
+//! alignment is *unaccounted
+//! for*: you may, in the
+//! course of using this
+//! crate, invoke unaligned
+//! access, which some CPUs
+//! *may* trap on; that did
+//! not, however, happen in
+//! any of our tests on MIPS64
+//! (BE), x86_64 (LE), nor
+//! armv6l (LE).
 //!
-//! This crate can be used in a no-`std` environment by disabling the `std` feature through specifying
-//! `default-features = false` on import.
+//! This crate can be used in
+//! a no-`std` environment by
+//! disabling the `std`
+//! feature through specifying
+//! `default-features = false`
+//! on import.
 //!
 //! # Examples
 //!
-//! View bytes as a series of `u16`s:
+//! View bytes as a series of
+//! `u16`s:
 //!
 //! ```
 //! # use safe_transmute::guarded_transmute_many;
@@ -38,7 +68,8 @@
 //! # }
 //! ```
 //!
-//! View all bytes as a series of `u16`s:
+//! View all bytes as a series
+//! of `u16`s:
 //!
 //! ```
 //! # use safe_transmute::guarded_transmute_many_pedantic;
@@ -72,7 +103,8 @@
 //! # }
 //! ```
 //!
-//! View a series of `u16`s as bytes:
+//! View a series of `u16`s as
+//! bytes:
 //!
 //! ```
 //! # use safe_transmute::guarded_transmute_to_bytes_pod_many;
@@ -89,47 +121,81 @@
 //! # }
 //! ```
 
+#![cfg_attr(not(feature = "std"),
+            no_std)]
 
-#![cfg_attr(not(feature = "std"), no_std)]
 
 
 #[cfg(feature = "std")]
 extern crate core;
 
-mod pod;
+
+
 mod bool;
 mod error;
+mod pod;
 mod to_bytes;
 
-use core::slice;
-use core::mem::size_of;
+
+
 #[cfg(feature = "std")]
 use core::mem::forget;
-use guard::{SingleValueGuard, PermissiveGuard, SingleManyGuard, PedanticGuard, Guard};
+use core::mem::size_of;
+use core::slice;
+use guard::Guard;
+use guard::PedanticGuard;
+use guard::PermissiveGuard;
+use guard::SingleManyGuard;
+use guard::SingleValueGuard;
 
-pub mod util;
+
+
 pub mod guard;
+pub mod util;
 
-pub use self::error::{ErrorReason, GuardError, Error};
 
-pub use self::to_bytes::{guarded_transmute_to_bytes_pod_many, guarded_transmute_to_bytes_many, guarded_transmute_to_bytes_pod, guarded_transmute_to_bytes};
+
+pub use self::bool::guarded_transmute_bool_pedantic;
+pub use self::bool::guarded_transmute_bool_permissive;
 #[cfg(feature = "std")]
-pub use self::to_bytes::{guarded_transmute_to_bytes_vec, guarded_transmute_to_bytes_pod_vec};
-
-pub use self::pod::{PodTransmutable, guarded_transmute_pod_many_permissive, guarded_transmute_pod_many_pedantic, guarded_transmute_pod_pedantic,
-                    guarded_transmute_pod_many, guarded_transmute_pod};
+pub use self::bool::guarded_transmute_bool_vec_pedantic;
 #[cfg(feature = "std")]
-pub use self::pod::{guarded_transmute_pod_vec_permissive, guarded_transmute_pod_vec_pedantic, guarded_transmute_pod_vec};
-
+pub use self::bool::guarded_transmute_bool_vec_permissive;
+pub use self::error::Error;
+pub use self::error::ErrorReason;
+pub use self::error::GuardError;
+pub use self::pod::guarded_transmute_pod;
+pub use self::pod::guarded_transmute_pod_many;
+pub use self::pod::guarded_transmute_pod_many_pedantic;
+pub use self::pod::guarded_transmute_pod_many_permissive;
+pub use self::pod::guarded_transmute_pod_pedantic;
 #[cfg(feature = "std")]
-pub use self::bool::{guarded_transmute_bool_vec_permissive, guarded_transmute_bool_vec_pedantic};
-pub use self::bool::{guarded_transmute_bool_permissive, guarded_transmute_bool_pedantic};
+pub use self::pod::guarded_transmute_pod_vec;
+#[cfg(feature = "std")]
+pub use self::pod::guarded_transmute_pod_vec_pedantic;
+#[cfg(feature = "std")]
+pub use self::pod::guarded_transmute_pod_vec_permissive;
+pub use self::pod::PodTransmutable;
+pub use self::to_bytes::guarded_transmute_to_bytes;
+pub use self::to_bytes::guarded_transmute_to_bytes_many;
+pub use self::to_bytes::guarded_transmute_to_bytes_pod;
+pub use self::to_bytes::guarded_transmute_to_bytes_pod_many;
+#[cfg(feature = "std")]
+pub use self::to_bytes::guarded_transmute_to_bytes_pod_vec;
+#[cfg(feature = "std")]
+pub use self::to_bytes::guarded_transmute_to_bytes_vec;
 
 
-/// Transmute a byte slice into a single instance of a `Copy`able type.
+
+/// Transmute a byte slice
+/// into a single instance of
+/// a `Copy`able type.
 ///
-/// The byte slice must have at least enough bytes to fill a single instance of a type,
-/// extraneous data is ignored.
+/// The byte slice must have
+/// at least enough bytes to
+/// fill a single instance of
+/// a type, extraneous data is
+/// ignored.
 ///
 /// # Examples
 ///
@@ -146,14 +212,38 @@ pub use self::bool::{guarded_transmute_bool_permissive, guarded_transmute_bool_p
 /// # }
 /// # }
 /// ```
-pub unsafe fn guarded_transmute<T: Copy>(bytes: &[u8]) -> Result<T, Error> {
-    SingleManyGuard::check::<T>(bytes)?;
-    Ok(slice::from_raw_parts(bytes.as_ptr() as *const T, 1)[0])
+
+
+
+pub unsafe fn guarded_transmute<T : Copy>(
+	bytes : &[u8])
+	-> Result<T, Error>
+{
+
+
+
+	SingleManyGuard::check::<T>(bytes)?;
+
+
+
+	Ok(
+	   slice::from_raw_parts(
+		bytes.as_ptr() as *const T,
+		1,
+	)[0],
+	)
 }
 
-/// Transmute a byte slice into a single instance of a `Copy`able type.
+
+
+/// Transmute a byte slice
+/// into a single instance of
+/// a `Copy`able type.
 ///
-/// The byte slice must have exactly enough bytes to fill a single instance of a type.
+/// The byte slice must have
+/// exactly enough bytes to
+/// fill a single instance of
+/// a type.
 ///
 /// # Examples
 ///
@@ -170,15 +260,39 @@ pub unsafe fn guarded_transmute<T: Copy>(bytes: &[u8]) -> Result<T, Error> {
 /// # }
 /// # }
 /// ```
-pub unsafe fn guarded_transmute_pedantic<T: Copy>(bytes: &[u8]) -> Result<T, Error> {
-    SingleValueGuard::check::<T>(bytes)?;
-    Ok(slice::from_raw_parts(bytes.as_ptr() as *const T, 1)[0])
+
+
+
+pub unsafe fn guarded_transmute_pedantic<T : Copy>(
+	bytes : &[u8])
+	-> Result<T, Error>
+{
+
+
+
+	SingleValueGuard::check::<T>(bytes)?;
+
+
+
+	Ok(
+	   slice::from_raw_parts(
+		bytes.as_ptr() as *const T,
+		1,
+	)[0],
+	)
 }
 
-/// View a byte slice as a slice of an arbitrary type.
+
+
+/// View a byte slice as a
+/// slice of an arbitrary
+/// type.
 ///
-/// The byte slice must have at least enough bytes to fill a single instance of a type,
-/// extraneous data is ignored.
+/// The byte slice must have
+/// at least enough bytes to
+/// fill a single instance of
+/// a type, extraneous data is
+/// ignored.
 ///
 /// # Examples
 ///
@@ -196,14 +310,38 @@ pub unsafe fn guarded_transmute_pedantic<T: Copy>(bytes: &[u8]) -> Result<T, Err
 /// # }
 /// # }
 /// ```
-pub unsafe fn guarded_transmute_many<T>(bytes: &[u8]) -> Result<&[T], Error> {
-    SingleManyGuard::check::<T>(bytes)?;
-    Ok(slice::from_raw_parts(bytes.as_ptr() as *const T, bytes.len() / size_of::<T>()))
+
+
+
+pub unsafe fn guarded_transmute_many<T>(
+	bytes : &[u8])
+	-> Result<&[T], Error>
+{
+
+
+
+	SingleManyGuard::check::<T>(bytes)?;
+
+
+
+	Ok(
+	   slice::from_raw_parts(
+		bytes.as_ptr() as *const T,
+		bytes.len() / size_of::<T,>(),
+	),
+	)
 }
 
-/// View a byte slice as a slice of an arbitrary type.
+
+
+/// View a byte slice as a
+/// slice of an arbitrary
+/// type.
 ///
-/// The resulting slice will have as many instances of a type as will fit, rounded down.
+/// The resulting slice will
+/// have as many instances of
+/// a type as will fit,
+/// rounded down.
 ///
 /// # Examples
 ///
@@ -213,15 +351,39 @@ pub unsafe fn guarded_transmute_many<T>(bytes: &[u8]) -> Result<&[T], Error> {
 /// assert_eq!(guarded_transmute_many_permissive::<u16>(&[0x00]), &[]);
 /// # }
 /// ```
-pub unsafe fn guarded_transmute_many_permissive<T>(bytes: &[u8]) -> &[T] {
-    PermissiveGuard::check::<T>(bytes).unwrap();
-    slice::from_raw_parts(bytes.as_ptr() as *const T, bytes.len() / size_of::<T>())
+
+
+
+pub unsafe fn guarded_transmute_many_permissive<T>(
+	bytes : &[u8])
+	-> &[T]
+{
+
+
+
+	PermissiveGuard::check::<T>(bytes).unwrap();
+
+
+
+	slice::from_raw_parts(
+	                      bytes.as_ptr()
+	                      as *const T,
+	                      bytes.len() /
+	                      size_of::<T,>(),
+	)
 }
 
-/// View a byte slice as a slice of an arbitrary type.
+
+
+/// View a byte slice as a
+/// slice of an arbitrary
+/// type.
 ///
-/// The byte slice must have at least enough bytes to fill a single instance of a type,
-/// and should not have extraneous data.
+/// The byte slice must have
+/// at least enough bytes to
+/// fill a single instance of
+/// a type, and should not
+/// have extraneous data.
 ///
 /// # Examples
 ///
@@ -239,16 +401,42 @@ pub unsafe fn guarded_transmute_many_permissive<T>(bytes: &[u8]) -> &[T] {
 /// # }
 /// # }
 /// ```
-pub unsafe fn guarded_transmute_many_pedantic<T>(bytes: &[u8]) -> Result<&[T], Error> {
-    PedanticGuard::check::<T>(bytes)?;
-    Ok(slice::from_raw_parts(bytes.as_ptr() as *const T, bytes.len() / size_of::<T>()))
+
+
+
+pub unsafe fn guarded_transmute_many_pedantic<T>(
+	bytes : &[u8])
+	-> Result<&[T], Error>
+{
+
+
+
+	PedanticGuard::check::<T>(bytes)?;
+
+
+
+	Ok(
+	   slice::from_raw_parts(
+		bytes.as_ptr() as *const T,
+		bytes.len() / size_of::<T,>(),
+	),
+	)
 }
 
-/// Trasform a byte vector into a vector of an arbitrary type.
+
+
+/// Trasform a byte vector
+/// into a vector of an
+/// arbitrary type.
 ///
-/// The resulting vec will reuse the allocated byte buffer when possible, and
-/// should have at least enough bytes to fill a single instance of a type.
-/// Extraneous data is ignored.
+/// The resulting vec will
+/// reuse the allocated byte
+/// buffer when possible, and
+/// should have at least
+/// enough bytes to fill a
+/// single instance of a type.
+/// Extraneous data is
+/// ignored.
 ///
 /// # Examples
 ///
@@ -274,10 +462,24 @@ pub unsafe fn guarded_transmute_many_pedantic<T>(bytes: &[u8]) -> Result<&[T], E
 /// # }
 /// ```
 #[cfg(feature = "std")]
-pub unsafe fn guarded_transmute_vec<T>(bytes: Vec<u8>) -> Result<Vec<T>, Error> {
-    SingleManyGuard::check::<T>(&bytes)?;
-    Ok(guarded_transmute_vec_permissive(bytes))
+
+
+
+pub unsafe fn guarded_transmute_vec<T>(
+	bytes : Vec<u8>)
+	-> Result<Vec<T>, Error>
+{
+
+
+
+	SingleManyGuard::check::<T>(&bytes)?;
+
+
+
+	Ok(guarded_transmute_vec_permissive(bytes))
 }
+
+
 
 /// Trasform a byte vector into a vector of an arbitrary type.
 ///
@@ -317,10 +519,17 @@ pub unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T> 
     Vec::from_raw_parts(ptr as *mut T, capacity, len)
 }
 
-/// Trasform a byte vector into a vector of an arbitrary type.
+
+
+/// Trasform a byte vector
+/// into a vector of an
+/// arbitrary type.
 ///
-/// The vector's allocated byte buffer will be reused when possible, and
-/// should not have extraneous data.
+/// The vector's allocated
+/// byte buffer will be reused
+/// when possible, and
+/// should not have extraneous
+/// data.
 ///
 /// # Examples
 ///
@@ -341,7 +550,19 @@ pub unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T> 
 /// # }
 /// ```
 #[cfg(feature = "std")]
-pub unsafe fn guarded_transmute_vec_pedantic<T>(bytes: Vec<u8>) -> Result<Vec<T>, Error> {
-    PedanticGuard::check::<T>(&bytes)?;
-    Ok(guarded_transmute_vec_permissive(bytes))
+
+
+
+pub unsafe fn guarded_transmute_vec_pedantic<T>(
+	bytes : Vec<u8>)
+	-> Result<Vec<T>, Error>
+{
+
+
+
+	PedanticGuard::check::<T>(&bytes)?;
+
+
+
+	Ok(guarded_transmute_vec_permissive(bytes))
 }

@@ -1,32 +1,66 @@
-#![cfg_attr(not(test), no_std)]
+#![cfg_attr(not(test),
+            no_std)]
+
+
+
 extern crate alloc;
 
-use alloc::vec::{IntoIter, Vec as StdVec};
+
+
+use alloc::vec::IntoIter;
+use alloc::vec::Vec as StdVec;
 use core::fmt;
 use core::iter::FromIterator;
 use core::mem::ManuallyDrop;
-use core::ops::{Deref, DerefMut, Index, IndexMut};
-use core::ptr::{slice_from_raw_parts, slice_from_raw_parts_mut, NonNull};
+use core::ops::Deref;
+use core::ops::DerefMut;
+use core::ops::Index;
+use core::ops::IndexMut;
+use core::ptr::slice_from_raw_parts;
+use core::ptr::slice_from_raw_parts_mut;
+use core::ptr::NonNull;
 
-/// A contiguous growable array type, written `Vec<T>` but pronounced 'vector'.
-pub struct Vec<T> {
-    ptr: NonNull<[T]>,
+
+
+/// A contiguous growable
+/// array type, written
+/// `Vec<T>` but pronounced
+/// 'vector'.
+
+
+
+pub struct Vec<T>
+{
+	ptr : NonNull<[T]>,
 }
 
-impl<T> Vec<T> {
-    /// Constructs a new, empty Vec<T> with the specified capacity.
-    ///
-    /// The vector will be able to hold exactly capacity elements without reallocating. If capacity is 0, the vector will not allocate.
-    pub fn with_capacity(capacity: usize) -> Self {
+
+
+impl<T> Vec<T>
+{
+	/// Constructs a new, empty
+	/// Vec<T> with the specified
+	/// capacity.
+	///
+	/// The vector will be able to
+	/// hold exactly capacity
+	/// elements without
+	/// reallocating. If capacity
+	/// is 0, the vector will not
+	/// allocate.
+	pub fn with_capacity(capacity: usize) -> Self {
         Self::from_stdvec_unchecked(StdVec::with_capacity(capacity))
     }
 
-    /// Appends an element to the back of a collection.
-    ///
-    /// # Panics
-    ///
-    /// Panics if the number of elements in the vector overflows a `u32`.
-    pub fn push(&mut self, val: T) {
+	/// Appends an element to the
+	/// back of a collection.
+	///
+	/// # Panics
+	///
+	/// Panics if the number of
+	/// elements in the vector
+	/// overflows a `u32`.
+	pub fn push(&mut self, val: T) {
         let ptr = self.as_mut_ptr();
         let (len, cap) = self.parts();
 
@@ -59,53 +93,86 @@ impl<T> Vec<T> {
         }
     }
 
-    /// Clears the vector, removing all values.
-    ///
-    /// Note that this method has no effect on the allocated capacity of the vector.
-    pub fn clear(&mut self) {
+	/// Clears the vector,
+	/// removing all values.
+	///
+	/// Note that this method has
+	/// no effect on the allocated
+	/// capacity of the vector.
+	pub fn clear(&mut self) {
         self.with(move |v| v.clear())
     }
 
-    /// Returns the number of elements the vector can hold without reallocating.
-    pub fn capacity(&self) -> usize {
+	/// Returns the number of
+	/// elements the vector can
+	/// hold without reallocating.
+	pub fn capacity(&self) -> usize {
         let (_, cap) = self.parts();
 
         cap
     }
 
-    /// Removes and returns the element at position `index` within the vector,
-    /// shifting all elements after it to the left.
-    pub fn remove(&mut self, index: usize) -> T {
+	/// Removes and returns the
+	/// element at position
+	/// `index` within the vector,
+	/// shifting all elements
+	/// after it to the left.
+	pub fn remove(&mut self, index: usize) -> T {
         self.with(move |v| v.remove(index))
     }
 
-    /// Returns a raw pointer to the vector's buffer.
-    #[inline]
-    pub const fn as_ptr(&self) -> *const T {
-        self.ptr.cast().as_ptr()
-    }
+	/// Returns a raw
+	/// pointer to
+	/// the vector's
+	/// buffer.
+	#[inline]
 
-    /// Returns an unsafe mutable pointer to the vector's buffer.
-    #[inline]
-    pub fn as_mut_ptr(&mut self) -> *mut T {
-        self.ptr.cast().as_ptr()
-    }
 
-    /// Sets the length
-    pub unsafe fn set_len(&mut self, len: usize) {
+
+	pub const fn as_ptr(&self) -> *const T
+	{
+
+
+
+		self.ptr
+		    .cast()
+		    .as_ptr()
+	}
+
+	/// Returns an
+	/// unsafe mutable
+	/// pointer to
+	/// the vector's
+	/// buffer.
+	#[inline]
+
+
+
+	pub fn as_mut_ptr(&mut self) -> *mut T
+	{
+
+
+
+		self.ptr
+		    .cast()
+		    .as_ptr()
+	}
+
+	/// Sets the length
+	pub unsafe fn set_len(&mut self, len: usize) {
         let (_, cap) = self.parts();
 
         self.ptr = pack_unchecked(self.as_mut_ptr(), len, cap);
     }
 
-    #[inline]
-    fn parts(&self) -> (usize, usize) {
+	#[inline]
+	fn parts(&self) -> (usize, usize) {
         let parts = unsafe { &*(self.ptr.as_ptr() as *const [()]) }.len();
 
         (parts & MASK_LO, (parts & MASK_HI) >> 32)
     }
 
-    fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R {
+	fn with<'a, R: 'a, F: FnOnce(&mut StdVec<T>) -> R>(&mut self, f: F) -> R {
         let (len, cap) = self.parts();
 
         let mut stdvec = unsafe { StdVec::from_raw_parts(self.as_mut_ptr(), len, cap) };
@@ -120,7 +187,7 @@ impl<T> Vec<T> {
         r
     }
 
-    fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self {
+	fn from_stdvec_unchecked(stdvec: StdVec<T>) -> Self {
         let mut stdvec = ManuallyDrop::new(stdvec);
 
         let ptr = stdvec.as_mut_ptr();
@@ -136,6 +203,7 @@ impl<T> Vec<T> {
 }
 
 
+
 impl<T> core::ops::Drop for Vec<T> {
     fn drop(&mut self) {
         let (len, cap) = self.parts();
@@ -145,6 +213,8 @@ impl<T> core::ops::Drop for Vec<T> {
         }
     }
 }
+
+
 
 impl<T> From<StdVec<T>> for Vec<T> {
     fn from(stdvec: StdVec<T>) -> Self {
@@ -160,6 +230,8 @@ impl<T> From<StdVec<T>> for Vec<T> {
     }
 }
 
+
+
 impl<T> From<Vec<T>> for StdVec<T> {
     fn from(vec: Vec<T>) -> Self {
         let mut vec = ManuallyDrop::new(vec);
@@ -170,8 +242,12 @@ impl<T> From<Vec<T>> for StdVec<T> {
     }
 }
 
-const MASK_LO: usize = core::u32::MAX as usize;
-const MASK_HI: usize = !(core::u32::MAX as usize);
+
+
+const MASK_LO : usize = core::u32::MAX as usize;
+const MASK_HI : usize = !(core::u32::MAX as usize);
+
+
 
 #[inline]
 unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> {
@@ -181,6 +257,8 @@ unsafe fn pack<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> {
 
     pack_unchecked(ptr, len, capacity)
 }
+
+
 
 #[inline]
 unsafe fn pack_unchecked<T>(ptr: *mut T, len: usize, capacity: usize) -> NonNull<[T]> {

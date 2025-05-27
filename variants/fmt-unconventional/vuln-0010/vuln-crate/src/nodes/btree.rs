@@ -1,229 +1,468 @@
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// This Source Code Form is
+// subject to the terms of the
+// Mozilla Public License, v.
+// 2.0. If a copy of the MPL
+// was not distributed with
+// this file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-use std::borrow::Borrow;
-use std::cmp::Ordering;
-use std::mem;
-use std::ops::{Bound, RangeBounds};
 
-use sized_chunks::Chunk;
-use typenum::{Add1, Unsigned};
-
-use crate::config::OrdChunkSize as NodeSize;
-use crate::util::{Pool, PoolClone, PoolDefault, PoolRef};
 
 use self::Insert::*;
 use self::InsertAction::*;
+use crate::config::OrdChunkSize as NodeSize;
+use crate::util::Pool;
+use crate::util::PoolClone;
+use crate::util::PoolDefault;
+use crate::util::PoolRef;
+use sized_chunks::Chunk;
+use std::borrow::Borrow;
+use std::cmp::Ordering;
+use std::mem;
+use std::ops::Bound;
+use std::ops::RangeBounds;
+use typenum::Add1;
+use typenum::Unsigned;
 
-pub(crate) const NODE_SIZE: usize = NodeSize::USIZE;
-const MEDIAN: usize = (NODE_SIZE + 1) >> 1;
 
-pub trait BTreeValue {
-    type Key;
-    fn ptr_eq(&self, other: &Self) -> bool;
-    fn search_key<BK>(slice: &[Self], key: &BK) -> Result<usize, usize>
-    where
-        BK: Ord + ?Sized,
-        Self: Sized,
-        Self::Key: Borrow<BK>;
-    fn search_value(slice: &[Self], value: &Self) -> Result<usize, usize>
-    where
-        Self: Sized;
-    fn cmp_keys<BK>(&self, other: &BK) -> Ordering
-    where
-        BK: Ord + ?Sized,
-        Self::Key: Borrow<BK>;
-    fn cmp_values(&self, other: &Self) -> Ordering;
+
+pub(crate) const NODE_SIZE : usize = NodeSize::USIZE;
+
+
+
+const MEDIAN : usize = (NODE_SIZE + 1) >> 1;
+
+
+
+pub trait BTreeValue
+{
+	type Key;
+
+
+
+	fn ptr_eq(&self,
+	          other : &Self)
+	          -> bool;
+
+
+
+	fn search_key<BK>(slice : &[Self],
+	                  key : &BK)
+	                  -> Result<usize, usize>
+		where BK : Ord+?Sized,
+		      Self : Sized,
+		      Self::Key : Borrow<BK>;
+
+
+
+	fn search_value(slice : &[Self],
+	                value : &Self)
+	                -> Result<usize, usize>
+		where Self : Sized;
+
+
+
+	fn cmp_keys<BK>(&self,
+	                other : &BK)
+	                -> Ordering
+		where BK : Ord+?Sized,
+		      Self::Key : Borrow<BK>;
+
+
+
+	fn cmp_values(&self,
+	              other : &Self)
+	              -> Ordering;
 }
 
-pub(crate) struct Node<A> {
-    keys: Chunk<A, NodeSize>,
-    children: Chunk<Option<PoolRef<Node<A>>>, Add1<NodeSize>>,
+
+
+pub(crate) struct Node<A>
+{
+	keys : Chunk<A, NodeSize>,
+	children : Chunk<
+	                 Option<PoolRef<Node<A,>,>,>,
+	                 Add1<NodeSize,>,
+	>,
 }
+
+
 
 #[cfg(feature = "pool")]
 #[allow(unsafe_code)]
-unsafe fn cast_uninit<A>(target: &mut A) -> &mut mem::MaybeUninit<A> {
-    &mut *(target as *mut A as *mut mem::MaybeUninit<A>)
-}
 
-#[allow(unsafe_code)]
-impl<A> PoolDefault for Node<A> {
-    #[cfg(feature = "pool")]
-    unsafe fn default_uninit(target: &mut mem::MaybeUninit<Self>) {
-        let ptr: *mut Self = target.as_mut_ptr();
-        Chunk::default_uninit(cast_uninit(&mut (*ptr).keys));
-        Chunk::default_uninit(cast_uninit(&mut (*ptr).children));
-        (*ptr).children.push_back(None);
-    }
-}
 
-#[allow(unsafe_code)]
-impl<A> PoolClone for Node<A>
-where
-    A: Clone,
+
+unsafe fn cast_uninit<A>(target : &mut A)
+                         -> &mut mem::MaybeUninit<A>
 {
-    #[cfg(feature = "pool")]
-    unsafe fn clone_uninit(&self, target: &mut mem::MaybeUninit<Self>) {
-        self.keys
+
+
+
+	&mut *(target as *mut A
+	       as *mut mem::MaybeUninit<A>)
+}
+
+
+
+#[allow(unsafe_code)]
+
+
+
+impl<A> PoolDefault for Node<A>
+{
+	#[cfg(feature = "pool")]
+
+
+
+	unsafe fn default_uninit(target: &mut mem::MaybeUninit<Self>)
+	{
+
+
+
+		let ptr : *mut Self =
+			target.as_mut_ptr();
+
+
+
+		Chunk::default_uninit(cast_uninit(&mut (*ptr).keys));
+
+
+
+		Chunk::default_uninit(cast_uninit(&mut (*ptr).children));
+
+
+
+		(*ptr).children
+		      .push_back(None);
+	}
+}
+
+
+
+#[allow(unsafe_code)]
+
+
+
+impl<A> PoolClone for Node<A> where A : Clone,
+{
+	#[cfg(feature = "pool")]
+
+
+
+	unsafe fn clone_uninit(&self,
+	                       target: &mut mem::MaybeUninit<Self>)
+	{
+
+
+
+		self.keys
             .clone_uninit(cast_uninit(&mut (*target.as_mut_ptr()).keys));
-        self.children
+
+
+
+		self.children
             .clone_uninit(cast_uninit(&mut (*target.as_mut_ptr()).children));
-    }
+	}
 }
 
-pub(crate) enum Insert<A> {
-    Added,
-    Replaced(A),
-    Split(Node<A>, A, Node<A>),
-}
 
-enum InsertAction<A> {
-    AddedAction,
-    ReplacedAction(A),
-    InsertAt,
-    InsertSplit(Node<A>, A, Node<A>),
-}
 
-pub(crate) enum Remove<A> {
-    NoChange,
-    Removed(A),
-    Update(A, Node<A>),
-}
-
-enum Boundary {
-    Lowest,
-    Highest,
-}
-
-enum RemoveAction {
-    DeleteAt(usize),
-    PullUp(Boundary, usize, usize),
-    Merge(usize),
-    StealFromLeft(usize),
-    StealFromRight(usize),
-    MergeFirst(usize),
-    ContinueDown(usize),
-}
-
-impl<A> Clone for Node<A>
-where
-    A: Clone,
+pub(crate) enum Insert<A>
 {
-    fn clone(&self) -> Self {
-        Node {
-            keys: self.keys.clone(),
-            children: self.children.clone(),
-        }
-    }
+	Added,
+	Replaced(A),
+	Split(
+	      Node<A,>,
+	      A,
+	      Node<A,>,
+	),
 }
 
-impl<A> Default for Node<A> {
-    fn default() -> Self {
-        Node {
+
+
+enum InsertAction<A>
+{
+	AddedAction,
+	ReplacedAction(A),
+	InsertAt,
+	InsertSplit(
+	            Node<A,>,
+	            A,
+	            Node<A,>,
+	),
+}
+
+
+
+pub(crate) enum Remove<A>
+{
+	NoChange,
+	Removed(A),
+	Update(
+	       A,
+	       Node<A,>,
+	),
+}
+
+
+
+enum Boundary
+{
+	Lowest,
+	Highest,
+}
+
+
+
+enum RemoveAction
+{
+	DeleteAt(usize),
+	PullUp(
+	       Boundary,
+	       usize,
+	       usize,
+	),
+	Merge(usize),
+	StealFromLeft(usize),
+	StealFromRight(usize),
+	MergeFirst(usize),
+	ContinueDown(usize),
+}
+
+
+
+impl<A> Clone for Node<A> where A : Clone,
+{
+	fn clone(&self) -> Self
+	{
+
+
+
+		Node { keys : self.keys
+		                  .clone(),
+		       children : self.children
+		                      .clone() }
+	}
+}
+
+
+
+impl<A> Default for Node<A>
+{
+	fn default() -> Self
+	{
+
+
+
+		Node {
             keys: Chunk::new(),
             children: Chunk::unit(None),
         }
-    }
+	}
 }
 
-impl<A> Node<A> {
-    #[inline]
-    fn has_room(&self) -> bool {
-        self.keys.len() < NODE_SIZE
-    }
 
-    #[inline]
-    fn too_small(&self) -> bool {
-        self.keys.len() < MEDIAN
-    }
 
-    #[inline]
-    pub(crate) fn unit(value: A) -> Self {
-        Node {
+impl<A> Node<A>
+{
+	#[inline]
+
+
+
+	fn has_room(&self) -> bool
+	{
+
+
+
+		self.keys
+		    .len() < NODE_SIZE
+	}
+
+	#[inline]
+
+
+
+	fn too_small(&self) -> bool
+	{
+
+
+
+		self.keys
+		    .len() < MEDIAN
+	}
+
+	#[inline]
+
+
+
+	pub(crate) fn unit(value : A) -> Self
+	{
+
+
+
+		Node {
             keys: Chunk::unit(value),
             children: Chunk::pair(None, None),
         }
-    }
+	}
 
-    #[inline]
-    pub(crate) fn new_from_split(
-        pool: &Pool<Node<A>>,
-        left: Node<A>,
-        median: A,
-        right: Node<A>,
-    ) -> Self {
-        Node {
+	#[inline]
+
+
+
+	pub(crate) fn new_from_split(pool: &Pool<Node<A>>,
+	                             left : Node<A>,
+	                             median : A,
+	                             right : Node<A>)
+	                             -> Self
+	{
+
+
+
+		Node {
             keys: Chunk::unit(median),
             children: Chunk::pair(
                 Some(PoolRef::new(pool, left)),
                 Some(PoolRef::new(pool, right)),
             ),
         }
-    }
+	}
 
-    pub(crate) fn min(&self) -> Option<&A> {
-        match self.children.first().unwrap() {
-            None => self.keys.first(),
-            Some(ref child) => child.min(),
-        }
-    }
+	pub(crate) fn min(&self) -> Option<&A>
+	{
 
-    pub(crate) fn max(&self) -> Option<&A> {
-        match self.children.last().unwrap() {
-            None => self.keys.last(),
-            Some(ref child) => child.max(),
-        }
-    }
+
+
+		match self.children
+		          .first()
+		          .unwrap()
+		{
+			| None => self.keys
+			              .first(),
+			| Some(
+			       ref
+			       child,
+			) => child.min(),
+		}
+	}
+
+	pub(crate) fn max(&self) -> Option<&A>
+	{
+
+
+
+		match self.children
+		          .last()
+		          .unwrap()
+		{
+			| None => self.keys
+			              .last(),
+			| Some(
+			       ref
+			       child,
+			) => child.max(),
+		}
+	}
 }
 
-impl<A: BTreeValue> Node<A> {
-    fn child_contains<BK>(&self, index: usize, key: &BK) -> bool
-    where
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        if let Some(Some(ref child)) = self.children.get(index) {
-            child.lookup(key).is_some()
-        } else {
-            false
-        }
-    }
 
-    pub(crate) fn lookup<BK>(&self, key: &BK) -> Option<&A>
-    where
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        if self.keys.is_empty() {
-            return None;
-        }
-        // Perform a binary search, resulting in either a match or
-        // the index of the first higher key, meaning we search the
-        // child to the left of it.
-        match A::search_key(&self.keys, key) {
+
+impl<A : BTreeValue> Node<A>
+{
+	fn child_contains<BK>(&self,
+	                      index : usize,
+	                      key : &BK)
+	                      -> bool
+		where BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		if let Some(Some(ref child)) =
+			self.children
+			    .get(index)
+		{
+
+
+
+			child.lookup(key)
+			     .is_some()
+		}
+		else
+		{
+
+
+
+			false
+		}
+	}
+
+	pub(crate) fn lookup<BK>(&self,
+	                         key : &BK)
+	                         -> Option<&A>
+		where BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		if self.keys
+		       .is_empty()
+		{
+
+
+
+			return None;
+		}
+
+
+
+		// Perform a binary search,
+		// resulting in either a match
+		// or the index of the first
+		// higher key, meaning we
+		// search the child to the
+		// left of it.
+		match A::search_key(&self.keys, key) {
             Ok(index) => Some(&self.keys[index]),
             Err(index) => match self.children[index] {
                 None => None,
                 Some(ref node) => node.lookup(key),
             },
         }
-    }
+	}
 
-    pub(crate) fn lookup_mut<BK>(&mut self, pool: &Pool<Node<A>>, key: &BK) -> Option<&mut A>
-    where
-        A: Clone,
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        if self.keys.is_empty() {
-            return None;
-        }
-        // Perform a binary search, resulting in either a match or
-        // the index of the first higher key, meaning we search the
-        // child to the left of it.
-        match A::search_key(&self.keys, key) {
+	pub(crate) fn lookup_mut<BK>(
+		&mut self,
+		pool : &Pool<Node<A>>,
+		key : &BK)
+		-> Option<&mut A>
+		where A : Clone,
+		      BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		if self.keys
+		       .is_empty()
+		{
+
+
+
+			return None;
+		}
+
+
+
+		// Perform a binary search,
+		// resulting in either a match
+		// or the index of the first
+		// higher key, meaning we
+		// search the child to the
+		// left of it.
+		match A::search_key(&self.keys, key) {
             Ok(index) => Some(&mut self.keys[index]),
             Err(index) => match self.children[index] {
                 None => None,
@@ -233,17 +472,30 @@ impl<A: BTreeValue> Node<A> {
                 }
             },
         }
-    }
+	}
 
-    pub(crate) fn lookup_prev<'a, BK>(&'a self, key: &BK) -> Option<&A>
-    where
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        if self.keys.is_empty() {
-            return None;
-        }
-        match A::search_key(&self.keys, key) {
+	pub(crate) fn lookup_prev<'a, BK>(
+		&'a self,
+		key : &BK)
+		-> Option<&A>
+		where BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		if self.keys
+		       .is_empty()
+		{
+
+
+
+			return None;
+		}
+
+
+
+		match A::search_key(&self.keys, key) {
             Ok(index) => Some(&self.keys[index]),
             Err(index) => match self.children[index] {
                 None if index == 0 => None,
@@ -251,39 +503,62 @@ impl<A: BTreeValue> Node<A> {
                 Some(ref node) => node.lookup_prev(key),
             },
         }
-    }
+	}
 
-    pub(crate) fn lookup_next<'a, BK>(&'a self, key: &BK) -> Option<&A>
-    where
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        if self.keys.is_empty() {
-            return None;
-        }
-        match A::search_key(&self.keys, key) {
+	pub(crate) fn lookup_next<'a, BK>(
+		&'a self,
+		key : &BK)
+		-> Option<&A>
+		where BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		if self.keys
+		       .is_empty()
+		{
+
+
+
+			return None;
+		}
+
+
+
+		match A::search_key(&self.keys, key) {
             Ok(index) => Some(&self.keys[index]),
             Err(index) => match self.children[index] {
                 None => self.keys.get(index).map(|_| &self.keys[index]),
                 Some(ref node) => node.lookup_next(key),
             },
         }
-    }
+	}
 
-    pub(crate) fn lookup_prev_mut<'a, BK>(
-        &'a mut self,
-        pool: &Pool<Node<A>>,
-        key: &BK,
-    ) -> Option<&mut A>
-    where
-        A: Clone,
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        if self.keys.is_empty() {
-            return None;
-        }
-        match A::search_key(&self.keys, key) {
+	pub(crate) fn lookup_prev_mut<'a, BK>(
+		&'a mut self,
+		pool : &Pool<Node<A>>,
+		key : &BK)
+		-> Option<&mut A>
+		where A : Clone,
+		      BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		if self.keys
+		       .is_empty()
+		{
+
+
+
+			return None;
+		}
+
+
+
+		match A::search_key(&self.keys, key) {
             Ok(index) => Some(&mut self.keys[index]),
             Err(index) => match self.children[index] {
                 None if index == 0 => None,
@@ -294,22 +569,32 @@ impl<A: BTreeValue> Node<A> {
                 Some(ref mut node) => PoolRef::make_mut(pool, node).lookup_prev_mut(pool, key),
             },
         }
-    }
+	}
 
-    pub(crate) fn lookup_next_mut<'a, BK>(
-        &'a mut self,
-        pool: &Pool<Node<A>>,
-        key: &BK,
-    ) -> Option<&mut A>
-    where
-        A: Clone,
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        if self.keys.is_empty() {
-            return None;
-        }
-        match A::search_key(&self.keys, key) {
+	pub(crate) fn lookup_next_mut<'a, BK>(
+		&'a mut self,
+		pool : &Pool<Node<A>>,
+		key : &BK)
+		-> Option<&mut A>
+		where A : Clone,
+		      BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		if self.keys
+		       .is_empty()
+		{
+
+
+
+			return None;
+		}
+
+
+
+		match A::search_key(&self.keys, key) {
             Ok(index) => Some(&mut self.keys[index]),
             Err(index) => match self.children[index] {
                 None => match self.keys.get(index) {
@@ -319,71 +604,144 @@ impl<A: BTreeValue> Node<A> {
                 Some(ref mut node) => PoolRef::make_mut(pool, node).lookup_next_mut(pool, key),
             },
         }
-    }
+	}
 
-    pub(crate) fn path_first<'a, BK>(
-        &'a self,
-        mut path: Vec<(&'a Node<A>, usize)>,
-    ) -> Vec<(&'a Node<A>, usize)>
-    where
-        A: 'a,
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        if self.keys.is_empty() {
-            return Vec::new();
-        }
-        match self.children[0] {
-            None => {
-                path.push((self, 0));
-                path
-            }
-            Some(ref node) => {
-                path.push((self, 0));
-                node.path_first(path)
-            }
-        }
-    }
+	pub(crate) fn path_first<'a, BK>(
+		&'a self,
+		mut path : Vec<(
+			&'a Node<A,>,
+			usize,
+		),>)
+		-> Vec<(&'a Node<A>, usize)>
+		where A : 'a,
+		      BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
 
-    pub(crate) fn path_last<'a, BK>(
-        &'a self,
-        mut path: Vec<(&'a Node<A>, usize)>,
-    ) -> Vec<(&'a Node<A>, usize)>
-    where
-        A: 'a,
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        if self.keys.is_empty() {
-            return Vec::new();
-        }
-        let end = self.children.len() - 1;
-        match self.children[end] {
-            None => {
-                path.push((self, end - 1));
-                path
-            }
-            Some(ref node) => {
-                path.push((self, end));
-                node.path_last(path)
-            }
-        }
-    }
 
-    pub(crate) fn path_next<'a, BK>(
-        &'a self,
-        key: &BK,
-        mut path: Vec<(&'a Node<A>, usize)>,
-    ) -> Vec<(&'a Node<A>, usize)>
-    where
-        A: 'a,
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        if self.keys.is_empty() {
-            return Vec::new();
-        }
-        match A::search_key(&self.keys, key) {
+
+		if self.keys
+		       .is_empty()
+		{
+
+
+
+			return Vec::new();
+		}
+
+
+
+		match self.children[0]
+		{
+			| None =>
+			{
+
+
+
+				path.push((self, 0));
+
+
+
+				path
+			},
+			| Some(ref node) =>
+			{
+
+
+
+				path.push((self, 0));
+
+
+
+				node.path_first(path)
+			},
+		}
+	}
+
+	pub(crate) fn path_last<'a, BK>(
+		&'a self,
+		mut path : Vec<(
+			&'a Node<A,>,
+			usize,
+		),>)
+		-> Vec<(&'a Node<A>, usize)>
+		where A : 'a,
+		      BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		if self.keys
+		       .is_empty()
+		{
+
+
+
+			return Vec::new();
+		}
+
+
+
+		let end = self.children
+		              .len() - 1;
+
+
+
+		match self.children[end]
+		{
+			| None =>
+			{
+
+
+
+				path.push((self, end - 1));
+
+
+
+				path
+			},
+			| Some(ref node) =>
+			{
+
+
+
+				path.push((self, end));
+
+
+
+				node.path_last(path)
+			},
+		}
+	}
+
+	pub(crate) fn path_next<'a, BK>(
+		&'a self,
+		key : &BK,
+		mut path : Vec<(
+			&'a Node<A,>,
+			usize,
+		),>)
+		-> Vec<(&'a Node<A>, usize)>
+		where A : 'a,
+		      BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		if self.keys
+		       .is_empty()
+		{
+
+
+
+			return Vec::new();
+		}
+
+
+
+		match A::search_key(&self.keys, key) {
             Ok(index) => {
                 path.push((self, index));
                 path
@@ -412,22 +770,35 @@ impl<A: BTreeValue> Node<A> {
                 }
             },
         }
-    }
+	}
 
-    pub(crate) fn path_prev<'a, BK>(
-        &'a self,
-        key: &BK,
-        mut path: Vec<(&'a Node<A>, usize)>,
-    ) -> Vec<(&'a Node<A>, usize)>
-    where
-        A: 'a,
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        if self.keys.is_empty() {
-            return Vec::new();
-        }
-        match A::search_key(&self.keys, key) {
+	pub(crate) fn path_prev<'a, BK>(
+		&'a self,
+		key : &BK,
+		mut path : Vec<(
+			&'a Node<A,>,
+			usize,
+		),>)
+		-> Vec<(&'a Node<A>, usize)>
+		where A : 'a,
+		      BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		if self.keys
+		       .is_empty()
+		{
+
+
+
+			return Vec::new();
+		}
+
+
+
+		match A::search_key(&self.keys, key) {
             Ok(index) => {
                 path.push((self, index));
                 path
@@ -455,24 +826,51 @@ impl<A: BTreeValue> Node<A> {
                 }
             },
         }
-    }
+	}
 
-    fn split(
-        &mut self,
-        pool: &Pool<Node<A>>,
-        value: A,
-        ins_left: Option<Node<A>>,
-        ins_right: Option<Node<A>>,
-    ) -> Insert<A> {
-        let left_child = ins_left.map(|node| PoolRef::new(pool, node));
-        let right_child = ins_right.map(|node| PoolRef::new(pool, node));
-        let index = A::search_value(&self.keys, &value).unwrap_err();
-        let mut left_keys;
-        let mut left_children;
-        let mut right_keys;
-        let mut right_children;
-        let median;
-        match index.cmp(&MEDIAN) {
+	fn split(&mut self,
+	         pool : &Pool<Node<A>>,
+	         value : A,
+	         ins_left : Option<Node<A>>,
+	         ins_right : Option<Node<A>>)
+	         -> Insert<A>
+	{
+
+
+
+		let left_child = ins_left.map(|node| PoolRef::new(pool, node));
+
+
+
+		let right_child = ins_right.map(|node| PoolRef::new(pool, node));
+
+
+
+		let index = A::search_value(&self.keys, &value).unwrap_err();
+
+
+
+		let mut left_keys;
+
+
+
+		let mut left_children;
+
+
+
+		let mut right_keys;
+
+
+
+		let mut right_children;
+
+
+
+		let median;
+
+
+
+		match index.cmp(&MEDIAN) {
             Ordering::Less => {
                 self.children[index] = left_child;
 
@@ -518,12 +916,31 @@ impl<A: BTreeValue> Node<A> {
             }
         }
 
-        debug_assert!(left_keys.len() == MEDIAN);
-        debug_assert!(left_children.len() == MEDIAN + 1);
-        debug_assert!(right_keys.len() == MEDIAN);
-        debug_assert!(right_children.len() == MEDIAN + 1);
 
-        Split(
+
+		debug_assert!(
+		              left_keys.len() ==
+		              MEDIAN
+		);
+
+
+
+		debug_assert!(left_children.len() == MEDIAN + 1);
+
+
+
+		debug_assert!(
+		              right_keys.len() ==
+		              MEDIAN
+		);
+
+
+
+		debug_assert!(right_children.len() == MEDIAN + 1);
+
+
+
+		Split(
             Node {
                 keys: left_keys,
                 children: left_children,
@@ -534,49 +951,140 @@ impl<A: BTreeValue> Node<A> {
                 children: right_children,
             },
         )
-    }
+	}
 
-    fn merge(middle: A, left: Node<A>, mut right: Node<A>) -> Node<A> {
-        let mut keys = left.keys;
-        keys.push_back(middle);
-        keys.append(&mut right.keys);
-        let mut children = left.children;
-        children.append(&mut right.children);
-        Node { keys, children }
-    }
+	fn merge(middle : A,
+	         left : Node<A>,
+	         mut right : Node<A>)
+	         -> Node<A>
+	{
 
-    fn pop_min(&mut self) -> (A, Option<PoolRef<Node<A>>>) {
-        let value = self.keys.pop_front();
-        let child = self.children.pop_front();
-        (value, child)
-    }
 
-    fn pop_max(&mut self) -> (A, Option<PoolRef<Node<A>>>) {
-        let value = self.keys.pop_back();
-        let child = self.children.pop_back();
-        (value, child)
-    }
 
-    fn push_min(&mut self, child: Option<PoolRef<Node<A>>>, value: A) {
-        self.keys.push_front(value);
-        self.children.push_front(child);
-    }
+		let mut keys = left.keys;
 
-    fn push_max(&mut self, child: Option<PoolRef<Node<A>>>, value: A) {
-        self.keys.push_back(value);
-        self.children.push_back(child);
-    }
 
-    pub(crate) fn insert(&mut self, pool: &Pool<Node<A>>, value: A) -> Insert<A>
-    where
-        A: Clone,
-    {
-        if self.keys.is_empty() {
-            self.keys.push_back(value);
-            self.children.push_back(None);
-            return Insert::Added;
-        }
-        let (median, left, right) = match A::search_value(&self.keys, &value) {
+
+		keys.push_back(middle);
+
+
+
+		keys.append(&mut right.keys);
+
+
+
+		let mut children = left.children;
+
+
+
+		children.append(&mut right.children);
+
+
+
+		Node { keys,
+		       children }
+	}
+
+	fn pop_min(&mut self)
+	           -> (A, Option<PoolRef<Node<A>>>)
+	{
+
+
+
+		let value = self.keys
+		                .pop_front();
+
+
+
+		let child = self.children
+		                .pop_front();
+
+
+
+		(value, child)
+	}
+
+	fn pop_max(&mut self)
+	           -> (A, Option<PoolRef<Node<A>>>)
+	{
+
+
+
+		let value = self.keys
+		                .pop_back();
+
+
+
+		let child = self.children
+		                .pop_back();
+
+
+
+		(value, child)
+	}
+
+	fn push_min(&mut self,
+	            child : Option<PoolRef<Node<A>>>,
+	            value : A)
+	{
+
+
+
+		self.keys
+		    .push_front(value);
+
+
+
+		self.children
+		    .push_front(child);
+	}
+
+	fn push_max(&mut self,
+	            child : Option<PoolRef<Node<A>>>,
+	            value : A)
+	{
+
+
+
+		self.keys
+		    .push_back(value);
+
+
+
+		self.children
+		    .push_back(child);
+	}
+
+	pub(crate) fn insert(&mut self,
+	                     pool : &Pool<Node<A>>,
+	                     value : A)
+	                     -> Insert<A>
+		where A : Clone,
+	{
+
+
+
+		if self.keys
+		       .is_empty()
+		{
+
+
+
+			self.keys.push_back(value);
+
+
+
+			self.children
+			    .push_back(None);
+
+
+
+			return Insert::Added;
+		}
+
+
+
+		let (median, left, right) = match A::search_value(&self.keys, &value) {
             // Key exists in node
             Ok(index) => {
                 return Insert::Replaced(mem::replace(&mut self.keys[index], value));
@@ -625,49 +1133,81 @@ impl<A: BTreeValue> Node<A> {
                 }
             }
         };
-        self.split(pool, median, left, right)
-    }
 
-    pub(crate) fn remove<BK>(&mut self, pool: &Pool<Node<A>>, key: &BK) -> Remove<A>
-    where
-        A: Clone,
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        let index = A::search_key(&self.keys, key);
-        self.remove_index(pool, index, Ok(key))
-    }
 
-    fn remove_target<BK>(
-        &mut self,
-        pool: &Pool<Node<A>>,
-        target: Result<&BK, Boundary>,
-    ) -> Remove<A>
-    where
-        A: Clone,
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        let index = match target {
+
+		self.split(
+		           pool, median, left,
+		           right,
+		)
+	}
+
+	pub(crate) fn remove<BK>(&mut self,
+	                         pool: &Pool<Node<A>>,
+	                         key : &BK)
+	                         -> Remove<A>
+		where A : Clone,
+		      BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		let index = A::search_key(&self.keys, key);
+
+
+
+		self.remove_index(
+		                  pool,
+		                  index,
+		                  Ok(key,),
+		)
+	}
+
+	fn remove_target<BK>(&mut self,
+	                     pool : &Pool<Node<A>>,
+	                     target: Result<&BK, Boundary>)
+	                     -> Remove<A>
+		where A : Clone,
+		      BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		let index = match target {
             Ok(key) => A::search_key(&self.keys, key),
             Err(Boundary::Lowest) => Err(0),
             Err(Boundary::Highest) => Err(self.keys.len()),
         };
-        self.remove_index(pool, index, target)
-    }
 
-    fn remove_index<BK>(
-        &mut self,
-        pool: &Pool<Node<A>>,
-        index: Result<usize, usize>,
-        target: Result<&BK, Boundary>,
-    ) -> Remove<A>
-    where
-        A: Clone,
-        BK: Ord + ?Sized,
-        A::Key: Borrow<BK>,
-    {
-        let action = match index {
+
+
+		self.remove_index(
+		                  pool, index,
+		                  target,
+		)
+	}
+
+	fn remove_index<BK>(&mut self,
+	                    pool : &Pool<Node<A>>,
+	                    index : Result<
+	                           usize,
+	                           usize,
+	>,
+	                    target : Result<
+	                           &BK,
+	                           Boundary,
+	>)
+	                    -> Remove<A>
+		where A : Clone,
+		      BK : Ord+?Sized,
+		      A::Key : Borrow<BK>,
+	{
+
+
+
+		let action = match index {
             // Key exists in node, remove it.
             Ok(index) => {
                 match (&self.children[index], &self.children[index + 1]) {
@@ -726,7 +1266,10 @@ impl<A: BTreeValue> Node<A> {
                 Some(_) => RemoveAction::ContinueDown(index),
             },
         };
-        match action {
+
+
+
+		match action {
             RemoveAction::DeleteAt(index) => {
                 let pair = self.keys.remove(index);
                 self.children.remove(index);
@@ -924,26 +1467,43 @@ impl<A: BTreeValue> Node<A> {
                 Remove::Removed(out_value)
             }
         }
-    }
+	}
 }
+
+
 
 // Iterator
 
-/// An iterator over an ordered set.
-pub struct Iter<'a, A> {
-    fwd_path: Vec<(&'a Node<A>, usize)>,
-    back_path: Vec<(&'a Node<A>, usize)>,
-    pub(crate) remaining: usize,
+
+
+/// An iterator over an
+/// ordered set.
+
+
+
+pub struct Iter<'a, A>
+{
+	fwd_path : Vec<(&'a Node<A>, usize)>,
+	back_path : Vec<(&'a Node<A>, usize)>,
+	pub(crate) remaining : usize,
 }
 
-impl<'a, A: BTreeValue> Iter<'a, A> {
-    pub(crate) fn new<R, BK>(root: &'a Node<A>, size: usize, range: R) -> Self
-    where
-        R: RangeBounds<BK>,
-        A::Key: Borrow<BK>,
-        BK: Ord + ?Sized,
-    {
-        let fwd_path = match range.start_bound() {
+
+
+impl<'a, A : BTreeValue> Iter<'a, A>
+{
+	pub(crate) fn new<R, BK>(root : &'a Node<A>,
+	                         size : usize,
+	                         range : R)
+	                         -> Self
+		where R : RangeBounds<BK>,
+		      A::Key : Borrow<BK>,
+		      BK : Ord+?Sized,
+	{
+
+
+
+		let fwd_path = match range.start_bound() {
             Bound::Included(key) => root.path_next(key, Vec::new()),
             Bound::Excluded(key) => {
                 let mut path = root.path_next(key, Vec::new());
@@ -956,7 +1516,10 @@ impl<'a, A: BTreeValue> Iter<'a, A> {
             }
             Bound::Unbounded => root.path_first(Vec::new()),
         };
-        let back_path = match range.end_bound() {
+
+
+
+		let back_path = match range.end_bound() {
             Bound::Included(key) => root.path_prev(key, Vec::new()),
             Bound::Excluded(key) => {
                 let mut path = root.path_prev(key, Vec::new());
@@ -969,25 +1532,47 @@ impl<'a, A: BTreeValue> Iter<'a, A> {
             }
             Bound::Unbounded => root.path_last(Vec::new()),
         };
-        Iter {
-            fwd_path,
-            back_path,
-            remaining: size,
-        }
-    }
 
-    fn get(path: &[(&'a Node<A>, usize)]) -> Option<&'a A> {
-        match path.last() {
+
+
+		Iter { fwd_path,
+		       back_path,
+		       remaining : size }
+	}
+
+	fn get(path : &[(&'a Node<A>, usize)])
+	       -> Option<&'a A>
+	{
+
+
+
+		match path.last() {
             Some((node, index)) => Some(&node.keys[*index]),
             None => None,
         }
-    }
+	}
 
-    fn step_forward(path: &mut Vec<(&'a Node<A>, usize)>) -> Option<&'a A> {
-        match path.pop() {
-            Some((node, index)) => {
-                let index = index + 1;
-                match node.children[index] {
+	fn step_forward(path: &mut Vec<(&'a Node<A>, usize)>)
+	                -> Option<&'a A>
+	{
+
+
+
+		match path.pop()
+		{
+			| Some((
+				node,
+				index,
+			),) =>
+			{
+
+
+
+				let index = index + 1;
+
+
+
+				match node.children[index] {
                     // Child between current and next key -> step down
                     Some(ref child) => {
                         path.push((node, index));
@@ -1021,13 +1606,21 @@ impl<'a, A: BTreeValue> Iter<'a, A> {
                         },
                     },
                 }
-            }
-            None => None,
-        }
-    }
+			},
+			| None => None,
+		}
+	}
 
-    fn step_back(path: &mut Vec<(&'a Node<A>, usize)>) -> Option<&'a A> {
-        match path.pop() {
+	fn step_back(path : &mut Vec<(
+		&'a Node<A,>,
+		usize,
+	),>)
+	             -> Option<&'a A>
+	{
+
+
+
+		match path.pop() {
             Some((node, index)) => match node.children[index] {
                 Some(ref child) => {
                     path.push((node, index));
@@ -1066,14 +1659,21 @@ impl<'a, A: BTreeValue> Iter<'a, A> {
             },
             None => None,
         }
-    }
+	}
 }
 
-impl<'a, A: 'a + BTreeValue> Iterator for Iter<'a, A> {
-    type Item = &'a A;
 
-    fn next(&mut self) -> Option<Self::Item> {
-        match Iter::get(&self.fwd_path) {
+
+impl<'a, A : 'a+BTreeValue> Iterator for Iter<'a, A>
+{
+	type Item = &'a A;
+
+	fn next(&mut self) -> Option<Self::Item>
+	{
+
+
+
+		match Iter::get(&self.fwd_path) {
             None => None,
             Some(value) => match Iter::get(&self.back_path) {
                 Some(last_value) if value.cmp_values(last_value) == Ordering::Greater => None,
@@ -1085,17 +1685,29 @@ impl<'a, A: 'a + BTreeValue> Iterator for Iter<'a, A> {
                 }
             },
         }
-    }
+	}
 
-    fn size_hint(&self) -> (usize, Option<usize>) {
-        // (0, Some(self.remaining))
-        (0, None)
-    }
+	fn size_hint(&self) -> (usize, Option<usize>)
+	{
+
+
+
+		// (0, Some(self.remaining))
+		(0, None)
+	}
 }
 
-impl<'a, A: 'a + BTreeValue> DoubleEndedIterator for Iter<'a, A> {
-    fn next_back(&mut self) -> Option<Self::Item> {
-        match Iter::get(&self.back_path) {
+
+
+impl<'a, A : 'a+BTreeValue> DoubleEndedIterator
+	for Iter<'a, A>
+{
+	fn next_back(&mut self) -> Option<Self::Item>
+	{
+
+
+
+		match Iter::get(&self.back_path) {
             None => None,
             Some(value) => match Iter::get(&self.fwd_path) {
                 Some(last_value) if value.cmp_values(last_value) == Ordering::Less => None,
@@ -1107,80 +1719,165 @@ impl<'a, A: 'a + BTreeValue> DoubleEndedIterator for Iter<'a, A> {
                 }
             },
         }
-    }
+	}
 }
+
+
 
 // Consuming iterator
 
-enum ConsumingIterItem<A> {
-    Consider(Node<A>),
-    Yield(A),
+
+
+enum ConsumingIterItem<A>
+{
+	Consider(Node<A>),
+	Yield(A),
 }
 
-/// A consuming iterator over an ordered set.
-pub struct ConsumingIter<A> {
-    fwd_last: Option<A>,
-    fwd_stack: Vec<ConsumingIterItem<A>>,
-    back_last: Option<A>,
-    back_stack: Vec<ConsumingIterItem<A>>,
-    remaining: usize,
+
+
+/// A consuming iterator over
+/// an ordered set.
+
+
+
+pub struct ConsumingIter<A>
+{
+	fwd_last : Option<A>,
+	fwd_stack : Vec<ConsumingIterItem<A>>,
+	back_last : Option<A>,
+	back_stack : Vec<ConsumingIterItem<A>>,
+	remaining : usize,
 }
 
-impl<A: Clone> ConsumingIter<A> {
-    pub(crate) fn new(root: &Node<A>, total: usize) -> Self {
-        ConsumingIter {
+
+
+impl<A : Clone> ConsumingIter<A>
+{
+	pub(crate) fn new(root : &Node<A>,
+	                  total : usize)
+	                  -> Self
+	{
+
+
+
+		ConsumingIter {
             fwd_last: None,
             fwd_stack: vec![ConsumingIterItem::Consider(root.clone())],
             back_last: None,
             back_stack: vec![ConsumingIterItem::Consider(root.clone())],
             remaining: total,
         }
-    }
+	}
 
-    fn push_node(stack: &mut Vec<ConsumingIterItem<A>>, maybe_node: Option<PoolRef<Node<A>>>) {
-        if let Some(node) = maybe_node {
-            stack.push(ConsumingIterItem::Consider(PoolRef::unwrap_or_clone(node)))
-        }
-    }
+	fn push_node(stack: &mut Vec<ConsumingIterItem<A>>,
+	             maybe_node: Option<PoolRef<Node<A>>>)
+	{
 
-    fn push(stack: &mut Vec<ConsumingIterItem<A>>, mut node: Node<A>) {
-        for _n in 0..node.keys.len() {
-            ConsumingIter::push_node(stack, node.children.pop_back());
-            stack.push(ConsumingIterItem::Yield(node.keys.pop_back()));
-        }
-        ConsumingIter::push_node(stack, node.children.pop_back());
-    }
 
-    fn push_fwd(&mut self, node: Node<A>) {
-        ConsumingIter::push(&mut self.fwd_stack, node)
-    }
 
-    fn push_node_back(&mut self, maybe_node: Option<PoolRef<Node<A>>>) {
-        if let Some(node) = maybe_node {
-            self.back_stack
+		if let Some(node) = maybe_node
+		{
+
+
+
+			stack.push(ConsumingIterItem::Consider(PoolRef::unwrap_or_clone(node)))
+		}
+	}
+
+	fn push(stack: &mut Vec<ConsumingIterItem<A>>,
+	        mut node : Node<A>)
+	{
+
+
+
+		for _n in 0 .. node.keys
+		                   .len()
+		{
+
+
+
+			ConsumingIter::push_node(stack, node.children.pop_back());
+
+
+
+			stack.push(ConsumingIterItem::Yield(node.keys.pop_back()));
+		}
+
+
+
+		ConsumingIter::push_node(stack, node.children.pop_back());
+	}
+
+	fn push_fwd(&mut self,
+	            node : Node<A>)
+	{
+
+
+
+		ConsumingIter::push(&mut self.fwd_stack, node)
+	}
+
+	fn push_node_back(&mut self,
+	                  maybe_node: Option<PoolRef<Node<A>>>)
+	{
+
+
+
+		if let Some(node) = maybe_node
+		{
+
+
+
+			self.back_stack
                 .push(ConsumingIterItem::Consider(PoolRef::unwrap_or_clone(node)))
-        }
-    }
+		}
+	}
 
-    fn push_back(&mut self, mut node: Node<A>) {
-        for _i in 0..node.keys.len() {
-            self.push_node_back(node.children.pop_front());
-            self.back_stack
+	fn push_back(&mut self,
+	             mut node : Node<A>)
+	{
+
+
+
+		for _i in 0 .. node.keys
+		                   .len()
+		{
+
+
+
+			self.push_node_back(node.children.pop_front());
+
+
+
+			self.back_stack
                 .push(ConsumingIterItem::Yield(node.keys.pop_front()));
-        }
-        self.push_node_back(node.children.pop_back());
-    }
+		}
+
+
+
+		self.push_node_back(node.children.pop_back());
+	}
 }
 
-impl<A> Iterator for ConsumingIter<A>
-where
-    A: BTreeValue + Clone,
-{
-    type Item = A;
 
-    fn next(&mut self) -> Option<Self::Item> {
-        loop {
-            match self.fwd_stack.pop() {
+
+impl<A> Iterator for ConsumingIter<A>
+	where A : BTreeValue+Clone,
+{
+	type Item = A;
+
+	fn next(&mut self) -> Option<Self::Item>
+	{
+
+
+
+		loop
+		{
+
+
+
+			match self.fwd_stack.pop() {
                 None => {
                     self.remaining = 0;
                     return None;
@@ -1200,21 +1897,35 @@ where
                     return Some(value);
                 }
             }
-        }
-    }
+		}
+	}
 
-    fn size_hint(&self) -> (usize, Option<usize>) {
-        (self.remaining, Some(self.remaining))
-    }
+	fn size_hint(&self) -> (usize, Option<usize>)
+	{
+
+
+
+		(self.remaining,
+		 Some(self.remaining))
+	}
 }
 
+
+
 impl<A> DoubleEndedIterator for ConsumingIter<A>
-where
-    A: BTreeValue + Clone,
+	where A : BTreeValue+Clone,
 {
-    fn next_back(&mut self) -> Option<Self::Item> {
-        loop {
-            match self.back_stack.pop() {
+	fn next_back(&mut self) -> Option<Self::Item>
+	{
+
+
+
+		loop
+		{
+
+
+
+			match self.back_stack.pop() {
                 None => {
                     self.remaining = 0;
                     return None;
@@ -1234,82 +1945,193 @@ where
                     return Some(value);
                 }
             }
-        }
-    }
+		}
+	}
 }
 
-impl<A: BTreeValue + Clone> ExactSizeIterator for ConsumingIter<A> {}
+
+
+impl<A : BTreeValue+Clone> ExactSizeIterator
+	for ConsumingIter<A>
+{
+}
+
+
 
 // DiffIter
 
-/// An iterator over the differences between two ordered sets.
-pub struct DiffIter<'a, A> {
-    old_stack: Vec<IterItem<'a, A>>,
-    new_stack: Vec<IterItem<'a, A>>,
+
+
+/// An iterator over the
+/// differences between two
+/// ordered sets.
+
+
+
+pub struct DiffIter<'a, A>
+{
+	old_stack : Vec<IterItem<'a, A>>,
+	new_stack : Vec<IterItem<'a, A>>,
 }
 
-/// A description of a difference between two ordered sets.
+
+
+/// A description of a
+/// difference between two
+/// ordered sets.
 #[derive(PartialEq, Eq, Debug)]
-pub enum DiffItem<'a, A> {
-    /// This value has been added to the new set.
-    Add(&'a A),
-    /// This value has been changed between the two sets.
-    Update {
-        /// The old value.
-        old: &'a A,
-        /// The new value.
-        new: &'a A,
-    },
-    /// This value has been removed from the new set.
-    Remove(&'a A),
+
+
+
+pub enum DiffItem<'a, A>
+{
+	/// This value
+	/// has been added
+	/// to the new
+	/// set.
+	Add(&'a A),
+	/// This value
+	/// has been changed
+	/// between the
+	/// two sets.
+	Update
+	{
+		/// The old value.
+		old : &'a A,
+		/// The new value.
+		new : &'a A,
+	},
+	/// This value
+	/// has been removed
+	/// from the new
+	/// set.
+	Remove(&'a A),
 }
 
-enum IterItem<'a, A> {
-    Consider(&'a Node<A>),
-    Yield(&'a A),
+
+
+enum IterItem<'a, A>
+{
+	Consider(&'a Node<A>),
+	Yield(&'a A),
 }
 
-impl<'a, A: 'a> DiffIter<'a, A> {
-    pub(crate) fn new(old: &'a Node<A>, new: &'a Node<A>) -> Self {
-        DiffIter {
-            old_stack: if old.keys.is_empty() {
-                Vec::new()
-            } else {
-                vec![IterItem::Consider(old)]
-            },
-            new_stack: if new.keys.is_empty() {
-                Vec::new()
-            } else {
-                vec![IterItem::Consider(new)]
-            },
-        }
-    }
 
-    fn push_node(stack: &mut Vec<IterItem<'a, A>>, maybe_node: &'a Option<PoolRef<Node<A>>>) {
-        if let Some(ref node) = *maybe_node {
-            stack.push(IterItem::Consider(node))
-        }
-    }
 
-    fn push(stack: &mut Vec<IterItem<'a, A>>, node: &'a Node<A>) {
-        for n in 0..node.keys.len() {
-            let i = node.keys.len() - n;
-            Self::push_node(stack, &node.children[i]);
-            stack.push(IterItem::Yield(&node.keys[i - 1]));
-        }
-        Self::push_node(stack, &node.children[0]);
-    }
+impl<'a, A : 'a> DiffIter<'a, A>
+{
+	pub(crate) fn new(old : &'a Node<A>,
+	                  new : &'a Node<A>)
+	                  -> Self
+	{
+
+
+
+		DiffIter { old_stack : if old.keys
+		                             .is_empty()
+		           {
+
+
+
+			           Vec::new()
+		           }
+		           else
+		           {
+
+
+
+			           vec![IterItem::Consider(old)]
+		           },
+		           new_stack : if new.keys
+		                             .is_empty()
+		           {
+
+
+
+			           Vec::new()
+		           }
+		           else
+		           {
+
+
+
+			           vec![IterItem::Consider(new)]
+		           } }
+	}
+
+	fn push_node(stack : &mut Vec<
+	                      IterItem<
+		'a,
+		A,
+	>,
+	>,
+	             maybe_node: &'a Option<PoolRef<Node<A>>>)
+	{
+
+
+
+		if let Some(ref node) =
+			*maybe_node
+		{
+
+
+
+			stack.push(IterItem::Consider(node))
+		}
+	}
+
+	fn push(stack : &mut Vec<IterItem<'a, A>>,
+	        node : &'a Node<A>)
+	{
+
+
+
+		for n in 0 .. node.keys
+		                  .len()
+		{
+
+
+
+			let i = node.keys
+			            .len() - n;
+
+
+
+			Self::push_node(stack, &node.children[i]);
+
+
+
+			stack.push(IterItem::Yield(&node.keys[i - 1]));
+		}
+
+
+
+		Self::push_node(
+		                stack,
+		                &node.children
+			                [0],
+		);
+	}
 }
+
+
 
 impl<'a, A> Iterator for DiffIter<'a, A>
-where
-    A: 'a + BTreeValue + PartialEq,
+	where A : 'a+BTreeValue+PartialEq,
 {
-    type Item = DiffItem<'a, A>;
+	type Item = DiffItem<'a, A>;
 
-    fn next(&mut self) -> Option<Self::Item> {
-        loop {
-            match (self.old_stack.pop(), self.new_stack.pop()) {
+	fn next(&mut self) -> Option<Self::Item>
+	{
+
+
+
+		loop
+		{
+
+
+
+			match (self.old_stack.pop(), self.new_stack.pop()) {
                 (None, None) => return None,
                 (None, Some(new)) => match new {
                     IterItem::Consider(new) => Self::push(&mut self.new_stack, new),
@@ -1363,6 +2185,6 @@ where
                     },
                 },
             }
-        }
-    }
+		}
+	}
 }

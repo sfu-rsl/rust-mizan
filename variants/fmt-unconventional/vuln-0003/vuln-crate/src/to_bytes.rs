@@ -1,4 +1,7 @@
-//! Functions for transmutation *from* a concrete type *to* bytes.
+//! Functions for
+//! transmutation *from* a
+//! concrete type *to* bytes.
+
 
 
 use self::super::PodTransmutable;
@@ -8,7 +11,11 @@ use core::mem::size_of;
 use core::slice;
 
 
-/// Transmute a single instance of an arbitrary type into a slice of its bytes.
+
+/// Transmute a single
+/// instance of an arbitrary
+/// type into a slice of its
+/// bytes.
 ///
 /// # Examples
 ///
@@ -46,11 +53,27 @@ use core::slice;
 ///            &[0x42, 0x69]);
 /// # }
 /// ```
-pub unsafe fn guarded_transmute_to_bytes<T>(from: &T) -> &[u8] {
-    slice::from_raw_parts(from as *const T as *const u8, size_of::<T>())
+
+
+
+pub unsafe fn guarded_transmute_to_bytes<T>(from : &T)
+                                            -> &[u8]
+{
+
+
+
+	slice::from_raw_parts(
+	                      from as *const T
+	                      as *const u8,
+	                      size_of::<T,>(),
+	)
 }
 
-/// Transmute a slice of arbitrary types into a slice of their bytes.
+
+
+/// Transmute a slice of
+/// arbitrary types into a
+/// slice of their bytes.
 ///
 /// # Examples
 ///
@@ -92,11 +115,28 @@ pub unsafe fn guarded_transmute_to_bytes<T>(from: &T) -> &[u8] {
 ///            &[0x42, 0x69, 0x12, 0x48]);
 /// # }
 /// ```
-pub unsafe fn guarded_transmute_to_bytes_many<T>(from: &[T]) -> &[u8] {
-    slice::from_raw_parts(from.as_ptr() as *const u8, from.len() * size_of::<T>())
+
+
+
+pub unsafe fn guarded_transmute_to_bytes_many<T>(from: &[T])
+                                                 -> &[u8]
+{
+
+
+
+	slice::from_raw_parts(
+	                      from.as_ptr()
+	                      as *const u8,
+	                      from.len() *
+	                      size_of::<T,>(),
+	)
 }
 
-/// Transmute a single instance of a POD type into a slice of its bytes.
+
+
+/// Transmute a single
+/// instance of a POD type
+/// into a slice of its bytes.
 ///
 /// # Examples
 ///
@@ -132,11 +172,29 @@ pub unsafe fn guarded_transmute_to_bytes_many<T>(from: &[T]) -> &[u8] {
 ///            }),
 ///            &[0x42, 0x69]);
 /// ```
-pub fn guarded_transmute_to_bytes_pod<T: PodTransmutable>(from: &T) -> &[u8] {
-    unsafe { guarded_transmute_to_bytes(from) }
+
+
+
+pub fn guarded_transmute_to_bytes_pod<T : PodTransmutable>(
+	from : &T)
+	-> &[u8]
+{
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute_to_bytes(from)
+	}
 }
 
-/// Transmute a slice of arbitrary types into a slice of their bytes.
+
+
+/// Transmute a slice of
+/// arbitrary types into a
+/// slice of their bytes.
 ///
 /// # Examples
 ///
@@ -176,9 +234,18 @@ pub fn guarded_transmute_to_bytes_pod<T: PodTransmutable>(from: &T) -> &[u8] {
 ///                                                  }]),
 ///            &[0x42, 0x69, 0x12, 0x48]);
 /// ```
-pub fn guarded_transmute_to_bytes_pod_many<T: PodTransmutable>(from: &[T]) -> &[u8] {
-    unsafe { guarded_transmute_to_bytes_many(from) }
+pub fn guarded_transmute_to_bytes_pod_many<T: PodTransmutable>(from: &[T]) -> &[u8]{
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute_to_bytes_many(from)
+	}
 }
+
 
 
 /// Transmute a vector of arbitrary types into a vector of their bytes,
@@ -234,8 +301,13 @@ pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8> {
     Vec::from_raw_parts(ptr as *mut u8, capacity, len)
 }
 
-/// Transmute a vector of POD types into a vector of their bytes,
-/// using the same memory buffer as the former.
+
+
+/// Transmute a vector of POD
+/// types into a vector of
+/// their bytes,
+/// using the same memory
+/// buffer as the former.
 ///
 /// # Examples
 ///
@@ -276,6 +348,20 @@ pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8> {
 ///            vec![0x42, 0x69, 0x12, 0x48]);
 /// ```
 #[cfg(feature = "std")]
-pub fn guarded_transmute_to_bytes_pod_vec<T: PodTransmutable>(from: Vec<T>) -> Vec<u8> {
-    unsafe { guarded_transmute_to_bytes_vec(from) }
+
+
+
+pub fn guarded_transmute_to_bytes_pod_vec<T : PodTransmutable>(
+	from : Vec<T>)
+	-> Vec<u8>
+{
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute_to_bytes_vec(from)
+	}
 }

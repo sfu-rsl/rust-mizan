@@ -1,40 +1,91 @@
-//! Functions for safe transmutation to `bool`.
-//! Transmuting to `bool' is not undefined behavior if the transmuted value is
-//! either 0 or 1. These functions will return an error if the integer value
-//! behind the `bool` value is neither one.
+//! Functions for safe
+//! transmutation to `bool`.
+//! Transmuting to `bool' is
+//! not undefined behavior if
+//! the transmuted value is
+//! either 0 or 1. These
+//! functions will return an
+//! error if the integer value
+//! behind the `bool` value is
+//! neither one.
 
 
-use self::super::{Error, guarded_transmute_many_permissive, guarded_transmute_many_pedantic};
+
+use self::super::guarded_transmute_many_pedantic;
+use self::super::guarded_transmute_many_permissive;
 #[cfg(feature = "std")]
-use self::super::{guarded_transmute_vec_permissive, guarded_transmute_vec_pedantic};
-use core::mem::{size_of, transmute};
+use self::super::guarded_transmute_vec_pedantic;
+#[cfg(feature = "std")]
+use self::super::guarded_transmute_vec_permissive;
+use self::super::Error;
+use core::mem::size_of;
+use core::mem::transmute;
 
 
-/// Makes sure that the bytes represent a sequence of valid boolean values.
+
+/// Makes sure that the bytes
+/// represent a sequence of
+/// valid boolean values.
 ///
 /// # Panics
 ///
-/// This shouldn't happen on all currently supported platforms, but this
-/// function panics if the size of `bool` isn't 1.
+/// This shouldn't happen on
+/// all currently supported
+/// platforms, but this
+/// function panics if the
+/// size of `bool` isn't 1.
 #[inline]
-pub fn bytes_are_bool(v: &[u8]) -> bool {
-    // TODO make this a static assert once available
-    assert_eq!(size_of::<bool>(),
+
+
+
+pub fn bytes_are_bool(v : &[u8]) -> bool
+{
+
+
+
+	// TODO make this a static
+	// assert once available
+	assert_eq!(size_of::<bool>(),
                1,
                "unsupported platform due to invalid bool size {}, please report over at https://github.com/nabijaczleweli/safe-transmute-rs/issues/new",
                size_of::<bool>());
 
-    v.iter().cloned().all(byte_is_bool)
+
+
+	v.iter()
+	 .cloned()
+	 .all(byte_is_bool)
 }
+
+
 
 #[inline]
-fn byte_is_bool(b: u8) -> bool {
-    unsafe { b == transmute::<_, u8>(false) || b == transmute::<_, u8>(true) }
+
+
+
+fn byte_is_bool(b : u8) -> bool
+{
+
+
+
+	unsafe {
+
+
+
+		b == transmute::<_, u8>(false) ||
+		b == transmute::<_, u8>(true)
+	}
 }
 
-/// View a byte slice as a slice of boolean values.
+
+
+/// View a byte slice as a
+/// slice of boolean values.
 ///
-/// The resulting slice will have as many instances of `bool` as will fit, can be empty.
+/// The resulting slice will
+/// have as many instances of
+/// `bool` as will fit, can be
+/// empty.
 ///
 /// # Examples
 ///
@@ -48,14 +99,36 @@ fn byte_is_bool(b: u8) -> bool {
 /// # }
 /// # run().unwrap()
 /// ```
-pub fn guarded_transmute_bool_permissive(bytes: &[u8]) -> Result<&[bool], Error> {
-    check_bool(bytes)?;
-    unsafe { Ok(guarded_transmute_many_permissive(bytes)) }
+
+
+
+pub fn guarded_transmute_bool_permissive(
+	bytes : &[u8])
+	-> Result<&[bool], Error>
+{
+
+
+
+	check_bool(bytes)?;
+
+
+
+	unsafe {
+
+
+
+		Ok(guarded_transmute_many_permissive(bytes))
+	}
 }
 
-/// View a byte slice as a slice of boolean values.
+
+
+/// View a byte slice as a
+/// slice of boolean values.
 ///
-/// The byte slice must have at least enough bytes to fill a single `bool`.
+/// The byte slice must have
+/// at least enough bytes to
+/// fill a single `bool`.
 ///
 /// # Examples
 ///
@@ -69,15 +142,38 @@ pub fn guarded_transmute_bool_permissive(bytes: &[u8]) -> Result<&[bool], Error>
 /// # }
 /// # run().unwrap()
 /// ```
-pub fn guarded_transmute_bool_pedantic(bytes: &[u8]) -> Result<&[bool], Error> {
-    check_bool(bytes)?;
-    unsafe { guarded_transmute_many_pedantic(bytes) }
+
+
+
+pub fn guarded_transmute_bool_pedantic(
+	bytes : &[u8])
+	-> Result<&[bool], Error>
+{
+
+
+
+	check_bool(bytes)?;
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute_many_pedantic(bytes)
+	}
 }
 
-/// Trasform a byte vector into a vector of bool.
+
+
+/// Trasform a byte vector
+/// into a vector of bool.
 ///
-/// The vector's allocated byte buffer will be reused when possible, and
-/// have as many instances of a type as will fit, rounded down.
+/// The vector's allocated
+/// byte buffer will be reused
+/// when possible, and have as
+/// many instances of a type
+/// as will fit, rounded down.
 ///
 /// # Examples
 ///
@@ -94,15 +190,38 @@ pub fn guarded_transmute_bool_pedantic(bytes: &[u8]) -> Result<&[bool], Error> {
 /// # run().unwrap()
 /// ```
 #[cfg(feature = "std")]
-pub fn guarded_transmute_bool_vec_permissive(bytes: Vec<u8>) -> Result<Vec<bool>, Error> {
-    check_bool(&bytes)?;
-    unsafe { Ok(guarded_transmute_vec_permissive(bytes)) }
+
+
+
+pub fn guarded_transmute_bool_vec_permissive(
+	bytes : Vec<u8>)
+	-> Result<Vec<bool>, Error>
+{
+
+
+
+	check_bool(&bytes)?;
+
+
+
+	unsafe {
+
+
+
+		Ok(guarded_transmute_vec_permissive(bytes))
+	}
 }
 
-/// Transform a byte vector into a vector of bool.
+
+
+/// Transform a byte vector
+/// into a vector of bool.
 ///
-/// The vector's allocated byte buffer will be reused when possible, and
-/// should not have extraneous data.
+/// The vector's allocated
+/// byte buffer will be reused
+/// when possible, and
+/// should not have extraneous
+/// data.
 ///
 /// # Examples
 ///
@@ -120,16 +239,47 @@ pub fn guarded_transmute_bool_vec_permissive(bytes: Vec<u8>) -> Result<Vec<bool>
 /// # run().unwrap()
 /// ```
 #[cfg(feature = "std")]
-pub fn guarded_transmute_bool_vec_pedantic(bytes: Vec<u8>) -> Result<Vec<bool>, Error> {
-    check_bool(&bytes)?;
-    unsafe { guarded_transmute_vec_pedantic(bytes) }
+
+
+
+pub fn guarded_transmute_bool_vec_pedantic(
+	bytes : Vec<u8>)
+	-> Result<Vec<bool>, Error>
+{
+
+
+
+	check_bool(&bytes)?;
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute_vec_pedantic(bytes)
+	}
 }
 
 
-fn check_bool(bytes: &[u8]) -> Result<(), Error> {
-    if bytes_are_bool(bytes) {
-        Ok(())
-    } else {
-        Err(Error::InvalidValue)
-    }
+
+fn check_bool(bytes : &[u8]) -> Result<(), Error>
+{
+
+
+
+	if bytes_are_bool(bytes)
+	{
+
+
+
+		Ok(())
+	}
+	else
+	{
+
+
+
+		Err(Error::InvalidValue)
+	}
 }

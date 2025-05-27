@@ -15,34 +15,52 @@
         {
           "path_to_crate": "vuln-0001/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
+            "src/lib.rs": [
+              "fn from(buffer: Buffer) -> Vec<u8>"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [95]
+            "src/lib.rs": [
+              262
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0001/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
-            "src/buffer.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
+            "src/buffer.rs": [
+              "fn from(buffer: Buffer) -> Vec<u8>"
+            ]
           },
           "vulnerable_lines": {
-            "src/buffer.rs": [195]
+            "src/buffer.rs": [
+              532
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0001/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
-            "src/buffer.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
+            "src/buffer.rs": [
+              "fn from(buffer: Buffer) -> Vec<u8>"
+            ]
           },
           "vulnerable_lines": {
-            "src/buffer.rs": [195]
+            "src/buffer.rs": [
+              532
+            ]
           }
         },
         {
@@ -78,7 +96,9 @@
         {
           "path_to_crate": "vuln-0002/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
             "src/access.rs": [
               "fn deref(&self) -> &T",
@@ -87,13 +107,18 @@
             ]
           },
           "vulnerable_lines": {
-            "src/access.rs": [240, 287]
+            "src/access.rs": [
+              414,
+              482
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0002/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
             "src/access.rs": [
               "fn deref(&self) -> &T",
@@ -102,13 +127,18 @@
             ]
           },
           "vulnerable_lines": {
-            "src/access.rs": [240, 287]
+            "src/access.rs": [
+              414,
+              482
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0002/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn deref(&self) -> &T",
@@ -117,7 +147,10 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [19, 51]
+            "src/lib.rs": [
+              37,
+              82
+            ]
           }
         },
         {
@@ -153,7 +186,9 @@
         {
           "path_to_crate": "vuln-0003/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-119"],
+          "cwe_type": [
+            "CWE-119"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>"
@@ -163,14 +198,20 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [317],
-            "src/to_bytes.rs": [234]
+            "src/lib.rs": [
+              519
+            ],
+            "src/to_bytes.rs": [
+              301
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0003/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-119"],
+          "cwe_type": [
+            "CWE-119"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>"
@@ -180,21 +221,29 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [310],
-            "src/to_bytes.rs": [234]
+            "src/lib.rs": [
+              511
+            ],
+            "src/to_bytes.rs": [
+              301
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0003/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-119"],
+          "cwe_type": [
+            "CWE-119"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8>"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [9]
+            "src/lib.rs": [
+              11
+            ]
           }
         },
         {
@@ -230,7 +279,9 @@
         {
           "path_to_crate": "vuln-0004/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-415"],
+          "cwe_type": [
+            "CWE-415"
+          ],
           "vulnerable_functions": {
             "src/compact.rs": [
               "fn remove(&mut self, index: usize) -> T",
@@ -238,13 +289,18 @@
             ]
           },
           "vulnerable_lines": {
-            "src/compact.rs": [110, 144]
+            "src/compact.rs": [
+              295,
+              379
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0004/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-415"],
+          "cwe_type": [
+            "CWE-415"
+          ],
           "vulnerable_functions": {
             "src/compact.rs": [
               "fn remove(&mut self, index: usize) -> T",
@@ -252,13 +308,18 @@
             ]
           },
           "vulnerable_lines": {
-            "src/compact.rs": [110, 144]
+            "src/compact.rs": [
+              295,
+              379
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0004/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-415"],
+          "cwe_type": [
+            "CWE-415"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn remove(&mut self, index: usize) -> T",
@@ -266,7 +327,10 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [20, 47]
+            "src/lib.rs": [
+              47,
+              114
+            ]
           }
         }
       ]
@@ -281,40 +345,52 @@
         {
           "path_to_crate": "vuln-0005/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-400"],
+          "cwe_type": [
+            "CWE-400"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [24]
+            "src/lib.rs": [
+              24
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0005/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-400"],
+          "cwe_type": [
+            "CWE-400"
+          ],
           "vulnerable_functions": {
             "src/color.rs": [
               "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
             ]
           },
           "vulnerable_lines": {
-            "src/color.rs": [256]
+            "src/color.rs": [
+              383
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0005/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-400"],
+          "cwe_type": [
+            "CWE-400"
+          ],
           "vulnerable_functions": {
             "src/color.rs": [
               "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
             ]
           },
           "vulnerable_lines": {
-            "src/color.rs": [256]
+            "src/color.rs": [
+              383
+            ]
           }
         },
         {
@@ -350,40 +426,55 @@
         {
           "path_to_crate": "vuln-0006/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn insert_many<I: IntoIterator<Item = A::Item>>(&mut self, index: usize, iterable: I)"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [1032, 1044]
+            "src/lib.rs": [
+              2402,
+              2414
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0006/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn insert_many<I: IntoIterator<Item = A::Item>>(&mut self, index: usize, iterable: I)"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [1029, 1041]
+            "src/lib.rs": [
+              2397,
+              2409
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0006/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn insert_many<I: IntoIterator<Item = A::Item>>(&mut self, index: usize, iterable: I)"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [355, 367]
+            "src/lib.rs": [
+              869,
+              881
+            ]
           }
         },
         {
@@ -419,7 +510,9 @@
         {
           "path_to_crate": "vuln-0007/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-125"],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
             "src/compact.rs": [
               "fn with_capacity(capacity: usize) -> Self",
@@ -443,15 +536,33 @@
           },
           "vulnerable_lines": {
             "src/compact.rs": [
-              36, 48, 54, 72, 90, 102, 110, 127, 136, 142, 161, 187, 204, 213,
-              281, 282, 286, 297
+              80,
+              95,
+              101,
+              119,
+              170,
+              196,
+              207,
+              249,
+              258,
+              264,
+              283,
+              335,
+              354,
+              365,
+              513,
+              514,
+              520,
+              533
             ]
           }
         },
         {
           "path_to_crate": "vuln-0007/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-125"],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
             "src/compact.rs": [
               "fn with_capacity(capacity: usize) -> Self",
@@ -475,15 +586,33 @@
           },
           "vulnerable_lines": {
             "src/compact.rs": [
-              36, 48, 54, 72, 90, 102, 110, 127, 136, 142, 161, 187, 204, 213,
-              281, 282, 286, 297
+              80,
+              95,
+              101,
+              119,
+              170,
+              196,
+              207,
+              249,
+              258,
+              264,
+              283,
+              335,
+              354,
+              365,
+              513,
+              514,
+              520,
+              533
             ]
           }
         },
         {
           "path_to_crate": "vuln-0007/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-125"],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn with_capacity(capacity: usize) -> Self",
@@ -507,8 +636,24 @@
           },
           "vulnerable_lines": {
             "src/lib.rs": [
-              21, 33, 39, 57, 66, 71, 79, 96, 105, 111, 130, 141, 158, 167, 173,
-              174, 178, 189
+              52,
+              67,
+              73,
+              91,
+              103,
+              110,
+              121,
+              163,
+              172,
+              178,
+              197,
+              209,
+              228,
+              239,
+              247,
+              248,
+              254,
+              267
             ]
           }
         }
@@ -524,7 +669,9 @@
         {
           "path_to_crate": "vuln-0009/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/ds/matrix.rs": [
               "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
@@ -532,13 +679,18 @@
             ]
           },
           "vulnerable_lines": {
-            "src/ds/matrix.rs": [101, 110]
+            "src/ds/matrix.rs": [
+              219,
+              229
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0009/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/ds/matrix.rs": [
               "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
@@ -546,13 +698,18 @@
             ]
           },
           "vulnerable_lines": {
-            "src/ds/matrix.rs": [101, 110]
+            "src/ds/matrix.rs": [
+              219,
+              229
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0009/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
@@ -560,7 +717,10 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [21, 30]
+            "src/lib.rs": [
+              24,
+              34
+            ]
           }
         }
       ]
@@ -575,7 +735,9 @@
         {
           "path_to_crate": "vuln-0010/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/vector/focus.rs": [
               "unsafe impl<A> Send for TreeFocus<A>",
@@ -583,13 +745,18 @@
             ]
           },
           "vulnerable_lines": {
-            "src/vector/focus.rs": [281, 284]
+            "src/vector/focus.rs": [
+              512,
+              515
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0010/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/vector/focus.rs": [
               "unsafe impl<A> Send for TreeFocus<A>",
@@ -597,13 +764,18 @@
             ]
           },
           "vulnerable_lines": {
-            "src/vector/focus.rs": [281, 284]
+            "src/vector/focus.rs": [
+              512,
+              515
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0010/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<A> Send for TreeFocus<A>",
@@ -611,7 +783,10 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [65, 68]
+            "src/lib.rs": [
+              122,
+              125
+            ]
           }
         },
         {
@@ -647,7 +822,10 @@
         {
           "path_to_crate": "vuln-0012/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-662", "CWE-787"],
+          "cwe_type": [
+            "CWE-662",
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<T> Sync for HConsed<T> {}",
@@ -655,13 +833,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [354, 355]
+            "src/lib.rs": [
+              631,
+              632
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0012/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-662", "CWE-787"],
+          "cwe_type": [
+            "CWE-662",
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<T> Sync for HConsed<T> {}",
@@ -669,13 +853,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [352, 353]
+            "src/lib.rs": [
+              627,
+              628
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0012/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-662", "CWE-787"],
+          "cwe_type": [
+            "CWE-662",
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<T> Sync for HConsed<T> {}",
@@ -683,7 +873,10 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [20, 21]
+            "src/lib.rs": [
+              37,
+              38
+            ]
           }
         },
         {
@@ -719,34 +912,55 @@
         {
           "path_to_crate": "vuln-0013/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-415", "CWE-416"],
+          "cwe_type": [
+            "CWE-415",
+            "CWE-416"
+          ],
           "vulnerable_functions": {
-            "src/vec.rs": ["fn into_boxed_bitslice(self) -> BitBox<O, T>"]
+            "src/vec.rs": [
+              "fn into_boxed_bitslice(self) -> BitBox<O, T>"
+            ]
           },
           "vulnerable_lines": {
-            "src/vec.rs": [655]
+            "src/vec.rs": [
+              1351
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0013/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-415", "CWE-416"],
+          "cwe_type": [
+            "CWE-415",
+            "CWE-416"
+          ],
           "vulnerable_functions": {
-            "src/vec.rs": ["fn into_boxed_bitslice(self) -> BitBox<O, T>"]
+            "src/vec.rs": [
+              "fn into_boxed_bitslice(self) -> BitBox<O, T>"
+            ]
           },
           "vulnerable_lines": {
-            "src/vec.rs": [655]
+            "src/vec.rs": [
+              1351
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0013/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-415", "CWE-416"],
+          "cwe_type": [
+            "CWE-415",
+            "CWE-416"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["fn into_boxed_bitslice(self) -> BitBox<O, T>"]
+            "src/lib.rs": [
+              "fn into_boxed_bitslice(self) -> BitBox<O, T>"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [2503]
+            "src/lib.rs": [
+              5160
+            ]
           }
         },
         {
@@ -782,27 +996,37 @@
         {
           "path_to_crate": "vuln-0017/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn new_from_template(size: usize, template: &T) -> Self"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [117, 121]
+            "src/lib.rs": [
+              278,
+              282
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0017/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn new_from_template(size: usize, template: &T) -> Self"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [15, 19]
+            "src/lib.rs": [
+              26,
+              30
+            ]
           }
         }
       ]
@@ -817,38 +1041,55 @@
         {
           "path_to_crate": "vuln-0020/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
             "src/sized_chunk/mod.rs": [
               "fn from(array: &mut InlineArray<A, T>) -> Self"
             ]
           },
           "vulnerable_lines": {
-            "src/sized_chunk/mod.rs": [824, 825]
+            "src/sized_chunk/mod.rs": [
+              2170,
+              2171
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0020/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
             "src/sized_chunk/mod.rs": [
               "fn from(array: &mut InlineArray<A, T>) -> Self"
             ]
           },
           "vulnerable_lines": {
-            "src/sized_chunk/mod.rs": [821, 822]
+            "src/sized_chunk/mod.rs": [
+              2165,
+              2166
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0020/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["fn from(array: &mut InlineArray<A, T>) -> Self"]
+            "src/lib.rs": [
+              "fn from(array: &mut InlineArray<A, T>) -> Self"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [50, 51]
+            "src/lib.rs": [
+              77,
+              78
+            ]
           }
         },
         {
@@ -884,23 +1125,35 @@
         {
           "path_to_crate": "vuln-0024/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-125"],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["fn index(&self, index: usize) -> &Self::Output"]
+            "src/lib.rs": [
+              "fn index(&self, index: usize) -> &Self::Output"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [163]
+            "src/lib.rs": [
+              381
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0024/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-125"],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["fn index(&self, index: usize) -> &Self::Output"]
+            "src/lib.rs": [
+              "fn index(&self, index: usize) -> &Self::Output"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [14]
+            "src/lib.rs": [
+              24
+            ]
           }
         },
         {
@@ -929,40 +1182,55 @@
         {
           "path_to_crate": "vuln-0026/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/fam.rs": [
               "fn set_len(&mut self, len: usize) -> Result<(), Error>"
             ]
           },
           "vulnerable_lines": {
-            "src/fam.rs": [398, 550]
+            "src/fam.rs": [
+              848,
+              1145
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0026/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/fam.rs": [
               "fn set_len(&mut self, len: usize) -> Result<(), Error>"
             ]
           },
           "vulnerable_lines": {
-            "src/fam.rs": [398, 550]
+            "src/fam.rs": [
+              848,
+              1145
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0026/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn set_len(&mut self, len: usize) -> Result<(), Error>"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [320, 366]
+            "src/lib.rs": [
+              638,
+              686
+            ]
           }
         },
         {
@@ -998,33 +1266,51 @@
         {
           "path_to_crate": "vuln-0027/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/frame.rs": [
               "fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
               "pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult"
             ],
-            "src/subframe.rs": ["fn decode_residual<R: ReadBytes>"]
+            "src/subframe.rs": [
+              "fn decode_residual<R: ReadBytes>"
+            ]
           },
           "vulnerable_lines": {
-            "src/frame.rs": [618, 657],
-            "src/subframe.rs": [257]
+            "src/frame.rs": [
+              1610,
+              1674
+            ],
+            "src/subframe.rs": [
+              710
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0027/vuln-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/frame.rs": [
               "fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
               "pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult"
             ],
-            "src/subframe.rs": ["fn decode_residual<R: ReadBytes>"]
+            "src/subframe.rs": [
+              "fn decode_residual<R: ReadBytes>"
+            ]
           },
           "vulnerable_lines": {
-            "src/frame.rs": [618, 657],
-            "src/subframe.rs": [257]
+            "src/frame.rs": [
+              1610,
+              1674
+            ],
+            "src/subframe.rs": [
+              710
+            ]
           }
         },
         {
@@ -1053,7 +1339,9 @@
         {
           "path_to_crate": "vuln-0028/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-20"],
+          "cwe_type": [
+            "CWE-20"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn force(this: &Lazy<T, F>) -> &T",
@@ -1061,13 +1349,18 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [492, 795]
+            "src/lib.rs": [
+              834,
+              1330
+            ]
           }
         },
         {
           "path_to_crate": "vuln-0028/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-20"],
+          "cwe_type": [
+            "CWE-20"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn force(this: &Lazy<T, F>) -> &T",
@@ -1075,7 +1368,10 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [425, 637]
+            "src/lib.rs": [
+              713,
+              1040
+            ]
           }
         },
         {
@@ -1104,12 +1400,18 @@
         {
           "path_to_crate": "vuln-0033/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-134"],
+          "cwe_type": [
+            "CWE-134"
+          ],
           "vulnerable_functions": {
-            "src/trace.rs": ["pub fn log(err_code: c_int, msg: &str)"]
+            "src/trace.rs": [
+              "pub fn log(err_code: c_int, msg: &str)"
+            ]
           },
           "vulnerable_lines": {
-            "src/trace.rs": [64]
+            "src/trace.rs": [
+              159
+            ]
           }
         },
         {

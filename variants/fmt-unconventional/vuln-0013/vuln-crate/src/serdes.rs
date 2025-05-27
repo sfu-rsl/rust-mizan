@@ -1,83 +1,101 @@
-/*! `serde`-powered de/serialization
-
-This module implements the Serde traits for the `bitvec` types, as possible.
-
-Without an allocator, only `BitSlice` exists, and can only implement
-`Serialize`. With an allocator, the `BitBox` and `BitVec` types exist, and are
-able to implement `Deserialize` as well.
-!*/
+//! `serde`-powered
+//! de/serialization
+//!
+//! This module implements the
+//! Serde traits for the
+//! `bitvec` types, as
+//! possible.
+//!
+//! Without an allocator, only
+//! `BitSlice` exists, and can
+//! only implement
+//! `Serialize`. With an
+//! allocator, the `BitBox`
+//! and `BitVec` types exist,
+//! and are able to implement
+//! `Deserialize` as well. !
 
 #![cfg(all(feature = "serde"))]
 
-use crate::{
-	domain::Domain,
-	mem::BitMemory,
-	order::BitOrder,
-	slice::BitSlice,
-	store::BitStore,
-};
+
 
 #[cfg(feature = "alloc")]
-use crate::{
-	boxed::BitBox,
-	pointer::BitPtr,
-	vec::BitVec,
-};
-
+use crate::boxed::BitBox;
+use crate::domain::Domain;
+use crate::mem::BitMemory;
+use crate::order::BitOrder;
 #[cfg(feature = "alloc")]
-use core::{
-	cmp,
-	convert::TryInto,
-	fmt::{
-		self,
-		Formatter,
-	},
-	marker::PhantomData,
-	mem,
-};
-
-use serde::{
-	ser::{
-		SerializeSeq,
-		SerializeStruct,
-		Serializer,
-	},
-	Serialize,
-};
-
+use crate::pointer::BitPtr;
+use crate::slice::BitSlice;
+use crate::store::BitStore;
 #[cfg(feature = "alloc")]
-use serde::{
-	de::{
-		self,
-		Deserializer,
-		Error,
-		MapAccess,
-		SeqAccess,
-		Unexpected,
-		Visitor,
-	},
-	Deserialize,
-};
+use crate::vec::BitVec;
+#[cfg(feature = "alloc")]
+use core::cmp;
+#[cfg(feature = "alloc")]
+use core::convert::TryInto;
+#[cfg(feature = "alloc")]
+use core::fmt::Formatter;
+#[cfg(feature = "alloc")]
+use core::fmt::{self};
+#[cfg(feature = "alloc")]
+use core::marker::PhantomData;
+#[cfg(feature = "alloc")]
+use core::mem;
+#[cfg(feature = "alloc")]
+use serde::de::Deserializer;
+#[cfg(feature = "alloc")]
+use serde::de::Error;
+#[cfg(feature = "alloc")]
+use serde::de::MapAccess;
+#[cfg(feature = "alloc")]
+use serde::de::SeqAccess;
+#[cfg(feature = "alloc")]
+use serde::de::Unexpected;
+#[cfg(feature = "alloc")]
+use serde::de::Visitor;
+#[cfg(feature = "alloc")]
+use serde::de::{self};
+use serde::ser::SerializeSeq;
+use serde::ser::SerializeStruct;
+use serde::ser::Serializer;
+#[cfg(feature = "alloc")]
+use serde::Deserialize;
+use serde::Serialize;
 
-/// A Serde visitor to pull `BitBox` data out of a serialized stream
+
+
+/// A Serde visitor to pull
+/// `BitBox` data out of a
+/// serialized stream
 #[cfg(feature = "alloc")]
 #[derive(Clone, Copy, Default, Debug)]
+
+
+
 pub struct BitBoxVisitor<'de, O, T>
-where
-	O: BitOrder,
-	T: BitStore + Deserialize<'de>,
+	where O : BitOrder,
+	      T : BitStore+Deserialize<'de>,
 {
-	_order: PhantomData<O>,
-	_storage: PhantomData<&'de T>,
+	_order : PhantomData<O>,
+	_storage : PhantomData<&'de T>,
 }
 
+
+
 #[cfg(feature = "alloc")]
+
+
+
 impl<'de, O, T> BitBoxVisitor<'de, O, T>
-where
-	O: BitOrder,
-	T: BitStore + Deserialize<'de>,
+	where O : BitOrder,
+	      T : BitStore+Deserialize<'de>,
 {
-	fn new() -> Self {
+	fn new() -> Self
+	{
+
+
+
 		BitBoxVisitor {
 			_order: PhantomData,
 			_storage: PhantomData,
@@ -85,31 +103,62 @@ where
 	}
 }
 
+
+
 #[cfg(feature = "alloc")]
+
+
+
 impl<'de, O, T> Visitor<'de> for BitBoxVisitor<'de, O, T>
-where
-	O: BitOrder,
-	T: BitStore + Deserialize<'de>,
+	where O : BitOrder,
+	      T : BitStore+Deserialize<'de>,
 {
 	type Value = BitBox<O, T>;
 
-	fn expecting(&self, fmt: &mut Formatter) -> fmt::Result {
-		fmt.write_str("A BitSet data series")
+	fn expecting(&self,
+	             fmt : &mut Formatter)
+	             -> fmt::Result
+	{
+
+
+
+		fmt.write_str(
+		              "A BitSet data \
+		               series",
+		)
 	}
 
 	/// Visit a sequence of anonymous data elements. These must be in the order
 	/// `usize', `u8`, `u8`, `[T]`.
-	fn visit_seq<V>(self, mut seq: V) -> Result<Self::Value, V::Error>
-	where V: SeqAccess<'de> {
+
+
+
+	fn visit_seq<V>(
+		self,
+		mut seq : V)
+		-> Result<Self::Value, V::Error>
+		where V : SeqAccess<'de>,
+	{
+
+
+
 		let head: u8 = seq
 			.next_element()?
 			.ok_or_else(|| de::Error::invalid_length(0, &self))?;
+
+
+
 		let bits: usize = seq
 			.next_element()?
 			.ok_or_else(|| de::Error::invalid_length(1, &self))?;
+
+
+
 		let data: Box<[T]> = seq
 			.next_element()?
 			.ok_or_else(|| de::Error::invalid_length(2, &self))?;
+
+
 
 		let bitptr = BitPtr::new(
 			data.as_ptr(),
@@ -121,19 +170,65 @@ where
 			})?,
 			bits,
 		);
+
+
+
 		mem::forget(data);
-		Ok(unsafe { BitBox::from_raw(bitptr.as_mut_ptr()) })
+
+
+
+		Ok(
+		   unsafe {
+
+
+
+			   BitBox::from_raw(bitptr.as_mut_ptr())
+		   },
+		)
 	}
 
-	/// Visit a map of named data elements. These may be in any order, and must
-	/// be the pairs `head: u8`, `bits: usize`, and `data: [T]`.
-	fn visit_map<V>(self, mut map: V) -> Result<Self::Value, V::Error>
-	where V: MapAccess<'de> {
-		let mut head: Option<u8> = None;
-		let mut bits: Option<usize> = None;
+	/// Visit a map
+	/// of named data
+	/// elements. These
+	/// may be in any
+	/// order, and
+	/// must
+	/// be the pairs
+	/// `head: u8`,
+	/// `bits: usize`,
+	/// and `data:
+	/// [T]`.
+
+
+
+	fn visit_map<V>(
+		self,
+		mut map : V)
+		-> Result<Self::Value, V::Error>
+		where V : MapAccess<'de>,
+	{
+
+
+
+		let mut head : Option<u8> = None;
+
+
+
+		let mut bits : Option<usize> =
+			None;
+
+
+
 		let mut data: Option<Box<[T]>> = None;
 
-		while let Some(key) = map.next_key()? {
+
+
+		while let Some(key) =
+			map.next_key()?
+		{
+
+
+
 			match key {
 				"head" => {
 					if head.replace(map.next_value()?).is_some() {
@@ -157,9 +252,20 @@ where
 				},
 			}
 		}
+
+
+
 		let head = head.ok_or_else(|| de::Error::missing_field("head"))?;
+
+
+
 		let bits = bits.ok_or_else(|| de::Error::missing_field("bits"))?;
+
+
+
 		let data = data.ok_or_else(|| de::Error::missing_field("data"))?;
+
+
 
 		let bitptr = BitPtr::new(
 			data.as_ptr(),
@@ -171,19 +277,42 @@ where
 			})?,
 			cmp::min(bits, data.len() * T::Mem::BITS as usize),
 		);
+
+
+
 		mem::forget(data);
-		Ok(unsafe { BitBox::from_raw(bitptr.as_mut_ptr()) })
+
+
+
+		Ok(
+		   unsafe {
+
+
+
+			   BitBox::from_raw(bitptr.as_mut_ptr())
+		   },
+		)
 	}
 }
 
+
+
 #[cfg(feature = "alloc")]
+
+
+
 impl<'de, O, T> Deserialize<'de> for BitBox<O, T>
-where
-	O: BitOrder,
-	T: 'de + BitStore + Deserialize<'de>,
+	where O : BitOrder,
+	      T : 'de+BitStore+Deserialize<'de>,
 {
-	fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-	where D: Deserializer<'de> {
+	fn deserialize<D>(
+		deserializer : D)
+		-> Result<Self, D::Error>
+		where D : Deserializer<'de>,
+	{
+
+
+
 		deserializer.deserialize_struct(
 			"BitSet",
 			&["head", "bits", "data"],
@@ -192,89 +321,180 @@ where
 	}
 }
 
+
+
 #[cfg(feature = "alloc")]
+
+
+
 impl<'de, O, T> Deserialize<'de> for BitVec<O, T>
-where
-	O: BitOrder,
-	T: 'de + BitStore + Deserialize<'de>,
+	where O : BitOrder,
+	      T : 'de+BitStore+Deserialize<'de>,
 {
-	fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-	where D: Deserializer<'de> {
+	fn deserialize<D>(
+		deserializer : D)
+		-> Result<Self, D::Error>
+		where D : Deserializer<'de>,
+	{
+
+
+
 		BitBox::deserialize(deserializer).map(Into::into)
 	}
 }
 
+
+
 impl<O, T> Serialize for BitSlice<O, T>
-where
-	O: BitOrder,
-	T: BitStore,
-	T::Mem: Serialize,
+	where O : BitOrder,
+	      T : BitStore,
+	      T::Mem : Serialize,
 {
-	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-	where S: Serializer {
-		let head = self.bitptr().head();
+	fn serialize<S>(&self,
+	                serializer : S)
+	                -> Result<S::Ok, S::Error>
+		where S : Serializer,
+	{
+
+
+
+		let head = self.bitptr()
+		               .head();
+
+
+
 		let mut state = serializer.serialize_struct("BitSet", 3)?;
 
-		state.serialize_field("head", &*head)?;
-		state.serialize_field("bits", &(self.len() as u64))?;
+
+
+		state.serialize_field(
+		                      "head",
+		                      &*head,
+		)?;
+
+
+
+		state.serialize_field(
+		                      "bits",
+		                      &(self.len()
+		                        as u64),
+		)?;
+
+
+
 		state.serialize_field("data", &self.domain())?;
 
+
+
 		state.end()
 	}
 }
+
+
 
 impl<T> Serialize for Domain<'_, T>
-where
-	T: BitStore,
-	T::Mem: Serialize,
+	where T : BitStore,
+	      T::Mem : Serialize,
 {
-	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-	where S: Serializer {
+	fn serialize<S>(&self,
+	                serializer : S)
+	                -> Result<S::Ok, S::Error>
+		where S : Serializer,
+	{
+
+
+
 		let iter = self.iter();
+
+
+
 		let mut state = serializer.serialize_seq(Some(iter.len()))?;
 
-		iter.map(|elem| state.serialize_element(&elem))
-			.collect::<Result<_, _>>()?;
+
+
+		iter.map(
+		         |elem| {
+			         state.serialize_element(&elem)
+		         },
+		)
+		    .collect::<Result<_, _>>()?;
+
+
 
 		state.end()
 	}
 }
 
+
+
 #[cfg(feature = "alloc")]
+
+
+
 impl<O, T> Serialize for BitBox<O, T>
-where
-	O: BitOrder,
-	T: BitStore + Serialize,
-	T::Mem: Serialize,
+	where O : BitOrder,
+	      T : BitStore+Serialize,
+	      T::Mem : Serialize,
 {
-	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-	where S: Serializer {
-		BitSlice::serialize(&*self, serializer)
+	fn serialize<S>(&self,
+	                serializer : S)
+	                -> Result<S::Ok, S::Error>
+		where S : Serializer,
+	{
+
+
+
+		BitSlice::serialize(
+		                    &*self,
+		                    serializer,
+		)
 	}
 }
 
+
+
 #[cfg(feature = "alloc")]
+
+
+
 impl<O, T> Serialize for BitVec<O, T>
-where
-	O: BitOrder,
-	T: BitStore + Serialize,
-	T::Mem: Serialize,
+	where O : BitOrder,
+	      T : BitStore+Serialize,
+	      T::Mem : Serialize,
 {
-	fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-	where S: Serializer {
-		BitSlice::serialize(&*self, serializer)
+	fn serialize<S>(&self,
+	                serializer : S)
+	                -> Result<S::Ok, S::Error>
+		where S : Serializer,
+	{
+
+
+
+		BitSlice::serialize(
+		                    &*self,
+		                    serializer,
+		)
 	}
 }
+
+
 
 #[cfg(test)]
-mod tests {
+
+
+
+mod tests
+{
+
+
+
 	use crate::prelude::*;
 	#[cfg(feature = "alloc")]
 	use serde_test::assert_de_tokens;
-	use serde_test::{
-		assert_ser_tokens,
-		Token,
-	};
+	use serde_test::assert_ser_tokens;
+	use serde_test::Token;
+
+
 
 	macro_rules! bvtok {
 		( s $elts:expr, $head:expr, $bits:expr, $ty:ident $( , $data:expr )* ) => {
@@ -301,47 +521,156 @@ mod tests {
 		};
 	}
 
+
+
 	#[test]
-	fn empty() {
+
+
+
+	fn empty()
+	{
+
+
+
 		let slice = BitSlice::<Msb0, u8>::empty();
 
-		assert_ser_tokens(&slice, bvtok![s 0, 0, 0, U8]);
+
+
+		assert_ser_tokens(
+		                  &slice,
+		                  bvtok![s 0, 0, 0, U8],
+		);
+
+
 
 		#[cfg(feature = "alloc")]
-		assert_de_tokens(&bitvec![], bvtok![ d 0, 0, 0, U8 ]);
+		assert_de_tokens(
+		                 &bitvec![],
+		                 bvtok![ d 0, 0, 0, U8 ],
+		);
 	}
+
+
 
 	#[test]
-	fn small() {
+
+
+
+	fn small()
+	{
+
+
+
 		let bits = 0b1111_1000u8.bits::<Msb0>();
+
+
+
 		let bits = &bits[1 .. 5];
-		assert_ser_tokens(&bits, bvtok![s 1, 1, 4, U8, 0b1111_1000]);
+
+
+
+		assert_ser_tokens(
+		                  &bits,
+		                  bvtok![s 1, 1, 4, U8, 0b1111_1000],
+		);
+
+
 
 		let bits = 0b00001111_11111111u16.bits::<Lsb0>();
+
+
+
 		let bits = &bits[.. 12];
-		assert_ser_tokens(&bits, bvtok![s 1, 0, 12, U16, 0b00001111_11111111]);
+
+
+
+		assert_ser_tokens(
+		                  &bits,
+		                  bvtok![s 1, 0, 12, U16, 0b00001111_11111111],
+		);
+
+
 
 		let bits = 0b11_11111111u32.bits::<Local>();
+
+
+
 		let bits = &bits[.. 10];
-		assert_ser_tokens(&bits, bvtok![s 1, 0, 10, U32, 0x00_00_03_FF]);
+
+
+
+		assert_ser_tokens(
+		                  &bits,
+		                  bvtok![s 1, 0, 10, U32, 0x00_00_03_FF],
+		);
 	}
+
+
 
 	#[cfg(feature = "alloc")]
 	#[test]
-	fn wide() {
-		let src: &[u8] = &[0, !0];
+
+
+
+	fn wide()
+	{
+
+
+
+		let src : &[u8] = &[0, !0];
+
+
+
 		let bs = src.bits::<Local>();
+
+
+
 		assert_ser_tokens(&(&bs[1 .. 15]), bvtok![s 2, 1, 14, U8, 0, !0]);
 	}
 
+
+
 	#[cfg(feature = "alloc")]
 	#[test]
-	fn deser() {
+
+
+
+	fn deser()
+	{
+
+
+
 		let bv = bitvec![Msb0, u8; 0, 1, 1, 0, 1, 0];
-		assert_de_tokens(&bv, bvtok![d 1, 0, 6, U8, 0b0110_1000]);
-		//  test that the bits outside the bits domain don't matter in deser
-		assert_de_tokens(&bv, bvtok![d 1, 0, 6, U8, 0b0110_1001]);
-		assert_de_tokens(&bv, bvtok![d 1, 0, 6, U8, 0b0110_1010]);
-		assert_de_tokens(&bv, bvtok![d 1, 0, 6, U8, 0b0110_1011]);
+
+
+
+		assert_de_tokens(
+		                 &bv,
+		                 bvtok![d 1, 0, 6, U8, 0b0110_1000],
+		);
+
+
+
+		//  test that the bits outside
+		// the bits domain don't
+		// matter in deser
+		assert_de_tokens(
+		                 &bv,
+		                 bvtok![d 1, 0, 6, U8, 0b0110_1001],
+		);
+
+
+
+		assert_de_tokens(
+		                 &bv,
+		                 bvtok![d 1, 0, 6, U8, 0b0110_1010],
+		);
+
+
+
+		assert_de_tokens(
+		                 &bv,
+		                 bvtok![d 1, 0, 6, U8, 0b0110_1011],
+		);
 	}
 }

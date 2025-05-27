@@ -1,87 +1,361 @@
-use self::super::{Error, guarded_transmute_many_permissive, guarded_transmute_many_pedantic, guarded_transmute_pedantic, guarded_transmute_many,
-                  guarded_transmute};
+use self::super::guarded_transmute;
+use self::super::guarded_transmute_many;
+use self::super::guarded_transmute_many_pedantic;
+use self::super::guarded_transmute_many_permissive;
+use self::super::guarded_transmute_pedantic;
 #[cfg(feature = "std")]
-use self::super::{guarded_transmute_vec_permissive, guarded_transmute_vec_pedantic, guarded_transmute_vec};
+use self::super::guarded_transmute_vec;
+#[cfg(feature = "std")]
+use self::super::guarded_transmute_vec_pedantic;
+#[cfg(feature = "std")]
+use self::super::guarded_transmute_vec_permissive;
+use self::super::Error;
 
-/// Type that can be non-`unsafe`ly transmuted into
+
+
+/// Type that can be
+/// non-`unsafe`ly transmuted
+/// into
 ///
 /// In most cases this is a [*POD class*](http://eel.is/c++draft/class#10)
 /// or a [*trivially copyable class*](http://eel.is/c++draft/class#6).
 ///
-/// Marker trait for `guarded_transmute_pod_*()` functions.
+/// Marker trait for
+/// `guarded_transmute_pod_*
+/// ()` functions.
 ///
-/// *Warning*: if you transmute into a floating-point type you will have a chance to create a signaling NaN,
-/// which, while not illegal, can be unwieldy. Check out [`util::designalise_f{32,64}()`](util/index.html)
+/// *Warning*: if you
+/// transmute into a
+/// floating-point type you
+/// will have a chance to
+/// create a signaling NaN,
+/// which, while not illegal,
+/// can be unwieldy. Check out
+/// [`util::designalise_f{32,
+/// 64}()`](util/index.html)
 /// for a remedy.
 ///
-/// *Nota bene*: guarded transmutation to `bool`s is provided as separate functions, because they're
-/// restricted to being `0` or `1`, which means that an additional value check is required.
+/// *Nota bene*: guarded
+/// transmutation to `bool`s
+/// is provided as separate
+/// functions, because they're
+/// restricted to being `0` or
+/// `1`, which means that an
+/// additional value check is
+/// required.
 ///
 /// # Safety
 ///
-/// It is only safe to implement `PodTransmutable` for a type `T` if it is safe for a slice of any arbitrary data
-/// `&[u8]` of length `sizeof<T>()` to be [`transmute()`](https://doc.rust-lang.org/stable/std/mem/fn.transmute.html)d
+/// It is only safe to
+/// implement `PodTransmutable`
+/// for a type `T` if it is
+/// safe for a slice of any
+/// arbitrary data `&[u8]` of length `sizeof<T>()` to be [`transmute()`](https://doc.rust-lang.org/stable/std/mem/fn.transmute.html)d
 /// to a unit-length `&[T]`.
 ///
 /// Consult the [Transmutes section](https://doc.rust-lang.org/nomicon/transmutes.html) of the Nomicon for more details.
-pub unsafe trait PodTransmutable: Copy {}
 
 
-unsafe impl PodTransmutable for u8 {}
-unsafe impl PodTransmutable for i8 {}
-unsafe impl PodTransmutable for u16 {}
-unsafe impl PodTransmutable for i16 {}
-unsafe impl PodTransmutable for u32 {}
-unsafe impl PodTransmutable for i32 {}
-unsafe impl PodTransmutable for u64 {}
-unsafe impl PodTransmutable for i64 {}
-unsafe impl PodTransmutable for usize {}
-unsafe impl PodTransmutable for isize {}
-unsafe impl PodTransmutable for f32 {}
-unsafe impl PodTransmutable for f64 {}
+
+pub unsafe trait PodTransmutable: Copy
+{
+}
+
+
+
+unsafe impl PodTransmutable for u8
+{
+}
+
+
+
+unsafe impl PodTransmutable for i8
+{
+}
+
+
+
+unsafe impl PodTransmutable for u16
+{
+}
+
+
+
+unsafe impl PodTransmutable for i16
+{
+}
+
+
+
+unsafe impl PodTransmutable for u32
+{
+}
+
+
+
+unsafe impl PodTransmutable for i32
+{
+}
+
+
+
+unsafe impl PodTransmutable for u64
+{
+}
+
+
+
+unsafe impl PodTransmutable for i64
+{
+}
+
+
+
+unsafe impl PodTransmutable for usize
+{
+}
+
+
+
+unsafe impl PodTransmutable for isize
+{
+}
+
+
+
+unsafe impl PodTransmutable for f32
+{
+}
+
+
+
+unsafe impl PodTransmutable for f64
+{
+}
+
+
+
 #[cfg(i128_type)]
-unsafe impl PodTransmutable for u128 {}
+
+
+
+unsafe impl PodTransmutable for u128
+{
+}
+
+
+
 #[cfg(i128_type)]
-unsafe impl PodTransmutable for i128 {}
-
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 1] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 2] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 3] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 4] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 5] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 6] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 7] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 8] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 9] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 10] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 11] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 12] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 13] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 14] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 15] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 16] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 17] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 18] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 19] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 20] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 21] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 22] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 23] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 24] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 25] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 26] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 27] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 28] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 29] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 30] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 31] {}
-unsafe impl<T: PodTransmutable> PodTransmutable for [T; 32] {}
 
 
-/// Transmute a byte slice into a single instance of a POD.
+
+unsafe impl PodTransmutable for i128
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 1]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 2]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 3]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 4]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 5]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 6]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 7]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 8]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 9]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 10]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 11]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 12]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 13]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 14]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 15]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 16]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 17]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 18]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 19]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 20]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 21]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 22]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 23]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 24]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 25]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 26]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 27]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 28]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 29]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 30]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 31]
+{
+}
+
+
+
+unsafe impl<T : PodTransmutable> PodTransmutable for [T; 32]
+{
+}
+
+
+
+/// Transmute a byte slice
+/// into a single instance of
+/// a POD.
 ///
-/// The byte slice must have at least enough bytes to fill a single instance of a type,
-/// extraneous data is ignored.
+/// The byte slice must have
+/// at least enough bytes to
+/// fill a single instance of
+/// a type, extraneous data is
+/// ignored.
 ///
 /// # Examples
 ///
@@ -96,13 +370,34 @@ unsafe impl<T: PodTransmutable> PodTransmutable for [T; 32] {}
 /// # assert_eq!(guarded_transmute_pod::<u32>(&[0x00, 0x00, 0x00, 0x01].le_to_native::<u32>()).unwrap(), 0x01000000);
 /// # }
 /// ```
-pub fn guarded_transmute_pod<T: PodTransmutable>(bytes: &[u8]) -> Result<T, Error> {
-    unsafe { guarded_transmute(bytes) }
+
+
+
+pub fn guarded_transmute_pod<T : PodTransmutable>(
+	bytes : &[u8])
+	-> Result<T, Error>
+{
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute(bytes)
+	}
 }
 
-/// Transmute a byte slice into a single instance of a POD.
+
+
+/// Transmute a byte slice
+/// into a single instance of
+/// a POD.
 ///
-/// The byte slice must have exactly enough bytes to fill a single instance of a type.
+/// The byte slice must have
+/// exactly enough bytes to
+/// fill a single instance of
+/// a type.
 ///
 /// # Examples
 ///
@@ -117,13 +412,34 @@ pub fn guarded_transmute_pod<T: PodTransmutable>(bytes: &[u8]) -> Result<T, Erro
 /// # assert_eq!(guarded_transmute_pod_pedantic::<u16>(&[0x0F, 0x0E].le_to_native::<u16>()).unwrap(), 0x0E0F);
 /// # }
 /// ```
-pub fn guarded_transmute_pod_pedantic<T: PodTransmutable>(bytes: &[u8]) -> Result<T, Error> {
-    unsafe { guarded_transmute_pedantic(bytes) }
+
+
+
+pub fn guarded_transmute_pod_pedantic<T : PodTransmutable>(
+	bytes : &[u8])
+	-> Result<T, Error>
+{
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute_pedantic(bytes)
+	}
 }
 
-/// Transmute a byte slice into a single instance of a POD.
+
+
+/// Transmute a byte slice
+/// into a single instance of
+/// a POD.
 ///
-/// The byte slice must have exactly enough bytes to fill a single instance of a type.
+/// The byte slice must have
+/// exactly enough bytes to
+/// fill a single instance of
+/// a type.
 ///
 /// # Examples
 ///
@@ -139,13 +455,33 @@ pub fn guarded_transmute_pod_pedantic<T: PodTransmutable>(bytes: &[u8]) -> Resul
 ///            &[0x0100, 0x0200]);
 /// # }
 /// ```
-pub fn guarded_transmute_pod_many<T: PodTransmutable>(bytes: &[u8]) -> Result<&[T], Error> {
-    unsafe { guarded_transmute_many(bytes) }
+
+
+
+pub fn guarded_transmute_pod_many<T : PodTransmutable>(
+	bytes : &[u8])
+	-> Result<&[T], Error>
+{
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute_many(bytes)
+	}
 }
 
-/// View a byte slice as a slice of a POD type.
+
+
+/// View a byte slice as a
+/// slice of a POD type.
 ///
-/// The resulting slice will have as many instances of a type as will fit, rounded down.
+/// The resulting slice will
+/// have as many instances of
+/// a type as will fit,
+/// rounded down.
 ///
 /// # Examples
 ///
@@ -153,14 +489,28 @@ pub fn guarded_transmute_pod_many<T: PodTransmutable>(bytes: &[u8]) -> Result<&[
 /// # use safe_transmute::guarded_transmute_pod_many_permissive;
 /// assert_eq!(guarded_transmute_pod_many_permissive::<u16>(&[0x00]), &[]);
 /// ```
-pub fn guarded_transmute_pod_many_permissive<T: PodTransmutable>(bytes: &[u8]) -> &[T] {
-    unsafe { guarded_transmute_many_permissive(bytes) }
+pub fn guarded_transmute_pod_many_permissive<T: PodTransmutable>(bytes: &[u8]) -> &[T]{
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute_many_permissive(bytes)
+	}
 }
 
-/// View a byte slice as a slice of POD.
+
+
+/// View a byte slice as a
+/// slice of POD.
 ///
-/// The byte slice must have at least enough bytes to fill a single instance of a type,
-/// and should not have extraneous data.
+/// The byte slice must have
+/// at least enough bytes to
+/// fill a single instance of
+/// a type, and should not
+/// have extraneous data.
 ///
 /// # Examples
 ///
@@ -176,15 +526,31 @@ pub fn guarded_transmute_pod_many_permissive<T: PodTransmutable>(bytes: &[u8]) -
 ///            &[0x0E0F, 0x0B0A]);
 /// # }
 /// ```
-pub fn guarded_transmute_pod_many_pedantic<T: PodTransmutable>(bytes: &[u8]) -> Result<&[T], Error> {
-    unsafe { guarded_transmute_many_pedantic(bytes) }
+pub fn guarded_transmute_pod_many_pedantic<T: PodTransmutable>(bytes: &[u8]) -> Result<&[T], Error>{
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute_many_pedantic(bytes)
+	}
 }
 
-/// Trasform a byte vector into a vector of POD.
+
+
+/// Trasform a byte vector
+/// into a vector of POD.
 ///
-/// The resulting vec will reuse the allocated byte buffer when possible, and
-/// should have at least enough bytes to fill a single instance of a type.
-/// Extraneous data is ignored.
+/// The resulting vec will
+/// reuse the allocated byte
+/// buffer when possible, and
+/// should have at least
+/// enough bytes to fill a
+/// single instance of a type.
+/// Extraneous data is
+/// ignored.
 ///
 /// # Examples
 ///
@@ -208,15 +574,36 @@ pub fn guarded_transmute_pod_many_pedantic<T: PodTransmutable>(bytes: &[u8]) -> 
 /// # }
 /// ```
 #[cfg(feature = "std")]
-pub fn guarded_transmute_pod_vec<T: PodTransmutable>(bytes: Vec<u8>) -> Result<Vec<T>, Error> {
-    unsafe { guarded_transmute_vec(bytes) }
+
+
+
+pub fn guarded_transmute_pod_vec<T : PodTransmutable>(
+	bytes : Vec<u8>)
+	-> Result<Vec<T>, Error>
+{
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute_vec(bytes)
+	}
 }
 
-/// Trasform a byte vector into a vector of POD.
+
+
+/// Trasform a byte vector
+/// into a vector of POD.
 ///
-/// The vector's allocated byte buffer will be reused when possible, and
-/// have as many instances of a type as will fit, rounded down.
-/// Extraneous data is ignored.
+/// The vector's allocated
+/// byte buffer will be reused
+/// when possible, and have as
+/// many instances of a type
+/// as will fit, rounded down.
+/// Extraneous data is
+/// ignored.
 ///
 /// # Examples
 ///
@@ -239,14 +626,28 @@ pub fn guarded_transmute_pod_vec<T: PodTransmutable>(bytes: Vec<u8>) -> Result<V
 /// # }
 /// ```
 #[cfg(feature = "std")]
-pub fn guarded_transmute_pod_vec_permissive<T: PodTransmutable>(bytes: Vec<u8>) -> Vec<T> {
-    unsafe { guarded_transmute_vec_permissive(bytes) }
+pub fn guarded_transmute_pod_vec_permissive<T: PodTransmutable>(bytes: Vec<u8>) -> Vec<T>{
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute_vec_permissive(bytes)
+	}
 }
 
-/// Trasform a byte vector into a vector of POD.
+
+
+/// Trasform a byte vector
+/// into a vector of POD.
 ///
-/// The vector's allocated byte buffer will be reused when possible, and
-/// should not have extraneous data.
+/// The vector's allocated
+/// byte buffer will be reused
+/// when possible, and
+/// should not have extraneous
+/// data.
 ///
 /// # Examples
 ///
@@ -266,6 +667,20 @@ pub fn guarded_transmute_pod_vec_permissive<T: PodTransmutable>(bytes: Vec<u8>) 
 /// # }
 /// ```
 #[cfg(feature = "std")]
-pub fn guarded_transmute_pod_vec_pedantic<T: PodTransmutable>(bytes: Vec<u8>) -> Result<Vec<T>, Error> {
-    unsafe { guarded_transmute_vec_pedantic(bytes) }
+
+
+
+pub fn guarded_transmute_pod_vec_pedantic<T : PodTransmutable>(
+	bytes : Vec<u8>)
+	-> Result<Vec<T>, Error>
+{
+
+
+
+	unsafe {
+
+
+
+		guarded_transmute_vec_pedantic(bytes)
+	}
 }
