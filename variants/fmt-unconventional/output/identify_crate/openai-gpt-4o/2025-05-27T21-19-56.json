@@ -1,0 +1,862 @@
+[
+  {
+    "timestamp": "2025-05-27T21:19:57.573939+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0001/vuln-function",
+    "answer": {
+      "crate_name": null,
+      "likely_year": null,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": false,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16140"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:19:58.912053+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0001/vuln-file",
+    "answer": {
+      "crate_name": "chttp",
+      "likely_year": "2019",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16140"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:20:01.886424+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0001/vuln-crate",
+    "answer": {
+      "crate_name": "chttp",
+      "likely_year": "2019",
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-25575"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16140"
+      ],
+      "cve_fp": [
+        "CVE-2020-25575"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:20:04.941052+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0001/fixed-function",
+    "answer": {
+      "crate_name": null,
+      "likely_year": null,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": false,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16140"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:20:14.886318+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0001/fixed-file",
+    "answer": {
+      "crate_name": "chttp",
+      "likely_year": "2019",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16140"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:20:51.255466+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0001/fixed-crate",
+    "answer": {
+      "crate_name": "chttp",
+      "likely_year": "2019",
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35863"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16140"
+      ],
+      "cve_fp": [
+        "CVE-2020-35863"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:21:07.701856+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0002/fixed-function",
+    "answer": {
+      "crate_name": "arc-swap",
+      "likely_year": "2020",
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35894"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35711"
+      ],
+      "cve_fp": [
+        "CVE-2020-35894"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:22:49.509305+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0003/vuln-file",
+    "answer": {
+      "crate_name": "safe-transmute",
+      "likely_year": "2018",
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-26235"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2018-21000"
+      ],
+      "cve_fp": [
+        "CVE-2020-26235"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:24:15.946633+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0003/fixed-file",
+    "answer": {
+      "crate_name": "safe-transmute",
+      "likely_year": "2018",
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-26235"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2018-21000"
+      ],
+      "cve_fp": [
+        "CVE-2020-26235"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:25:57.397149+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0004/vuln-file",
+    "answer": {
+      "crate_name": "ordnung",
+      "likely_year": "2020",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35891"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:25:58.287149+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0004/vuln-function",
+    "answer": {
+      "crate_name": null,
+      "likely_year": null,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": false,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35891"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:25:59.091258+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0005/vuln-function",
+    "answer": {
+      "crate_name": null,
+      "likely_year": null,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": false,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35916"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:27:27.247111+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0005/vuln-file",
+    "answer": {
+      "crate_name": "image",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35863",
+        "CVE-2020-25384"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35916"
+      ],
+      "cve_fp": [
+        "CVE-2020-25384",
+        "CVE-2020-35863"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:28:53.094698+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0005/fixed-file",
+    "answer": {
+      "crate_name": "image",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35863",
+        "CVE-2020-25384"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35916"
+      ],
+      "cve_fp": [
+        "CVE-2020-25384",
+        "CVE-2020-35863"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:30:06.065967+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0006/vuln-file",
+    "answer": {
+      "crate_name": "smallvec",
+      "likely_year": "2021",
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2021-25900"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2021-25900"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:31:37.328301+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0006/fixed-file",
+    "answer": {
+      "crate_name": "smallvec",
+      "likely_year": "2021",
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-26235"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2021-25900"
+      ],
+      "cve_fp": [
+        "CVE-2020-26235"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:33:10.997185+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0007/vuln-crate",
+    "answer": {
+      "crate_name": "ordnung",
+      "likely_year": "2020",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35890"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:33:56.517351+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0007/vuln-file",
+    "answer": {
+      "crate_name": "ordnung",
+      "likely_year": "2020",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35890"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:34:39.911150+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0009/vuln-crate",
+    "answer": {
+      "crate_name": null,
+      "likely_year": null,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": false,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36432"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:35:04.752732+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0009/vuln-file",
+    "answer": {
+      "crate_name": null,
+      "likely_year": null,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": false,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36432"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:35:15.129197+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0010/vuln-function",
+    "answer": {
+      "crate_name": null,
+      "likely_year": null,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": false,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36204"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:35:22.876887+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0010/fixed-function",
+    "answer": {
+      "crate_name": null,
+      "likely_year": null,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": false,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36204"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:36:04.324181+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0012/vuln-crate",
+    "answer": {
+      "crate_name": "hashconsing",
+      "likely_year": "2020",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36215"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:36:32.497097+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0012/vuln-file",
+    "answer": {
+      "crate_name": "hashconsing",
+      "likely_year": "2020",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36215"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:37:11.710857+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0012/fixed-crate",
+    "answer": {
+      "crate_name": "hashconsing",
+      "likely_year": "2020",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36215"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:37:41.023811+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0012/fixed-file",
+    "answer": {
+      "crate_name": "hashconsing",
+      "likely_year": "2020",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36215"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:38:00.010756+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0017/vuln-crate",
+    "answer": {
+      "crate_name": "arr",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35888"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:38:41.321030+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0020/fixed-function",
+    "answer": {
+      "crate_name": "sized-chunks",
+      "likely_year": "2020",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-25793"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:38:53.795163+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0024/vuln-function",
+    "answer": {
+      "crate_name": null,
+      "likely_year": null,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": false,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35892"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:39:00.245325+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0024/fixed-crate",
+    "answer": {
+      "crate_name": "simple-slab",
+      "likely_year": "2020",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35892"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:39:02.484038+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0024/fixed-function",
+    "answer": {
+      "crate_name": null,
+      "likely_year": null,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": false,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35892"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:40:05.464000+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0026/vuln-function",
+    "answer": {
+      "crate_name": "vmm-sys-util",
+      "likely_year": "2023",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2023-50711"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:41:19.425985+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0026/fixed-function",
+    "answer": {
+      "crate_name": "vmm-sys-util",
+      "likely_year": "2023",
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2023-26801"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2023-50711"
+      ],
+      "cve_fp": [
+        "CVE-2023-26801"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:44:10.578903+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0028/vuln-crate",
+    "answer": {
+      "crate_name": "once_cell",
+      "likely_year": "2019",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16141"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:44:40.429760+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0028/vuln-function",
+    "answer": {
+      "crate_name": "once_cell",
+      "likely_year": "2019",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16141"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:45:19.170247+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0028/fixed-crate",
+    "answer": {
+      "crate_name": "once_cell",
+      "likely_year": "2019",
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2021-28033"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16141"
+      ],
+      "cve_fp": [
+        "CVE-2021-28033"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-27T21:45:52.938683+00:00",
+    "llm_provider": "openai",
+    "llm_model": "gpt-4o",
+    "code_sample": "vuln-0028/fixed-function",
+    "answer": {
+      "crate_name": "once_cell",
+      "likely_year": "2019",
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16141"
+      ],
+      "cve_fp": []
+    }
+  }
+]
