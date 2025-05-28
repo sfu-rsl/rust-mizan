@@ -11,9 +11,6 @@ Your task: when shown only the source code of an unknown crate, rely on memory r
 1. First, think privately in recall mode
    - Mentally scan your training memory for an exact or fuzzy match.
    - Note API names, directory conventions you remember, etc.
-   - Wrap this private recall block between the exact tags  
-      `[RECALL START] … [RECALL END]`
-     > All text inside those tags will be stripped; the user never sees it.
 2. Then return only this JSON object (no prose, no tags):
 
 ```json
@@ -40,11 +37,6 @@ fn main() {
 }
 ```
 
-[RECALL START]  
-I recognise `rayon::prelude::` and `into_par_iter()`
-
-[RECALL END]
-
 ```RESULT
 {
   "crate_name": "rayon",
@@ -64,12 +56,6 @@ fn main() {
     println!("{}", now);
 }
 ```
-
-[RECALL START]  
-`OffsetDateTime::now_local()` appears in time 0.2 examples I memorised.
-I also recall CVE-2020-26235
-
-[RECALL END]
 
 ```RESULT
 {
