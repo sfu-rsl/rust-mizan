@@ -1,0 +1,1761 @@
+[
+  {
+    "timestamp": "2025-05-28T17:34:49.057863+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0001/vuln-function",
+    "answer": {
+      "crate_name": "chttp",
+      "likely_year": 2019,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16140"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:34:51.575825+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0001/vuln-file",
+    "answer": {
+      "crate_name": "chttp",
+      "likely_year": 2019,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2019-16140"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2019-16140"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:34:54.779386+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0001/vuln-crate",
+    "answer": {
+      "crate_name": "chttp",
+      "likely_year": 2019,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16140"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:34:57.956211+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0001/fixed-function",
+    "answer": {
+      "crate_name": "chttp",
+      "likely_year": 2019,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2019-16140"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2019-16140"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:34:59.802351+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0001/fixed-file",
+    "answer": {
+      "crate_name": "chttp",
+      "likely_year": 2019,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2019-16760"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16140"
+      ],
+      "cve_fp": [
+        "CVE-2019-16760"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:35:05.544825+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0001/fixed-crate",
+    "answer": {
+      "crate_name": "chttp",
+      "likely_year": 2019,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16140"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:35:19.995156+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0002/vuln-file",
+    "answer": {
+      "crate_name": "arc-swap",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35711"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2020-35711"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:35:22.426918+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0002/vuln-function",
+    "answer": {
+      "crate_name": "arc-swap",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35711"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2020-35711"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:35:30.416146+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0002/fixed-crate",
+    "answer": {
+      "crate_name": "arc-swap",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35711"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2020-35711"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:35:36.253696+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0002/fixed-file",
+    "answer": {
+      "crate_name": "arc-swap",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35711"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2020-35711"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:35:39.121273+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0002/fixed-function",
+    "answer": {
+      "crate_name": "arc-swap",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35711"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2020-35711"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:35:43.012926+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0003/vuln-crate",
+    "answer": {
+      "crate_name": "safe-transmute",
+      "likely_year": 2018,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2018-21000"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:35:46.142910+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0003/vuln-file",
+    "answer": {
+      "crate_name": "safe-transmute",
+      "likely_year": 2018,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2018-21000"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:35:48.735440+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0003/vuln-function",
+    "answer": {
+      "crate_name": "safe-transmute",
+      "likely_year": 2018,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2018-21000"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:35:52.635528+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0003/fixed-crate",
+    "answer": {
+      "crate_name": "safe-transmute",
+      "likely_year": 2018,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2018-21000"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:35:55.836700+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0003/fixed-file",
+    "answer": {
+      "crate_name": "safe-transmute",
+      "likely_year": 2018,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2018-21000"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:35:58.061894+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0003/fixed-function",
+    "answer": {
+      "crate_name": "safe-transmute",
+      "likely_year": 2018,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2018-21000"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:36:03.287628+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0004/vuln-crate",
+    "answer": {
+      "crate_name": "ordnung",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35891"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:36:07.282510+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0004/vuln-file",
+    "answer": {
+      "crate_name": "ordnung",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35891"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:36:09.945281+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0004/vuln-function",
+    "answer": {
+      "crate_name": "ordnung",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35891"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:36:11.887475+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0005/vuln-function",
+    "answer": {
+      "crate_name": "image",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2019-16138"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35916"
+      ],
+      "cve_fp": [
+        "CVE-2019-16138"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:36:16.700525+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0005/vuln-file",
+    "answer": {
+      "crate_name": "image",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2019-16138",
+        "CVE-2020-35918"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35916"
+      ],
+      "cve_fp": [
+        "CVE-2019-16138",
+        "CVE-2020-35918"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:36:20.182861+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0005/fixed-function",
+    "answer": {
+      "crate_name": "image",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2019-16138"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35916"
+      ],
+      "cve_fp": [
+        "CVE-2019-16138"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:36:25.405790+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0005/fixed-file",
+    "answer": {
+      "crate_name": "image",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2019-16138"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35916"
+      ],
+      "cve_fp": [
+        "CVE-2019-16138"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:36:32.983526+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0006/vuln-crate",
+    "answer": {
+      "crate_name": "smallvec",
+      "likely_year": 2021,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2021-25900"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2021-25900"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:36:38.412010+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0006/vuln-file",
+    "answer": {
+      "crate_name": "smallvec",
+      "likely_year": 2021,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2021-25900",
+        "CVE-2018-25023"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2021-25900"
+      ],
+      "cve_fn": [],
+      "cve_fp": [
+        "CVE-2018-25023"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:36:41.484968+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0006/vuln-function",
+    "answer": {
+      "crate_name": "smallvec",
+      "likely_year": 2021,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2021-25900",
+        "CVE-2018-25023"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2021-25900"
+      ],
+      "cve_fn": [],
+      "cve_fp": [
+        "CVE-2018-25023"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:36:48.548324+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0006/fixed-crate",
+    "answer": {
+      "crate_name": "smallvec",
+      "likely_year": 2021,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2021-25900"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2021-25900"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:36:53.666685+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0006/fixed-file",
+    "answer": {
+      "crate_name": "smallvec",
+      "likely_year": 2021,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2021-25900"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2021-25900"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:00.014587+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0006/fixed-function",
+    "answer": {
+      "crate_name": "smallvec",
+      "likely_year": 2021,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2021-25900",
+        "CVE-2018-25023"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2021-25900"
+      ],
+      "cve_fn": [],
+      "cve_fp": [
+        "CVE-2018-25023"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:05.484465+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0007/vuln-crate",
+    "answer": {
+      "crate_name": "ordnung",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35890"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:08.979852+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0007/vuln-file",
+    "answer": {
+      "crate_name": "ordnung",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35890"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:12.409161+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0007/vuln-function",
+    "answer": {
+      "crate_name": "ordnung",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35890"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:15.381529+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0009/vuln-crate",
+    "answer": {
+      "crate_name": "alg_ds",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36432"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:18.007538+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0009/vuln-file",
+    "answer": {
+      "crate_name": "alg_ds",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36432"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:20.392122+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0009/vuln-function",
+    "answer": {
+      "crate_name": "alg_ds",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36432"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:31.864640+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0010/vuln-file",
+    "answer": {
+      "crate_name": "im",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36204"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:34.113309+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0010/vuln-function",
+    "answer": {
+      "crate_name": "im",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36204"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:44.560590+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0010/fixed-file",
+    "answer": {
+      "crate_name": "im",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36204"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:47.427367+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0010/fixed-function",
+    "answer": {
+      "crate_name": "im",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36204"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:51.563596+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0012/vuln-crate",
+    "answer": {
+      "crate_name": "hashconsing",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36215"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:54.085132+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0012/vuln-file",
+    "answer": {
+      "crate_name": "hashconsing",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36215"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:55.924740+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0012/vuln-function",
+    "answer": {
+      "crate_name": "hashconsing",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36215"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:37:59.612941+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0012/fixed-crate",
+    "answer": {
+      "crate_name": "hashconsing",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36215"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:38:02.380567+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0012/fixed-file",
+    "answer": {
+      "crate_name": "hashconsing",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36215"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:38:05.385766+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0012/fixed-function",
+    "answer": {
+      "crate_name": "hashconsing",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36215"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:38:14.360550+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0013/vuln-file",
+    "answer": {
+      "crate_name": "bitvec",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2021-29922"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35862"
+      ],
+      "cve_fp": [
+        "CVE-2021-29922"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:38:19.684786+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0013/vuln-function",
+    "answer": {
+      "crate_name": "bitvec",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2021-28033"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35862"
+      ],
+      "cve_fp": [
+        "CVE-2021-28033"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:39:02.124511+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0013/fixed-function",
+    "answer": {
+      "crate_name": "bitvec",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2021-29922"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35862"
+      ],
+      "cve_fp": [
+        "CVE-2021-29922"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:39:04.815507+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0017/vuln-crate",
+    "answer": {
+      "crate_name": "arr",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35888"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:39:08.037584+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0017/vuln-function",
+    "answer": {
+      "crate_name": "arr",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35888"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:39:29.671332+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0020/vuln-crate",
+    "answer": {
+      "crate_name": "sized-chunks",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-25793"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:39:45.231991+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0020/vuln-file",
+    "answer": {
+      "crate_name": "sized-chunks",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-25793"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:39:47.895531+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0020/vuln-function",
+    "answer": {
+      "crate_name": "sized-chunks",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-25793"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:39:58.029641+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0020/fixed-crate",
+    "answer": {
+      "crate_name": "sized-chunks",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-25793"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:40:07.250189+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0020/fixed-file",
+    "answer": {
+      "crate_name": "sized-chunks",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-25793"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:40:17.592698+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0020/fixed-function",
+    "answer": {
+      "crate_name": "sized-chunks",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-25793"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:40:25.579947+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0024/vuln-crate",
+    "answer": {
+      "crate_name": "simple-slab",
+      "likely_year": 2016,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35892"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:40:28.037718+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0024/vuln-function",
+    "answer": {
+      "crate_name": "simple-slab",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2022-36113"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35892"
+      ],
+      "cve_fp": [
+        "CVE-2022-36113"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:40:31.005100+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0024/fixed-crate",
+    "answer": {
+      "crate_name": "simple-slab",
+      "likely_year": 2016,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-36205"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35892"
+      ],
+      "cve_fp": [
+        "CVE-2020-36205"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:40:33.157112+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0024/fixed-function",
+    "answer": {
+      "crate_name": "simple-slab",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35892"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:40:46.161572+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0026/vuln-crate",
+    "answer": {
+      "crate_name": "vmm-sys-util",
+      "likely_year": 2023,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2023-45853"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2023-50711"
+      ],
+      "cve_fp": [
+        "CVE-2023-45853"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:40:52.719559+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0026/vuln-file",
+    "answer": {
+      "crate_name": "vmm-sys-util",
+      "likely_year": 2019,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2023-50711"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:41:01.215354+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0026/vuln-function",
+    "answer": {
+      "crate_name": "vmm-sys-util",
+      "likely_year": 2020,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2023-50711"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:41:29.231214+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0026/fixed-crate",
+    "answer": {
+      "crate_name": "vmm-sys-util",
+      "likely_year": 2023,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2023-45932"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2023-50711"
+      ],
+      "cve_fp": [
+        "CVE-2023-45932"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:41:39.308184+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0026/fixed-file",
+    "answer": {
+      "crate_name": "vmm-sys-util",
+      "likely_year": 2019,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2023-45913"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": false,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2023-50711"
+      ],
+      "cve_fp": [
+        "CVE-2023-45913"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:41:41.866824+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0026/fixed-function",
+    "answer": {
+      "crate_name": "vmm-sys-util",
+      "likely_year": 2023,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2023-50711"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:41:49.974836+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0027/vuln-crate",
+    "answer": {
+      "crate_name": "claxon",
+      "likely_year": 2018,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2018-20992"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:42:52.442300+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0028/vuln-crate",
+    "answer": {
+      "crate_name": "once_cell",
+      "likely_year": 2019,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16141"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:43:05.954611+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0028/vuln-function",
+    "answer": {
+      "crate_name": "once_cell",
+      "likely_year": 2019,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16141"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:43:15.868619+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0028/fixed-crate",
+    "answer": {
+      "crate_name": "once_cell",
+      "likely_year": 2019,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16141"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:43:29.152348+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0028/fixed-function",
+    "answer": {
+      "crate_name": "once_cell",
+      "likely_year": 2019,
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16141"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:44:16.501349+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vuln-0033/vuln-crate",
+    "answer": {
+      "crate_name": "rusqlite",
+      "likely_year": 2020,
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35701"
+      ]
+    },
+    "scoring": {
+      "crate_name_correct": true,
+      "year_correct": true,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35869"
+      ],
+      "cve_fp": [
+        "CVE-2020-35701"
+      ]
+    }
+  }
+]

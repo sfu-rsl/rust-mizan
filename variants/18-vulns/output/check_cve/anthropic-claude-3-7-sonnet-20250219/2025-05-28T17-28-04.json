@@ -1,0 +1,406 @@
+[
+  {
+    "timestamp": "2025-05-28T17:28:06.228531+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "chttp:2019",
+    "answer": {
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2019-16140"
+      ]
+    },
+    "scoring": {
+      "crate_name": "chttp",
+      "year": 2019,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2019-16140"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:08.359458+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "arc-swap:2020",
+    "answer": {
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35711"
+      ]
+    },
+    "scoring": {
+      "crate_name": "arc-swap",
+      "year": 2020,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2020-35711"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:09.935952+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "safe-transmute:2018",
+    "answer": {
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name": "safe-transmute",
+      "year": 2018,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2018-21000"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:12.653237+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "ordnung:2020",
+    "answer": {
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35882"
+      ]
+    },
+    "scoring": {
+      "crate_name": "ordnung",
+      "year": 2020,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35891"
+      ],
+      "cve_fp": [
+        "CVE-2020-35882"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:14.293387+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "image:2020",
+    "answer": {
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35739"
+      ]
+    },
+    "scoring": {
+      "crate_name": "image",
+      "year": 2020,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35916"
+      ],
+      "cve_fp": [
+        "CVE-2020-35739"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:16.540794+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "smallvec:2021",
+    "answer": {
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2021-25900"
+      ]
+    },
+    "scoring": {
+      "crate_name": "smallvec",
+      "year": 2021,
+      "has_cve_correct": true,
+      "cve_tp": [
+        "CVE-2021-25900"
+      ],
+      "cve_fn": [],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:18.389273+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "ordnung:2020",
+    "answer": {
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35882"
+      ]
+    },
+    "scoring": {
+      "crate_name": "ordnung",
+      "year": 2020,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35890"
+      ],
+      "cve_fp": [
+        "CVE-2020-35882"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:19.918106+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "alg_ds:2020",
+    "answer": {
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name": "alg_ds",
+      "year": 2020,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36432"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:22.500550+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "im:2020",
+    "answer": {
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35711",
+        "CVE-2020-35712"
+      ]
+    },
+    "scoring": {
+      "crate_name": "im",
+      "year": 2020,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36204"
+      ],
+      "cve_fp": [
+        "CVE-2020-35711",
+        "CVE-2020-35712"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:24.128839+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "hashconsing:2020",
+    "answer": {
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name": "hashconsing",
+      "year": 2020,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-36215"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:25.767152+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "bitvec:2020",
+    "answer": {
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35905"
+      ]
+    },
+    "scoring": {
+      "crate_name": "bitvec",
+      "year": 2020,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35862"
+      ],
+      "cve_fp": [
+        "CVE-2020-35905"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:27.485578+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "arr:2020",
+    "answer": {
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name": "arr",
+      "year": 2020,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35888"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:29.449624+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "sized-chunks:2020",
+    "answer": {
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35711"
+      ]
+    },
+    "scoring": {
+      "crate_name": "sized-chunks",
+      "year": 2020,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-25793"
+      ],
+      "cve_fp": [
+        "CVE-2020-35711"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:31.187636+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "simple-slab:2020",
+    "answer": {
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name": "simple-slab",
+      "year": 2020,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35892"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:33.234095+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "vmm-sys-util:2023",
+    "answer": {
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2023-45932"
+      ]
+    },
+    "scoring": {
+      "crate_name": "vmm-sys-util",
+      "year": 2023,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2023-50711"
+      ],
+      "cve_fp": [
+        "CVE-2023-45932"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:34.568446+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "claxon:2018",
+    "answer": {
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2018-20991"
+      ]
+    },
+    "scoring": {
+      "crate_name": "claxon",
+      "year": 2018,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2018-20992"
+      ],
+      "cve_fp": [
+        "CVE-2018-20991"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:36.302021+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "once_cell:2019",
+    "answer": {
+      "has_cve": false,
+      "cve_list": []
+    },
+    "scoring": {
+      "crate_name": "once_cell",
+      "year": 2019,
+      "has_cve_correct": false,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2019-16141"
+      ],
+      "cve_fp": []
+    }
+  },
+  {
+    "timestamp": "2025-05-28T17:28:37.618939+00:00",
+    "llm_provider": "anthropic",
+    "llm_model": "claude-3-7-sonnet-20250219",
+    "code_sample": "rusqlite:2020",
+    "answer": {
+      "has_cve": true,
+      "cve_list": [
+        "CVE-2020-35701"
+      ]
+    },
+    "scoring": {
+      "crate_name": "rusqlite",
+      "year": 2020,
+      "has_cve_correct": true,
+      "cve_tp": [],
+      "cve_fn": [
+        "CVE-2020-35869"
+      ],
+      "cve_fp": [
+        "CVE-2020-35701"
+      ]
+    }
+  }
+]
