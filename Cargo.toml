@@ -164,6 +164,7 @@ members = [
     "vuln-0028/fixed-function",
 
     "vuln-0029/vuln-crate",
+    "vuln-0029/vuln-function",
 
     "vuln-0029/fixed-crate",
 

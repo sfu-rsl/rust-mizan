@@ -3457,6 +3457,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "vuln-0029-vuln-function"
+version = "0.3.0"
+dependencies = [
+ "doc-comment",
+]
+
+[[package]]
 name = "vuln-0030-fixed-crate"
 version = "0.1.0"
 dependencies = [

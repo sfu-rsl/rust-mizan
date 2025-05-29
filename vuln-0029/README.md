@@ -1,16 +1,14 @@
 # Vulnerability: RUSTSEC-2025-0016
 
-| **Information**       | **Details**                                                                                   |
-|-----------------------|-----------------------------------------------------------------------------------------------|
-| **CVE**               | [RUSTSEC-2025-0016](https://rustsec.org/advisories/RUSTSEC-2025-0016.html)               |
+| **Information**       | **Details**                                                                                  |
+|-----------------------|----------------------------------------------------------------------------------------------|
+| **CVE**               | [RUSTSEC-2025-0016](https://rustsec.org/advisories/RUSTSEC-2025-0016.html)                   |
 | **Vulnerable Commit** | [65bbc62](https://github.com/radekvit/pared/commit/65bbc627e31a2fb43fc3b94c7ca1177536c7c626) |
 | **Fixed Commit**      | [fdc4de8](https://github.com/radekvit/pared/commit/fdc4de8be7cffb2b7d71c910b6a12964b61f4f0d) |
-| **Variants**          | - [vuln-crate](vuln-crate)                                                                    |
-|                       | - [vuln-file](vuln-file)                                                              |
-|                       | - [vuln-function](vuln-function)                                                              |
-|                       | - [fixed-crate](fixed-crate)                                                                  |
-|                       | - [vuln-file](vuln-file)                                                              |
-|                       | - [fixed-function](fixed-function)                                                            |
+| **Variants**          | - [vuln-crate](vuln-crate)                                                                   |
+|                       | - [vuln-function](vuln-function)                                                             |
+|                       | - [fixed-crate](fixed-crate)                                                                 |
+|                       | - [fixed-function](fixed-function)                                                           |
 
 ### Vulnerable lines
 

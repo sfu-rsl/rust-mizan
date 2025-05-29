@@ -1614,6 +1614,24 @@
           }
         },
         {
+          "path_to_crate": "vuln-0029/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-416"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn from_rc<U, F>(rc: &Rc<U>, project: F) -> Self",
+              "pub fn try_from_rc<U, E, F>(rc: &Rc<U>, project: F) -> Result<Self, E>",
+              "pub fn project<U, F>(&self, project: F) -> Prc<U>",
+              "pub fn from_arc<U, F>(arc: &Arc<U>, project: F) -> Self",
+              "pub fn try_from_arc<U, E, F>(arc: &Arc<U>, project: F) -> Result<Self, E>",
+              "pub fn project<U, F>(&self, project: F) -> Parc<U>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/prc.rs": [93, 135, 172, 229, 273, 309]
+          }
+        },
+        {
           "path_to_crate": "vuln-0029/fixed-crate",
           "is_vulnerability": false,
           "cwe_type": [],
