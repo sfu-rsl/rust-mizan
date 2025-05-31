@@ -2265,6 +2265,37 @@
           "vulnerable_lines": {}
         }
       ]
+    },
+    {
+      "id": "vuln-0043",
+      "author": "Eunsong Koh",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2025-0003",
+      "crate_name": "fast-float",
+      "year": 2025,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0041/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": [""],
+          "vulnerable_functions": {
+            "src/common.rs": ["pub fn first(&self) -> u8"]
+          },
+          "vulnerable_lines": {
+            "src/common.rs": [39]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0041/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": [""],
+          "vulnerable_functions": {
+            "src/functions.rs": ["pub fn first(&self) -> u8"]
+          },
+          "vulnerable_lines": {
+            "src/functions.rs": [13]
+          }
+        }
+      ]
     }
   ]
 }
