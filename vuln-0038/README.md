@@ -5,7 +5,6 @@
 | **CVE**               | [RUSTSEC-2025-0033](https://rustsec.org/advisories/RUSTSEC-2025-0033.html)                           |
 | **Vulnerable Commit** | [2893e45](https://github.com/pombredanne/scanner-rs/commit/2893e45f8d60692a11e8584ba01eb38fe7798fea) |
 | **Variants**          | - [vuln-crate](vuln-crate)                                                                           |
-|                       | - [vuln-file](vuln-file)                                                                             |
 |                       | - [vuln-function](vuln-function)                                                                     |
 
 ### Vulnerable Lines
