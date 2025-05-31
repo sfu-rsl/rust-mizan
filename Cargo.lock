@@ -3887,10 +3887,6 @@ name = "vuln-0038-vuln-crate"
 version = "0.1.0"
 
 [[package]]
-name = "vuln-0038-vuln-file"
-version = "0.1.0"
-
-[[package]]
 name = "vuln-0038-vuln-function"
 version = "0.1.0"
 

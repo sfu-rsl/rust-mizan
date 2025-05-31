@@ -1977,6 +1977,20 @@
           "vulnerable_lines": {
             "src/lib.rs": [410, 415]
           }
+        },
+        {
+          "path_to_crate": "vuln-0038/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": [""],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn ptr(&self) -> *const u8",
+              "pub fn get<T>(&self, idx: usize) -> *const T"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [19, 24]
+          }
         }
       ]
     },
