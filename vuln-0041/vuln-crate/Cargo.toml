@@ -1,0 +1,20 @@
+[package]
+name = "vuln-crate"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+zero = "0.1"
+flate2 = { version = "1", optional = true }
+zstd = { version = "0.13", optional = true }
+
+[features]
+compression = ["flate2", "zstd"]
+
+[lib]
+name = "xmas_elf"
+
+[[bin]]
+path = "src/bin/main.rs"
+name = "xmas_elf"
+doc = false

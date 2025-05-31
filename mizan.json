@@ -2222,6 +2222,36 @@
           "vulnerable_lines": {}
         }
       ]
+    },
+    {
+      "id": "vuln-0041",
+      "author": "Eunsong Koh",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2025-0018.html",
+      "crate_name": "xmas-elf",
+      "year": 2025,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0041/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": [],
+          "vulnerable_functions": {
+            "src/hash.rs": [
+              "pub fn get_bucket(&self, index: u32) -> u32",
+              "pub fn get_chain(&self, index: u32) -> u32"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/session.rs": [107, 160]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0037/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
     }
   ]
 }
