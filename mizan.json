@@ -516,13 +516,13 @@
     },
     {
       "id": "vuln-0008",
-      "author": "Nathan Young",
+      "author": "Eunsong Koh",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35925",
       "code_samples": [
         {
           "path_to_crate": "vuln-0008/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": ["362"],
+          "cwe_type": ["CWE-362"],
           "vulnerable_functions": {
             "src/mpmc.rs": [
               "unsafe impl<T, B: Buffer<T>> Send for MPMCConsumer<T, B> {}",
@@ -556,7 +556,7 @@
         {
           "path_to_crate": "vuln-0008/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": ["362"],
+          "cwe_type": ["CWE-362"],
           "vulnerable_functions": {
             "src/mpmc.rs": [
               "unsafe impl<T, B: Buffer<T>> Send for MPMCConsumer<T, B> {}",
