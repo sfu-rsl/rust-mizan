@@ -222,7 +222,7 @@ impl<A: Array> SmallVec<A> {
                 if unspilled {
                     return;
                 }
-                self.data = SmallVecData::from_inline(MaybeUninit::uninit().assume_init());
+                self.data = SmallVecData::from_inline(mem::uninitialized());
                 ptr::copy_nonoverlapping(ptr, self.data.inline_mut().ptr_mut(), len);
             } else if new_cap != cap {
                 let mut vec = Vec::with_capacity(new_cap);
