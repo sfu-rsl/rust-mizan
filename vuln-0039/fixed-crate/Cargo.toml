@@ -1,14 +1,6 @@
 [package]
 name = "vuln-0039-fixed-crate"
 version = "0.6.10"
-authors = ["Simon Sapin <simon.sapin@exyr.org>"]
-license = "MIT/Apache-2.0"
-repository = "https://github.com/servo/rust-smallvec"
-description = "'Small vector' optimization: store up to a small number of items on the stack"
-keywords = ["small", "vec", "vector", "stack", "no_std"]
-categories = ["data-structures"]
-readme = "README.md"
-documentation = "https://doc.servo.org/smallvec/"
 
 [features]
 std = []
@@ -18,7 +10,6 @@ specialization = []
 may_dangle = []
 
 [lib]
-name = "smallvec"
 path = "lib.rs"
 
 [dependencies]
