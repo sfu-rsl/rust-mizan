@@ -27,9 +27,8 @@ pub fn grow(&mut self, new_cap: usize) {
             if unspilled {
                 return;
             }
-            self.data = SmallVecData::from_inline(mem::uninitialized());
+            // VULNERABILITY: Because` self.capacity` is not reset after this line, the header still advertises the old (large) heap capacity.
             ptr::copy_nonoverlapping(ptr, self.data.inline_mut().ptr_mut(), len);
-            // VULNERABILITY: Using grow to shrink after spilling results in a corrupted structure
         } else if new_cap != cap {
             let mut vec = Vec::with_capacity(new_cap);
             let new_alloc = vec.as_mut_ptr();
