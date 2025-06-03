@@ -1,4 +1,5 @@
 use core::marker::PhantomData;
+use core::ptr;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct AsciiStr<'a> {

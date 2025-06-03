@@ -6,7 +6,6 @@
 | **Vulnerable Commit** | [83a49b8](https://github.com/aldanor/fast-float-rust/tree/83a49b8b5a530d8e950a6dbfdc11089d213b9ac9) |
 | **Variants**          | - [vuln-crate](vuln-crate)                                                                          |
 |                       | - [vuln-function](vuln-function)                                                                    |
-|                       | - [fixed-crate]                                                                                     |
 
 ### Vulnerable Lines
 
