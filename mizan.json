@@ -2274,7 +2274,7 @@
       "year": 2025,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0041/vuln-crate",
+          "path_to_crate": "vuln-0043/vuln-crate",
           "is_vulnerability": true,
           "cwe_type": [""],
           "vulnerable_functions": {
@@ -2285,7 +2285,7 @@
           }
         },
         {
-          "path_to_crate": "vuln-0041/vuln-function",
+          "path_to_crate": "vuln-0043/vuln-function",
           "is_vulnerability": true,
           "cwe_type": [""],
           "vulnerable_functions": {
