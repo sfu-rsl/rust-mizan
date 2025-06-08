@@ -6,7 +6,9 @@
 | **Vulnerable Commit** | [156fa9f](https://github.com/rusqlite/rusqlite/commit/156fa9fcf23cadd5db3bdeeca11e5a25cd813e5b) |
 | **Fixed Commit**      | [54043c8](https://github.com/rusqlite/rusqlite/commit/54043c803c83517aa54b463b098a61dfa28c54f4) |
 | **Variants**          | - [fixed-crate](fixed-crate)                                                                    |
+|                       | - [fixed-function](fixed-function)                                                              |
 |                       | - [vuln-crate](vuln-crate)                                                                      |
+|                       | - [vuln-function](vuln-function)                                                                |
 
 ### Vulnerable Lines
 

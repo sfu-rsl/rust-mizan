@@ -2241,11 +2241,32 @@
             ]
           },
           "vulnerable_lines": {
-            "src/session.rs": [107, 160]
+            "src/hash.rs": [33, 42]
           }
         },
         {
-          "path_to_crate": "vuln-0037/fixed-crate",
+          "path_to_crate": "vuln-0041/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": [],
+          "vulnerable_functions": {
+            "src/hash.rs": [
+              "pub fn get_bucket(&self, index: u32) -> u32",
+              "pub fn get_chain(&self, index: u32) -> u32"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/hash.rs": [5, 14]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0041/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0041/fixed-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
