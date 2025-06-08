@@ -1,14 +1,14 @@
 # Vulnerability: RUSTSEC-2025-0018
 
-| **Information**       | **Details**                                                                                     |
-| --------------------- | ----------------------------------------------------------------------------------------------- |
-| **RUSTSEC**           | [RUSTSEC-2025-0018](https://rustsec.org/advisories/RUSTSEC-2025-0018.html)                      |
-| **Vulnerable Commit** | [156fa9f](https://github.com/rusqlite/rusqlite/commit/156fa9fcf23cadd5db3bdeeca11e5a25cd813e5b) |
-| **Fixed Commit**      | [54043c8](https://github.com/rusqlite/rusqlite/commit/54043c803c83517aa54b463b098a61dfa28c54f4) |
-| **Variants**          | - [fixed-crate](fixed-crate)                                                                    |
-|                       | - [fixed-function](fixed-function)                                                              |
-|                       | - [vuln-crate](vuln-crate)                                                                      |
-|                       | - [vuln-function](vuln-function)                                                                |
+| **Information**       | **Details**                                                                                |
+| --------------------- | ------------------------------------------------------------------------------------------ |
+| **RUSTSEC**           | [RUSTSEC-2025-0018](https://rustsec.org/advisories/RUSTSEC-2025-0018.html)                 |
+| **Vulnerable Commit** | [7011c19](https://github.com/nrc/xmas-elf/commit/7011c1925ac10618a92a5170afec7da86f13fa92) |
+| **Fixed Commit**      | [57685c3](https://github.com/nrc/xmas-elf/commit/57685c35512a57269086314a42a70441af4ef451) |
+| **Variants**          | - [fixed-crate](fixed-crate)                                                               |
+|                       | - [fixed-function](fixed-function)                                                         |
+|                       | - [vuln-crate](vuln-crate)                                                                 |
+|                       | - [vuln-function](vuln-function)                                                           |
 
 ### Vulnerable Lines
 
