@@ -1956,6 +1956,55 @@
           "vulnerable_lines": {}
         }
       ]
+    },
+    {
+      "id": "vuln-0040",
+      "author": "Vincent Huang",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2025-0027.html",
+      "crate_name": "mp3-metadata",
+      "year": 2025,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0040/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-119"],
+          "vulnerable_functions": {
+            "src/metadata.rs": [
+              "fn get_id3(i: &mut u32, buf: &[u8], meta: &mut MP3Metadata) -> Result<(), Error>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/metadata.rs": [100]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0040/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-119"],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn get_id3(i: &mut u32, buf: &[u8], meta: &mut MP3Metadata) -> Result<(), Error>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [99]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0040/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0040/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
     }
   ]
 }
