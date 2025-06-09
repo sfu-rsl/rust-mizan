@@ -17,9 +17,9 @@
 ```rust
 fn write_impl(&mut self, value: [T; N]) {
     *self.slice = unsafe {
-        /// VULNERABILITY: The Drop implementation will get run twice when using the cursor
         let ptr = &value as *const [T; N] as *const [MaybeUninit<T>; N];
         let read_value = core::ptr::read(ptr);
+        // VULNERABILITY: This calls `Drop` implementation for `value` before it naturally goes out of scope so `Drop` will be called twice
         core::mem::drop(value);
         read_value
     };
