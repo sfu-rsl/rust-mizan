@@ -86,7 +86,7 @@ use core::{
     ptr::NonNull,
 };
 
-use erased_rc::{TypeErasedRc, TypeErasedWeak};
+use self::erased_rc::{TypeErasedRc, TypeErasedWeak};
 
 /// Projected reference counted pointer.
 ///

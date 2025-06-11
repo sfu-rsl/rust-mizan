@@ -108,7 +108,7 @@ use core::{
     ptr::NonNull,
 };
 
-use erased_arc::{TypeErasedArc, TypeErasedWeak};
+use self::erased_arc::{TypeErasedArc, TypeErasedWeak};
 
 /// Projected atomic reference counted pointer.
 ///
