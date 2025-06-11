@@ -58,6 +58,7 @@ where
     U: ?Sized + 'static,
     /// VULNERABILITY: without the 'static lifetime bound on T, the projected pointer can outlive
     /// the original data's lifetime causing a potential use after free
+    /// NOTE: There is no clearer line to mark as vulnerable in this context
     F: FnOnce(&T) -> &U,
 {
     let projected = project(self);

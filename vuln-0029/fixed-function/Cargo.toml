@@ -1,14 +1,6 @@
 [package]
 name = "vuln-0029-fixed-function"
 version = "0.4.0"
-authors = ["Radek Vít <radekvitr@gmail.com>"]
-edition = "2021"
-rust-version = "1.56"
-description = "Projected reference counted pointers"
-repository = "https://github.com/radekvit/pared"
-license = "MIT OR Apache-2.0"
-keywords = ["arc", "rc", "projected", "aliasing", "shared_ptr"]
-categories = ["data-structures", "memory-management", "no-std", "rust-patterns"]
 
 [features]
 default = ["std"]
