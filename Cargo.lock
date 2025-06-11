@@ -3938,6 +3938,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "vuln-0042-fixed-function"
+version = "0.2.2"
+dependencies = [
+ "fastrand",
+ "hexf-parse",
+ "lexical-core",
+ "num-bigint",
+ "ryu",
+]
+
+[[package]]
 name = "wait-timeout"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
