@@ -1,4 +1,4 @@
-use core::fmt::{self, Debug};
+use std::fmt::{self, Debug};
 
 use crate::common::{is_8digits, parse_digits, ByteSlice};
 

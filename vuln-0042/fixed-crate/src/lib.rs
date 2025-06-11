@@ -60,7 +60,7 @@
     clippy::struct_field_names
 )]
 
-use core::fmt::{self, Display};
+use std::fmt::{self, Display};
 
 mod binary;
 mod common;

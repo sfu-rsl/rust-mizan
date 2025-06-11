@@ -1818,6 +1818,36 @@
           "vulnerable_lines": {}
         }
       ]
+    },
+    {
+      "id": "vuln-0042",
+      "author": "Vincent Huang",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2025-0002.html",
+      "crate_name": "fast-float2",
+      "year": 2025,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0042/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0042/fixed-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0042/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
     }
   ]
 }
