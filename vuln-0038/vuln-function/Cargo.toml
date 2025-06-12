@@ -1,0 +1,6 @@
+[package]
+name = "vuln-0038-vuln-function"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
