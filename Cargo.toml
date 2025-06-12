@@ -209,7 +209,6 @@ members = [
     
     "vuln-0038/vuln-crate", 
     "vuln-0038/vuln-function", 
-    "vuln-0038/vuln-file",
 
     "vuln-0039/fixed-crate",
     "vuln-0039/fixed-function",
