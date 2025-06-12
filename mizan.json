@@ -1967,7 +1967,7 @@
         {
           "path_to_crate": "vuln-0038/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": [""],
+          "cwe_type": ["CWE-125"],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn ptr(&self) -> *const u8",
@@ -1981,7 +1981,7 @@
         {
           "path_to_crate": "vuln-0038/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": [""],
+          "cwe_type": ["CWE-125"],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn ptr(&self) -> *const u8",
