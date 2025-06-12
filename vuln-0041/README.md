@@ -1,10 +1,10 @@
 # Vulnerability: RUSTSEC-2025-0018
 
 | **Information**       | **Details**                                                                                |
-| --------------------- | ------------------------------------------------------------------------------------------ |
+| --------------------- | ------------------------------------------------------------------------------------------ | ---------------- | ------------------------------------------------------------------------------------------ | --- |
 | **RUSTSEC**           | [RUSTSEC-2025-0018](https://rustsec.org/advisories/RUSTSEC-2025-0018.html)                 |
-| **Vulnerable Commit** | [7011c19](https://github.com/nrc/xmas-elf/commit/7011c1925ac10618a92a5170afec7da86f13fa92) |
-| **Fixed Commit**      | [57685c3](https://github.com/nrc/xmas-elf/commit/57685c35512a57269086314a42a70441af4ef451) |
+| **Vulnerable Commit** | [f747ecf](https://github.com/nrc/xmas-elf/commit/f747ecfa3b9b33d5c5760f76a9a31d8ce31a62c7) |
+| **Fixed Commit**      |                                                                                            | **Fixed Commit** | [6862181](https://github.com/nrc/xmas-elf/commit/6862181d66683f7564419688c94385cb96f167fa) |     |
 | **Variants**          | - [fixed-crate](fixed-crate)                                                               |
 |                       | - [fixed-function](fixed-function)                                                         |
 |                       | - [vuln-crate](vuln-crate)                                                                 |
