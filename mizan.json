@@ -738,9 +738,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-672"],
           "vulnerable_functions": {
-            "src/lib.rs": [
-              "fn write_impl(&mut self, value: [T; N])"
-            ]
+            "src/lib.rs": ["fn write_impl(&mut self, value: [T; N])"]
           },
           "vulnerable_lines": {
             "src/lib.rs": [31]
@@ -751,9 +749,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-672"],
           "vulnerable_functions": {
-            "src/lib.rs": [
-              "fn write_impl(&mut self, value: [T; N])"
-            ]
+            "src/lib.rs": ["fn write_impl(&mut self, value: [T; N])"]
           },
           "vulnerable_lines": {
             "src/lib.rs": [64]
@@ -2137,9 +2133,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-787"],
           "vulnerable_functions": {
-            "lib.rs": [
-              "pub fn grow(&mut self, new_cap: usize)"
-            ]
+            "lib.rs": ["pub fn grow(&mut self, new_cap: usize)"]
           },
           "vulnerable_lines": {
             "lib.rs": [656]
@@ -2150,9 +2144,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-787"],
           "vulnerable_functions": {
-            "lib.rs": [
-              "pub fn grow(&mut self, new_cap: usize)"
-            ]
+            "lib.rs": ["pub fn grow(&mut self, new_cap: usize)"]
           },
           "vulnerable_lines": {
             "lib.rs": [226]
@@ -2235,7 +2227,7 @@
           "is_vulnerability": true,
           "cwe_type": [],
           "vulnerable_functions": {
-            "src/hash.rs": [
+            "src/lib.rs": [
               "pub fn get_bucket(&self, index: u32) -> u32",
               "pub fn get_chain(&self, index: u32) -> u32"
             ]
@@ -2249,7 +2241,7 @@
           "is_vulnerability": true,
           "cwe_type": [],
           "vulnerable_functions": {
-            "src/hash.rs": [
+            "src/lib.rs": [
               "pub fn get_bucket(&self, index: u32) -> u32",
               "pub fn get_chain(&self, index: u32) -> u32"
             ]
