@@ -2289,10 +2289,10 @@
           "is_vulnerability": true,
           "cwe_type": [""],
           "vulnerable_functions": {
-            "src/common.rs": ["pub fn first(&self) -> u8"]
+            "src/lib.rs": ["pub fn first(&self) -> u8"]
           },
           "vulnerable_lines": {
-            "src/common.rs": [13]
+            "src/lib.rs": [13]
           }
         },
         {
