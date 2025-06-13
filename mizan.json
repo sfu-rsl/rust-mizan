@@ -2247,7 +2247,7 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [5, 14]
+            "src/lib.rs": [13, 22]
           }
         },
         {
