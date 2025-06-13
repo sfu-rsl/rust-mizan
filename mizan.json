@@ -2227,13 +2227,13 @@
           "is_vulnerability": true,
           "cwe_type": [],
           "vulnerable_functions": {
-            "src/lib.rs": [
+            "src/hash.rs": [
               "pub fn get_bucket(&self, index: u32) -> u32",
               "pub fn get_chain(&self, index: u32) -> u32"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [33, 42]
+            "src/hash.rs": [33, 42]
           }
         },
         {
