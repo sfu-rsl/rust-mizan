@@ -2233,7 +2233,7 @@
             ]
           },
           "vulnerable_lines": {
-            "src/hash.rs": [33, 42]
+            "src/lib.rs": [33, 42]
           }
         },
         {
@@ -2247,7 +2247,7 @@
             ]
           },
           "vulnerable_lines": {
-            "src/hash.rs": [5, 14]
+            "src/lib.rs": [5, 14]
           }
         },
         {
