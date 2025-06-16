@@ -2156,6 +2156,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "redox_uefi"
+version = "0.1.14"
+
+[[package]]
+name = "redox_uefi_alloc"
+version = "0.1.14"
+dependencies = [
+ "redox_uefi",
+]
+
+[[package]]
 name = "refpool"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3484,6 +3495,54 @@ version = "0.18.0"
 dependencies = [
  "funty",
  "radium",
+]
+
+[[package]]
+name = "vuln-0014-fixed-crate"
+version = "0.1.14"
+dependencies = [
+ "redox_uefi",
+ "redox_uefi_alloc",
+]
+
+[[package]]
+name = "vuln-0014-fixed-file"
+version = "0.1.14"
+dependencies = [
+ "redox_uefi",
+ "redox_uefi_alloc",
+]
+
+[[package]]
+name = "vuln-0014-fixed-function"
+version = "0.1.14"
+dependencies = [
+ "redox_uefi",
+ "redox_uefi_alloc",
+]
+
+[[package]]
+name = "vuln-0014-vuln-crate"
+version = "0.1.13"
+dependencies = [
+ "redox_uefi",
+ "redox_uefi_alloc",
+]
+
+[[package]]
+name = "vuln-0014-vuln-file"
+version = "0.1.13"
+dependencies = [
+ "redox_uefi",
+ "redox_uefi_alloc",
+]
+
+[[package]]
+name = "vuln-0014-vuln-function"
+version = "0.1.13"
+dependencies = [
+ "redox_uefi",
+ "redox_uefi_alloc",
 ]
 
 [[package]]

@@ -1,0 +1,7 @@
+[package]
+name = "vuln-0014-vuln-crate"
+version = "0.1.13"
+
+[dependencies]
+redox_uefi = { path = "../../deps/uefi", version = "0.1.13" }
+redox_uefi_alloc = { path = "../../deps/uefi_alloc", version = "0.1.13" }
