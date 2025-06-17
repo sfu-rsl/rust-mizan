@@ -2233,7 +2233,7 @@
             ]
           },
           "vulnerable_lines": {
-            "src/hash.rs": [33, 42]
+            "src/hash.rs": [31, 40]
           }
         },
         {
