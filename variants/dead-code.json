@@ -24,7 +24,7 @@
         },
         {
           "malignant-2": "{if false {let x = unsafe {0xb8000 as *mut u8}; unsafe {*x = 1;}}}"
-        },:
+        },
         {
           "malignant-3": "{unsafe {let x = \"Hello \"; let y = \"World!\"; let z = x.to_owned() + y;}}"
         },
