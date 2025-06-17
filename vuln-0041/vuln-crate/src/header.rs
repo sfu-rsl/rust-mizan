@@ -1,7 +1,7 @@
 use core::fmt;
 use core::mem;
 
-use crate::{P32, P64, ElfFile};
+use {crate::P32, crate::P64, crate::ElfFile};
 use zero::{read, Pod};
 
 

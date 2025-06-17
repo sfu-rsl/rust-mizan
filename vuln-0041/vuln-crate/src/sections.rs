@@ -10,12 +10,16 @@ use core::slice;
 #[cfg(feature = "compression")]
 use flate2::{Decompress, FlushDecompress};
 
-use crate::{P32, P64, ElfFile};
-use crate::header::{Header, Class};
-use zero::{read, read_array, read_str, read_strs_to_null, StrReaderIterator, Pod};
+use crate::dynamic;
+use crate::hash;
+use crate::header;
 use crate::symbol_table;
-use crate::dynamic::Dynamic;
-use crate::hash::HashTable;
+
+use {crate::P32, crate::P64, crate::ElfFile};
+use header::{Header, Class};
+use zero::{read, read_array, read_str, read_strs_to_null, StrReaderIterator, Pod};
+use dynamic::Dynamic;
+use hash::HashTable;
 
 pub fn parse_section_header<'a>(input: &'a [u8],
                                 header: Header<'a>,
@@ -28,6 +32,10 @@ pub fn parse_section_header<'a>(input: &'a [u8],
     let start = (index as u64 * header.pt2.sh_entry_size() as u64 +
                  header.pt2.sh_offset() as u64) as usize;
     let end = start + header.pt2.sh_entry_size() as usize;
+
+    if input.len() < end {
+        return Err("File is shorter than section header offset");
+    }
 
     Ok(match header.pt1.class() {
         Class::ThirtyTwo => {

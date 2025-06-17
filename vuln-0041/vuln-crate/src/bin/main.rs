@@ -1,10 +1,9 @@
-extern crate xmas_elf;
-
+extern crate vuln_0041_vuln_crate;
 use std::path::Path;
 use std::env;
 use std::process;
-use xmas_elf::{ElfFile, header, program};
-use xmas_elf::sections;
+use vuln_0041_vuln_crate::{ElfFile, header, program};
+use vuln_0041_vuln_crate::sections;
 
 // Note if running on a 32bit system, then reading Elf64 files probably will not
 // work (maybe if the size of the file in bytes is < u32::Max).

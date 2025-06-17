@@ -7,4 +7,3 @@ edition = "2021"
 zero = "0.1"
 flate2 = { version = "1", optional = true }
 zstd = { version = "0.13", optional = true }
-xmas-elf = "0.10"

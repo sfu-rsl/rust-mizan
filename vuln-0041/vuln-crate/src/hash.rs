@@ -1,7 +1,5 @@
-use symbol_table::Entry;
+use crate::symbol_table::Entry;
 use zero::Pod;
-
-use crate::symbol_table;
 
 #[derive(Clone, Copy, Debug)]
 #[repr(C)]
