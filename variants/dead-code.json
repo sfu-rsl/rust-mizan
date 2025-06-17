@@ -1,0 +1,40 @@
+{
+  "dead-code": [
+    {
+      "benign": [
+        {
+          "benign-1": "{let x = 5; let y = x;}"
+        },
+        {
+          "benign-2": "{if 2 + 2 == 5 {let x = \"no vulnerabilities here\"; let y = &x; print!(\"{}\", y);}}"
+        },
+        {
+          "benign-3": "{let pi = 3.14; let e = 2.71; let pie = pi + e;}"
+        },
+        {
+          "benign-4": "{let x = \"HELLO\"; let y = \" WORLD!\"; let message = x.to_owned() + y;}"
+        },
+        {
+          "benign-5": "{if 2 - 2 == 0 {let x = 2; let y = 2; let z = x - y;} else {unreachable!()}}"
+        }
+      ],
+      "malignant": [
+        {
+          "malignant-1": "{unsafe {let x = \"THIS IS VERY UNSAFE CODE PLEASE FIX\"}}}"
+        },
+        {
+          "malignant-2": "{if false {let x = unsafe {0xb8000 as *mut u8}; unsafe {*x = 1;}}}"
+        },
+        {
+          "malignant-3": "{unsafe {let x = \"Hello \"; let y = \"World!\"; let z = x.to_owned() + y;}}"
+        },
+        {
+          "malignant-4": "{if 1 + 1 == 0 {unsafe {*(0x0 as *mut u64) = 0xDEADBEEF;}}}"
+        },
+        {
+          "malignant-5": "{unsafe {let tau = 6.28; let pi = tau/2.0;}}"
+        }
+      ]
+    }
+  ]
+}
