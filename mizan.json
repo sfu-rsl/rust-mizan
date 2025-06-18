@@ -2281,7 +2281,7 @@
             "src/common.rs": ["pub fn first(&self) -> u8"]
           },
           "vulnerable_lines": {
-            "src/common.rs": [38]
+            "src/common.rs": [39]
           }
         },
         {
@@ -2292,7 +2292,7 @@
             "src/lib.rs": ["pub fn first(&self) -> u8"]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [13]
+            "src/lib.rs": [14]
           }
         },
         {
