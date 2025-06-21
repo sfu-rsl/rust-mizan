@@ -738,9 +738,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-672"],
           "vulnerable_functions": {
-            "src/lib.rs": [
-              "fn write_impl(&mut self, value: [T; N])"
-            ]
+            "src/lib.rs": ["fn write_impl(&mut self, value: [T; N])"]
           },
           "vulnerable_lines": {
             "src/lib.rs": [31]
@@ -751,9 +749,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-672"],
           "vulnerable_functions": {
-            "src/lib.rs": [
-              "fn write_impl(&mut self, value: [T; N])"
-            ]
+            "src/lib.rs": ["fn write_impl(&mut self, value: [T; N])"]
           },
           "vulnerable_lines": {
             "src/lib.rs": [64]
@@ -2137,9 +2133,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-787"],
           "vulnerable_functions": {
-            "lib.rs": [
-              "pub fn grow(&mut self, new_cap: usize)"
-            ]
+            "lib.rs": ["pub fn grow(&mut self, new_cap: usize)"]
           },
           "vulnerable_lines": {
             "lib.rs": [656]
@@ -2150,9 +2144,7 @@
           "is_vulnerability": true,
           "cwe_type": ["CWE-787"],
           "vulnerable_functions": {
-            "lib.rs": [
-              "pub fn grow(&mut self, new_cap: usize)"
-            ]
+            "lib.rs": ["pub fn grow(&mut self, new_cap: usize)"]
           },
           "vulnerable_lines": {
             "lib.rs": [226]
@@ -2216,6 +2208,57 @@
         },
         {
           "path_to_crate": "vuln-0040/fixed-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        }
+      ]
+    },
+    {
+      "id": "vuln-0041",
+      "author": "Eunsong Koh",
+      "source_link": "https://rustsec.org/advisories/RUSTSEC-2025-0018.html",
+      "crate_name": "xmas-elf",
+      "year": 2025,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0041/vuln-crate",
+          "is_vulnerability": true,
+          "cwe_type": [],
+          "vulnerable_functions": {
+            "src/hash.rs": [
+              "pub fn get_bucket(&self, index: u32) -> u32",
+              "pub fn get_chain(&self, index: u32) -> u32"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/hash.rs": [31, 40]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0041/vuln-function",
+          "is_vulnerability": true,
+          "cwe_type": [],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn get_bucket(&self, index: u32) -> u32",
+              "pub fn get_chain(&self, index: u32) -> u32"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [13, 22]
+          }
+        },
+        {
+          "path_to_crate": "vuln-0041/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0041/fixed-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
