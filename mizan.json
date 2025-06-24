@@ -2276,7 +2276,7 @@
         {
           "path_to_crate": "vuln-0042/vuln-crate",
           "is_vulnerability": true,
-          "cwe_type": [""],
+          "cwe_type": ["CWE-119"],
           "vulnerable_functions": {
             "src/common.rs": ["pub fn first(&self) -> u8"]
           },
@@ -2287,7 +2287,7 @@
         {
           "path_to_crate": "vuln-0042/vuln-function",
           "is_vulnerability": true,
-          "cwe_type": [""],
+          "cwe_type": ["CWE-119"],
           "vulnerable_functions": {
             "src/lib.rs": ["pub fn first(&self) -> u8"]
           },
