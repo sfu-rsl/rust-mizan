@@ -2285,6 +2285,17 @@
           }
         },
         {
+          "path_to_crate": "vuln-0042/vuln-file",
+          "is_vulnerability": true,
+          "cwe_type": ["CWE-119"],
+          "vulnerable_functions": {
+            "src/common.rs": ["pub fn first(&self) -> u8"]
+          },
+          "vulnerable_lines": {
+            "src/common.rs": [39]
+          }
+        },
+        {
           "path_to_crate": "vuln-0042/vuln-function",
           "is_vulnerability": true,
           "cwe_type": ["CWE-119"],
@@ -2297,6 +2308,13 @@
         },
         {
           "path_to_crate": "vuln-0042/fixed-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {}
+        },
+        {
+          "path_to_crate": "vuln-0042/fixed-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
