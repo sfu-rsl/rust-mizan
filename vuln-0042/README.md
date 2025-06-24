@@ -6,8 +6,10 @@
 | **Vulnerable Commit** | [83a49b8](https://github.com/Alexhuszagh/fast-float-rust/commit/83a49b8b5a530d8e950a6dbfdc11089d213b9ac9) |
 | **Fixed Commit**      | [31d1abf](https://github.com/Alexhuszagh/fast-float-rust/commit/31d1abf7c6232f35eb069c64b8290e6fa92802b6) |
 | **Variants**          | - [vuln-crate](vuln-crate)                                                                                |
+|                       | - [vuln-file](vuln-file)                                                                                  |
 |                       | - [vuln-function](vuln-function)                                                                          |
 |                       | - [fixed-crate](fixed-crate)                                                                              |
+|                       | - [fixed-file](fixed-file)                                                                                |
 |                       | - [fixed-function](fixed-function)                                                                        |
 
 ### Vulnerable Lines
