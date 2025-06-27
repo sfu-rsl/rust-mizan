@@ -26,10 +26,10 @@ impl ArithmeticIdentityVisitor {
     fn new() -> Self {
         Self { rng: rand::rng() }
     }
-    /// Check if an expression is a literal integer or float
+    /// Check if an expression is a literal integer
     fn is_numeric_literal(expr: &Expr) -> bool {
         match expr {
-            Expr::Lit(expr_lit) => matches!(&expr_lit.lit, Lit::Int(_) | Lit::Float(_)),
+            Expr::Lit(expr_lit) => matches!(&expr_lit.lit, Lit::Int(_)),
             _ => false,
         }
     }
