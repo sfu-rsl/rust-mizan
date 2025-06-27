@@ -110,7 +110,7 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>) -> Result<()> {
 
         // Only format and write if content actually changed
         if modified_content != content {
-            let formatted_content = format_code(&modified_content)?;
+            let formatted_content = format_code(path.to_str().unwrap(), &modified_content)?;
             fs::write(path, &formatted_content)?;
             files_modified += 1;
         }
@@ -124,7 +124,7 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>) -> Result<()> {
 }
 
 /// Format Rust code using rustfmt
-fn format_code(code: &str) -> Result<String> {
+fn format_code(file_name: &str, code: &str) -> Result<String> {
     let mut child = Command::new("rustfmt")
         .arg("--edition=2021")
         .arg("--config")
@@ -144,7 +144,7 @@ fn format_code(code: &str) -> Result<String> {
     if output.status.success() {
         Ok(String::from_utf8(output.stdout)?)
     } else {
-        eprintln!("Warning: rustfmt failed. Returning unformatted code.");
+        eprintln!("Warning: rustfmt failed for {}", file_name);
         Ok(code.to_string())
     }
 }
