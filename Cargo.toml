@@ -2,6 +2,8 @@
 resolver = "2"
 
 members = [
+    "mizan-mut",
+
     "vuln-0001/vuln-function",
     "vuln-0001/vuln-file",
     "vuln-0001/vuln-crate",
@@ -219,10 +221,10 @@ members = [
 
     "vuln-0037/vuln-crate",
 
-    "vuln-0037/fixed-crate", 
-    
-    "vuln-0038/vuln-crate", 
-    "vuln-0038/vuln-function", 
+    "vuln-0037/fixed-crate",
+
+    "vuln-0038/vuln-crate",
+    "vuln-0038/vuln-function",
 
     "vuln-0039/fixed-crate",
     "vuln-0039/fixed-function",

@@ -1,0 +1,32 @@
+[package]
+name = "mizan-mut"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "mizan-mut"
+path = "src/main.rs"
+
+[dependencies]
+syn = { version = "2.0", features = [
+    "full",
+    "parsing",
+    "printing",
+    "visit",
+    "visit-mut",
+    "extra-traits",
+] }
+quote = "1.0"
+proc-macro2 = "1.0"
+clap = { version = "4.0", features = ["derive"] }
+walkdir = "2.3"
+anyhow = "1.0"
+rand = "0.9"
+
+# rust-analyzer crates for rename functionality
+ide = { git = "https://github.com/rust-lang/rust-analyzer", rev = "a207299344bf7797e4253c3f6130313e33c2ba6f" }
+ide-db = { git = "https://github.com/rust-lang/rust-analyzer", rev = "a207299344bf7797e4253c3f6130313e33c2ba6f" }
+load-cargo = { git = "https://github.com/rust-lang/rust-analyzer", rev = "a207299344bf7797e4253c3f6130313e33c2ba6f" }
+project-model = { git = "https://github.com/rust-lang/rust-analyzer", rev = "a207299344bf7797e4253c3f6130313e33c2ba6f" }
+vfs = { git = "https://github.com/rust-lang/rust-analyzer", rev = "a207299344bf7797e4253c3f6130313e33c2ba6f" }
+proc-macro-api = { git = "https://github.com/rust-lang/rust-analyzer", rev = "a207299344bf7797e4253c3f6130313e33c2ba6f" }
