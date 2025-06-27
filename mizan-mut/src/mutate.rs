@@ -1,0 +1,150 @@
+use anyhow::Result;
+use clap::ValueEnum;
+use std::{
+    fs,
+    io::Write,
+    path::Path,
+    process::{Command, Stdio},
+};
+use walkdir::WalkDir;
+
+use crate::mutations::{
+    arithmetic_identity::ArithmeticIdentityMutator, derive_reorder::DeriveReorderMutator,
+    for_to_while::ForToWhileMutator, if_else_reorder::IfElseReorderMutator,
+    trait_bound_reorder::TraitBoundReorderMutator, use_reorder::UseReorderMutator,
+    while_to_loop::WhileToLoopMutator,
+};
+
+#[derive(Debug, Clone, PartialEq, ValueEnum)]
+pub enum Mutation {
+    // Special
+    /// Applies all available mutations
+    #[value(name = "all")]
+    All,
+
+    // Loop transformations
+    /// Converts for loops to while loops
+    #[value(name = "for-to-while")]
+    ForToWhile,
+    /// Converts while loops to loop blocks with breaks
+    #[value(name = "while-to-loop")]
+    WhileToLoop,
+
+    // Control flow transformations
+    /// Reorders if-else branches by negating conditions
+    #[value(name = "if-else-reorder")]
+    IfElseReorder,
+
+    // Syntax reordering
+    /// Randomly reorders traits in derive attributes
+    #[value(name = "derive-reorder")]
+    DeriveReorder,
+    /// Randomly reorders trait bounds in where clauses
+    #[value(name = "trait-bound-reorder")]
+    TraitBoundReorder,
+    /// Randomly reorders items in use statements
+    #[value(name = "use-reorder")]
+    UseReorder,
+
+    // Expression transformations
+    /// Adds arithmetic identity operations (x + N - N)
+    #[value(name = "arithmetic-identity")]
+    ArithmeticIdentity,
+}
+
+/// Apply mutations to a Rust crate
+pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>) -> Result<()> {
+    if mutations.is_empty() {
+        eprintln!("Error: No mutations specified. Use -m <mutation-type>");
+        std::process::exit(1);
+    }
+
+    // Expand "all" to include all mutations
+    let mutations_to_apply = if mutations.contains(&Mutation::All) {
+        vec![
+            Mutation::WhileToLoop,
+            Mutation::ForToWhile,
+            Mutation::IfElseReorder,
+            Mutation::DeriveReorder,
+            Mutation::TraitBoundReorder,
+            Mutation::UseReorder,
+            Mutation::ArithmeticIdentity,
+        ]
+    } else {
+        mutations.clone()
+    };
+
+    println!("Processing crate at: {}", root.display());
+    println!("Applying mutations: {:?}", mutations_to_apply);
+
+    let mut files_modified = 0;
+    let mut total_files = 0;
+
+    for entry in WalkDir::new(root)
+        .into_iter()
+        .filter_map(|e| e.ok())
+        .filter(|e| e.path().extension().map_or(false, |ext| ext == "rs"))
+        .filter(|e| !e.path().to_str().unwrap_or("").contains("target"))
+    {
+        let path = entry.path();
+        total_files += 1;
+
+        let content = fs::read_to_string(path)?;
+        let mut modified_content = content.clone();
+
+        // Apply all mutations sequentially
+        for mutation in &mutations_to_apply {
+            modified_content = match mutation {
+                Mutation::All => unreachable!(),
+                Mutation::ForToWhile => ForToWhileMutator::mutate(&modified_content)?,
+                Mutation::ArithmeticIdentity => {
+                    ArithmeticIdentityMutator::mutate(&modified_content)?
+                }
+                Mutation::DeriveReorder => DeriveReorderMutator::mutate(&modified_content)?,
+                Mutation::TraitBoundReorder => TraitBoundReorderMutator::mutate(&modified_content)?,
+                Mutation::UseReorder => UseReorderMutator::mutate(&modified_content)?,
+                Mutation::WhileToLoop => WhileToLoopMutator::mutate(&modified_content)?,
+                Mutation::IfElseReorder => IfElseReorderMutator::mutate(&modified_content)?,
+            };
+        }
+
+        // Only format and write if content actually changed
+        if modified_content != content {
+            let formatted_content = format_code(&modified_content)?;
+            fs::write(path, &formatted_content)?;
+            files_modified += 1;
+        }
+    }
+
+    println!(
+        "\nSummary: {} of {} files modified",
+        files_modified, total_files
+    );
+    Ok(())
+}
+
+/// Format Rust code using rustfmt
+fn format_code(code: &str) -> Result<String> {
+    let mut child = Command::new("rustfmt")
+        .arg("--edition=2021")
+        .arg("--config")
+        .arg("normalize_doc_attributes=true")
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()?;
+
+    // Write code to rustfmt's stdin
+    if let Some(mut stdin) = child.stdin.take() {
+        stdin.write_all(code.as_bytes())?;
+    }
+
+    let output = child.wait_with_output()?;
+
+    if output.status.success() {
+        Ok(String::from_utf8(output.stdout)?)
+    } else {
+        eprintln!("Warning: rustfmt failed. Returning unformatted code.");
+        Ok(code.to_string())
+    }
+}
