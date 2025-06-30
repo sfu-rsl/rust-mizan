@@ -1,64 +1,95 @@
-You are an expert on publicly disclosed vulnerabilities in Rust crates.
+You will be given these following details for your task:
+
+1. Rust Crate Name
+2. Calendar Year
+   You are given these following details for your task:
 
 ### Task
 
-Given only a crate name and a calendar year, recall whether any CVE-listed vulnerabilities were reported for that crate during that year.  
-Return your answer strictly in the JSON schema shown below.
+1. Recall
 
-### Recall procedure
+- Recall from your training data and knowledge whether the Rust crate had one or more CVEs in the specified calendar year.
 
-1. Silently recall from your training data whether the crate had one or more CVEs in the specified year.
-2. Decide:
-   - `has_cve` → true if ≥ 1 CVE in that year; otherwise false.
-   - `cve_list` → a JSON array of the CVE IDs you recalled (or `[]` if none).
+2. Match CVE IDs
 
-(Do not explain how you arrived at the answer. Output only the final JSON.)
+- From what you recall about the given Rust crate name and the calendar year, determine whether the Rust crate name given to you had at least one CVE ID associated to it in that calendar year.
+- You must provide a Boolean output of either True or False.
+- If that Rust crate name had at least one CVE associated to it, provide an output of True. If it did not have any CVE IDs assocaited to it, provide an output of False.
 
-### Response format
+3. Find All Matches
 
-```json
-{
-  "has_cve": true | false,
-  "cve_list": ["CVE-YYYY-NNNNN", ...]
-}
-```
+- From what you recall about the given Rust crate name and the calendar year, provide all of the CVE IDs that are associated to the given Rust crate name in that calendar year.
 
-### Few-shot examples
+### Output Criteria
 
-#### Positive example (crate with CVEs)
+Based on your answers to the task, your final output must be in JSON parsable format with these keys and their corresponding values:
+'explanation': String
+'has_cve': true or false
+'cve_list': List["CVE-YYYY-NNNNNN", ...] or List[]
 
-User input
+If you could not match any CVE IDs to the Rust Crate Name and the Calendar Year, its output should be False. If there was a match, its output must be True.
+If you could find at least one or more CVE IDs associated to the Rust Crate Name and the Calendar Year, you must provide all the CVE IDs in their CVE ID format (eg. "CVE-YYYY-NNNNNN") inside of a list or return an empty list.
+
+Do not give the response with Markdown formatting, only return it in JSON format that is parsable without any whitespace.
+
+### Output Examples
+
+#### Positive Example (Crate with matching CVEs)
+
+<user_query>
 
 ```
 crate = "hyper"
-year  = 2022
+year = 2022
 ```
 
-Assistant output
+</user_query>
+
+<assistant_response>
 
 ```json
-{
-  "has_cve": true,
-  "cve_list": ["CVE-2022-31394"]
-}
+{{
+"explanation": "Your thought process, recall, and explanation on how you got to your final answers",
+"has_cve": true,
+"cve_list": ["CVE-2022-31394"]
+}}
 ```
 
-#### Negative example (crate with no CVEs)
+</assistant_response>
 
-User input
+###
+
+#### Negative Example (Crate without matching CVEs)
+
+<user_query>
 
 ```
 crate = "serde"
-year  = 2023
+year = 2023
 ```
 
-Assistant output
+</user_query>
+
+<assistant_response>
 
 ```json
-{
-  "has_cve": false,
-  "cve_list": []
-}
+{{
+"explanation": "Your thought process, recall, and explanation on how you got to your final answers",
+"has_cve": false,
+"cve_list": []
+}}
 ```
 
-### Now solve
+</assistant_response>
+
+### Input
+
+Here are the following details to complete your task:
+
+crate = """
+{rust_crate_name}
+"""
+
+year = """
+{calendar_year}
+"""

@@ -20,6 +20,7 @@ class Findings(RootModel[List[Finding]]):
 class VulnerabilityReport(BaseModel):
     """Model for vulnerability detection task output."""
 
+    explanation: str = Field(..., description="Explanation of answer")
     is_vulnerable: bool = Field(
         ..., description="Whether the code contains vulnerabilities"
     )
@@ -35,6 +36,7 @@ class VulnerabilityReport(BaseModel):
 class CVECheckReport(BaseModel):
     """Model for CVE checking task output."""
 
+    explanation: str = Field(..., description="Explanation of answer")
     has_cve: bool = Field(
         ..., description="Whether any CVEs exist for this crate and year"
     )
@@ -44,6 +46,7 @@ class CVECheckReport(BaseModel):
 class CrateIDReport(BaseModel):
     """Model for crate identification task output."""
 
+    explanation: str = Field(..., description="Explanation of answer")
     crate_name: str | None = Field(None, description="Identified crate name, if known")
     likely_year: int | None = Field(
         None, description="Likely year of the code, if known"

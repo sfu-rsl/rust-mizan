@@ -3,9 +3,13 @@ from pathlib import Path
 from typing import Literal, Sequence, Type, Any, Dict, Union, Optional
 
 from langchain_core.output_parsers import JsonOutputParser
-from langchain_core.prompts import PromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 try:
     from langchain_anthropic import ChatAnthropic
@@ -19,6 +23,7 @@ Provider = Literal["openai", "anthropic"]
 
 class LLMError:
     """Represents an error from the LLM invocation."""
+
     def __init__(self, error_type: str, error_message: str):
         self.error_type = error_type
         self.error_message = error_message
@@ -52,6 +57,7 @@ def _select_llm(provider: Provider, model_name: str):
 def run_pipeline(
     *,
     prompt: Union[Path, str],
+    system_prompt: Union[Path, str],
     schema_model: Type[BaseModel],
     code_dir: Path = None,
     model_name: str,
@@ -70,23 +76,32 @@ def run_pipeline(
     Returns:
         Parsed LLM response as a dictionary or sequence of dictionaries, or LLMError on failure
     """
+    
     try:
         prompt_text = load_prompt(prompt)
+        system_prompt_text = load_prompt(system_prompt)
         directory_text = "" if code_dir is None else load_directory(code_dir)
 
         parser = JsonOutputParser(pydantic_object=schema_model)
-        prompt_template = PromptTemplate(
-            template=(
-                "{prompt}\n\n{format_instructions}\n\n"
-                "### DIRECTORY_CONTENTS_START\n{directory}\n### DIRECTORY_CONTENTS_END"
-            ),
-            input_variables=["prompt", "directory"],
-            partial_variables={"format_instructions": parser.get_format_instructions()},
+        prompt_template = ChatPromptTemplate(
+            [
+                ("system", "{system_prompt_text}"),
+                (
+                    "human",
+                    '{prompt}\n### CONTENT_START\n"""\n{directory}\n"""\n### CONTENT_END',
+                ),
+            ]
         )
 
         llm = _select_llm(provider, model_name)
-        response = (prompt_template | llm | parser).invoke(
-            {"prompt": prompt_text, "directory": directory_text}
+        model_detection_chain = prompt_template | llm | parser
+
+        response = model_detection_chain.invoke(
+            {
+                "system_prompt_text": system_prompt_text,
+                "prompt": prompt_text,
+                "directory": directory_text,
+            }
         )
 
         # Convert to dict format (handle both single items and lists)
@@ -94,7 +109,7 @@ def run_pipeline(
         if isinstance(raw, list):
             return [r.model_dump() if isinstance(r, BaseModel) else r for r in raw]
         return raw.model_dump() if isinstance(raw, BaseModel) else raw
-    
+
     except Exception as e:
         # Capture the error type and message
         error_type = type(e).__name__

@@ -99,7 +99,9 @@ class CheckCVETask(TaskBase):
         Returns:
             Complete prompt string with crate context
         """
-        base = base_prompt_path.read_text(encoding="utf-8")
-        trailer = f"\ncrate = \"{ctx['crate_name']}\"\nyear = {ctx['year']}\n"
+        template = base_prompt_path.read_text(encoding="utf-8")
+        filled_prompt = template.format(
+            rust_crate_name=ctx["crate_name"], calendar_year=ctx["year"]
+        )
 
-        return base + trailer
+        return filled_prompt

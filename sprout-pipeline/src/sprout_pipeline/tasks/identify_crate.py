@@ -93,22 +93,17 @@ class IdentifyCrateTask(TaskBase):
         return {**meta, **score}
 
     @staticmethod
-    def build_prompt(base_prompt_path: Path, ctx: Dict) -> str:
+    def build_prompt(base_prompt_path: Path) -> str:
         """
-        Customize the prompt with crate name and year for testing.
-
-        Note: In a real-world scenario, this would defeat the purpose of the task,
-        but it's useful for validation testing.
+        Builds the prompt string
 
         Args:
             base_prompt_path: Path to the base prompt template
-            ctx: Context with crate_name and likely_year
 
         Returns:
-            Complete prompt string with crate context
+            Prompt string
+
         """
         base = base_prompt_path.read_text(encoding="utf-8")
-        header = (
-            f"crate_name = {ctx['crate_name']}\n" f"year = {ctx['likely_year']}\n\n"
-        )
-        return header + base
+
+        return base
