@@ -1,7 +1,0 @@
-timestamp,llm_provider,llm_model,code_sample,crate_name_correct,year_correct,has_cve_correct,cve_tp,cve_fn,cve_fp
-2025-05-20T17:19:24.819729+00:00,openai,gpt-4o-mini,vuln-0001/vuln-function,True,False,True,[],['CVE-2019-16140'],['CVE-2020-12345']
-2025-05-20T17:19:26.552748+00:00,openai,gpt-4o-mini,vuln-0001/vuln-file,False,False,True,[],['CVE-2019-16140'],['CVE-2019-12345']
-2025-05-20T17:19:31.920180+00:00,openai,gpt-4o-mini,vuln-0001/vuln-crate,True,False,True,[],['CVE-2019-16140'],"['CVE-2020-12345', 'CVE-2021-67890']"
-2025-05-20T17:19:36.474308+00:00,openai,gpt-4o-mini,vuln-0001/fixed-function,False,True,True,[],['CVE-2019-16140'],"['CVE-2020-36159', 'CVE-2021-29921']"
-2025-05-20T17:19:37.656072+00:00,openai,gpt-4o-mini,vuln-0001/fixed-file,True,False,False,[],['CVE-2019-16140'],[]
-2025-05-20T17:19:43.253761+00:00,openai,gpt-4o-mini,vuln-0001/fixed-crate,True,False,True,[],['CVE-2019-16140'],"['CVE-2020-8169', 'CVE-2020-8177', 'CVE-2020-8178']"

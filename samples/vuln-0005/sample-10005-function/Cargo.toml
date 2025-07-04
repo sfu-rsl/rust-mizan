@@ -1,0 +1,4 @@
+[package]
+name = "sample-10005-function"
+version = "0.1.0"
+edition = "2021"

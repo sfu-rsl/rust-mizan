@@ -1,0 +1,9 @@
+[package]
+name = "sample-00041-function"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+zero = "0.1"
+flate2 = { version = "1", optional = true }
+zstd = { version = "0.13", optional = true }

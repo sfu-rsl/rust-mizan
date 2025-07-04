@@ -13,58 +13,82 @@
       "year": 2019,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0001/vuln-function",
+          "path_to_crate": "vuln-0001/sample-00001-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
+            "src/lib.rs": [
+              "fn from(buffer: Buffer) -> Vec<u8>"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [95]
-          }
+            "src/lib.rs": [
+              95
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0001/vuln-file",
+          "path_to_crate": "vuln-0001/sample-00001-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
-            "src/buffer.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
+            "src/buffer.rs": [
+              "fn from(buffer: Buffer) -> Vec<u8>"
+            ]
           },
           "vulnerable_lines": {
-            "src/buffer.rs": [195]
-          }
+            "src/buffer.rs": [
+              195
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0001/vuln-crate",
+          "path_to_crate": "vuln-0001/sample-00001-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
-            "src/buffer.rs": ["fn from(buffer: Buffer) -> Vec<u8>"]
+            "src/buffer.rs": [
+              "fn from(buffer: Buffer) -> Vec<u8>"
+            ]
           },
           "vulnerable_lines": {
-            "src/buffer.rs": [195]
-          }
+            "src/buffer.rs": [
+              195
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0001/fixed-function",
+          "path_to_crate": "vuln-0001/sample-10001-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0001/fixed-file",
+          "path_to_crate": "vuln-0001/sample-10001-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0001/fixed-crate",
+          "path_to_crate": "vuln-0001/sample-10001-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -76,9 +100,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0002/vuln-crate",
+          "path_to_crate": "vuln-0002/sample-00002-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
             "src/access.rs": [
               "fn deref(&self) -> &T",
@@ -87,13 +113,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/access.rs": [240, 287]
-          }
+            "src/access.rs": [
+              240,
+              287
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0002/vuln-file",
+          "path_to_crate": "vuln-0002/sample-00002-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
             "src/access.rs": [
               "fn deref(&self) -> &T",
@@ -102,13 +134,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/access.rs": [240, 287]
-          }
+            "src/access.rs": [
+              240,
+              287
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0002/vuln-function",
+          "path_to_crate": "vuln-0002/sample-00002-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn deref(&self) -> &T",
@@ -117,29 +155,36 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [19, 51]
-          }
+            "src/lib.rs": [
+              19,
+              51
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0002/fixed-crate",
+          "path_to_crate": "vuln-0002/sample-10002-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0002/fixed-file",
+          "path_to_crate": "vuln-0002/sample-10002-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0002/fixed-function",
+          "path_to_crate": "vuln-0002/sample-10002-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -151,9 +196,11 @@
       "year": 2018,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0003/vuln-crate",
+          "path_to_crate": "vuln-0003/sample-00003-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-119"],
+          "cwe_type": [
+            "CWE-119"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>"
@@ -163,14 +210,21 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [317],
-            "src/to_bytes.rs": [234]
-          }
+            "src/lib.rs": [
+              317
+            ],
+            "src/to_bytes.rs": [
+              234
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0003/vuln-file",
+          "path_to_crate": "vuln-0003/sample-00003-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-119"],
+          "cwe_type": [
+            "CWE-119"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub unsafe fn guarded_transmute_vec_permissive<T>(mut bytes: Vec<u8>) -> Vec<T>"
@@ -180,43 +234,56 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [310],
-            "src/to_bytes.rs": [234]
-          }
+            "src/lib.rs": [
+              310
+            ],
+            "src/to_bytes.rs": [
+              234
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0003/vuln-function",
+          "path_to_crate": "vuln-0003/sample-00003-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-119"],
+          "cwe_type": [
+            "CWE-119"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub unsafe fn guarded_transmute_to_bytes_vec<T>(mut from: Vec<T>) -> Vec<u8>"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [9]
-          }
+            "src/lib.rs": [
+              9
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0003/fixed-crate",
+          "path_to_crate": "vuln-0003/sample-10003-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0003/fixed-file",
+          "path_to_crate": "vuln-0003/sample-10003-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0003/fixed-function",
+          "path_to_crate": "vuln-0003/sample-10003-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -228,9 +295,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0004/vuln-crate",
+          "path_to_crate": "vuln-0004/sample-00004-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-415"],
+          "cwe_type": [
+            "CWE-415"
+          ],
           "vulnerable_functions": {
             "src/compact.rs": [
               "fn remove(&mut self, index: usize) -> T",
@@ -238,13 +307,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/compact.rs": [110, 144]
-          }
+            "src/compact.rs": [
+              110,
+              144
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0004/vuln-file",
+          "path_to_crate": "vuln-0004/sample-00004-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-415"],
+          "cwe_type": [
+            "CWE-415"
+          ],
           "vulnerable_functions": {
             "src/compact.rs": [
               "fn remove(&mut self, index: usize) -> T",
@@ -252,13 +327,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/compact.rs": [110, 144]
-          }
+            "src/compact.rs": [
+              110,
+              144
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0004/vuln-function",
+          "path_to_crate": "vuln-0004/sample-00004-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-415"],
+          "cwe_type": [
+            "CWE-415"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn remove(&mut self, index: usize) -> T",
@@ -266,8 +347,12 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [20, 47]
-          }
+            "src/lib.rs": [
+              20,
+              47
+            ]
+          },
+          "deps": []
         }
       ]
     },
@@ -279,64 +364,82 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0005/vuln-function",
+          "path_to_crate": "vuln-0005/sample-00005-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-400"],
+          "cwe_type": [
+            "CWE-400"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [24]
-          }
+            "src/lib.rs": [
+              24
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0005/vuln-file",
+          "path_to_crate": "vuln-0005/sample-00005-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-400"],
+          "cwe_type": [
+            "CWE-400"
+          ],
           "vulnerable_functions": {
             "src/color.rs": [
               "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
             ]
           },
           "vulnerable_lines": {
-            "src/color.rs": [256]
-          }
+            "src/color.rs": [
+              256
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0005/vuln-crate",
+          "path_to_crate": "vuln-0005/sample-00005-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-400"],
+          "cwe_type": [
+            "CWE-400"
+          ],
           "vulnerable_functions": {
             "src/color.rs": [
               "fn from_slice_mut(slice: &mut [T]) -> &mut $ident<T>"
             ]
           },
           "vulnerable_lines": {
-            "src/color.rs": [256]
-          }
+            "src/color.rs": [
+              256
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0005/fixed-function",
+          "path_to_crate": "vuln-0005/sample-10005-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0005/fixed-file",
+          "path_to_crate": "vuln-0005/sample-10005-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0005/fixed-crate",
+          "path_to_crate": "vuln-0005/sample-10005-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -348,64 +451,85 @@
       "year": 2021,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0006/vuln-crate",
+          "path_to_crate": "vuln-0006/sample-00006-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn insert_many<I: IntoIterator<Item = A::Item>>(&mut self, index: usize, iterable: I)"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [1032, 1044]
-          }
+            "src/lib.rs": [
+              1032,
+              1044
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0006/vuln-file",
+          "path_to_crate": "vuln-0006/sample-00006-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn insert_many<I: IntoIterator<Item = A::Item>>(&mut self, index: usize, iterable: I)"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [1029, 1041]
-          }
+            "src/lib.rs": [
+              1029,
+              1041
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0006/vuln-function",
+          "path_to_crate": "vuln-0006/sample-00006-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn insert_many<I: IntoIterator<Item = A::Item>>(&mut self, index: usize, iterable: I)"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [355, 367]
-          }
+            "src/lib.rs": [
+              355,
+              367
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0006/fixed-crate",
+          "path_to_crate": "vuln-0006/sample-10006-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0006/fixed-file",
+          "path_to_crate": "vuln-0006/sample-10006-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0006/fixed-function",
+          "path_to_crate": "vuln-0006/sample-10006-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -417,9 +541,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0007/vuln-crate",
+          "path_to_crate": "vuln-0007/sample-00007-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-125"],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
             "src/compact.rs": [
               "fn with_capacity(capacity: usize) -> Self",
@@ -443,15 +569,34 @@
           },
           "vulnerable_lines": {
             "src/compact.rs": [
-              36, 48, 54, 72, 90, 102, 110, 127, 136, 142, 161, 187, 204, 213,
-              281, 282, 286, 297
+              36,
+              48,
+              54,
+              72,
+              90,
+              102,
+              110,
+              127,
+              136,
+              142,
+              161,
+              187,
+              204,
+              213,
+              281,
+              282,
+              286,
+              297
             ]
-          }
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0007/vuln-file",
+          "path_to_crate": "vuln-0007/sample-00007-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-125"],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
             "src/compact.rs": [
               "fn with_capacity(capacity: usize) -> Self",
@@ -475,15 +620,34 @@
           },
           "vulnerable_lines": {
             "src/compact.rs": [
-              36, 48, 54, 72, 90, 102, 110, 127, 136, 142, 161, 187, 204, 213,
-              281, 282, 286, 297
+              36,
+              48,
+              54,
+              72,
+              90,
+              102,
+              110,
+              127,
+              136,
+              142,
+              161,
+              187,
+              204,
+              213,
+              281,
+              282,
+              286,
+              297
             ]
-          }
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0007/vuln-function",
+          "path_to_crate": "vuln-0007/sample-00007-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-125"],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn with_capacity(capacity: usize) -> Self",
@@ -507,10 +671,27 @@
           },
           "vulnerable_lines": {
             "src/lib.rs": [
-              21, 33, 39, 57, 66, 71, 79, 96, 105, 111, 130, 141, 158, 167, 173,
-              174, 178, 189
+              21,
+              33,
+              39,
+              57,
+              66,
+              71,
+              79,
+              96,
+              105,
+              111,
+              130,
+              141,
+              158,
+              167,
+              173,
+              174,
+              178,
+              189
             ]
-          }
+          },
+          "deps": []
         }
       ]
     },
@@ -520,9 +701,11 @@
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35925",
       "code_samples": [
         {
-          "path_to_crate": "vuln-0008/vuln-crate",
+          "path_to_crate": "vuln-0008/sample-00008-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/mpmc.rs": [
               "unsafe impl<T, B: Buffer<T>> Send for MPMCConsumer<T, B> {}",
@@ -547,16 +730,36 @@
             ]
           },
           "vulnerable_lines": {
-            "src/mpmc.rs": [37, 38, 45, 46],
-            "src/mpsc.rs": [37, 44, 45],
-            "src/spmc.rs": [37, 38, 45, 46],
-            "src/spsc.rs": [35, 42]
-          }
+            "src/mpmc.rs": [
+              37,
+              38,
+              45,
+              46
+            ],
+            "src/mpsc.rs": [
+              37,
+              44,
+              45
+            ],
+            "src/spmc.rs": [
+              37,
+              38,
+              45,
+              46
+            ],
+            "src/spsc.rs": [
+              35,
+              42
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0008/vuln-function",
+          "path_to_crate": "vuln-0008/sample-00008-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/mpmc.rs": [
               "unsafe impl<T, B: Buffer<T>> Send for MPMCConsumer<T, B> {}",
@@ -581,25 +784,45 @@
             ]
           },
           "vulnerable_lines": {
-            "src/mpmc.rs": [37, 38, 45, 46],
-            "src/mpsc.rs": [37, 44, 45],
-            "src/spmc.rs": [37, 38, 45, 46],
-            "src/spsc.rs": [35, 42]
-          }
+            "src/mpmc.rs": [
+              37,
+              38,
+              45,
+              46
+            ],
+            "src/mpsc.rs": [
+              37,
+              44,
+              45
+            ],
+            "src/spmc.rs": [
+              37,
+              38,
+              45,
+              46
+            ],
+            "src/spsc.rs": [
+              35,
+              42
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0008/fixed-function",
+          "path_to_crate": "vuln-0008/sample-10008-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0008/fixed-crate",
+          "path_to_crate": "vuln-0008/sample-10008-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -611,9 +834,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0009/vuln-crate",
+          "path_to_crate": "vuln-0009/sample-00009-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/ds/matrix.rs": [
               "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
@@ -621,13 +846,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/ds/matrix.rs": [101, 110]
-          }
+            "src/ds/matrix.rs": [
+              101,
+              110
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0009/vuln-file",
+          "path_to_crate": "vuln-0009/sample-00009-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/ds/matrix.rs": [
               "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
@@ -635,13 +866,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/ds/matrix.rs": [101, 110]
-          }
+            "src/ds/matrix.rs": [
+              101,
+              110
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0009/vuln-function",
+          "path_to_crate": "vuln-0009/sample-00009-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn alloc(rows: usize, cols: usize) -> &'a mut [T]",
@@ -649,8 +886,12 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [21, 30]
-          }
+            "src/lib.rs": [
+              21,
+              30
+            ]
+          },
+          "deps": []
         }
       ]
     },
@@ -662,9 +903,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0010/vuln-crate",
+          "path_to_crate": "vuln-0010/sample-00010-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/vector/focus.rs": [
               "unsafe impl<A> Send for TreeFocus<A>",
@@ -672,13 +915,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/vector/focus.rs": [281, 284]
-          }
+            "src/vector/focus.rs": [
+              281,
+              284
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0010/vuln-file",
+          "path_to_crate": "vuln-0010/sample-00010-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/vector/focus.rs": [
               "unsafe impl<A> Send for TreeFocus<A>",
@@ -686,13 +935,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/vector/focus.rs": [281, 284]
-          }
+            "src/vector/focus.rs": [
+              281,
+              284
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0010/vuln-function",
+          "path_to_crate": "vuln-0010/sample-00010-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<A> Send for TreeFocus<A>",
@@ -700,29 +955,36 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [65, 68]
-          }
+            "src/lib.rs": [
+              65,
+              68
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0010/fixed-crate",
+          "path_to_crate": "vuln-0010/sample-10010-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0010/fixed-file",
+          "path_to_crate": "vuln-0010/sample-10010-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0010/fixed-function",
+          "path_to_crate": "vuln-0010/sample-10010-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -734,40 +996,56 @@
       "year": 2025,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0011/vuln-crate",
+          "path_to_crate": "vuln-0011/sample-00011-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-672"],
+          "cwe_type": [
+            "CWE-672"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["fn write_impl(&mut self, value: [T; N])"]
+            "src/lib.rs": [
+              "fn write_impl(&mut self, value: [T; N])"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [31]
-          }
+            "src/lib.rs": [
+              31
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0011/vuln-function",
+          "path_to_crate": "vuln-0011/sample-00011-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-672"],
+          "cwe_type": [
+            "CWE-672"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["fn write_impl(&mut self, value: [T; N])"]
+            "src/lib.rs": [
+              "fn write_impl(&mut self, value: [T; N])"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [64]
-          }
+            "src/lib.rs": [
+              64
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0011/fixed-crate",
+          "path_to_crate": "vuln-0011/sample-10011-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0011/fixed-function",
+          "path_to_crate": "vuln-0011/sample-10011-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -779,9 +1057,12 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0012/vuln-crate",
+          "path_to_crate": "vuln-0012/sample-00012-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-662", "CWE-787"],
+          "cwe_type": [
+            "CWE-662",
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<T> Sync for HConsed<T> {}",
@@ -789,13 +1070,20 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [354, 355]
-          }
+            "src/lib.rs": [
+              354,
+              355
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0012/vuln-file",
+          "path_to_crate": "vuln-0012/sample-00012-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-662", "CWE-787"],
+          "cwe_type": [
+            "CWE-662",
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<T> Sync for HConsed<T> {}",
@@ -803,13 +1091,20 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [352, 353]
-          }
+            "src/lib.rs": [
+              352,
+              353
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0012/vuln-function",
+          "path_to_crate": "vuln-0012/sample-00012-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-662", "CWE-787"],
+          "cwe_type": [
+            "CWE-662",
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<T> Sync for HConsed<T> {}",
@@ -817,29 +1112,36 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [20, 21]
-          }
+            "src/lib.rs": [
+              20,
+              21
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0012/fixed-crate",
+          "path_to_crate": "vuln-0012/sample-10012-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0012/fixed-file",
+          "path_to_crate": "vuln-0012/sample-10012-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0012/fixed-function",
+          "path_to_crate": "vuln-0012/sample-10012-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -851,58 +1153,85 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0013/vuln-crate",
+          "path_to_crate": "vuln-0013/sample-00013-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-415", "CWE-416"],
+          "cwe_type": [
+            "CWE-415",
+            "CWE-416"
+          ],
           "vulnerable_functions": {
-            "src/vec.rs": ["fn into_boxed_bitslice(self) -> BitBox<O, T>"]
+            "src/vec.rs": [
+              "fn into_boxed_bitslice(self) -> BitBox<O, T>"
+            ]
           },
           "vulnerable_lines": {
-            "src/vec.rs": [655]
-          }
+            "src/vec.rs": [
+              655
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0013/vuln-file",
+          "path_to_crate": "vuln-0013/sample-00013-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-415", "CWE-416"],
+          "cwe_type": [
+            "CWE-415",
+            "CWE-416"
+          ],
           "vulnerable_functions": {
-            "src/vec.rs": ["fn into_boxed_bitslice(self) -> BitBox<O, T>"]
+            "src/vec.rs": [
+              "fn into_boxed_bitslice(self) -> BitBox<O, T>"
+            ]
           },
           "vulnerable_lines": {
-            "src/vec.rs": [655]
-          }
+            "src/vec.rs": [
+              655
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0013/vuln-function",
+          "path_to_crate": "vuln-0013/sample-00013-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-415", "CWE-416"],
+          "cwe_type": [
+            "CWE-415",
+            "CWE-416"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["fn into_boxed_bitslice(self) -> BitBox<O, T>"]
+            "src/lib.rs": [
+              "fn into_boxed_bitslice(self) -> BitBox<O, T>"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [2503]
-          }
+            "src/lib.rs": [
+              2503
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0013/fixed-crate",
+          "path_to_crate": "vuln-0013/sample-10013-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0013/fixed-file",
+          "path_to_crate": "vuln-0013/sample-10013-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0013/fixed-function",
+          "path_to_crate": "vuln-0013/sample-10013-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -914,64 +1243,106 @@
       "year": 2025,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0014/vuln-crate",
+          "path_to_crate": "vuln-0014/sample-00014-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-122"],
+          "cwe_type": [
+            "CWE-122"
+          ],
           "vulnerable_functions": {
             "src/ffi.rs": [
               "pub fn nstr(wstring: *const u16) -> String"
             ]
           },
           "vulnerable_lines": {
-            "src/ffi.rs": [15, 20, 25]
-          }
+            "src/ffi.rs": [
+              15,
+              20,
+              25
+            ]
+          },
+          "deps": [
+            "uefi",
+            "uefi_alloc"
+          ]
         },
         {
-          "path_to_crate": "vuln-0014/vuln-file",
+          "path_to_crate": "vuln-0014/sample-00014-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-122"],
+          "cwe_type": [
+            "CWE-122"
+          ],
           "vulnerable_functions": {
             "src/ffi.rs": [
               "pub fn nstr(wstring: *const u16) -> String"
             ]
           },
           "vulnerable_lines": {
-            "src/ffi.rs": [15, 20, 25]
-          }
+            "src/ffi.rs": [
+              15,
+              20,
+              25
+            ]
+          },
+          "deps": [
+            "uefi",
+            "uefi_alloc"
+          ]
         },
         {
-          "path_to_crate": "vuln-0014/vuln-function",
+          "path_to_crate": "vuln-0014/sample-00014-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-122"],
+          "cwe_type": [
+            "CWE-122"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn nstr(wstring: *const u16) -> String"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [18, 23, 28]
-          }
+            "src/lib.rs": [
+              18,
+              23,
+              28
+            ]
+          },
+          "deps": [
+            "uefi",
+            "uefi_alloc"
+          ]
         },
         {
-          "path_to_crate": "vuln-0014/fixed-crate",
+          "path_to_crate": "vuln-0014/sample-10014-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": [
+            "uefi",
+            "uefi_alloc"
+          ]
         },
         {
-          "path_to_crate": "vuln-0014/fixed-file",
+          "path_to_crate": "vuln-0014/sample-10014-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": [
+            "uefi",
+            "uefi_alloc"
+          ]
         },
         {
-          "path_to_crate": "vuln-0014/fixed-function",
+          "path_to_crate": "vuln-0014/sample-10014-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": [
+            "uefi",
+            "uefi_alloc"
+          ]
         }
       ]
     },
@@ -983,9 +1354,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0015/vuln-crate",
+          "path_to_crate": "vuln-0015/sample-00015-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<T> Sync for Array<T>{}",
@@ -993,13 +1366,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [45, 46]
-          }
+            "src/lib.rs": [
+              45,
+              46
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0015/vuln-function",
+          "path_to_crate": "vuln-0015/sample-00015-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe impl<T> Sync for Array<T>{}",
@@ -1007,8 +1386,12 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [6, 7]
-          }
+            "src/lib.rs": [
+              6,
+              7
+            ]
+          },
+          "deps": []
         }
       ]
     },
@@ -1020,9 +1403,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0016/vuln-crate",
+          "path_to_crate": "vuln-0016/sample-00016-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-120"],
+          "cwe_type": [
+            "CWE-120"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn index<'a>(&'a self, idx: usize) -> &'a Self::Output {",
@@ -1030,13 +1415,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [134, 144]
-          }
+            "src/lib.rs": [
+              134,
+              144
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0016/vuln-function",
+          "path_to_crate": "vuln-0016/sample-00016-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-120"],
+          "cwe_type": [
+            "CWE-120"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn index<'a>(&'a self, idx: usize) -> &'a Self::Output {",
@@ -1044,8 +1435,12 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [14, 24]
-          }
+            "src/lib.rs": [
+              14,
+              24
+            ]
+          },
+          "deps": []
         }
       ]
     },
@@ -1057,30 +1452,42 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0017/vuln-crate",
+          "path_to_crate": "vuln-0017/sample-00017-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn new_from_template(size: usize, template: &T) -> Self"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [117, 121]
-          }
+            "src/lib.rs": [
+              117,
+              121
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0017/vuln-function",
+          "path_to_crate": "vuln-0017/sample-00017-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn new_from_template(size: usize, template: &T) -> Self"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [15, 19]
-          }
+            "src/lib.rs": [
+              15,
+              19
+            ]
+          },
+          "deps": []
         }
       ]
     },
@@ -1092,62 +1499,99 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0018/vuln-crate",
+          "path_to_crate": "vuln-0018/sample-00018-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
-            "src/ring_buffer/mod.rs": ["pub fn unit(value: A) -> Self"],
-            "src/sized_chunk/mod.rs": ["pub fn unit(value: A) -> Self"]
+            "src/ring_buffer/mod.rs": [
+              "pub fn unit(value: A) -> Self"
+            ],
+            "src/sized_chunk/mod.rs": [
+              "pub fn unit(value: A) -> Self"
+            ]
           },
           "vulnerable_lines": {
-            "src/ring_buffer/mod.rs": [259, 262],
-            "src/sized_chunk/mod.rs": [157, 160]
-          }
+            "src/ring_buffer/mod.rs": [
+              259,
+              262
+            ],
+            "src/sized_chunk/mod.rs": [
+              157,
+              160
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0018/vuln-file",
+          "path_to_crate": "vuln-0018/sample-00018-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
-            "src/ring_buffer/mod.rs": ["pub fn unit(value: A) -> Self"],
-            "src/sized_chunk/mod.rs": ["pub fn unit(value: A) -> Self"]
+            "src/ring_buffer/mod.rs": [
+              "pub fn unit(value: A) -> Self"
+            ],
+            "src/sized_chunk/mod.rs": [
+              "pub fn unit(value: A) -> Self"
+            ]
           },
           "vulnerable_lines": {
-            "src/ring_buffer/mod.rs": [259, 262],
-            "src/sized_chunk/mod.rs": [154, 157]
-          }
+            "src/ring_buffer/mod.rs": [
+              259,
+              262
+            ],
+            "src/sized_chunk/mod.rs": [
+              154,
+              157
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0018/vuln-function",
+          "path_to_crate": "vuln-0018/sample-00018-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["pub fn unit(value: A) -> Self"]
+            "src/lib.rs": [
+              "pub fn unit(value: A) -> Self"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [27, 30]
-          }
+            "src/lib.rs": [
+              27,
+              30
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0018/fixed-crate",
+          "path_to_crate": "vuln-0018/sample-10018-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0018/fixed-file",
+          "path_to_crate": "vuln-0018/sample-10018-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0018/fixed-function",
+          "path_to_crate": "vuln-0018/sample-10018-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -1159,66 +1603,104 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0019/vuln-crate",
+          "path_to_crate": "vuln-0019/sample-00019-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": [
               "pub fn pair(value1: A, value2: A) -> Self"
             ],
-            "src/sized_chunk/mod.rs": ["pub fn pair(left: A, right: A) -> Self"]
+            "src/sized_chunk/mod.rs": [
+              "pub fn pair(left: A, right: A) -> Self"
+            ]
           },
           "vulnerable_lines": {
-            "src/ring_buffer/mod.rs": [274, 277, 278],
-            "src/sized_chunk/mod.rs": [170, 173, 174]
-          }
+            "src/ring_buffer/mod.rs": [
+              274,
+              277,
+              278
+            ],
+            "src/sized_chunk/mod.rs": [
+              170,
+              173,
+              174
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0019/vuln-file",
+          "path_to_crate": "vuln-0019/sample-00019-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": [
               "pub fn pair(value1: A, value2: A) -> Self"
             ],
-            "src/sized_chunk/mod.rs": ["pub fn pair(left: A, right: A) -> Self"]
+            "src/sized_chunk/mod.rs": [
+              "pub fn pair(left: A, right: A) -> Self"
+            ]
           },
           "vulnerable_lines": {
-            "src/ring_buffer/mod.rs": [274, 277, 278],
-            "src/sized_chunk/mod.rs": [167, 170, 171]
-          }
+            "src/ring_buffer/mod.rs": [
+              274,
+              277,
+              278
+            ],
+            "src/sized_chunk/mod.rs": [
+              167,
+              170,
+              171
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0019/vuln-function",
+          "path_to_crate": "vuln-0019/sample-00019-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["pub fn unit(value: A) -> Self"]
+            "src/lib.rs": [
+              "pub fn pair(left: A, right: A) -> Self"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [27, 30, 31]
-          }
+            "src/lib.rs": [
+              27,
+              30,
+              31
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0019/fixed-crate",
+          "path_to_crate": "vuln-0019/sample-10019-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0019/fixed-file",
+          "path_to_crate": "vuln-0019/sample-10019-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0019/fixed-function",
+          "path_to_crate": "vuln-0019/sample-10019-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -1230,62 +1712,85 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0020/vuln-crate",
+          "path_to_crate": "vuln-0020/sample-00020-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
             "src/sized_chunk/mod.rs": [
               "fn from(array: &mut InlineArray<A, T>) -> Self"
             ]
           },
           "vulnerable_lines": {
-            "src/sized_chunk/mod.rs": [824, 825]
-          }
+            "src/sized_chunk/mod.rs": [
+              824,
+              825
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0020/vuln-file",
+          "path_to_crate": "vuln-0020/sample-00020-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
             "src/sized_chunk/mod.rs": [
               "fn from(array: &mut InlineArray<A, T>) -> Self"
             ]
           },
           "vulnerable_lines": {
-            "src/sized_chunk/mod.rs": [821, 822]
-          }
+            "src/sized_chunk/mod.rs": [
+              821,
+              822
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0020/vuln-function",
+          "path_to_crate": "vuln-0020/sample-00020-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["fn from(array: &mut InlineArray<A, T>) -> Self"]
+            "src/lib.rs": [
+              "fn from(array: &mut InlineArray<A, T>) -> Self"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [50, 51]
-          }
+            "src/lib.rs": [
+              50,
+              51
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0020/fixed-crate",
+          "path_to_crate": "vuln-0020/sample-10020-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0020/fixed-file",
+          "path_to_crate": "vuln-0020/sample-10020-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0020/fixed-function",
+          "path_to_crate": "vuln-0020/sample-10020-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -1297,9 +1802,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0021/vuln-crate",
+          "path_to_crate": "vuln-0021/sample-00021-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-401"],
+          "cwe_type": [
+            "CWE-401"
+          ],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": [
               "impl<A: Clone, N: ChunkLength<A>> Clone for RingBuffer<A, N>",
@@ -1307,13 +1814,18 @@
             ]
           },
           "vulnerable_lines": {
-            "src/ring_buffer/mod.rs": [791]
-          }
+            "src/ring_buffer/mod.rs": [
+              791
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0021/vuln-file",
+          "path_to_crate": "vuln-0021/sample-00021-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-401"],
+          "cwe_type": [
+            "CWE-401"
+          ],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": [
               "impl<A: Clone, N: ChunkLength<A>> Clone for RingBuffer<A, N>",
@@ -1321,13 +1833,18 @@
             ]
           },
           "vulnerable_lines": {
-            "src/ring_buffer/mod.rs": [791]
-          }
+            "src/ring_buffer/mod.rs": [
+              791
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0021/vuln-function",
+          "path_to_crate": "vuln-0021/sample-00021-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-401"],
+          "cwe_type": [
+            "CWE-401"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "impl<A: Clone, N: ChunkLength<A>> Clone for RingBuffer<A, N>",
@@ -1335,29 +1852,35 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [123]
-          }
+            "src/lib.rs": [
+              123
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0021/fixed-crate",
+          "path_to_crate": "vuln-0021/sample-10021-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0021/fixed-file",
+          "path_to_crate": "vuln-0021/sample-10021-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0021/fixed-function",
+          "path_to_crate": "vuln-0021/sample-10021-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -1369,64 +1892,82 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0022/vuln-crate",
+          "path_to_crate": "vuln-0022/sample-00022-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-401"],
+          "cwe_type": [
+            "CWE-401"
+          ],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": [
               "pub fn insert_from<Iterable, I>(&mut self, index: usize, iter: Iterable)"
             ]
           },
           "vulnerable_lines": {
-            "src/ring_buffer/mod.rs": [718]
-          }
+            "src/ring_buffer/mod.rs": [
+              718
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0022/vuln-file",
+          "path_to_crate": "vuln-0022/sample-00022-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-401"],
+          "cwe_type": [
+            "CWE-401"
+          ],
           "vulnerable_functions": {
             "src/ring_buffer/mod.rs": [
               "pub fn insert_from<Iterable, I>(&mut self, index: usize, iter: Iterable)"
             ]
           },
           "vulnerable_lines": {
-            "src/ring_buffer/mod.rs": [718]
-          }
+            "src/ring_buffer/mod.rs": [
+              718
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0022/vuln-function",
+          "path_to_crate": "vuln-0022/sample-00022-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-401"],
+          "cwe_type": [
+            "CWE-401"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn insert_from<Iterable, I>(&mut self, index: usize, iter: Iterable)"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [200]
-          }
+            "src/lib.rs": [
+              200
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0022/fixed-crate",
+          "path_to_crate": "vuln-0022/sample-10022-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0022/fixed-file",
+          "path_to_crate": "vuln-0022/sample-10022-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0022/fixed-function",
+          "path_to_crate": "vuln-0022/sample-10022-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -1438,9 +1979,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0023/vuln-crate",
+          "path_to_crate": "vuln-0023/sample-00023-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
             "src/inline_array/mod.rs": [
               "unsafe fn len_const(&self) -> *const usize",
@@ -1454,13 +1997,25 @@
             ]
           },
           "vulnerable_lines": {
-            "src/inline_array/mod.rs": [99, 105, 111, 117, 123, 129, 134, 139]
-          }
+            "src/inline_array/mod.rs": [
+              99,
+              105,
+              111,
+              117,
+              123,
+              129,
+              134,
+              139
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0023/vuln-file",
+          "path_to_crate": "vuln-0023/sample-00023-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
             "src/inline_array/mod.rs": [
               "unsafe fn len_const(&self) -> *const usize",
@@ -1474,13 +2029,25 @@
             ]
           },
           "vulnerable_lines": {
-            "src/inline_array/mod.rs": [99, 105, 111, 117, 123, 129, 134, 139]
-          }
+            "src/inline_array/mod.rs": [
+              99,
+              105,
+              111,
+              117,
+              123,
+              129,
+              134,
+              139
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0023/vuln-function",
+          "path_to_crate": "vuln-0023/sample-00023-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-129"],
+          "cwe_type": [
+            "CWE-129"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "unsafe fn len_const(&self) -> *const usize",
@@ -1494,29 +2061,42 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [92, 98, 104, 110, 116, 122, 127, 132]
-          }
+            "src/lib.rs": [
+              92,
+              98,
+              104,
+              110,
+              116,
+              122,
+              127,
+              132
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0023/fixed-crate",
+          "path_to_crate": "vuln-0023/sample-10023-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0023/fixed-file",
+          "path_to_crate": "vuln-0023/sample-10023-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0023/fixed-function",
+          "path_to_crate": "vuln-0023/sample-10023-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -1528,40 +2108,56 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0024/vuln-crate",
+          "path_to_crate": "vuln-0024/sample-00024-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-125"],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["fn index(&self, index: usize) -> &Self::Output"]
+            "src/lib.rs": [
+              "fn index(&self, index: usize) -> &Self::Output"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [163]
-          }
+            "src/lib.rs": [
+              163
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0024/vuln-function",
+          "path_to_crate": "vuln-0024/sample-00024-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-125"],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["fn index(&self, index: usize) -> &Self::Output"]
+            "src/lib.rs": [
+              "fn index(&self, index: usize) -> &Self::Output"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [14]
-          }
+            "src/lib.rs": [
+              14
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0024/fixed-crate",
+          "path_to_crate": "vuln-0024/sample-10024-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0024/fixed-function",
+          "path_to_crate": "vuln-0024/sample-10024-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -1573,40 +2169,62 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0025/vuln-crate",
+          "path_to_crate": "vuln-0025/sample-00025-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-193", "CWE-908", "CWE-401"],
+          "cwe_type": [
+            "CWE-193",
+            "CWE-908",
+            "CWE-401"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["pub fn remove(&mut self, offset: usize) -> T"]
+            "src/lib.rs": [
+              "pub fn remove(&mut self, offset: usize) -> T"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [93, 96]
-          }
+            "src/lib.rs": [
+              93,
+              96
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0025/vuln-function",
+          "path_to_crate": "vuln-0025/sample-00025-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-193", "CWE-908", "CWE-401"],
+          "cwe_type": [
+            "CWE-193",
+            "CWE-908",
+            "CWE-401"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["pub fn remove(&mut self, offset: usize) -> T"]
+            "src/lib.rs": [
+              "pub fn remove(&mut self, offset: usize) -> T"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [28, 31]
-          }
+            "src/lib.rs": [
+              28,
+              31
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0025/fixed-crate",
+          "path_to_crate": "vuln-0025/sample-10025-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0025/fixed-function",
+          "path_to_crate": "vuln-0025/sample-10025-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -1618,64 +2236,85 @@
       "year": 2023,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0026/vuln-crate",
+          "path_to_crate": "vuln-0026/sample-00026-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/fam.rs": [
               "fn set_len(&mut self, len: usize) -> Result<(), Error>"
             ]
           },
           "vulnerable_lines": {
-            "src/fam.rs": [398, 550]
-          }
+            "src/fam.rs": [
+              398,
+              550
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0026/vuln-file",
+          "path_to_crate": "vuln-0026/sample-00026-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/fam.rs": [
               "fn set_len(&mut self, len: usize) -> Result<(), Error>"
             ]
           },
           "vulnerable_lines": {
-            "src/fam.rs": [398, 550]
-          }
+            "src/fam.rs": [
+              398,
+              550
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0026/vuln-function",
+          "path_to_crate": "vuln-0026/sample-00026-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn set_len(&mut self, len: usize) -> Result<(), Error>"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [320, 366]
-          }
+            "src/lib.rs": [
+              320,
+              366
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0026/fixed-crate",
+          "path_to_crate": "vuln-0026/sample-10026-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0026/fixed-file",
+          "path_to_crate": "vuln-0026/sample-10026-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0026/fixed-function",
+          "path_to_crate": "vuln-0026/sample-10026-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -1687,50 +2326,72 @@
       "year": 2018,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0027/vuln-crate",
+          "path_to_crate": "vuln-0027/sample-00027-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/frame.rs": [
               "fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
               "pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult"
             ],
-            "src/subframe.rs": ["fn decode_residual<R: ReadBytes>"]
+            "src/subframe.rs": [
+              "fn decode_residual<R: ReadBytes>"
+            ]
           },
           "vulnerable_lines": {
-            "src/frame.rs": [618, 657],
-            "src/subframe.rs": [257]
-          }
+            "src/frame.rs": [
+              618,
+              657
+            ],
+            "src/subframe.rs": [
+              257
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0027/vuln-file",
+          "path_to_crate": "vuln-0027/sample-00027-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-908"],
+          "cwe_type": [
+            "CWE-908"
+          ],
           "vulnerable_functions": {
             "src/frame.rs": [
               "fn ensure_buffer_len(mut buffer: Vec<i32>, new_len: usize) -> Vec<i32>",
               "pub fn read_next_or_eof(&mut self, mut buffer: Vec<i32>) -> FrameResult"
             ],
-            "src/subframe.rs": ["fn decode_residual<R: ReadBytes>"]
+            "src/subframe.rs": [
+              "fn decode_residual<R: ReadBytes>"
+            ]
           },
           "vulnerable_lines": {
-            "src/frame.rs": [618, 657],
-            "src/subframe.rs": [257]
-          }
+            "src/frame.rs": [
+              618,
+              657
+            ],
+            "src/subframe.rs": [
+              257
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0027/fixed-crate",
+          "path_to_crate": "vuln-0027/sample-10027-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0027/fixed-file",
+          "path_to_crate": "vuln-0027/sample-10027-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -1742,9 +2403,11 @@
       "year": 2019,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0028/vuln-crate",
+          "path_to_crate": "vuln-0028/sample-00028-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-20"],
+          "cwe_type": [
+            "CWE-20"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn force(this: &Lazy<T, F>) -> &T",
@@ -1752,13 +2415,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [492, 795]
-          }
+            "src/lib.rs": [
+              492,
+              795
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0028/vuln-function",
+          "path_to_crate": "vuln-0028/sample-00028-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-20"],
+          "cwe_type": [
+            "CWE-20"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn force(this: &Lazy<T, F>) -> &T",
@@ -1766,22 +2435,28 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [425, 637]
-          }
+            "src/lib.rs": [
+              425,
+              637
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0028/fixed-crate",
+          "path_to_crate": "vuln-0028/sample-10028-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0028/fixed-function",
+          "path_to_crate": "vuln-0028/sample-10028-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -1793,9 +2468,11 @@
       "year": 2025,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0029/vuln-crate",
+          "path_to_crate": "vuln-0029/sample-00029-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
             "src/prc.rs": [
               "pub fn from_rc<U, F>(rc: &Rc<U>, project: F) -> Self",
@@ -1809,14 +2486,25 @@
             ]
           },
           "vulnerable_lines": {
-            "src/prc.rs": [165, 207, 244],
-            "src/sync.rs": [211, 255, 291]
-          }
+            "src/prc.rs": [
+              165,
+              207,
+              244
+            ],
+            "src/sync.rs": [
+              211,
+              255,
+              291
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0029/vuln-function",
+          "path_to_crate": "vuln-0029/sample-00029-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn from_rc<U, F>(rc: &Rc<U>, project: F) -> Self",
@@ -1828,22 +2516,32 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [93, 135, 172, 229, 273, 309]
-          }
+            "src/lib.rs": [
+              93,
+              135,
+              172,
+              229,
+              273,
+              309
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0029/fixed-crate",
+          "path_to_crate": "vuln-0029/sample-10029-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0029/fixed-function",
+          "path_to_crate": "vuln-0029/sample-10029-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -1855,9 +2553,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0030/vuln-crate",
+          "path_to_crate": "vuln-0030/sample-00030-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/vtab/mod.rs": [
               "pub trait VTab: Sized",
@@ -1865,15 +2565,26 @@
             ]
           },
           "vulnerable_lines": {
-            "src/vtab/mod.rs": [195, 459]
-          }
+            "src/vtab/mod.rs": [
+              195,
+              459
+            ]
+          },
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         },
         {
-          "path_to_crate": "vuln-0030/fixed-crate",
+          "path_to_crate": "vuln-0030/sample-10030-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         }
       ]
     },
@@ -1885,9 +2596,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0031/vuln-crate",
+          "path_to_crate": "vuln-0031/sample-00031-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/vtab/mod.rs": [
               "pub fn create_module<T: VTab>",
@@ -1895,15 +2608,28 @@
             ]
           },
           "vulnerable_lines": {
-            "src/vtab/mod.rs": [588, 599, 610, 620]
-          }
+            "src/vtab/mod.rs": [
+              588,
+              599,
+              610,
+              620
+            ]
+          },
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         },
         {
-          "path_to_crate": "vuln-0031/fixed-crate",
+          "path_to_crate": "vuln-0031/sample-10031-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         }
       ]
     },
@@ -1915,9 +2641,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0032/vuln-crate",
+          "path_to_crate": "vuln-0032/sample-00032-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/unlock_notify.rs": [
               "fn fired(&mut self)",
@@ -1925,15 +2653,27 @@
             ]
           },
           "vulnerable_lines": {
-            "src/unlock_notify.rs": [29, 34, 49]
-          }
+            "src/unlock_notify.rs": [
+              29,
+              34,
+              49
+            ]
+          },
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         },
         {
-          "path_to_crate": "vuln-0032/fixed-crate",
+          "path_to_crate": "vuln-0032/sample-10032-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         }
       ]
     },
@@ -1945,22 +2685,36 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0033/vuln-crate",
+          "path_to_crate": "vuln-0033/sample-00033-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-134"],
+          "cwe_type": [
+            "CWE-134"
+          ],
           "vulnerable_functions": {
-            "src/trace.rs": ["pub fn log(err_code: c_int, msg: &str)"]
+            "src/trace.rs": [
+              "pub fn log(err_code: c_int, msg: &str)"
+            ]
           },
           "vulnerable_lines": {
-            "src/trace.rs": [64]
-          }
+            "src/trace.rs": [
+              64
+            ]
+          },
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         },
         {
-          "path_to_crate": "vuln-0033/fixed-crate",
+          "path_to_crate": "vuln-0033/sample-10033-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         }
       ]
     },
@@ -1972,9 +2726,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0034/vuln-crate",
+          "path_to_crate": "vuln-0034/sample-00034-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
             "src/functions.rs": [
               "pub fn set_aux<T: 'static>(&self, arg: c_int, value: T)",
@@ -1982,15 +2738,26 @@
             ]
           },
           "vulnerable_lines": {
-            "src/functions.rs": [203, 207]
-          }
+            "src/functions.rs": [
+              203,
+              207
+            ]
+          },
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         },
         {
-          "path_to_crate": "vuln-0034/fixed-crate",
+          "path_to_crate": "vuln-0034/sample-10034-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         }
       ]
     },
@@ -2002,9 +2769,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0035/vuln-crate",
+          "path_to_crate": "vuln-0035/sample-00035-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-362"],
+          "cwe_type": [
+            "CWE-362"
+          ],
           "vulnerable_functions": {
             "src/functions.rs": [
               "pub fn set_aux<T: 'static>(&self, arg: c_int, value: T)",
@@ -2012,15 +2781,26 @@
             ]
           },
           "vulnerable_lines": {
-            "src/functions.rs": [180, 198, 203, 207]
-          }
+            "src/functions.rs": [
+              180,
+              198,
+              203,
+              207
+            ]
+          },
+          "deps": [
+            "libsqlite3-sys-18"
+          ]
         },
         {
-          "path_to_crate": "vuln-0035/fixed-crate",
+          "path_to_crate": "vuln-0035/sample-10035-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": [
+            "libsqlite3-sys-18"
+          ]
         }
       ]
     },
@@ -2032,9 +2812,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0036/vuln-crate",
+          "path_to_crate": "vuln-0036/sample-00036-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-351"],
+          "cwe_type": [
+            "CWE-351"
+          ],
           "vulnerable_functions": {
             "src/functions.rs": [
               "pub fn set_aux<T: 'static>(&self, arg: c_int, value: T)",
@@ -2042,15 +2824,27 @@
             ]
           },
           "vulnerable_lines": {
-            "src/functions.rs": [182, 199, 200]
-          }
+            "src/functions.rs": [
+              182,
+              199,
+              200
+            ]
+          },
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         },
         {
-          "path_to_crate": "vuln-0036/fixed-crate",
+          "path_to_crate": "vuln-0036/sample-10036-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         }
       ]
     },
@@ -2062,9 +2856,11 @@
       "year": 2020,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0037/vuln-crate",
+          "path_to_crate": "vuln-0037/sample-00037-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-416"],
+          "cwe_type": [
+            "CWE-416"
+          ],
           "vulnerable_functions": {
             "src/session.rs": [
               "pub fn attach(&mut self, table: Option<&str>) -> Result<()>",
@@ -2072,15 +2868,26 @@
             ]
           },
           "vulnerable_lines": {
-            "src/session.rs": [107, 160]
-          }
+            "src/session.rs": [
+              107,
+              160
+            ]
+          },
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         },
         {
-          "path_to_crate": "vuln-0037/fixed-crate",
+          "path_to_crate": "vuln-0037/sample-10037-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": [
+            "libsqlite3-sys-17",
+            "libsqlite3-sys-18"
+          ]
         }
       ]
     },
@@ -2092,9 +2899,11 @@
       "year": 2019,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0038/vuln-crate",
+          "path_to_crate": "vuln-0038/sample-00038-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-125"],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn ptr(&self) -> *const u8",
@@ -2102,13 +2911,19 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [410, 415]
-          }
+            "src/lib.rs": [
+              410,
+              415
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0038/vuln-function",
+          "path_to_crate": "vuln-0038/sample-00038-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-125"],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn ptr(&self) -> *const u8",
@@ -2116,8 +2931,12 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [19, 24]
-          }
+            "src/lib.rs": [
+              19,
+              24
+            ]
+          },
+          "deps": []
         }
       ]
     },
@@ -2129,40 +2948,56 @@
       "year": 2019,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0039/vuln-crate",
+          "path_to_crate": "vuln-0039/sample-00039-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
-            "lib.rs": ["pub fn grow(&mut self, new_cap: usize)"]
+            "lib.rs": [
+              "pub fn grow(&mut self, new_cap: usize)"
+            ]
           },
           "vulnerable_lines": {
-            "lib.rs": [656]
-          }
+            "lib.rs": [
+              656
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0039/vuln-function",
+          "path_to_crate": "vuln-0039/sample-00039-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-787"],
+          "cwe_type": [
+            "CWE-787"
+          ],
           "vulnerable_functions": {
-            "lib.rs": ["pub fn grow(&mut self, new_cap: usize)"]
+            "lib.rs": [
+              "pub fn grow(&mut self, new_cap: usize)"
+            ]
           },
           "vulnerable_lines": {
-            "lib.rs": [226]
-          }
+            "lib.rs": [
+              226
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0039/fixed-crate",
+          "path_to_crate": "vuln-0039/sample-10039-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0039/fixed-function",
+          "path_to_crate": "vuln-0039/sample-10039-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -2174,44 +3009,56 @@
       "year": 2025,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0040/vuln-crate",
+          "path_to_crate": "vuln-0040/sample-00040-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-119"],
+          "cwe_type": [
+            "CWE-119"
+          ],
           "vulnerable_functions": {
             "src/metadata.rs": [
               "fn get_id3(i: &mut u32, buf: &[u8], meta: &mut MP3Metadata) -> Result<(), Error>"
             ]
           },
           "vulnerable_lines": {
-            "src/metadata.rs": [100]
-          }
+            "src/metadata.rs": [
+              100
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0040/vuln-function",
+          "path_to_crate": "vuln-0040/sample-00040-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-119"],
+          "cwe_type": [
+            "CWE-119"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "fn get_id3(i: &mut u32, buf: &[u8], meta: &mut MP3Metadata) -> Result<(), Error>"
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [99]
-          }
+            "src/lib.rs": [
+              99
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0040/fixed-crate",
+          "path_to_crate": "vuln-0040/sample-10040-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0040/fixed-function",
+          "path_to_crate": "vuln-0040/sample-10040-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -2223,7 +3070,7 @@
       "year": 2025,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0041/vuln-crate",
+          "path_to_crate": "vuln-0041/sample-00041-crate",
           "is_vulnerability": true,
           "cwe_type": [],
           "vulnerable_functions": {
@@ -2233,11 +3080,15 @@
             ]
           },
           "vulnerable_lines": {
-            "src/hash.rs": [31, 40]
-          }
+            "src/hash.rs": [
+              31,
+              40
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0041/vuln-function",
+          "path_to_crate": "vuln-0041/sample-00041-function",
           "is_vulnerability": true,
           "cwe_type": [],
           "vulnerable_functions": {
@@ -2247,22 +3098,28 @@
             ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [13, 22]
-          }
+            "src/lib.rs": [
+              13,
+              22
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0041/fixed-crate",
+          "path_to_crate": "vuln-0041/sample-10041-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0041/fixed-function",
+          "path_to_crate": "vuln-0041/sample-10041-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     },
@@ -2274,58 +3131,82 @@
       "year": 2025,
       "code_samples": [
         {
-          "path_to_crate": "vuln-0042/vuln-crate",
+          "path_to_crate": "vuln-0042/sample-00042-crate",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-119"],
+          "cwe_type": [
+            "CWE-119"
+          ],
           "vulnerable_functions": {
-            "src/common.rs": ["pub fn first(&self) -> u8"]
+            "src/common.rs": [
+              "pub fn first(&self) -> u8"
+            ]
           },
           "vulnerable_lines": {
-            "src/common.rs": [39]
-          }
+            "src/common.rs": [
+              39
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0042/vuln-file",
+          "path_to_crate": "vuln-0042/sample-00042-file",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-119"],
+          "cwe_type": [
+            "CWE-119"
+          ],
           "vulnerable_functions": {
-            "src/common.rs": ["pub fn first(&self) -> u8"]
+            "src/common.rs": [
+              "pub fn first(&self) -> u8"
+            ]
           },
           "vulnerable_lines": {
-            "src/common.rs": [39]
-          }
+            "src/common.rs": [
+              39
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0042/vuln-function",
+          "path_to_crate": "vuln-0042/sample-00042-function",
           "is_vulnerability": true,
-          "cwe_type": ["CWE-119"],
+          "cwe_type": [
+            "CWE-119"
+          ],
           "vulnerable_functions": {
-            "src/lib.rs": ["pub fn first(&self) -> u8"]
+            "src/lib.rs": [
+              "pub fn first(&self) -> u8"
+            ]
           },
           "vulnerable_lines": {
-            "src/lib.rs": [14]
-          }
+            "src/lib.rs": [
+              14
+            ]
+          },
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0042/fixed-crate",
+          "path_to_crate": "vuln-0042/sample-10042-crate",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0042/fixed-file",
+          "path_to_crate": "vuln-0042/sample-10042-file",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         },
         {
-          "path_to_crate": "vuln-0042/fixed-function",
+          "path_to_crate": "vuln-0042/sample-10042-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},
-          "vulnerable_lines": {}
+          "vulnerable_lines": {},
+          "deps": []
         }
       ]
     }

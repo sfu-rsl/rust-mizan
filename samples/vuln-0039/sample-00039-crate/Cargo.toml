@@ -1,0 +1,19 @@
+[package]
+name = "sample-00039-crate"
+version = "0.6.9"
+
+[features]
+std = []
+union = []
+default = ["std"]
+specialization = []
+may_dangle = []
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+serde = { version = "1", optional = true }
+
+[dev_dependencies]
+bincode = "1.0.1"

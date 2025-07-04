@@ -3672,6 +3672,1770 @@ dependencies = [
 ]
 
 [[package]]
+name = "sample-00001-crate"
+version = "0.1.0"
+dependencies = [
+ "curl",
+ "http 0.1.21",
+ "json",
+]
+
+[[package]]
+name = "sample-00001-file"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00001-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00002-crate"
+version = "0.1.0"
+dependencies = [
+ "criterion",
+ "crossbeam-utils 0.7.2",
+ "itertools 0.9.0",
+ "num_cpus",
+ "once_cell",
+ "parking_lot 0.11.2",
+ "proptest",
+]
+
+[[package]]
+name = "sample-00002-file"
+version = "0.1.0"
+dependencies = [
+ "criterion",
+ "crossbeam-utils 0.7.2",
+ "itertools 0.9.0",
+ "num_cpus",
+ "once_cell",
+ "parking_lot 0.11.2",
+ "proptest",
+]
+
+[[package]]
+name = "sample-00002-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00003-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00003-file"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00003-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00004-crate"
+version = "0.0.1"
+dependencies = [
+ "ahash",
+ "fnv",
+ "rustc-hash 1.1.0",
+]
+
+[[package]]
+name = "sample-00004-file"
+version = "0.0.1"
+dependencies = [
+ "ahash",
+ "fnv",
+ "rustc-hash 1.1.0",
+]
+
+[[package]]
+name = "sample-00004-function"
+version = "0.0.1"
+dependencies = [
+ "ahash",
+ "fnv",
+ "rustc-hash 1.1.0",
+]
+
+[[package]]
+name = "sample-00005-crate"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "byteorder",
+ "color_quant",
+ "gif",
+ "jpeg-decoder",
+ "num-iter",
+ "num-rational 0.3.2",
+ "num-traits",
+ "png",
+ "ravif",
+ "rgb",
+ "scoped_threadpool",
+ "tiff",
+]
+
+[[package]]
+name = "sample-00005-file"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "byteorder",
+ "color_quant",
+ "gif",
+ "jpeg-decoder",
+ "num-iter",
+ "num-rational 0.3.2",
+ "num-traits",
+ "png",
+ "ravif",
+ "rgb",
+ "scoped_threadpool",
+ "tiff",
+]
+
+[[package]]
+name = "sample-00005-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00006-crate"
+version = "0.1.0"
+dependencies = [
+ "bincode",
+ "serde",
+]
+
+[[package]]
+name = "sample-00006-file"
+version = "0.1.0"
+dependencies = [
+ "bincode",
+ "serde",
+]
+
+[[package]]
+name = "sample-00006-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00007-crate"
+version = "0.0.1"
+dependencies = [
+ "ahash",
+ "fnv",
+ "rustc-hash 1.1.0",
+]
+
+[[package]]
+name = "sample-00007-file"
+version = "0.0.1"
+dependencies = [
+ "ahash",
+ "fnv",
+ "rustc-hash 1.1.0",
+]
+
+[[package]]
+name = "sample-00007-function"
+version = "0.0.1"
+dependencies = [
+ "ahash",
+ "fnv",
+ "rustc-hash 1.1.0",
+]
+
+[[package]]
+name = "sample-00008-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00008-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00009-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00009-file"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00009-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00010-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "bitmaps",
+ "metrohash",
+ "pretty_assertions",
+ "proptest",
+ "proptest-derive",
+ "quickcheck",
+ "rand 0.7.3",
+ "rand_core 0.5.1",
+ "rand_xoshiro",
+ "rayon",
+ "refpool",
+ "serde",
+ "serde_json",
+ "sized-chunks",
+ "typenum",
+ "version_check",
+]
+
+[[package]]
+name = "sample-00010-file"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "bitmaps",
+ "metrohash",
+ "pretty_assertions",
+ "proptest",
+ "proptest-derive",
+ "quickcheck",
+ "rand 0.7.3",
+ "rand_core 0.5.1",
+ "rand_xoshiro",
+ "rayon",
+ "refpool",
+ "serde",
+ "serde_json",
+ "sized-chunks",
+ "typenum",
+ "version_check",
+]
+
+[[package]]
+name = "sample-00010-function"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "bitmaps",
+ "metrohash",
+ "pretty_assertions",
+ "proptest",
+ "proptest-derive",
+ "quickcheck",
+ "rand 0.7.3",
+ "rand_core 0.5.1",
+ "rand_xoshiro",
+ "rayon",
+ "refpool",
+ "serde",
+ "serde_json",
+ "sized-chunks",
+ "typenum",
+ "version_check",
+]
+
+[[package]]
+name = "sample-00011-crate"
+version = "0.2.0"
+
+[[package]]
+name = "sample-00011-function"
+version = "0.2.0"
+
+[[package]]
+name = "sample-00012-crate"
+version = "0.1.0"
+dependencies = [
+ "lazy_static",
+]
+
+[[package]]
+name = "sample-00012-file"
+version = "0.1.0"
+dependencies = [
+ "lazy_static",
+]
+
+[[package]]
+name = "sample-00012-function"
+version = "0.1.0"
+dependencies = [
+ "lazy_static",
+]
+
+[[package]]
+name = "sample-00013-crate"
+version = "0.18.0"
+dependencies = [
+ "funty",
+ "radium",
+]
+
+[[package]]
+name = "sample-00013-file"
+version = "0.18.0"
+dependencies = [
+ "funty",
+ "radium",
+]
+
+[[package]]
+name = "sample-00013-function"
+version = "0.18.0"
+dependencies = [
+ "funty",
+ "radium",
+]
+
+[[package]]
+name = "sample-00014-crate"
+version = "0.1.13"
+dependencies = [
+ "redox_uefi",
+ "redox_uefi_alloc",
+]
+
+[[package]]
+name = "sample-00014-file"
+version = "0.1.13"
+dependencies = [
+ "redox_uefi",
+ "redox_uefi_alloc",
+]
+
+[[package]]
+name = "sample-00014-function"
+version = "0.1.13"
+dependencies = [
+ "redox_uefi",
+ "redox_uefi_alloc",
+]
+
+[[package]]
+name = "sample-00015-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00015-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00016-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00016-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00017-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00017-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00018-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00018-file"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00018-function"
+version = "0.1.0"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "sample-00019-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00019-file"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00019-function"
+version = "0.1.0"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "sample-00020-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00020-file"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00020-function"
+version = "0.1.0"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "sample-00021-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00021-file"
+version = "0.1.0"
+dependencies = [
+ "array-ops",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00021-function"
+version = "0.1.0"
+dependencies = [
+ "array-ops",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00022-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00022-file"
+version = "0.1.0"
+dependencies = [
+ "array-ops",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00022-function"
+version = "0.1.0"
+dependencies = [
+ "array-ops",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00023-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-00023-file"
+version = "0.1.0"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "sample-00023-function"
+version = "0.1.0"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "sample-00024-crate"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-00024-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00025-crate"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-00025-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00026-crate"
+version = "0.1.0"
+dependencies = [
+ "bitflags 1.3.2",
+ "libc 0.2.174",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
+name = "sample-00026-file"
+version = "0.1.0"
+dependencies = [
+ "bitflags 1.3.2",
+ "libc 0.2.174",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
+name = "sample-00026-function"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+ "serde",
+ "serde_derive",
+]
+
+[[package]]
+name = "sample-00027-crate"
+version = "0.1.0"
+dependencies = [
+ "hound",
+ "time",
+ "walkdir 1.0.7",
+]
+
+[[package]]
+name = "sample-00027-file"
+version = "0.1.0"
+dependencies = [
+ "hound",
+ "time",
+ "walkdir 1.0.7",
+]
+
+[[package]]
+name = "sample-00028-crate"
+version = "0.1.0"
+dependencies = [
+ "crossbeam-utils 0.6.6",
+ "lazy_static",
+ "parking_lot 0.9.0",
+ "regex",
+]
+
+[[package]]
+name = "sample-00028-function"
+version = "0.1.0"
+dependencies = [
+ "crossbeam-utils 0.6.6",
+ "lazy_static",
+ "parking_lot 0.9.0",
+ "regex",
+]
+
+[[package]]
+name = "sample-00029-crate"
+version = "0.3.0"
+dependencies = [
+ "doc-comment",
+]
+
+[[package]]
+name = "sample-00029-function"
+version = "0.3.0"
+dependencies = [
+ "doc-comment",
+]
+
+[[package]]
+name = "sample-00030-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-17",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-00031-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-17",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-00032-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-17",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-00033-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-17",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-00034-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-17",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-00035-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-18",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-00036-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-17",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-00037-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-17",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-00038-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00038-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00039-crate"
+version = "0.6.9"
+dependencies = [
+ "bincode",
+ "serde",
+]
+
+[[package]]
+name = "sample-00039-function"
+version = "0.6.9"
+dependencies = [
+ "bincode",
+ "serde",
+]
+
+[[package]]
+name = "sample-00040-crate"
+version = "0.3.4"
+dependencies = [
+ "reqwest",
+ "simplemad",
+]
+
+[[package]]
+name = "sample-00040-function"
+version = "0.3.4"
+dependencies = [
+ "reqwest",
+ "simplemad",
+]
+
+[[package]]
+name = "sample-00041-crate"
+version = "0.1.0"
+dependencies = [
+ "flate2",
+ "zero",
+ "zstd",
+]
+
+[[package]]
+name = "sample-00041-function"
+version = "0.1.0"
+dependencies = [
+ "flate2",
+ "zero",
+ "zstd",
+]
+
+[[package]]
+name = "sample-00042-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00042-file"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00042-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10001-crate"
+version = "0.1.0"
+dependencies = [
+ "curl",
+ "http 0.1.21",
+ "json",
+]
+
+[[package]]
+name = "sample-10001-file"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10001-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10002-crate"
+version = "0.1.0"
+dependencies = [
+ "criterion",
+ "crossbeam-utils 0.7.2",
+ "itertools 0.9.0",
+ "num_cpus",
+ "once_cell",
+ "parking_lot 0.11.2",
+ "proptest",
+]
+
+[[package]]
+name = "sample-10002-file"
+version = "0.1.0"
+dependencies = [
+ "criterion",
+ "crossbeam-utils 0.7.2",
+ "itertools 0.9.0",
+ "num_cpus",
+ "once_cell",
+ "parking_lot 0.11.2",
+ "proptest",
+]
+
+[[package]]
+name = "sample-10002-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10003-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10003-file"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10003-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10005-crate"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "byteorder",
+ "color_quant",
+ "gif",
+ "jpeg-decoder",
+ "num-iter",
+ "num-rational 0.3.2",
+ "num-traits",
+ "png",
+ "ravif",
+ "rgb",
+ "scoped_threadpool",
+ "tiff",
+]
+
+[[package]]
+name = "sample-10005-file"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "byteorder",
+ "color_quant",
+ "gif",
+ "jpeg-decoder",
+ "num-iter",
+ "num-rational 0.3.2",
+ "num-traits",
+ "png",
+ "ravif",
+ "rgb",
+ "scoped_threadpool",
+ "tiff",
+]
+
+[[package]]
+name = "sample-10005-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10006-crate"
+version = "0.1.0"
+dependencies = [
+ "bincode",
+ "serde",
+]
+
+[[package]]
+name = "sample-10006-file"
+version = "0.1.0"
+dependencies = [
+ "bincode",
+ "serde",
+]
+
+[[package]]
+name = "sample-10006-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10008-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10008-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10010-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "bitmaps",
+ "metrohash",
+ "pretty_assertions",
+ "proptest",
+ "proptest-derive",
+ "quickcheck",
+ "rand 0.7.3",
+ "rand_core 0.5.1",
+ "rand_xoshiro",
+ "rayon",
+ "refpool",
+ "serde",
+ "serde_json",
+ "sized-chunks",
+ "typenum",
+ "version_check",
+]
+
+[[package]]
+name = "sample-10010-file"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "bitmaps",
+ "metrohash",
+ "pretty_assertions",
+ "proptest",
+ "proptest-derive",
+ "quickcheck",
+ "rand 0.7.3",
+ "rand_core 0.5.1",
+ "rand_xoshiro",
+ "rayon",
+ "refpool",
+ "serde",
+ "serde_json",
+ "sized-chunks",
+ "typenum",
+ "version_check",
+]
+
+[[package]]
+name = "sample-10010-function"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "bitmaps",
+ "metrohash",
+ "pretty_assertions",
+ "proptest",
+ "proptest-derive",
+ "quickcheck",
+ "rand 0.7.3",
+ "rand_core 0.5.1",
+ "rand_xoshiro",
+ "rayon",
+ "refpool",
+ "serde",
+ "serde_json",
+ "sized-chunks",
+ "typenum",
+ "version_check",
+]
+
+[[package]]
+name = "sample-10011-crate"
+version = "0.2.1"
+
+[[package]]
+name = "sample-10011-function"
+version = "0.2.1"
+
+[[package]]
+name = "sample-10012-crate"
+version = "0.1.0"
+dependencies = [
+ "lazy_static",
+]
+
+[[package]]
+name = "sample-10012-file"
+version = "0.1.0"
+dependencies = [
+ "lazy_static",
+]
+
+[[package]]
+name = "sample-10012-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10013-crate"
+version = "0.18.0"
+dependencies = [
+ "funty",
+ "radium",
+]
+
+[[package]]
+name = "sample-10013-file"
+version = "0.18.0"
+dependencies = [
+ "funty",
+ "radium",
+]
+
+[[package]]
+name = "sample-10013-function"
+version = "0.18.0"
+dependencies = [
+ "funty",
+ "radium",
+]
+
+[[package]]
+name = "sample-10014-crate"
+version = "0.1.14"
+dependencies = [
+ "redox_uefi",
+ "redox_uefi_alloc",
+]
+
+[[package]]
+name = "sample-10014-file"
+version = "0.1.14"
+dependencies = [
+ "redox_uefi",
+ "redox_uefi_alloc",
+]
+
+[[package]]
+name = "sample-10014-function"
+version = "0.1.14"
+dependencies = [
+ "redox_uefi",
+ "redox_uefi_alloc",
+]
+
+[[package]]
+name = "sample-10018-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10018-file"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10018-function"
+version = "0.1.0"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "sample-10019-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10019-file"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10019-function"
+version = "0.1.0"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "sample-10020-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10020-file"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10020-function"
+version = "0.1.0"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "sample-10021-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10021-file"
+version = "0.1.0"
+dependencies = [
+ "array-ops",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10021-function"
+version = "0.1.0"
+dependencies = [
+ "array-ops",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10022-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10022-file"
+version = "0.1.0"
+dependencies = [
+ "array-ops",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10022-function"
+version = "0.1.0"
+dependencies = [
+ "array-ops",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10023-crate"
+version = "0.1.0"
+dependencies = [
+ "arbitrary 0.4.7",
+ "array-ops",
+ "bitmaps",
+ "criterion",
+ "refpool",
+ "typenum",
+]
+
+[[package]]
+name = "sample-10023-file"
+version = "0.1.0"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "sample-10023-function"
+version = "0.1.0"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "sample-10024-crate"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-10024-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10025-crate"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-10025-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10026-crate"
+version = "0.1.0"
+dependencies = [
+ "bincode",
+ "bitflags 1.3.2",
+ "libc 0.2.174",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
+name = "sample-10026-file"
+version = "0.1.0"
+dependencies = [
+ "bincode",
+ "bitflags 1.3.2",
+ "libc 0.2.174",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
+name = "sample-10026-function"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+ "serde",
+ "serde_derive",
+]
+
+[[package]]
+name = "sample-10027-crate"
+version = "0.1.0"
+dependencies = [
+ "hound",
+ "time",
+ "walkdir 1.0.7",
+]
+
+[[package]]
+name = "sample-10027-file"
+version = "0.1.0"
+dependencies = [
+ "hound",
+ "time",
+ "walkdir 1.0.7",
+]
+
+[[package]]
+name = "sample-10028-crate"
+version = "0.1.0"
+dependencies = [
+ "crossbeam-utils 0.6.6",
+ "lazy_static",
+ "parking_lot 0.9.0",
+ "regex",
+]
+
+[[package]]
+name = "sample-10028-function"
+version = "0.1.0"
+dependencies = [
+ "crossbeam-utils 0.6.6",
+ "lazy_static",
+ "parking_lot 0.9.0",
+ "regex",
+]
+
+[[package]]
+name = "sample-10029-crate"
+version = "0.4.0"
+dependencies = [
+ "doc-comment",
+]
+
+[[package]]
+name = "sample-10029-function"
+version = "0.4.0"
+dependencies = [
+ "doc-comment",
+]
+
+[[package]]
+name = "sample-10030-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-18",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "smallvec 1.15.1",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-10031-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-18",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "smallvec 1.15.1",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-10032-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-18",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "smallvec 1.15.1",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-10033-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-18",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "smallvec 1.15.1",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-10034-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-18",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "smallvec 1.15.1",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-10035-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-18",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "smallvec 1.15.1",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-10036-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-18",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "smallvec 1.15.1",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-10037-crate"
+version = "0.1.0"
+dependencies = [
+ "bencher",
+ "bitflags 1.3.2",
+ "byteorder",
+ "chrono",
+ "csv",
+ "doc-comment",
+ "fallible-iterator",
+ "fallible-streaming-iterator",
+ "lazy_static",
+ "libsqlite3-sys-18",
+ "lru-cache",
+ "memchr",
+ "regex",
+ "serde_json",
+ "smallvec 1.15.1",
+ "tempfile",
+ "time",
+ "unicase",
+ "url",
+ "uuid",
+]
+
+[[package]]
+name = "sample-10039-crate"
+version = "0.6.10"
+dependencies = [
+ "bincode",
+ "serde",
+]
+
+[[package]]
+name = "sample-10039-function"
+version = "0.6.10"
+dependencies = [
+ "bincode",
+ "serde",
+]
+
+[[package]]
+name = "sample-10040-crate"
+version = "0.4.0"
+dependencies = [
+ "reqwest",
+ "simplemad",
+]
+
+[[package]]
+name = "sample-10040-function"
+version = "0.4.0"
+dependencies = [
+ "reqwest",
+ "simplemad",
+]
+
+[[package]]
+name = "sample-10041-crate"
+version = "0.1.0"
+dependencies = [
+ "flate2",
+ "zero",
+ "zstd",
+]
+
+[[package]]
+name = "sample-10041-function"
+version = "0.1.0"
+dependencies = [
+ "flate2",
+ "zero",
+ "zstd",
+]
+
+[[package]]
+name = "sample-10042-crate"
+version = "0.2.2"
+dependencies = [
+ "fastrand",
+ "hexf-parse",
+ "lexical-core",
+ "num-bigint",
+ "ryu",
+]
+
+[[package]]
+name = "sample-10042-file"
+version = "0.2.2"
+dependencies = [
+ "fastrand",
+ "hexf-parse",
+ "lexical-core",
+ "num-bigint",
+ "ryu",
+]
+
+[[package]]
+name = "sample-10042-function"
+version = "0.2.2"
+dependencies = [
+ "fastrand",
+ "hexf-parse",
+ "lexical-core",
+ "num-bigint",
+ "ryu",
+]
+
+[[package]]
 name = "schannel"
 version = "0.1.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4511,1739 +6275,6 @@ dependencies = [
  "vfs",
  "walkdir 2.5.0",
 ]
-
-[[package]]
-name = "vuln-0001-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "curl",
- "http 0.1.21",
- "json",
-]
-
-[[package]]
-name = "vuln-0001-fixed-file"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0001-fixed-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0001-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "curl",
- "http 0.1.21",
- "json",
-]
-
-[[package]]
-name = "vuln-0001-vuln-file"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0001-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0002-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "criterion",
- "crossbeam-utils 0.7.2",
- "itertools 0.9.0",
- "num_cpus",
- "once_cell",
- "parking_lot 0.11.2",
- "proptest",
-]
-
-[[package]]
-name = "vuln-0002-fixed-file"
-version = "0.1.0"
-dependencies = [
- "criterion",
- "crossbeam-utils 0.7.2",
- "itertools 0.9.0",
- "num_cpus",
- "once_cell",
- "parking_lot 0.11.2",
- "proptest",
-]
-
-[[package]]
-name = "vuln-0002-fixed-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0002-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "criterion",
- "crossbeam-utils 0.7.2",
- "itertools 0.9.0",
- "num_cpus",
- "once_cell",
- "parking_lot 0.11.2",
- "proptest",
-]
-
-[[package]]
-name = "vuln-0002-vuln-file"
-version = "0.1.0"
-dependencies = [
- "criterion",
- "crossbeam-utils 0.7.2",
- "itertools 0.9.0",
- "num_cpus",
- "once_cell",
- "parking_lot 0.11.2",
- "proptest",
-]
-
-[[package]]
-name = "vuln-0002-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0003-fixed-crate"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0003-fixed-file"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0003-fixed-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0003-vuln-crate"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0003-vuln-file"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0003-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0004-vuln-crate"
-version = "0.0.1"
-dependencies = [
- "ahash",
- "fnv",
- "rustc-hash 1.1.0",
-]
-
-[[package]]
-name = "vuln-0004-vuln-file"
-version = "0.0.1"
-dependencies = [
- "ahash",
- "fnv",
- "rustc-hash 1.1.0",
-]
-
-[[package]]
-name = "vuln-0004-vuln-function"
-version = "0.0.1"
-dependencies = [
- "ahash",
- "fnv",
- "rustc-hash 1.1.0",
-]
-
-[[package]]
-name = "vuln-0005-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "bytemuck",
- "byteorder",
- "color_quant",
- "gif",
- "jpeg-decoder",
- "num-iter",
- "num-rational 0.3.2",
- "num-traits",
- "png",
- "ravif",
- "rgb",
- "scoped_threadpool",
- "tiff",
-]
-
-[[package]]
-name = "vuln-0005-fixed-file"
-version = "0.1.0"
-dependencies = [
- "bytemuck",
- "byteorder",
- "color_quant",
- "gif",
- "jpeg-decoder",
- "num-iter",
- "num-rational 0.3.2",
- "num-traits",
- "png",
- "ravif",
- "rgb",
- "scoped_threadpool",
- "tiff",
-]
-
-[[package]]
-name = "vuln-0005-fixed-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0005-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "bytemuck",
- "byteorder",
- "color_quant",
- "gif",
- "jpeg-decoder",
- "num-iter",
- "num-rational 0.3.2",
- "num-traits",
- "png",
- "ravif",
- "rgb",
- "scoped_threadpool",
- "tiff",
-]
-
-[[package]]
-name = "vuln-0005-vuln-file"
-version = "0.1.0"
-dependencies = [
- "bytemuck",
- "byteorder",
- "color_quant",
- "gif",
- "jpeg-decoder",
- "num-iter",
- "num-rational 0.3.2",
- "num-traits",
- "png",
- "ravif",
- "rgb",
- "scoped_threadpool",
- "tiff",
-]
-
-[[package]]
-name = "vuln-0005-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0006-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "bincode",
- "serde",
-]
-
-[[package]]
-name = "vuln-0006-fixed-file"
-version = "0.1.0"
-dependencies = [
- "bincode",
- "serde",
-]
-
-[[package]]
-name = "vuln-0006-fixed-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0006-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "bincode",
- "serde",
-]
-
-[[package]]
-name = "vuln-0006-vuln-file"
-version = "0.1.0"
-dependencies = [
- "bincode",
- "serde",
-]
-
-[[package]]
-name = "vuln-0006-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0007-vuln-crate"
-version = "0.0.1"
-dependencies = [
- "ahash",
- "fnv",
- "rustc-hash 1.1.0",
-]
-
-[[package]]
-name = "vuln-0007-vuln-file"
-version = "0.0.1"
-dependencies = [
- "ahash",
- "fnv",
- "rustc-hash 1.1.0",
-]
-
-[[package]]
-name = "vuln-0007-vuln-function"
-version = "0.0.1"
-dependencies = [
- "ahash",
- "fnv",
- "rustc-hash 1.1.0",
-]
-
-[[package]]
-name = "vuln-0008-fixed-crate"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0008-fixed-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0008-vuln-crate"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0008-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0009-vuln-crate"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0009-vuln-file"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0009-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0010-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "bitmaps",
- "metrohash",
- "pretty_assertions",
- "proptest",
- "proptest-derive",
- "quickcheck",
- "rand 0.7.3",
- "rand_core 0.5.1",
- "rand_xoshiro",
- "rayon",
- "refpool",
- "serde",
- "serde_json",
- "sized-chunks",
- "typenum",
- "version_check",
-]
-
-[[package]]
-name = "vuln-0010-fixed-file"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "bitmaps",
- "metrohash",
- "pretty_assertions",
- "proptest",
- "proptest-derive",
- "quickcheck",
- "rand 0.7.3",
- "rand_core 0.5.1",
- "rand_xoshiro",
- "rayon",
- "refpool",
- "serde",
- "serde_json",
- "sized-chunks",
- "typenum",
- "version_check",
-]
-
-[[package]]
-name = "vuln-0010-fixed-function"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "bitmaps",
- "metrohash",
- "pretty_assertions",
- "proptest",
- "proptest-derive",
- "quickcheck",
- "rand 0.7.3",
- "rand_core 0.5.1",
- "rand_xoshiro",
- "rayon",
- "refpool",
- "serde",
- "serde_json",
- "sized-chunks",
- "typenum",
- "version_check",
-]
-
-[[package]]
-name = "vuln-0010-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "bitmaps",
- "metrohash",
- "pretty_assertions",
- "proptest",
- "proptest-derive",
- "quickcheck",
- "rand 0.7.3",
- "rand_core 0.5.1",
- "rand_xoshiro",
- "rayon",
- "refpool",
- "serde",
- "serde_json",
- "sized-chunks",
- "typenum",
- "version_check",
-]
-
-[[package]]
-name = "vuln-0010-vuln-file"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "bitmaps",
- "metrohash",
- "pretty_assertions",
- "proptest",
- "proptest-derive",
- "quickcheck",
- "rand 0.7.3",
- "rand_core 0.5.1",
- "rand_xoshiro",
- "rayon",
- "refpool",
- "serde",
- "serde_json",
- "sized-chunks",
- "typenum",
- "version_check",
-]
-
-[[package]]
-name = "vuln-0010-vuln-function"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "bitmaps",
- "metrohash",
- "pretty_assertions",
- "proptest",
- "proptest-derive",
- "quickcheck",
- "rand 0.7.3",
- "rand_core 0.5.1",
- "rand_xoshiro",
- "rayon",
- "refpool",
- "serde",
- "serde_json",
- "sized-chunks",
- "typenum",
- "version_check",
-]
-
-[[package]]
-name = "vuln-0011-fixed-crate"
-version = "0.2.1"
-
-[[package]]
-name = "vuln-0011-fixed-function"
-version = "0.2.1"
-
-[[package]]
-name = "vuln-0011-vuln-crate"
-version = "0.2.0"
-
-[[package]]
-name = "vuln-0011-vuln-function"
-version = "0.2.0"
-
-[[package]]
-name = "vuln-0012-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "lazy_static",
-]
-
-[[package]]
-name = "vuln-0012-fixed-file"
-version = "0.1.0"
-dependencies = [
- "lazy_static",
-]
-
-[[package]]
-name = "vuln-0012-fixed-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0012-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "lazy_static",
-]
-
-[[package]]
-name = "vuln-0012-vuln-file"
-version = "0.1.0"
-dependencies = [
- "lazy_static",
-]
-
-[[package]]
-name = "vuln-0012-vuln-function"
-version = "0.1.0"
-dependencies = [
- "lazy_static",
-]
-
-[[package]]
-name = "vuln-0013-fixed-crate"
-version = "0.18.0"
-dependencies = [
- "funty",
- "radium",
-]
-
-[[package]]
-name = "vuln-0013-fixed-file"
-version = "0.18.0"
-dependencies = [
- "funty",
- "radium",
-]
-
-[[package]]
-name = "vuln-0013-fixed-function"
-version = "0.18.0"
-dependencies = [
- "funty",
- "radium",
-]
-
-[[package]]
-name = "vuln-0013-vuln-crate"
-version = "0.18.0"
-dependencies = [
- "funty",
- "radium",
-]
-
-[[package]]
-name = "vuln-0013-vuln-file"
-version = "0.18.0"
-dependencies = [
- "funty",
- "radium",
-]
-
-[[package]]
-name = "vuln-0013-vuln-function"
-version = "0.18.0"
-dependencies = [
- "funty",
- "radium",
-]
-
-[[package]]
-name = "vuln-0014-fixed-crate"
-version = "0.1.14"
-dependencies = [
- "redox_uefi",
- "redox_uefi_alloc",
-]
-
-[[package]]
-name = "vuln-0014-fixed-file"
-version = "0.1.14"
-dependencies = [
- "redox_uefi",
- "redox_uefi_alloc",
-]
-
-[[package]]
-name = "vuln-0014-fixed-function"
-version = "0.1.14"
-dependencies = [
- "redox_uefi",
- "redox_uefi_alloc",
-]
-
-[[package]]
-name = "vuln-0014-vuln-crate"
-version = "0.1.13"
-dependencies = [
- "redox_uefi",
- "redox_uefi_alloc",
-]
-
-[[package]]
-name = "vuln-0014-vuln-file"
-version = "0.1.13"
-dependencies = [
- "redox_uefi",
- "redox_uefi_alloc",
-]
-
-[[package]]
-name = "vuln-0014-vuln-function"
-version = "0.1.13"
-dependencies = [
- "redox_uefi",
- "redox_uefi_alloc",
-]
-
-[[package]]
-name = "vuln-0015-vuln-crate"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0015-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0016-vuln-crate"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0016-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0017-vuln-crate"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0017-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0018-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0018-fixed-file"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0018-fixed-function"
-version = "0.1.0"
-dependencies = [
- "typenum",
-]
-
-[[package]]
-name = "vuln-0019-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0019-fixed-file"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0019-fixed-function"
-version = "0.1.0"
-dependencies = [
- "typenum",
-]
-
-[[package]]
-name = "vuln-0019-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0019-vuln-file"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0019-vuln-function"
-version = "0.1.0"
-dependencies = [
- "typenum",
-]
-
-[[package]]
-name = "vuln-0020-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0020-fixed-file"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0020-fixed-function"
-version = "0.1.0"
-dependencies = [
- "typenum",
-]
-
-[[package]]
-name = "vuln-0020-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0020-vuln-file"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0020-vuln-function"
-version = "0.1.0"
-dependencies = [
- "typenum",
-]
-
-[[package]]
-name = "vuln-0021-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0021-fixed-file"
-version = "0.1.0"
-dependencies = [
- "array-ops",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0021-fixed-function"
-version = "0.1.0"
-dependencies = [
- "array-ops",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0021-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0021-vuln-file"
-version = "0.1.0"
-dependencies = [
- "array-ops",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0021-vuln-function"
-version = "0.1.0"
-dependencies = [
- "array-ops",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0022-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0022-fixed-file"
-version = "0.1.0"
-dependencies = [
- "array-ops",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0022-fixed-function"
-version = "0.1.0"
-dependencies = [
- "array-ops",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0022-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0022-vuln-file"
-version = "0.1.0"
-dependencies = [
- "array-ops",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0022-vuln-function"
-version = "0.1.0"
-dependencies = [
- "array-ops",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0023-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0023-fixed-file"
-version = "0.1.0"
-dependencies = [
- "typenum",
-]
-
-[[package]]
-name = "vuln-0023-fixed-function"
-version = "0.1.0"
-dependencies = [
- "typenum",
-]
-
-[[package]]
-name = "vuln-0023-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "arbitrary 0.4.7",
- "array-ops",
- "bitmaps",
- "criterion",
- "refpool",
- "typenum",
-]
-
-[[package]]
-name = "vuln-0023-vuln-file"
-version = "0.1.0"
-dependencies = [
- "typenum",
-]
-
-[[package]]
-name = "vuln-0023-vuln-function"
-version = "0.1.0"
-dependencies = [
- "typenum",
-]
-
-[[package]]
-name = "vuln-0024-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "libc 0.2.174",
-]
-
-[[package]]
-name = "vuln-0024-fixed-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0024-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "libc 0.2.174",
-]
-
-[[package]]
-name = "vuln-0024-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0025-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "libc 0.2.174",
-]
-
-[[package]]
-name = "vuln-0025-fixed-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0025-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "libc 0.2.174",
-]
-
-[[package]]
-name = "vuln-0025-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0026-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "bincode",
- "bitflags 1.3.2",
- "libc 0.2.174",
- "serde",
- "serde_derive",
- "serde_json",
-]
-
-[[package]]
-name = "vuln-0026-fixed-file"
-version = "0.1.0"
-dependencies = [
- "bincode",
- "bitflags 1.3.2",
- "libc 0.2.174",
- "serde",
- "serde_derive",
- "serde_json",
-]
-
-[[package]]
-name = "vuln-0026-fixed-function"
-version = "0.1.0"
-dependencies = [
- "libc 0.2.174",
- "serde",
- "serde_derive",
-]
-
-[[package]]
-name = "vuln-0026-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "bitflags 1.3.2",
- "libc 0.2.174",
- "serde",
- "serde_derive",
- "serde_json",
-]
-
-[[package]]
-name = "vuln-0026-vuln-file"
-version = "0.1.0"
-dependencies = [
- "bitflags 1.3.2",
- "libc 0.2.174",
- "serde",
- "serde_derive",
- "serde_json",
-]
-
-[[package]]
-name = "vuln-0026-vuln-function"
-version = "0.1.0"
-dependencies = [
- "libc 0.2.174",
- "serde",
- "serde_derive",
-]
-
-[[package]]
-name = "vuln-0027-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "hound",
- "time",
- "walkdir 1.0.7",
-]
-
-[[package]]
-name = "vuln-0027-fixed-file"
-version = "0.1.0"
-dependencies = [
- "hound",
- "time",
- "walkdir 1.0.7",
-]
-
-[[package]]
-name = "vuln-0027-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "hound",
- "time",
- "walkdir 1.0.7",
-]
-
-[[package]]
-name = "vuln-0027-vuln-file"
-version = "0.1.0"
-dependencies = [
- "hound",
- "time",
- "walkdir 1.0.7",
-]
-
-[[package]]
-name = "vuln-0028-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "crossbeam-utils 0.6.6",
- "lazy_static",
- "parking_lot 0.9.0",
- "regex",
-]
-
-[[package]]
-name = "vuln-0028-fixed-function"
-version = "0.1.0"
-dependencies = [
- "crossbeam-utils 0.6.6",
- "lazy_static",
- "parking_lot 0.9.0",
- "regex",
-]
-
-[[package]]
-name = "vuln-0028-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "crossbeam-utils 0.6.6",
- "lazy_static",
- "parking_lot 0.9.0",
- "regex",
-]
-
-[[package]]
-name = "vuln-0028-vuln-function"
-version = "0.1.0"
-dependencies = [
- "crossbeam-utils 0.6.6",
- "lazy_static",
- "parking_lot 0.9.0",
- "regex",
-]
-
-[[package]]
-name = "vuln-0029-fixed-crate"
-version = "0.4.0"
-dependencies = [
- "doc-comment",
-]
-
-[[package]]
-name = "vuln-0029-fixed-function"
-version = "0.4.0"
-dependencies = [
- "doc-comment",
-]
-
-[[package]]
-name = "vuln-0029-vuln-crate"
-version = "0.3.0"
-dependencies = [
- "doc-comment",
-]
-
-[[package]]
-name = "vuln-0029-vuln-function"
-version = "0.3.0"
-dependencies = [
- "doc-comment",
-]
-
-[[package]]
-name = "vuln-0030-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-18",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "smallvec 1.15.1",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0030-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-17",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0031-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-18",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "smallvec 1.15.1",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0031-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-17",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0032-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-18",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "smallvec 1.15.1",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0032-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-17",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0033-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-18",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "smallvec 1.15.1",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0033-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-17",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0034-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-18",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "smallvec 1.15.1",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0034-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-17",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0035-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-18",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "smallvec 1.15.1",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0035-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-18",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0036-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-18",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "smallvec 1.15.1",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0036-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-17",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0037-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-18",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "smallvec 1.15.1",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0037-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "bencher",
- "bitflags 1.3.2",
- "byteorder",
- "chrono",
- "csv",
- "doc-comment",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "lazy_static",
- "libsqlite3-sys-17",
- "lru-cache",
- "memchr",
- "regex",
- "serde_json",
- "tempfile",
- "time",
- "unicase",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "vuln-0038-vuln-crate"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0038-vuln-function"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0039-fixed-crate"
-version = "0.6.10"
-dependencies = [
- "bincode",
- "serde",
-]
-
-[[package]]
-name = "vuln-0039-fixed-function"
-version = "0.6.10"
-dependencies = [
- "bincode",
- "serde",
-]
-
-[[package]]
-name = "vuln-0039-vuln-crate"
-version = "0.6.9"
-dependencies = [
- "bincode",
- "serde",
-]
-
-[[package]]
-name = "vuln-0039-vuln-function"
-version = "0.6.9"
-dependencies = [
- "bincode",
- "serde",
-]
-
-[[package]]
-name = "vuln-0040-fixed-crate"
-version = "0.4.0"
-dependencies = [
- "reqwest",
- "simplemad",
-]
-
-[[package]]
-name = "vuln-0040-fixed-function"
-version = "0.4.0"
-dependencies = [
- "reqwest",
- "simplemad",
-]
-
-[[package]]
-name = "vuln-0040-vuln-crate"
-version = "0.3.4"
-dependencies = [
- "reqwest",
- "simplemad",
-]
-
-[[package]]
-name = "vuln-0040-vuln-function"
-version = "0.3.4"
-dependencies = [
- "reqwest",
- "simplemad",
-]
-
-[[package]]
-name = "vuln-0041-fixed-crate"
-version = "0.1.0"
-dependencies = [
- "flate2",
- "zero",
- "zstd",
-]
-
-[[package]]
-name = "vuln-0041-fixed-function"
-version = "0.1.0"
-dependencies = [
- "flate2",
- "zero",
- "zstd",
-]
-
-[[package]]
-name = "vuln-0041-vuln-crate"
-version = "0.1.0"
-dependencies = [
- "flate2",
- "zero",
- "zstd",
-]
-
-[[package]]
-name = "vuln-0041-vuln-function"
-version = "0.1.0"
-dependencies = [
- "flate2",
- "zero",
- "zstd",
-]
-
-[[package]]
-name = "vuln-0042-fixed-crate"
-version = "0.2.2"
-dependencies = [
- "fastrand",
- "hexf-parse",
- "lexical-core",
- "num-bigint",
- "ryu",
-]
-
-[[package]]
-name = "vuln-0042-fixed-file"
-version = "0.2.2"
-dependencies = [
- "fastrand",
- "hexf-parse",
- "lexical-core",
- "num-bigint",
- "ryu",
-]
-
-[[package]]
-name = "vuln-0042-fixed-function"
-version = "0.2.2"
-dependencies = [
- "fastrand",
- "hexf-parse",
- "lexical-core",
- "num-bigint",
- "ryu",
-]
-
-[[package]]
-name = "vuln-0042-vuln-crate"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0042-vuln-file"
-version = "0.1.0"
-
-[[package]]
-name = "vuln-0042-vuln-function"
-version = "0.1.0"
 
 [[package]]
 name = "wait-timeout"

@@ -1,0 +1,19 @@
+[package]
+name = "sample-10013-function"
+version = "0.18.0"
+edition = "2018"
+
+[features]
+alloc = []
+atomic = []
+default = [
+    "atomic",
+    "std",
+]
+std = [
+    "alloc",
+]
+
+[dependencies]
+funty = "1"
+radium = "0.3"
