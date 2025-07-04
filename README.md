@@ -2,14 +2,35 @@
 
 RustMizan (**ميزانَ**- meaning "scale" in Arabic) is a benchmark designed to evaluate LLMs for Rust vulnerability detection. The goal is to build a structured dataset of real-world vulnerabilities that provides a framework to test the ability of LLMs to detect vulnerabilities in code samples at different granularities (function, file, module and crate levels).
 
+## Project Structure
+
+All code samples are organized in the `samples/` directory, with each vulnerability having its own folder (e.g., `vuln-0001`, `vuln-0002`, etc.). Each vulnerability folder contains up to 6 code samples.
+
+### Naming Convention
+
+Samples follow the pattern: `sample-XNNNN-level` where:
+
+- X: First digit indicates vulnerability status
+  - `0`: Vulnerable code
+  - `1`: Fixed code
+- NNNN: Four-digit vulnerability ID (e.g., 0001, 0002)
+- level: Granularity level (function, file, or crate)
+
+Example:
+
+- `sample-00001-function` - Vulnerable function from vulnerability 0001
+- `sample-10001-function` - Fixed function from vulnerability 0001
+
 ## Setup Instructions
 
 1. Clone the repository
 2. Build the project
 
 ```sh
-cargo build --workspace
+cargo +nightly build --workspace
 ```
+
+> Using nightly toolchain because `mizan-mut` depends on rust-analyzer crates which require nightly features
 
 ## Evaluation Tasks
 
@@ -35,10 +56,5 @@ For each vulnerability, we include up to 6 samples:
 ## Evaluation
 
 See [`sprout-pipeline/`](./sprout-pipeline) for instructions on running different tasks on the dataset.
-
-> [!Note]
-> Vulnerabilities 0030–0037 depend on the same crate that uses `links = "sqlite3"` in its manifest.  
-> Cargo does not allow multiple crates with the same `links` value in a single workspace.  
-> When evaluating these vulnerabilities, run each one in isolation, outside the workspace.
 
 To add a new vulnerability to the dataset, please follow the instructions in [CONTRIBUTING.md](./CONTRIBUTING.md).

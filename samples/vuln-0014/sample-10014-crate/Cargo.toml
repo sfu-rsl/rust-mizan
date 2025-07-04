@@ -1,0 +1,7 @@
+[package]
+name = "sample-10014-crate"
+version = "0.1.14"
+
+[dependencies]
+redox_uefi = { path = "../../deps/uefi", version = "0.1.14" }
+redox_uefi_alloc = { path = "../../deps/uefi_alloc", version = "0.1.14" }

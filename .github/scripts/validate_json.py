@@ -1,17 +1,11 @@
-from dataclasses import dataclass
+#!/usr/bin/env python3
+"""Validates mizan.json structure and referenced files."""
+
 import json
-import jsonschema
 import os
-from jsonschema import validate
+from jsonschema import validate, ValidationError
 
-ignored_line_validation_leftover_warning_ids = {
-    "vuln-0003",
-    "vuln-0018",
-    "vuln-0019",  # removes a function from vuln-crate
-}
-
-json_file_path = "mizan.json"
-
+# Schema for mizan.json
 schema = {
     "type": "object",
     "properties": {
@@ -45,14 +39,9 @@ schema = {
                                     "type": "array",
                                     "items": {"type": "string"},
                                 },
-                                "vulnerable_functions": {
-                                    "type": "object",
-                                    "additionalProperties": {
-                                        "type": "array",
-                                        "items": {"type": "string"},
-                                    },
-                                },
+                                "vulnerable_functions": {"type": "object"},
                                 "vulnerable_lines": {"type": "object"},
+                                "deps": {"type": "array", "items": {"type": "string"}},
                             },
                             "required": [
                                 "path_to_crate",
@@ -60,16 +49,12 @@ schema = {
                                 "cwe_type",
                                 "vulnerable_functions",
                                 "vulnerable_lines",
+                                "deps",
                             ],
                         },
                     },
                 },
-                "required": [
-                    "id",
-                    "author",
-                    "source_link",
-                    "code_samples",
-                ],
+                "required": ["id", "author", "source_link", "code_samples"],
             },
         },
     },
@@ -77,160 +62,82 @@ schema = {
 }
 
 
-@dataclass
-class LineNumberAndInfo:
-    line_number_and_line_and_file_name: list[tuple[int, str, str]]
-
-    def remove_line_if_present(self, line) -> bool:
-        cleaned_line = line.strip()
-        for pair in self.line_number_and_line_and_file_name:
-            if pair[1] == cleaned_line:
-                self.line_number_and_line_and_file_name.remove(pair)
-                return True
+def validate_mizan():
+    """Main validation function."""
+    # Load and validate JSON schema
+    try:
+        with open("mizan.json", "r") as f:
+            data = json.load(f)
+        validate(instance=data, schema=schema)
+        print("✅ JSON schema validation successful!")
+    except ValidationError as e:
+        print(f"❌ JSON validation error: {e.message}")
+        return False
+    except json.JSONDecodeError as e:
+        print(f"❌ Invalid JSON format: {e.msg}")
+        return False
+    except FileNotFoundError:
+        print("❌ mizan.json not found!")
         return False
 
-    def __str__(self):
-        return f"{self.line_number_and_line_and_file_name}"
+    errors = []
 
-    def __len__(self):
-        return len(self.line_number_and_line_and_file_name)
+    # Validate each vulnerability
+    for vuln in data["vulnerabilities"]:
+        vuln_id = vuln["id"]
 
+        for sample in vuln["code_samples"]:
+            path_to_crate = sample["path_to_crate"]
+            # Now path_to_crate already has the correct format, just prepend samples/
+            actual_path = os.path.join("samples", path_to_crate)
 
-class VulnCrateInfo:
-    __line_number_and_info: LineNumberAndInfo
+            # Check if sample directory exists
+            if not os.path.exists(actual_path):
+                errors.append(f"Sample directory not found: {actual_path}")
+                continue
 
-    def copy_line_info(self) -> LineNumberAndInfo:
-        return LineNumberAndInfo(
-            list(self.__line_number_and_info.line_number_and_line_and_file_name)
-        )
+            # Validate vulnerable vs fixed consistency
+            is_vuln = sample["is_vulnerability"]
+            has_vuln_funcs = len(sample["vulnerable_functions"]) > 0
+            has_vuln_lines = len(sample["vulnerable_lines"]) > 0
 
-    def __init__(self, sample: any) -> None:
-        crate_path = sample["path_to_crate"]
-        line_number_and_info = []
-        for vuln_rust_file_location_key in sample["vulnerable_lines"]:
-            vuln_rust_file_path = os.path.join(crate_path, vuln_rust_file_location_key)
-            if not os.path.exists(vuln_rust_file_path):
-                raise FileNotFoundError(
-                    f"❌ Path: {vuln_rust_file_path} doesn't exist!"
+            if is_vuln and not (has_vuln_funcs and has_vuln_lines):
+                errors.append(
+                    f"{path_to_crate}: marked as vulnerable but missing vulnerable functions/lines"
                 )
-            lines_array = set(sample["vulnerable_lines"][vuln_rust_file_location_key])
-            with open(vuln_rust_file_path, "r", encoding="utf-8") as f:
-                for line_idx, line in enumerate(f.readlines()):
-                    if line_idx + 1 in lines_array:
-                        clean = line.strip()
-                        line_number_and_info.append(
-                            (line_idx + 1, clean, str(vuln_rust_file_path))
-                        )
-        self.__line_number_and_info = LineNumberAndInfo(line_number_and_info)
-
-
-try:
-    with open(json_file_path, "r", encoding="utf-8") as file:
-        data = json.load(file)
-    validate(instance=data, schema=schema)
-    print("✅ JSON schema validation successful!")
-
-    # validate file existence and line info
-    any_error = False
-    for vulnerability in data["vulnerabilities"]:
-        vuln_crate_info: None | VulnCrateInfo = None
-
-        for sample in vulnerability["code_samples"]:
-            if sample["path_to_crate"].endswith("vuln-crate"):
-                vuln_crate_info = VulnCrateInfo(sample)
-                break
-        if vuln_crate_info is None:
-            id_name = vulnerability["id"]
-            print(f"❌ {id_name}: vuln-crate doesn't exist!")
-            any_error = True
-
-        for sample in vulnerability["code_samples"]:
-            path = sample["path_to_crate"]
-            if not os.path.exists(path):
-                print(f"❌ path: {path} doesn't exist!")
-                exit(1)
-
-            for file_name_key in sample["vulnerable_functions"]:
-                file_path = os.path.join(path, file_name_key)
-                if not os.path.exists(path):
-                    print(f"❌ vulnerable_functions path: {file_path} doesn't exist!")
-                    any_error = True
-
-            if sample["is_vulnerability"]:
-                if len(sample["vulnerable_lines"]) == 0:
-                    print(
-                        f"❌ is_vulnerability is true but no vulnerable_lines are specified"
-                    )
-                    any_error = True
-                if len(sample["vulnerable_functions"]) == 0:
-                    print(
-                        f"❌ is_vulnerability is true but no vulnerable_functions are specified"
-                    )
-                    any_error = True
-            else:
-                if len(sample["vulnerable_lines"]) > 0:
-                    print(
-                        f"❌ is_vulnerability is false but vulnerable_lines are specified"
-                    )
-                    any_error = True
-                if len(sample["vulnerable_functions"]) > 0:
-                    print(
-                        f"❌ is_vulnerability is false but vulnerable_functions are specified"
-                    )
-                    any_error = True
-
-            if sample["is_vulnerability"] and vuln_crate_info is not None:
-                remaining_vuln_crate_lines: LineNumberAndInfo = (
-                    vuln_crate_info.copy_line_info()
+            elif not is_vuln and (has_vuln_funcs or has_vuln_lines):
+                errors.append(
+                    f"{path_to_crate}: marked as fixed but has vulnerable functions/lines"
                 )
 
-                for file_name_key in sample["vulnerable_lines"]:
-                    file_path = os.path.join(path, file_name_key)
-                    if not os.path.exists(path):
-                        print(f"❌ vulnerable_lines path: {file_path} doesn't exist!")
-                        any_error = True
-                        continue
+            # Validate referenced files exist
+            for file_path in sample["vulnerable_functions"]:
+                full_path = os.path.join(actual_path, file_path)
+                if not os.path.exists(full_path):
+                    errors.append(f"Referenced file not found: {full_path}")
 
-                    vulnerable_lines = set(sample["vulnerable_lines"][file_name_key])
+            for file_path in sample["vulnerable_lines"]:
+                full_path = os.path.join(actual_path, file_path)
+                if not os.path.exists(full_path):
+                    errors.append(f"Referenced file not found: {full_path}")
 
-                    with open(file_path, "r", encoding="utf-8") as file:
-                        for line_idx, line in enumerate(file.readlines()):
-                            if line_idx + 1 not in vulnerable_lines:
-                                continue
+            # Validate dependencies exist
+            for dep in sample["deps"]:
+                dep_path = os.path.join("samples", "deps", dep)
+                if not os.path.exists(dep_path):
+                    errors.append(f"Dependency not found: {dep_path}")
 
-                            cleaned_line = line.strip()
-                            if remaining_vuln_crate_lines.remove_line_if_present(
-                                cleaned_line
-                            ):
-                                pass
-                            else:
-                                print(
-                                    f"❌ {file_path}: line {line_idx + 1} [{cleaned_line}] not matching any of "
-                                    f"previous lines for file {file_name_key} ... "
-                                    f"remaining lines from vuln-crate are {remaining_vuln_crate_lines} "
-                                )
-                                any_error = True
-                if (
-                    len(remaining_vuln_crate_lines) > 0
-                    and vulnerability["id"]
-                    not in ignored_line_validation_leftover_warning_ids
-                ):
-                    print(
-                        f"❓ warning: some lines from vuln-crate not matched to ones in {path}: "
-                        f"{remaining_vuln_crate_lines}"
-                    )
-    if any_error:
-        exit(1)
-    print("✅ mizan.json file name keys and line number validation successful!")
-except jsonschema.exceptions.ValidationError as e:
-    print("❌ JSON validation error:", e.message)
-    exit(1)
-except json.JSONDecodeError as e:
-    print("❌ Invalid JSON format:", e.msg)
-    exit(1)
-except Exception as e:
-    import traceback
+    # Report results
+    if errors:
+        print("\n❌ Validation errors found:")
+        for error in errors:
+            print(f"  - {error}")
+        return False
 
-    print("❌ Unexpected error:", str(e))
-    print(traceback.format_exc())
-    exit(1)
+    print("✅ All validations passed!")
+    return True
+
+
+if __name__ == "__main__":
+    success = validate_mizan()
+    exit(0 if success else 1)

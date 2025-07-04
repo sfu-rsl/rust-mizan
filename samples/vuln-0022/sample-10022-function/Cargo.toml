@@ -1,0 +1,12 @@
+[package]
+name = "sample-10022-function"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = ["std"]
+std = []
+
+[dependencies]
+typenum = "1.11.2"
+array-ops = { version = "0.1" }

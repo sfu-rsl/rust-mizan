@@ -1,0 +1,16 @@
+[package]
+name = "sample-00029-function"
+version = "0.3.0"
+
+[features]
+default = ["std"]
+std = []
+
+[dependencies]
+
+[dev-dependencies]
+doc-comment = "0.3.3"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg=docsrs"]

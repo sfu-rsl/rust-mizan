@@ -1,0 +1,28 @@
+[package]
+name = "sample-00013-file"
+version = "0.18.0"
+edition = "2018"
+
+# Let the crate compile by ignoring this lint, otherwise this error will occur:
+#
+# error: casting `&T` to `&mut T` is undefined behavior, even if the reference is
+# unused, consider instead using an `UnsafeCell`
+#   --> vuln-0006/vuln-crate/src/slice.rs:970:4
+[lints.rust]
+invalid_reference_casting = "allow"
+
+
+[features]
+alloc = []
+atomic = []
+default = [
+    "atomic",
+    "std",
+]
+std = [
+    "alloc",
+]
+
+[dependencies]
+funty = "1"
+radium = "0.3"

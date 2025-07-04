@@ -1,0 +1,13 @@
+[package]
+name = "sample-00022-file"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = ["std"]
+std = []
+
+[dependencies]
+typenum = "1.11.2"
+refpool = { version = "0.4", optional = true }
+array-ops = { version = "0.1" }

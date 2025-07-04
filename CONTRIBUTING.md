@@ -1,11 +1,9 @@
 # Adding a New Vulnerability to the Dataset
 
 1. Identify the Vulnerability
-   - Pick a vulnerability from `datasets/` folder
    - Use the CVE identifier from MITRE, not the RustSec-assigned ID.
-   - Skip CVEs that are already included in the dataset.
 2. Create a Directory
-   - Create a new folder named `vuln-XXXX` (increment the ID based on the latest entry).
+   - Create a new folder named `vuln-XXXX` (increment the ID based on the latest entry) in the `samples/` directory.
    - This folder will contain all variants of code samples for this CVE.
 3. Find Vulnerable and Fixed Commits
    - Vulnerable commit:
@@ -15,15 +13,17 @@
      - Use the commit corresponding to the Patched version from RustSec.
      - If no patched version is listed, skip generating fixed samples.
 4. Generate Vulnerable Code Samples
-   - From the vulnerable commit:
-     - `vuln-crate`: full crate.
-     - `vuln-file`: minimal crate with the vulnerable file.
-     - `vuln-function`: minimal crate with the vulnerable function.
+   - From the vulnerable commit, create samples following the naming convention:
+     - `sample-0XXXX-crate`: full crate (where XXXX is the 4-digit vuln ID, e.g., 0043)
+     - `sample-0XXXX-file`: minimal crate with the vulnerable file
+     - `sample-0XXXX-function`: minimal crate with the vulnerable function
+   - Update each sample's `Cargo.toml` to use the correct package name (e.g., `name = "sample-00043-crate"`)
    - Ensure all crates compile:
-     - Apply minimal changes if needed (e.g. fixing outdated syntax).
+     - Apply minimal changes if needed (e.g. fixing outdated syntax)
 5. Generate Fixed Code Samples (if fix exists)
-   - From the fixed commit:
-     - `fixed-crate`, `fixed-file`, `fixed-function`
+   - From the fixed commit, create samples with the naming convention:
+     - `sample-1XXXX-crate`, `sample-1XXXX-file`, `sample-1XXXX-function`
+   - Note: The first digit `1` indicates these are fixed versions
 6. Write the `README.md`
    - Include:
      - CVE ID
@@ -33,17 +33,20 @@
      - Explanation of the vulnerability:
        - Include a code snippet with a comment pointing out the vulnerability
        - Justify why this code is vulnerable (refer to CVE, RustSec, or GitHub issue)
-7. Update `mizan.json`
+7. Handle Dependencies (if needed)
+   - If your code samples require external dependencies (that's normally the case when a crate depends on other crates from the project's cargo workspace):
+     - Place the dependency crates in the `samples/deps/` directory
+     - Update the `deps` field in `mizan.json` for each code sample that needs them
+8. Update `mizan.json`
    - Add an entry for the CVE with:
-     - Code sample paths
+     - Code sample paths (keep the original format, e.g., "vuln-0043/vuln-crate")
      - `is_vulnerability` flag
      - CWE type(s)
      - Mapping of file → vulnerable functions
      - Mapping of file → vulnerable line numbers
+     - `deps` field: array of dependency names from `samples/deps/` (empty array if no deps)
    - When unsure, prefer over-reporting:
      - Include both the vulnerable API and functions that call it
-8. Mark the CVE as Done
-   - In `datasets`, mark the CVE as complete.
 
 ## Notes
 
@@ -53,5 +56,10 @@
 - Only use official, peer-reviewed fixes.
 - If no fix exists, only include vulnerable samples.
 
-> [!Note]
-> In some cases, it might be challenging or unrealistic to add the whole crate/module (e.g., when dealing with the standard library). If unsure, please open an issue for discussion.
+## Naming Convention
+
+The naming convention is designed to be clear to developers but not immediately obvious to LLMs:
+
+- Vulnerable samples: `sample-0XXXX-level` (first digit is 0)
+- Fixed samples: `sample-1XXXX-level` (first digit is 1)
+- Where XXXX is the 4-digit vulnerability ID and level is `function`, `file`, or `crate`
