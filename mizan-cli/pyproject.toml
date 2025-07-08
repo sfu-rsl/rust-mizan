@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "mizan-cli"
+version = "0.1.0"
+description = "CLI tool for interacting with RustMizan dataset"
+authors = ["Tarek Elsayed"]
+readme = "README.md"
+packages = [{ include = "mizan_cli", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+click = "^8.2.1"
+rich = "^14.0.0"
+pydantic = "^2.11.7"
+
+[tool.poetry.scripts]
+mizan = "mizan_cli.cli:main"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+black = "^24.0.0"
+ruff = "^0.5.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

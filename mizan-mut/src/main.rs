@@ -29,6 +29,12 @@ enum Commands {
             help = "Mutations to apply (can be specified multiple times)"
         )]
         mutations: Vec<Mutation>,
+        #[arg(
+            short = 'i',
+            long,
+            help = "File paths to ignore (can be specified multiple times)"
+        )]
+        ignore: Vec<PathBuf>,
     },
     /// Rename any symbol in Rust codebases using rust-analyzer
     Rename {
@@ -54,8 +60,8 @@ fn main() -> Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
-        Commands::Mutate { root, mutations } => {
-            mutate::apply_mutations(&root, mutations)?;
+        Commands::Mutate { root, mutations, ignore } => {
+            mutate::apply_mutations(&root, mutations, &ignore)?;
         }
         Commands::Rename {
             crate_root,

@@ -3,7 +3,7 @@ use clap::ValueEnum;
 use std::{
     fs,
     io::Write,
-    path::Path,
+    path::{Path, PathBuf},
     process::{Command, Stdio},
 };
 use walkdir::WalkDir;
@@ -53,7 +53,7 @@ pub enum Mutation {
 }
 
 /// Apply mutations to a Rust crate
-pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>) -> Result<()> {
+pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[PathBuf]) -> Result<()> {
     if mutations.is_empty() {
         eprintln!("Error: No mutations specified. Use -m <mutation-type>");
         std::process::exit(1);
@@ -76,9 +76,25 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>) -> Result<()> {
 
     println!("Processing crate at: {}", root.display());
     println!("Applying mutations: {:?}", mutations_to_apply);
+    if !ignore_files.is_empty() {
+        println!("Ignoring files: {:?}", ignore_files);
+    }
+
+    // Convert ignore paths to absolute paths for comparison
+    let absolute_ignore_files: Vec<PathBuf> = ignore_files
+        .iter()
+        .map(|p| {
+            if p.is_absolute() {
+                p.clone()
+            } else {
+                root.join(p)
+            }
+        })
+        .collect();
 
     let mut files_modified = 0;
     let mut total_files = 0;
+    let mut files_skipped = 0;
 
     for entry in WalkDir::new(root)
         .into_iter()
@@ -87,6 +103,17 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>) -> Result<()> {
         .filter(|e| !e.path().to_str().unwrap_or("").contains("target"))
     {
         let path = entry.path();
+        
+        // Check if this file should be ignored
+        let should_ignore = absolute_ignore_files.iter().any(|ignore_path| {
+            path == ignore_path || path.ends_with(ignore_path)
+        });
+        
+        if should_ignore {
+            files_skipped += 1;
+            continue;
+        }
+        
         total_files += 1;
 
         let content = fs::read_to_string(path)?;
@@ -120,6 +147,9 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>) -> Result<()> {
         "\nSummary: {} of {} files modified",
         files_modified, total_files
     );
+    if files_skipped > 0 {
+        println!("Skipped {} ignored files", files_skipped);
+    }
     Ok(())
 }
 

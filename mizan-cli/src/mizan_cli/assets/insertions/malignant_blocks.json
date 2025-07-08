@@ -1,0 +1,14 @@
+{
+  "blocks": [
+    "unsafe fn _unsafe1() { let _ = 42; }",
+    "fn _check1() { unsafe { let _ = 1 + 1; } }",
+    "fn _check2() { let _ = &42 as *const i32; }",
+    "fn _check4() { if false { let _ = 0xDEADBEEF as *const u8; } }",
+    "fn _check7() { unsafe { let _ = &[1, 2, 3]; } }",
+    "fn _check9() { unsafe { let _ = Ok::<i32, &str>(42); } }",
+    "const _PTR2: *const u8 = 0x1000 as *const u8;",
+    "type _RawPtr1 = *const i32;",
+    "type _RawPtr2 = *mut u8;",
+    "unsafe trait _Unsafe1 {}"
+  ]
+}

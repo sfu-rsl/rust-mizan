@@ -1,0 +1,106 @@
+unstable_features = true
+edition = "2024"
+use_small_heuristics = "Max"
+
+# Maximum width of an array literal before falling back to vertical formatting.
+# Default value: 60
+array_width = 100
+
+# Maximum width of the args of a function-like attributes before falling back to vertical formatting.
+# Default value: 70
+attr_fn_like_width = 100
+
+# Maximum number of blank lines which can be put between items. If more than this number of consecutive empty lines are found, they are trimmed down to match this integer.
+# Default value: 1 
+blank_lines_upper_bound = 0
+
+# Brace style for items
+# Default value: "SameLineWhere"
+brace_style = "PreferSameLine"
+
+# Maximum width of a chain to fit on one line.
+# Default value: 60
+chain_width = 100
+
+# Maximum length of comments. No effect unless wrap_comments = true.
+# Default value: 80
+comment_width = 100
+
+# Replace strings of _ wildcards by a single .. in tuple patterns
+# Default value: false
+condense_wildcard_suffixes = true
+
+# Control the layout of parameters in function signatures.
+# Default value: "Tall"
+fn_params_layout = "Compressed"
+
+# Maximum width of the args of a function call before falling back to vertical formatting.
+# Default value: 60
+fn_call_width = 100
+
+# Put single-expression functions on a single line
+# Default value: false
+fn_single_line = true
+
+# Item layout inside a imports block
+# Default value: "Mixed"
+imports_layout = "Horizontal"
+
+# Controls the strategy for how consecutive imports are grouped together.
+# Controls the strategy for grouping sets of consecutive imports. 
+# Imports may contain newlines between imports and still be grouped together as a single set, but other statements between imports will result in different grouping sets.
+# Default value: Preserve
+group_imports = "StdExternalCrate"
+
+# Write an item and its attribute on the same line if their combined width is below a threshold
+# Default value: 0
+inline_attribute_width = 100
+
+# Controls whether arm bodies are wrapped in cases where the first line of the body cannot fit on the same line as the => operator.
+# The Style Guide requires that bodies are block wrapped by default if a line break is required after the =>, but this option can 
+# be used to disable that behavior to prevent wrapping arm bodies in that event, so long as the body contains neither multiple statements nor line comments.
+# Default value: true
+match_arm_blocks = false
+
+# Maximum width of each line
+# Default value: 100
+max_width = 150
+
+# When structs, slices, arrays, and block/array-like macros are used as the last argument in an expression list, allow them to overflow (like blocks/closures) 
+# instead of being indented on a new line.
+# Default value: false
+overflow_delimited_expr = true
+
+# The width threshold for an array element to be considered "short".
+# The layout of an array is dependent on the length of each of its elements. If the length of every element in an array is below this threshold 
+# (all elements are "short") then the array can be formatted in the mixed/compressed style, but if any one element has a length that exceeds this threshold 
+# then the array elements will have to be formatted vertically.
+# Default value: 10
+short_array_element_width_threshold = 30
+
+# Maximum line length for single line if-else expressions. A value of 0 (zero) results in if-else expressions always being broken into multiple lines. 
+# Note this occurs when use_small_heuristics is set to Off.
+# Default value: 50
+single_line_if_else_max_width = 100
+
+# Maximum line length for single line let-else statements. 
+# See the let-else statement section of the Rust Style Guide for more details on when a let-else statement may be written on a single line. 
+# A value of 0 (zero) means the divergent else block will always be formatted over multiple lines. Note this occurs when use_small_heuristics is set to Off.
+# Default value: 50
+single_line_let_else_max_width = 100
+
+# Maximum width in the body of a struct literal before falling back to vertical formatting. A value of 0 (zero) results in struct literals always being broken into multiple lines.
+# Default value: 18
+struct_lit_width = 100
+
+# Maximum width in the body of a struct variant before falling back to vertical formatting. A value of 0 (zero) results in struct literals always being broken into multiple lines. 
+# Default value: 35
+struct_variant_width = 100
+
+# Replace uses of the try! macro by the ? shorthand
+# Default value: false
+use_try_shorthand = true
+
+# Forces the where clause to be laid out on a single line.
+# Default value: false
+where_single_line = true
