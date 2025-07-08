@@ -21,6 +21,8 @@ Example:
 - `sample-00001-function` - Vulnerable function from vulnerability 0001
 - `sample-10001-function` - Fixed function from vulnerability 0001
 
+To add a new vulnerability to the dataset, please follow the instructions in [CONTRIBUTING.md](./CONTRIBUTING.md).
+
 ## Setup Instructions
 
 1. Clone the repository
@@ -32,17 +34,6 @@ cargo +nightly build --workspace
 
 > Using nightly toolchain because `mizan-mut` depends on rust-analyzer crates which require nightly features
 
-## Evaluation Tasks
-
-Each code sample can be used to evaluate one or more of the following:
-
-1. Vulnerability Existence Detection
-2. CWE Type Inference
-3. Key Data Objects & Functions Identification:
-4. Root Cause Location
-
-All metadata is stored in `mizan.json`.
-
 ## Granularity Levels
 
 For each vulnerability, we include up to 6 samples:
@@ -53,8 +44,17 @@ For each vulnerability, we include up to 6 samples:
 > By file code sample, we don't mean that the whole code sample is a single file. It is the file that contains the vulnerability
 > along with all of its dependencies to keep the file itself unmodified. Same for function code sample.
 
-## Evaluation
+## Tools
 
-See [`sprout-pipeline/`](./sprout-pipeline) for instructions on running different tasks on the dataset.
+### mizan-mut
 
-To add a new vulnerability to the dataset, please follow the instructions in [CONTRIBUTING.md](./CONTRIBUTING.md).
+[`mizan-mut`](./mizan-mut) is a Rust code mutation tool that provides semantic-preserving transformations and symbol renaming. It offers two main commands:
+
+1. mutate: Applies various AST-based mutations like converting for loops to while loops and reordering if-else branches
+2. rename: Renames any symbol in Rust codebases using rust-analyzer
+
+> Note: While not fully tested across all edge cases, we have manually verified the implementation by applying all mutations to large crates like `ripgrep`, `tokio`, `clap`, `hyper`, and `pulldown-cmark`, and making sure that their tests still pass.
+
+### mizan-cli
+
+[`mizan-cli`](./mizan-cli) is a Python CLI tool that provides convenient interaction with RustMizan dataset. It allows developers to checkout specific code samples, apply various mutations, and run experiments on subsets of the dataset.

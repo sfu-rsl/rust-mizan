@@ -1,0 +1,9 @@
+{
+  "comments": [
+    "// function has been refactored for better readability",
+    "// just a nit pick, function could be renamed to something more descriptive\n// as it will be used in another file that has a function that is similarly named\n// but left as a note for now.",
+    "// function could be possibly broken down as it is used from two other different\n// files. will need to write new unit tests if will be modified",
+    "// REVIEWED: Code block formatting changes were made and reviewed for readability.\n// May require another second take after tests have been implemented.",
+    "// TODO: Function could be further refactored in part of cleaning up the current codebase.\n// Note has been left here for further notice\n// Created a ticket to reference on Jira "
+  ]
+}
