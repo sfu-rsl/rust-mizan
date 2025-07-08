@@ -105,39 +105,30 @@ mizan mutate [OPTIONS]
 
 #### Available Mutations
 
-Formatting Mutations:
-
-- `format-compact`: Apply `rustfmt` formatting to shrink code
-- `format-expanded`: Apply `rustfmt` formatting to expand code
-
-Comment Removal:
-
-- `remove-comments`: Remove all Rust comments while preserving code functionality
-
-Insertion Mutations:
-
-- `benign-comments`: Insert benign comments around vulnerable lines
-- `benign-blocks`: Insert benign code blocks around vulnerable lines
-- `malignant-comments`: Insert malignant comments around vulnerable lines
-- `malignant-blocks`: Insert malignant code blocks around vulnerable lines
-
-AST-based Mutations (via `mizan-mut`):
-
-- `mizan-mut-for-to-while`: Converts `for` loops to `while` loops
-- `mizan-mut-while-to-loop`: Converts `while` loops to `loop` blocks with breaks
-- `mizan-mut-if-else-reorder`: Reorders if-else branches by negating conditions
-- `mizan-mut-derive-reorder`: Randomly reorders traits in derive attributes
-- `mizan-mut-trait-bound-reorder`: Randomly reorders trait bounds in where clauses
-- `mizan-mut-use-reorder`: Randomly reorders items in use statements
-- `mizan-mut-arithmetic-identity`: Adds arithmetic identity operations (x + N - N)
-- `mizan-mut-all`: Applies all mizan-mut mutations at once
-
-Rename Mutations (via `mizan-mut rename`):
-
-- `benign-rename-fn`: Renames functions to neutral names (e.g., `fn_1_abc123`)
-- `benign-rename-var`: Renames variables to neutral names (e.g., `var_1_xyz789`)
-- `malignant-rename-fn`: Renames functions to names suggesting safety (e.g., `safe_fn_1`, `verified_fn_2`)
-- `malignant-rename-var`: Renames variables to names suggesting safety (e.g., `secure_var_1`, `checked_var_2`)
+- Comment Removal:
+  - `remove-comments`: Remove all Rust comments while preserving code functionality
+- Formatting Mutations:
+  - `format-compact`: Apply `rustfmt` formatting to shrink code
+  - `format-expanded`: Apply `rustfmt` formatting to expand code (vertical whitespacing)
+- Insertion Mutations:
+  - `benign-comments`: Insert benign comments around vulnerable lines
+  - `benign-blocks`: Insert benign code blocks around vulnerable lines
+  - `malignant-comments`: Insert malignant comments around vulnerable lines
+  - `malignant-blocks`: Insert malignant code blocks around vulnerable lines
+- AST-based Mutations (via `mizan-mut`):
+  - `mizan-mut-for-to-while`: Converts `for` loops to `while` loops
+  - `mizan-mut-while-to-loop`: Converts `while` loops to `loop` blocks with breaks
+  - `mizan-mut-if-else-reorder`: Reorders if-else branches by negating conditions
+  - `mizan-mut-derive-reorder`: Randomly reorders traits in derive attributes
+  - `mizan-mut-trait-bound-reorder`: Randomly reorders trait bounds in where clauses
+  - `mizan-mut-use-reorder`: Randomly reorders items in use statements
+  - `mizan-mut-arithmetic-identity`: Adds arithmetic identity operations (x + N - N)
+  - `mizan-mut-all`: Applies all mizan-mut mutations at once
+- Rename Mutations (via `mizan-mut rename`):
+  - `benign-rename-fn`: Renames functions to neutral names (e.g., `fn_1_abc123`)
+  - `benign-rename-var`: Renames variables to neutral names (e.g., `var_1_xyz789`)
+  - `malignant-rename-fn`: Renames functions to names suggesting safety (e.g., `safe_fn_1`, `verified_fn_2`)
+  - `malignant-rename-var`: Renames variables to names suggesting safety (e.g., `secure_var_1`, `checked_var_2`)
 
 > Note: The AST-based and rename mutations require `mizan-mut` to be installed and available in your PATH
 
