@@ -31,6 +31,9 @@ class CheckoutManager:
 
         self._generate_cargo_toml(filtered_dataset)
 
+        # Copy rust-toolchain.toml if it exists
+        self._copy_rust_toolchain()
+
         filtered_dataset.to_file(self.output_dir / "mizan.json")
 
         logger.success(f"Checkout completed to {self.output_dir}")
@@ -80,3 +83,10 @@ class CheckoutManager:
         cargo_content += "\n]\n"
 
         (self.output_dir / "Cargo.toml").write_text(cargo_content)
+
+    def _copy_rust_toolchain(self) -> None:
+        """Copy rust-toolchain.toml from the project root if it exists."""
+        rust_toolchain_path = self.dataset_path.parent / "rust-toolchain.toml"
+        if rust_toolchain_path.exists():
+            shutil.copy2(rust_toolchain_path, self.output_dir / "rust-toolchain.toml")
+            logger.debug("Copied rust-toolchain.toml to output directory")
