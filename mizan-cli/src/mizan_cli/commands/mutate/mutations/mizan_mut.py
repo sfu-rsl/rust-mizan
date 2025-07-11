@@ -25,6 +25,11 @@ class MizanMutMutation(BaseMutation):
         "arithmetic-identity": "Adds arithmetic identity operations (x + N - N)",
     }
 
+    @staticmethod
+    def normalize_whitespace(text: str) -> str:
+        """Normalize whitespace in a string by removing all whitespace characters."""
+        return "".join(text.split())
+
     def __init__(self, mutation_name: str):
         if mutation_name not in self.SUPPORTED_MUTATIONS:
             raise ValueError(
@@ -165,10 +170,14 @@ class MizanMutMutation(BaseMutation):
                             continue
 
                         # Find all occurrences of this line
+                        original_normalized = self.normalize_whitespace(
+                            original_content
+                        )
                         matches = [
                             idx + 1
                             for idx, line in enumerate(current_lines)
-                            if line.strip() == original_content
+                            if self.normalize_whitespace(line.strip())
+                            == original_normalized
                         ]
 
                         if len(matches) == 1:

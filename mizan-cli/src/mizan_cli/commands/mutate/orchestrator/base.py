@@ -20,6 +20,11 @@ class MutationOrchestrator:
         self.backup_dir = os.path.join(base_dir, ".mizan_backup")
         self.metadata_manager = MutationMetadata(base_dir)
 
+    @staticmethod
+    def normalize_whitespace(text: str) -> str:
+        """Normalize whitespace in a string by removing all whitespace characters."""
+        return "".join(text.split())
+
     def create_backup(self) -> bool:
         if os.path.exists(self.backup_dir):
             shutil.rmtree(self.backup_dir)
@@ -142,15 +147,20 @@ class MutationOrchestrator:
 
                                     # Find if this line content exists in the current file
                                     found_match = False
+                                    backup_normalized = self.normalize_whitespace(
+                                        backup_line_content
+                                    )
                                     for current_line_num in current_line_numbers:
                                         if current_line_num <= len(current_lines):
                                             current_line_content = current_lines[
                                                 current_line_num - 1
                                             ].strip()
-                                            if (
-                                                backup_line_content
-                                                == current_line_content
-                                            ):
+                                            current_normalized = (
+                                                self.normalize_whitespace(
+                                                    current_line_content
+                                                )
+                                            )
+                                            if backup_normalized == current_normalized:
                                                 found_match = True
                                                 break
 
