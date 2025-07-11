@@ -38,6 +38,16 @@ class MizanMutMutation(BaseMutation):
     def apply(self, base_dir: str) -> bool:
         """Apply the mizan-mut mutation to all code samples."""
         try:
+            # Check if mizan-mut is available
+            result = subprocess.run(
+                ["which", "mizan-mut"], capture_output=True, text=True
+            )
+            if result.returncode != 0:
+                logger.error(
+                    "mizan-mut not found in PATH. Please build mizan-mut first."
+                )
+                raise RuntimeError("mizan-mut not found in PATH")
+
             logger.info(f"Applying {self.name} mutation...")
 
             # Track samples that were partially mutated
