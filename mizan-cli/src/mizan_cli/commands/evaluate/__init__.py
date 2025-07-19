@@ -1,68 +1,90 @@
 import click
 from pathlib import Path
-from typing import Optional
 from mizan_cli.utils.logging import get_logger
-
 
 logger = get_logger()
 
 
-@click.command(name="evaluate")
+@click.group(name="evaluate")
+@click.pass_context
+def cmd(ctx):
+    """Run LLM evaluation on code samples."""
+    pass
+
+
+@cmd.command(name="prepare-dataset")
 @click.option(
-    "--config",
-    "-c",
+    "--output",
+    "-o",
+    type=click.Path(path_type=Path),
+    default=Path("dataset.json"),
+    help="Output dataset file path",
+)
+@click.pass_context
+def prepare_dataset(ctx, output: Path):
+    """Prepare dataset for evaluation.
+
+    Reads mizan.json and code samples to create a dataset for evaluation. This includes
+    preparing the prompts and expected outputs for the LLM evaluation.
+    """
+    from .prepare_dataset import PrepareDatasetCommand
+
+    if not Path("mizan.json").exists():
+        logger.error("mizan.json not found in current directory")
+        logger.error(
+            "Please run this command from the output directory created by 'mizan checkout'"
+        )
+        raise click.ClickException("mizan.json not found")
+
+    command = PrepareDatasetCommand(output)
+    command.execute()
+
+
+@cmd.command(name="run")
+@click.option(
+    "--dataset",
+    "-d",
     type=click.Path(exists=True, path_type=Path),
     required=True,
-    help="Path to experiment configuration JSON file",
+    help="Path to the prepared dataset file",
 )
 @click.option(
     "--provider",
+    "-p",
     type=click.Choice(["openai", "anthropic"]),
-    default="openai",
+    required=True,
     help="LLM provider to use",
 )
 @click.option(
     "--model",
     "-m",
     type=str,
-    help="Model name to use (e.g., gpt-4, claude-3-opus)",
-)
-@click.option(
-    "--output-dir",
-    "-o",
-    type=click.Path(path_type=Path),
-    default=Path("./results"),
-    help="Directory to save evaluation results",
-)
-@click.option(
-    "--batch-size",
-    "-b",
-    type=int,
-    default=10,
-    help="Number of samples to process in parallel",
+    required=True,
+    help="Model name to use",
 )
 @click.pass_context
-def cmd(
-    ctx,
-    config: Path,
-    provider: str,
-    model: Optional[str],
-    output_dir: Path,
-    batch_size: int,
-):
-    """Run LLM evaluation on code samples.
+def run(ctx, dataset: Path, provider: str, model: str):
+    """Run LLM evaluation using the prepared dataset.
 
-    This command should be run from within the output directory created by checkout.
+    Executes vulnerability detection evaluation using the specified LLM provider and model.
+    Results are stored locally in the `evaluation_results` directory.
     """
-    logger.info("Evaluate command - Not implemented yet")
-    logger.info(f"Configuration file: {config}")
-    logger.info(f"Provider: {provider}")
+    from .run import EvaluationRunner
 
-    if model:
-        logger.info(f"Model: {model}")
+    if not dataset.exists():
+        logger.error(f"Dataset file not found: {dataset}")
+        logger.error("Please run 'mizan evaluate prepare-dataset' first")
+        raise click.ClickException("Dataset file not found")
 
-    logger.info(f"Output directory: {output_dir}")
-    logger.info(f"Batch size: {batch_size}")
+    runner = EvaluationRunner(dataset_path=dataset, provider=provider, model=model)
 
-    # TODO: Implement evaluation functionality
-    logger.warning("Evaluation functionality not yet implemented")
+    try:
+        result = runner.run_evaluation()
+
+        logger.info("Evaluation completed successfully")
+        logger.info(f"Experiment ID: {result['experiment_id']}")
+        logger.info(f"Results directory: {result['experiment_dir']}")
+
+    except Exception as e:
+        logger.error(f"Evaluation failed: {e}")
+        raise click.ClickException(str(e))
