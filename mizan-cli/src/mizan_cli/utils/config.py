@@ -5,9 +5,6 @@ import json
 
 
 class MizanConfig(BaseModel):
-    default_temperature: float = Field(
-        0.0, description="Default temperature for LLM calls"
-    )
     log_level: str = Field("INFO", description="Logging level")
     log_file: Optional[Path] = Field(None, description="Log file path")
 

@@ -27,11 +27,10 @@ Mizan CLI supports configuration through a JSON file at `~/.config/mizan/config.
 
 ### Available Configuration Options
 
-| Option                | Description                                 | Default |
-| --------------------- | ------------------------------------------- | ------- |
-| `default_temperature` | Default temperature for LLM calls           | `0.0`   |
-| `log_level`           | Logging level (DEBUG, INFO, WARNING, ERROR) | `INFO`  |
-| `log_file`            | Path to log file                            | None    |
+| Option      | Description                                 | Default |
+| ----------- | ------------------------------------------- | ------- |
+| `log_level` | Logging level (DEBUG, INFO, WARNING, ERROR) | `INFO`  |
+| `log_file`  | Path to log file                            | None    |
 
 ### Example Configuration File
 
@@ -39,7 +38,6 @@ Create `~/.config/mizan/config.json`:
 
 ```json
 {
-  "default_temperature": 0.0,
   "log_level": "INFO",
   "log_file": "/var/log/mizan.log"
 }
@@ -205,3 +203,193 @@ The rename mutations use `mizan-mut rename` to rename variables and functions ar
 4. Common identifiers like `self`, `main`, and trait method names (e.g., `from`, `clone`) are excluded from renaming to avoid breaking the code structure.
 
 ### `evaluate` - Run LLM Evaluation
+
+Evaluate LLMs on vulnerability detection tasks using prepared datasets. Includes two subcommands for dataset preparation and evaluation execution.
+
+> Note: We use [LangSmith](https://docs.smith.langchain.com) for evaluation orchestration. All evaluation runs locally.
+
+#### Subcommands
+
+##### `prepare-dataset` - Prepare Evaluation Dataset
+
+Converts the checked out samples and ground truth data into a format suitable for LLM evaluation.
+
+```bash
+mizan evaluate prepare-dataset [OPTIONS]
+```
+
+Options:
+
+| Option     | Short | Description                          | Default                     |
+| ---------- | ----- | ------------------------------------ | --------------------------- |
+| `--output` | `-o`  | Output path for the prepared dataset | `./evaluation_dataset.json` |
+
+Example:
+
+```bash
+# Prepare dataset with default output
+mizan evaluate prepare-dataset
+
+# Prepare dataset with custom output path
+mizan evaluate prepare-dataset -o ./my_evaluation_dataset.json
+```
+
+Output Files:
+
+- `evaluation_dataset.json`: Contains the prepared dataset with examples and mutations metadata
+- Each example includes:
+  - `inputs`: Only the prompt (including the code sample)
+  - `outputs`: Ground truth data (is_vulnerable, cwe_type, vulnerable_functions, vulnerable_lines)
+  - `metadata`: Sample metadata (id, vuln_id, granularity)
+
+##### `run` - Execute LLM Evaluation
+
+Runs the LLM evaluation on a prepared dataset using the specified model and provider.
+
+```bash
+mizan evaluate run [OPTIONS]
+```
+
+Options:
+
+| Option       | Short | Description                                    | Default |
+| ------------ | ----- | ---------------------------------------------- | ------- |
+| `--dataset`  | `-d`  | Path to prepared dataset file (required)       | None    |
+| `--provider` | `-p`  | LLM provider: `openai`, `anthropic` (required) | None    |
+| `--model`    | `-m`  | Model name (required)                          | None    |
+
+> Temperature is fixed at `0.0` for all evaluations.
+
+Example:
+
+```bash
+mizan evaluate run -d ./evaluation_dataset.json -p anthropic -m claude-3-7-sonnet-20250219
+```
+
+Output Files:
+The evaluation creates a timestamped experiment directory under `./evaluation_results/` containing:
+
+- `results.json`: Detailed per-sample results including scores, comments, and errors
+- `metadata.json`: Experiment metadata including summary evaluations and mutations metadata
+- `results.csv`: CSV export for data analysis
+
+#### Evaluators
+
+##### Per-Sample Evaluators
+
+1. Binary Classification (`is_vulnerable_accuracy`)
+
+   - Evaluates whether the LLM correctly identifies if code is vulnerable or not
+   - Treated as binary classification with simple accuracy calculation
+   - Score: 1 for correct classification, 0 for incorrect
+   - Metric: Accuracy
+
+2. CWE Type Detection
+
+   - Precision (`cwe_type_precision`): Proportion of predicted CWE types that are correct
+   - Recall (`cwe_type_recall`): Proportion of actual CWE types that are identified
+   - F1 Score (`cwe_type_f1`): Harmonic mean of precision and recall
+   - Uses set-based comparison treating predicted and expected CWE types as sets
+   - Mathematical formulation:
+     - TP = |predicted ∩ expected|
+     - FP = |predicted - expected|
+     - FN = |expected - predicted|
+     - Precision = TP / (TP + FP)
+     - Recall = TP / (TP + FN)
+     - F1 = 2 × (precision × recall) / (precision + recall)
+
+3. Vulnerable Functions Detection
+
+   - Precision (`vulnerable_functions_precision`): Proportion of predicted functions that are correct
+   - Recall (`vulnerable_functions_recall`): Proportion of actual vulnerable functions that are identified
+   - F1 Score (`vulnerable_functions_f1`): Harmonic mean of precision and recall
+   - Uses tuple-based comparison with (file_path, function_name) for unique identification
+   - Mathematical formulation: Same as CWEs
+
+4. Vulnerable Lines Detection
+
+   - F1 Score (`vulnerable_lines_f1`): Harmonic mean of precision and recall
+   - Precision (`vulnerable_lines_precision`): Proportion of predicted lines that are correct
+   - Recall (`vulnerable_lines_recall`): Proportion of actual vulnerable lines that are identified
+   - Uses tuple-based comparison with (file_path, line_number) for unique identification
+   - Mathematical formulation: Same as CWEs
+
+5. JSON Validity (`json_validity`)
+   - Evaluates whether the LLM response contains valid JSON with expected fields
+   - Score: 1 for valid JSON, 0 for invalid
+   - Expected fields: `is_vulnerable`, `cwe_type`, `vulnerable_functions`, `vulnerable_lines`
+
+##### Experiment-Level Summary Evaluators
+
+> If the LLM failed to produce a valid JSON response (e.g., due to an error or timeout), the sample is marked as failed and will not be included in the evaluation metrics
+
+1. Binary Classification Metrics (`is_vulnerable_*`)
+
+   - Accuracy (`is_vulnerable_accuracy`): Overall accuracy across all samples
+   - Precision (`is_vulnerable_precision`): Precision for vulnerability detection
+   - Recall (`is_vulnerable_recall`): Recall for vulnerability detection
+   - F1 Score (`is_vulnerable_f1`): F1 score for vulnerability detection
+   - Mathematical formulation:
+     - TP = samples where predicted=True AND expected=True
+     - TN = samples where predicted=False AND expected=False
+     - FP = samples where predicted=True AND expected=False
+     - FN = samples where predicted=False AND expected=True
+     - Accuracy = (TP + TN) / (TP + TN + FP + FN)
+     - Precision = TP / (TP + FP), with edge case handling
+     - Recall = TP / (TP + FN), with edge case handling
+     - F1 = 2 × (precision × recall) / (precision + recall)
+
+2. Set-Based Metrics with Micro and Macro Averaging
+
+   For each field (`cwe_type`, `vulnerable_functions`, `vulnerable_lines`), we calculate precision, recall, and F1:
+
+   Micro-Averaged Metrics:
+
+   - F1 Scores: `cwe_type_micro_f1`, `vulnerable_functions_micro_f1`, `vulnerable_lines_micro_f1`
+   - Precision: `cwe_type_micro_precision`, `vulnerable_functions_micro_precision`, `vulnerable_lines_micro_precision`
+   - Recall: `cwe_type_micro_recall`, `vulnerable_functions_micro_recall`, `vulnerable_lines_micro_recall`
+   - Calculation: Aggregate TP, FP, FN counts across all samples, then calculate metrics
+   - Mathematical formulation:
+     - TP_total = Σ(TP_i) across all samples i
+     - FP_total = Σ(FP_i) across all samples i
+     - FN_total = Σ(FN_i) across all samples i
+     - Micro_Precision = TP_total / (TP_total + FP_total)
+     - Micro_Recall = TP_total / (TP_total + FN_total)
+     - Micro_F1 = 2 × (Micro_Precision × Micro_Recall) / (Micro_Precision + Micro_Recall)
+
+   Macro-Averaged Metrics:
+
+   - F1 Scores: `cwe_type_macro_f1`, `vulnerable_functions_macro_f1`, `vulnerable_lines_macro_f1`
+   - Precision: `cwe_type_macro_precision`, `vulnerable_functions_macro_precision`, `vulnerable_lines_macro_precision`
+   - Recall: `cwe_type_macro_recall`, `vulnerable_functions_macro_recall`, `vulnerable_lines_macro_recall`
+   - Calculation: Calculate per-sample metrics, then average them
+   - Mathematical formulation:
+     - Precision_i = per-sample precision for sample i
+     - Recall_i = per-sample recall for sample i
+     - F1_i = per-sample F1 score for sample i
+     - Macro_Precision = (1/n) × Σ(Precision_i) across all samples i
+     - Macro_Recall = (1/n) × Σ(Recall_i) across all samples i
+     - Macro_F1 = (1/n) × Σ(F1_i) across all samples i
+
+3. JSON Validity Rate (`json_validity_rate`)
+   - Percentage of samples with valid JSON responses
+   - Calculation: (valid responses) / (total responses)
+
+> Note: For more information on how to interpret micro and macro metrics, see [Scikit-learn's documentation on micro and macro averaging](https://sklearn-evaluation.ploomber.io/en/latest/classification/micro_macro.html).
+
+## End-to-End Example
+
+Evaluating GPT-4 on function-level samples for vulnerability `vuln-0001` with multiple mutations:
+
+```bash
+# Checkout specific vulnerability at function level
+mizan checkout -v vuln-0001 -l function -o my-output
+
+# Enter output directory and apply mutations
+cd my-output
+mizan mutate -m remove-comments -m format-compact -m benign-rename-fn
+
+# Prepare dataset and run evaluation
+mizan evaluate prepare-dataset -o vuln-0001-mutated.json
+mizan evaluate run -d vuln-0001-mutated.json -p openai -m gpt-4
+```
