@@ -15,8 +15,8 @@ logger = get_logger()
 class RustfmtMutation(BaseMutation):
     """Applies rustfmt with line tracking using modular utilities."""
 
-    def __init__(self, name: str, style: str):
-        super().__init__(name)
+    def __init__(self, name: str, style: str, seed: int = 42):
+        super().__init__(name, seed)
         self.style = style
 
     def apply(self, base_dir: str) -> bool:
@@ -87,10 +87,10 @@ class RustfmtMutation(BaseMutation):
 
 
 class FormatCompactMutation(RustfmtMutation):
-    def __init__(self):
-        super().__init__("format-compact", "compact")
+    def __init__(self, seed: int = 42):
+        super().__init__("format-compact", "compact", seed)
 
 
 class FormatExpandedMutation(RustfmtMutation):
-    def __init__(self):
-        super().__init__("format-expanded", "expanded")
+    def __init__(self, seed: int = 42):
+        super().__init__("format-expanded", "expanded", seed)

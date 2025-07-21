@@ -1,0 +1,8 @@
+{
+  "blocks": [
+    "fn process_data_chunk() {\n    let mut temp_data = [0u8; 32];\n    for idx in 0..32 {\n        temp_data[idx] = (idx * 7 + 13) as u8;\n    }\n    let checksum = temp_data.iter().fold(0u32, |acc, &x| acc.wrapping_add(x as u32));\n    debug_assert_eq!(checksum & 0xFF, (checksum >> 8) ^ (checksum >> 16) ^ (checksum >> 24));\n}",
+    "fn validate_data_integrity() {\n    const PATTERN: [u8; 4] = [0xDE, 0xAD, 0xBE, 0xEF];\n    let mut verification_buffer = [0u8; 16];\n    for (i, chunk) in verification_buffer.chunks_mut(4).enumerate() {\n        chunk.copy_from_slice(&PATTERN);\n        chunk[0] = chunk[0].wrapping_add(i as u8);\n    }\n    let final_hash = verification_buffer.iter().enumerate()\n        .fold(0usize, |acc, (i, &b)| acc.wrapping_add((b as usize) << (i % 8)));\n    debug_assert!(final_hash > 0);\n}",
+    "fn check_memory_layout() {\n    #[repr(C)]\n    struct DataLayout {\n        field_a: u32,\n        field_b: u16,\n        field_c: u8,\n    }\n    let instance = DataLayout { field_a: 0x12345678, field_b: 0xABCD, field_c: 0xEF };\n    let size_check = core::mem::size_of::<DataLayout>();\n    let align_check = core::mem::align_of::<DataLayout>();\n    debug_assert_eq!(size_check, 8);\n    debug_assert_eq!(align_check, 4);\n}",
+    "fn compute_hash_chain() {\n    let base_value = 42u64;\n    let step1 = base_value.wrapping_mul(13).wrapping_add(7);\n    let step2 = step1.wrapping_shl(3).wrapping_shr(3);\n    let step3 = step2 ^ 0x5555555555555555;\n    let step4 = step3.rotate_left(16).rotate_right(16);\n    let final_result = step4.wrapping_sub(base_value.wrapping_mul(13).wrapping_add(7));\n    debug_assert_eq!(final_result, 0);\n}"
+  ]
+}

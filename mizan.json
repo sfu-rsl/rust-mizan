@@ -2274,25 +2274,6 @@
           "deps": []
         },
         {
-          "path_to_crate": "vuln-0026/sample-00026-function",
-          "is_vulnerability": true,
-          "cwe_type": [
-            "CWE-787"
-          ],
-          "vulnerable_functions": {
-            "src/lib.rs": [
-              "fn set_len(&mut self, len: usize) -> Result<(), Error>"
-            ]
-          },
-          "vulnerable_lines": {
-            "src/lib.rs": [
-              320,
-              366
-            ]
-          },
-          "deps": []
-        },
-        {
           "path_to_crate": "vuln-0026/sample-10026-crate",
           "is_vulnerability": false,
           "cwe_type": [],
@@ -2302,14 +2283,6 @@
         },
         {
           "path_to_crate": "vuln-0026/sample-10026-file",
-          "is_vulnerability": false,
-          "cwe_type": [],
-          "vulnerable_functions": {},
-          "vulnerable_lines": {},
-          "deps": []
-        },
-        {
-          "path_to_crate": "vuln-0026/sample-10026-function",
           "is_vulnerability": false,
           "cwe_type": [],
           "vulnerable_functions": {},

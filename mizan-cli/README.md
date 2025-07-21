@@ -128,7 +128,7 @@ mizan mutate [OPTIONS]
   - `malignant-rename-fn`: Renames functions to names suggesting safety (e.g., `safe_fn_1`, `verified_fn_2`)
   - `malignant-rename-var`: Renames variables to names suggesting safety (e.g., `secure_var_1`, `checked_var_2`)
 
-> Note: The AST-based and rename mutations require `mizan-mut` to be installed and available in your PATH
+> Note: The AST-based and rename mutations require [`mizan-mut`](../mizan-mut/) to be installed and available in your PATH
 
 #### Mutation Order Considerations
 
@@ -138,13 +138,7 @@ Be thoughtful about the order of mutations you specify:
 - Don't apply `benign-comments` followed by `remove-comments` as the inserted comments will be removed
 - Consider the cumulative effects when chaining multiple mutations
 
-#### Understanding "Successful" Mutations
-
-A "successful" mutation means the process completed without errors, not necessarily that code was changed. For example:
-
-- Applying `for-to-while` to code without any for loops will succeed without making changes
-
-Always review the modified files to see what changes were actually made
+> Note on "Successful" Mutations: A "successful" mutation means the process completed without errors, not necessarily that code was changed. For example, applying `for-to-while` to code without any for loops will succeed without making changes.
 
 #### Examples
 
@@ -165,8 +159,8 @@ mizan mutate --mutations format-compact --mutations format-expanded
 - Updated `mizan.json`: Ground truth with corrected line numbers after mutations. We track vulnerable lines by inserting unique code comments (e.g., `// VULN_LINE_MARKER_123`) before each vulnerable line which allows us to maintain accurate line number tracking even after code transformations
 - `mizan_mutations.json`: Metadata about applied mutations including:
   - `mutations_applied`: List of successfully applied mutations
-  - `failures`: Mutations that failed completely or specific samples that failed
-  - `partial_applications`: List of samples where mutations were partially applied (some files excluded to keep vulnerable lines intact)
+  - `skipped`: Mutations that were skipped completely or specific samples that were skipped
+  - `partial_mutations`: List of samples where mutations were applied to other files except the one with vulnerable lines - This only happens for AST-based mutations where some files had to be excluded
 
 #### Mutation Strategy for AST-based Mutations
 
@@ -182,8 +176,8 @@ Warning: `mizan-mut` removes all code comments (including our line markers) beca
    - If a vulnerable line cannot be found after mutation (e.g., the mutation modified the line), the file is excluded and mutation is re-applied
    - Excluded files retain their original vulnerable line numbers in the ground truth
 
-3. Partial Application Tracking:
-   - When a mutation cannot be fully applied to a sample (some files had to be excluded), this is recorded in `mizan_mutations.json` under `partial_applications`
+3. Partial Mutation Tracking:
+   - When a mutation is applied to other files except the one with vulnerable lines (some files had to be excluded), this is recorded in `mizan_mutations.json` under `partial_mutations`
 
 #### Mutation Strategy for Rename Mutations
 
@@ -198,9 +192,11 @@ The rename mutations use `mizan-mut rename` to rename variables and functions ar
    - `malignant-rename-fn`: Renames functions to names falsely suggesting safety like `safe_fn_1`, `verified_fn_2`
    - `malignant-rename-var`: Renames variables to names falsely suggesting safety like `secure_var_1`, `checked_var_2`
 
-3. The mutations use rust-analyzer's `rename` feature to make sure all references to the renamed identifiers are updated across the codebase so that the code remains compilable and functional.
+3. Ground Truth Handling: Unlike other mutations, rename mutations legitimately change line content. The validation system recognizes this and allows line content differences for rename mutations.
 
-4. Common identifiers like `self`, `main`, and trait method names (e.g., `from`, `clone`) are excluded from renaming to avoid breaking the code structure.
+4. Identifier Exclusions: Common identifiers like `self` are excluded from renaming to avoid breaking code structure.
+
+5. The mutations use [rust-analyzer's `rename`](https://rust-analyzer.github.io/book/features.html#rename) feature to make sure all references to the renamed identifiers are updated across the codebase so that the code remains compilable and functional.
 
 ### `evaluate` - Run LLM Evaluation
 

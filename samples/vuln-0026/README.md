@@ -7,11 +7,8 @@
 | **Fixed Commit**      | [30172fc](https://github.com/rust-vmm/vmm-sys-util/tree/30172fca2a8e0a38667d934ee56682247e13f167) |
 | **Variants**          | - [fixed-crate](fixed-crate)                                                                      |
 |                       | - [fixed-file](fixed-file)                                                                        |
-|                       | - [fixed-function](fixed-function)                                                                |
 |                       | - [vuln-crate](vuln-crate)                                                                        |
 |                       | - [vuln-file](vuln-file)                                                                          |
-|                       | - [vuln-function](vuln-function)                                                                  |
-
 ## Vulnerable Lines
 
 `src/fam.rs`

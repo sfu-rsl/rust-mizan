@@ -13,8 +13,8 @@ logger = get_logger()
 class CommentRemovalMutation(BaseMutation):
     """Remove Rust comments from code while preserving markers."""
 
-    def __init__(self):
-        super().__init__("remove-comments")
+    def __init__(self, seed: int = 42):
+        super().__init__("remove-comments", seed)
 
     def apply(self, base_dir: str) -> bool:
         """Apply the comment removal mutation to all code samples."""

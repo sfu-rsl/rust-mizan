@@ -38,8 +38,8 @@ echo "# Mutation Report" > mutation-summary.md
 echo "" >> mutation-summary.md
 echo "Total samples: $TOTAL_SAMPLES" >> mutation-summary.md
 echo "" >> mutation-summary.md
-echo "| Mutation | Partial Applications | Failures |" >> mutation-summary.md
-echo "|----------|---------------------|----------|" >> mutation-summary.md
+echo "| Mutation | Partial Mutations | Skipped |" >> mutation-summary.md
+echo "|----------|-------------------|---------|" >> mutation-summary.md
 
 for mutation in "${MUTATIONS[@]}"; do
     echo ""
@@ -63,20 +63,21 @@ with open('mizan_mutations.json', 'r') as f:
     data = json.load(f)
 
 mutation = '$mutation'
-partial_apps = data.get('partial_applications', {})
-failures = data.get('failures', {})
+# Support both old and new field names for backward compatibility
+partial_mutations = data.get('partial_mutations', data.get('partial_applications', {}))
+skipped = data.get('skipped', data.get('failures', {}))
 
-partial_count = len(partial_apps.get(mutation, []))
-failure_count = len(failures.get(mutation, []))
+partial_count = len(partial_mutations.get(mutation, []))
+skipped_count = len(skipped.get(mutation, []))
 
-print(f'{partial_count},{failure_count}')
+print(f'{partial_count},{skipped_count}')
 ")
         
         PARTIAL=$(echo "$COUNTS" | cut -d',' -f1)
-        FAILURES=$(echo "$COUNTS" | cut -d',' -f2)
+        SKIPPED=$(echo "$COUNTS" | cut -d',' -f2)
         
-        echo "  Partial: $PARTIAL, Failures: $FAILURES"
-        echo "| $mutation | $PARTIAL | $FAILURES |" >> "$BASE_DIR/mutation-summary.md"
+        echo "  Partial: $PARTIAL, Skipped: $SKIPPED"
+        echo "| $mutation | $PARTIAL | $SKIPPED |" >> "$BASE_DIR/mutation-summary.md"
     else
         echo "  No results file found"
         echo "| $mutation | N/A | N/A |" >> "$BASE_DIR/mutation-summary.md"

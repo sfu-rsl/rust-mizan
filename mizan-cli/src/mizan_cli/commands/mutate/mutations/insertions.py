@@ -2,8 +2,10 @@ import os
 import json
 import random
 import copy
+import subprocess
+import tempfile
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from mizan_cli.utils.logging import get_logger
 from ..orchestrator import BaseMutation
 from ..utils.markers import MarkerHandler
@@ -15,7 +17,7 @@ logger = get_logger()
 class InsertionMutation(BaseMutation):
     """Insert comments or code blocks around vulnerable lines."""
 
-    def __init__(self, mutation_type: str):
+    def __init__(self, mutation_type: str, seed: int = 42):
         valid_types = [
             "benign-comments",
             "benign-blocks",
@@ -25,15 +27,18 @@ class InsertionMutation(BaseMutation):
         if mutation_type not in valid_types:
             raise ValueError(f"Invalid mutation type. Must be one of: {valid_types}")
 
-        super().__init__(mutation_type)
+        super().__init__(mutation_type, seed)
         self.mutation_type = mutation_type
+        
+        # Set random seed for reproducibility
+        random.seed(seed)
 
         # Load the appropriate asset file
         asset_name = mutation_type.replace("-", "_") + ".json"
         asset_path = (
             Path(__file__).parent.parent.parent.parent
             / "assets"
-            / "insertions"
+            / "mutate"
             / asset_name
         )
 
@@ -99,59 +104,142 @@ class InsertionMutation(BaseMutation):
                         logger.warning(f"File not found: {file_path}")
                         continue
 
-                    self._insert_content_in_file(file_path, line_numbers)
+                    self._insert_content_in_file(file_path, line_numbers, os.path.join(base_dir, "samples", path_to_crate))
 
     def _insert_content_in_file(
-        self, file_path: str, vulnerable_lines: List[int]
+        self, file_path: str, vulnerable_lines: List[int], crate_path: str
     ) -> None:
-        """Insert content one line before vulnerable lines in a file."""
+        """Insert content around vulnerable lines with compile validation retry mechanism."""
         with open(file_path, "r") as f:
-            lines = f.readlines()
+            original_lines = f.readlines()
 
         # Sort vulnerable lines in reverse order to maintain line numbers
         for line_num in sorted(vulnerable_lines, reverse=True):
-            if line_num <= len(lines):
-                # Insert one line before the vulnerable line
-                insert_position = (
-                    line_num - 1
-                )  # line_num is 1-based, so subtract 1 to insert before
-
+            if line_num <= len(original_lines):
                 # Get random content from pool
                 content = random.choice(self.content_pool)
-
                 insertion = content + "\n"
+                
+                # Try different insertion positions with compile validation
+                success = self._try_insertion_with_validation(
+                    file_path, original_lines, line_num, insertion, crate_path
+                )
+                
+                if success:
+                    # Update original_lines with successful insertion for next iteration
+                    with open(file_path, "r") as f:
+                        original_lines = f.readlines()
+                else:
+                    logger.warning(f"Failed to insert content at line {line_num} in {file_path} after all retry attempts")
 
-                # Insert the content
-                lines.insert(insert_position, insertion)
+    def _try_insertion_with_validation(
+        self, file_path: str, lines: List[str], line_num: int, insertion: str, crate_path: str
+    ) -> bool:
+        """Try inserting content at different positions with compile validation."""
+        position_offsets = [
+            -1,   # line_num - 1
+            -5,   # 5 lines before
+            5,    # 5 lines after  
+            -10,  # 10 lines before
+            10,   # 10 lines after
+        ]
+        
+        for offset in position_offsets:
+            insert_position = line_num + offset
+            
+            # Ensure insert_position is within valid bounds
+            if insert_position < 0 or insert_position >= len(lines):
+                continue
+                
+            # Create a copy of lines for testing
+            test_lines = lines.copy()
+            test_lines.insert(insert_position, insertion)
+            
+            # Test compilation
+            if self._test_compilation(file_path, test_lines, crate_path):
+                # Compilation successful, apply the insertion
+                with open(file_path, "w") as f:
+                    f.writelines(test_lines)
+                logger.debug(f"Successfully inserted content at position {insert_position} (offset {offset}) for line {line_num} in {file_path}")
+                return True
+            else:
+                logger.debug(f"Compilation failed for insertion at position {insert_position} (offset {offset}) for line {line_num} in {file_path}")
+        
+        return False
 
-        # Write back to file
-        with open(file_path, "w") as f:
-            f.writelines(lines)
+    def _test_compilation(self, file_path: str, test_lines: List[str], crate_path: str) -> bool:
+        """Test if the modified file compiles successfully."""
+        # Only test compilation for block insertions, not comments
+        is_block_insertion = "blocks" in self.mutation_type
+        if not is_block_insertion:
+            return True  # Skip compilation test for comments
+            
+        # Create a temporary file with the test content
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.rs', delete=False) as temp_file:
+            temp_file.writelines(test_lines)
+            temp_file_path = temp_file.name
+        
+        try:
+            # Copy the original file to backup
+            with open(file_path, "r") as f:
+                original_content = f.read()
+            
+            # Replace original file with test content
+            with open(file_path, "w") as f:
+                f.writelines(test_lines)
+            
+            # Run cargo check on the crate
+            result = subprocess.run(
+                ["cargo", "check", "--quiet"],
+                cwd=crate_path,
+                capture_output=True,
+                text=True,
+            )
+            
+            # Restore original file
+            with open(file_path, "w") as f:
+                f.write(original_content)
+            
+            return result.returncode == 0
+            
+        except Exception as e:
+            logger.debug(f"Compilation test failed with exception: {e}")
+            try:
+                with open(file_path, "w") as f:
+                    f.write(original_content)
+            except:
+                pass
+            return False
+        finally:
+            try:
+                os.unlink(temp_file_path)
+            except:
+                pass
 
 
 class BenignCommentsMutation(InsertionMutation):
     """Insert benign comments around vulnerable lines."""
 
-    def __init__(self):
-        super().__init__("benign-comments")
+    def __init__(self, seed: int = 42):
+        super().__init__("benign-comments", seed)
 
 
 class BenignBlocksMutation(InsertionMutation):
     """Insert benign code blocks around vulnerable lines."""
 
-    def __init__(self):
-        super().__init__("benign-blocks")
+    def __init__(self, seed: int = 42):
+        super().__init__("benign-blocks", seed)
 
 
 class MalignantCommentsMutation(InsertionMutation):
     """Insert malignant comments around vulnerable lines."""
 
-    def __init__(self):
-        super().__init__("malignant-comments")
+    def __init__(self, seed: int = 42):
+        super().__init__("malignant-comments", seed)
 
 
 class MalignantBlocksMutation(InsertionMutation):
     """Insert malignant code blocks around vulnerable lines."""
 
-    def __init__(self):
-        super().__init__("malignant-blocks")
+    def __init__(self, seed: int = 42):
+        super().__init__("malignant-blocks", seed)

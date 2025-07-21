@@ -4258,15 +4258,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "sample-00026-function"
-version = "0.1.0"
-dependencies = [
- "libc 0.2.174",
- "serde",
- "serde_derive",
-]
-
-[[package]]
 name = "sample-00027-crate"
 version = "0.1.0"
 dependencies = [
@@ -5081,15 +5072,6 @@ dependencies = [
  "serde",
  "serde_derive",
  "serde_json",
-]
-
-[[package]]
-name = "sample-10026-function"
-version = "0.1.0"
-dependencies = [
- "libc 0.2.174",
- "serde",
- "serde_derive",
 ]
 
 [[package]]

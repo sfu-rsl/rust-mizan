@@ -12,8 +12,8 @@ class MutationMetadata:
         self.base_dir = base_dir
         self.metadata_path = os.path.join(base_dir, "mizan_mutations.json")
         self.mutations_applied: List[str] = []
-        self.failures: Dict[str, List[str]] = {}
-        self.partial_applications: Dict[str, List[str]] = {}
+        self.skipped: Dict[str, List[str]] = {}
+        self.partial_mutations: Dict[str, List[str]] = {}
         self._load_existing()
 
     def _load_existing(self):
@@ -22,8 +22,8 @@ class MutationMetadata:
                 with open(self.metadata_path, "r") as f:
                     data = json.load(f)
                 self.mutations_applied = data.get("mutations_applied", [])
-                self.failures = data.get("failures", {})
-                self.partial_applications = data.get("partial_applications", {})
+                self.skipped = data.get("skipped", data.get("failures", {}))
+                self.partial_mutations = data.get("partial_mutations", data.get("partial_applications", {}))
             except Exception as e:
                 logger.warning(f"Could not load existing metadata: {e}")
 
@@ -31,39 +31,39 @@ class MutationMetadata:
         if mutation_name not in self.mutations_applied:
             self.mutations_applied.append(mutation_name)
 
-    def add_failed_mutation(self, mutation_name: str, error: str):
-        # For complete failures (mutation couldn't be applied at all)
-        if mutation_name not in self.failures:
-            self.failures[mutation_name] = []
-        self.failures[mutation_name].append(f"Failed to apply: {error}")
+    def add_skipped_mutation(self, mutation_name: str, error: str):
+        # For mutations that were skipped (couldn't be applied at all)
+        if mutation_name not in self.skipped:
+            self.skipped[mutation_name] = []
+        self.skipped[mutation_name].append(f"Skipped: {error}")
 
     def add_partial_mutation(
-        self, mutation_name: str, failed_samples: List[Dict[str, str]]
+        self, mutation_name: str, skipped_samples: List[Dict[str, str]]
     ):
-        """Record a mutation that was partially successful (some samples failed)."""
-        if mutation_name not in self.failures:
-            self.failures[mutation_name] = []
+        """Record a mutation that was partially successful (some samples were skipped)."""
+        if mutation_name not in self.skipped:
+            self.skipped[mutation_name] = []
 
-        # Extract just the sample paths from the failed samples
-        sample_paths = [sample["sample_path"] for sample in failed_samples]
-        self.failures[mutation_name].extend(sample_paths)
+        # Extract just the sample paths from the skipped samples
+        sample_paths = [sample["sample_path"] for sample in skipped_samples]
+        self.skipped[mutation_name].extend(sample_paths)
 
         # Also add to mutations_applied since it was partially successful
         if mutation_name not in self.mutations_applied:
             self.mutations_applied.append(mutation_name)
 
-    def add_partial_applications(self, mutation_name: str, partial_samples: List[str]):
-        """Add samples that were partially mutated for a specific mutation."""
+    def add_partial_mutations(self, mutation_name: str, partial_samples: List[str]):
+        """Add samples where the mutation was applied to other files except the one with vulnerable lines."""
         if partial_samples:
-            self.partial_applications[mutation_name] = partial_samples
+            self.partial_mutations[mutation_name] = partial_samples
 
     def save(self):
         import datetime
 
         data = {
             "mutations_applied": self.mutations_applied,
-            "failures": self.failures,
-            "partial_applications": self.partial_applications,
+            "skipped": self.skipped,
+            "partial_mutations": self.partial_mutations,
             "timestamp": datetime.datetime.now().isoformat(),
         }
 
