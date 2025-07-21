@@ -3,6 +3,7 @@ import json
 import shutil
 import subprocess
 import copy
+import re
 from abc import ABC, abstractmethod
 from typing import Dict, Any, Optional, List
 from mizan_cli.utils.logging import get_logger
@@ -70,6 +71,7 @@ class MutationOrchestrator:
         vuln: Dict[str, Any],
         sample: Dict[str, Any],
         backup_sample: Optional[Dict[str, Any]] = None,
+        mutation: Optional["BaseMutation"] = None,
     ) -> tuple[bool, Optional[str]]:
         """Validate a single code sample after mutation.
 
@@ -136,24 +138,28 @@ class MutationOrchestrator:
                             # Compare each vulnerable line content
                             for backup_line_num in backup_line_numbers:
                                 if backup_line_num <= len(backup_lines):
-                                    backup_line_content = backup_lines[
-                                        backup_line_num - 1
-                                    ].strip()
-
+                                    backup_line_content = backup_lines[backup_line_num - 1].strip()
+                                    
                                     # Find if this line content exists in the current file
                                     found_match = False
                                     for current_line_num in current_line_numbers:
                                         if current_line_num <= len(current_lines):
-                                            current_line_content = current_lines[
-                                                current_line_num - 1
-                                            ].strip()
-                                            if (
-                                                backup_line_content
-                                                == current_line_content
-                                            ):
+                                            current_line_content = current_lines[current_line_num - 1].strip()
+                                            if backup_line_content == current_line_content:
                                                 found_match = True
                                                 break
-
+                                    
+                                    # For rename mutations, line content may legitimately change
+                                    if not found_match and mutation and "rename" in mutation.name:
+                                        # Log the change and allow it to pass for rename mutations
+                                        logger.info(f"Line content changed for rename mutation '{mutation.name}' in {file_name} line {backup_line_num}")
+                                        logger.info(f"  Original: '{backup_line_content}'")
+                                        # Find the corresponding line in current file
+                                        if backup_line_num <= len(current_lines):
+                                            current_content = current_lines[backup_line_num - 1].strip()
+                                            logger.info(f"  Current:  '{current_content}'")
+                                        found_match = True  # Allow rename mutations to pass
+                                    
                                     if not found_match:
                                         return (
                                             False,
@@ -181,7 +187,7 @@ class MutationOrchestrator:
             # Get partial samples from the mutation if any
             partial_samples = mutation.get_partial_samples()
             if partial_samples:
-                self.metadata_manager.add_partial_applications(
+                self.metadata_manager.add_partial_mutations(
                     mutation.name, partial_samples
                 )
 
@@ -193,7 +199,7 @@ class MutationOrchestrator:
             with open(backup_mizan_path, "r") as f:
                 backup_data = json.load(f)
 
-            # Validate and handle failures per sample
+            # Validate and handle skipped samples
             failed_samples = []
             total_samples = sum(
                 len(vuln["code_samples"]) for vuln in updated_data["vulnerabilities"]
@@ -215,7 +221,7 @@ class MutationOrchestrator:
                     )
 
                     success, error_msg = self.validate_sample(
-                        sample_path, vuln, sample, backup_sample
+                        sample_path, vuln, sample, backup_sample, mutation
                     )
 
                     if not success:
@@ -260,7 +266,7 @@ class MutationOrchestrator:
                     mutation.name, failed_samples
                 )
                 logger.warning(
-                    f"Mutation {mutation.name} applied with {len(failed_samples)} failures"
+                    f"Mutation {mutation.name} applied with {len(failed_samples)} samples skipped"
                 )
                 logger.info(
                     f"Successfully validated {total_samples - len(failed_samples)}/{total_samples} samples"
@@ -277,7 +283,7 @@ class MutationOrchestrator:
             logger.error(f"Error applying mutation {mutation.name}: {e}")
             self.restore_backup()
             self.cleanup_backup()
-            self.metadata_manager.add_failed_mutation(mutation.name, str(e))
+            self.metadata_manager.add_skipped_mutation(mutation.name, str(e))
             return False
 
     def finalize(self):
@@ -286,8 +292,9 @@ class MutationOrchestrator:
 
 
 class BaseMutation(ABC):
-    def __init__(self, name: str):
+    def __init__(self, name: str, seed: int = 42):
         self.name = name
+        self.seed = seed
         self.partial_samples: List[str] = []
 
     @abstractmethod

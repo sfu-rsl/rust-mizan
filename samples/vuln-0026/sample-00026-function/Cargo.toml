@@ -1,9 +1,0 @@
-[package]
-name = "sample-00026-function"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-libc = "0.2.39"
-serde = { version = "1.0.27" }
-serde_derive = { version = "1.0.27" }

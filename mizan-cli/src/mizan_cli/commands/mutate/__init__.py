@@ -18,8 +18,15 @@ logger = get_logger()
     default=["all"],
     help="Mutations to apply (can be specified multiple times)",
 )
+@click.option(
+    "--seed",
+    "-s",
+    type=int,
+    default=42,
+    help="Random seed for reproducible results",
+)
 @click.pass_context
-def cmd(ctx, mutations: List[str]):
+def cmd(ctx, mutations: List[str], seed: int):
     """Apply semantic-preserving mutations to code samples"""
 
     for required_file in ["mizan.json", "Cargo.toml"]:
@@ -31,9 +38,10 @@ def cmd(ctx, mutations: List[str]):
         list(MUTATION_REGISTRY.keys()) if "all" in mutations else list(set(mutations))
     )
     logger.info(f"Selected mutations: {', '.join(selected_mutations)}")
+    logger.info(f"Using random seed: {seed}")
 
     orchestrator = MutationOrchestrator(os.getcwd())
-    mutation_instances = [MUTATION_REGISTRY[name]() for name in selected_mutations]
+    mutation_instances = [MUTATION_REGISTRY[name](seed=seed) for name in selected_mutations]
 
     try:
         for mutation in mutation_instances:

@@ -25,14 +25,14 @@ class MizanMutMutation(BaseMutation):
         "arithmetic-identity": "Adds arithmetic identity operations (x + N - N)",
     }
 
-    def __init__(self, mutation_name: str):
+    def __init__(self, mutation_name: str, seed: int = 42):
         if mutation_name not in self.SUPPORTED_MUTATIONS:
             raise ValueError(
                 f"Invalid mutation: {mutation_name}. "
                 f"Must be one of: {list(self.SUPPORTED_MUTATIONS.keys())}"
             )
 
-        super().__init__(f"mizan-mut-{mutation_name}")
+        super().__init__(f"mizan-mut-{mutation_name}", seed)
         self.mutation_name = mutation_name
 
     def apply(self, base_dir: str) -> bool:
@@ -254,44 +254,44 @@ class MizanMutMutation(BaseMutation):
 
 # Create convenience classes for each mutation type
 class ForToWhileMutation(MizanMutMutation):
-    def __init__(self):
-        super().__init__("for-to-while")
+    def __init__(self, seed: int = 42):
+        super().__init__("for-to-while", seed)
 
 
 class WhileToLoopMutation(MizanMutMutation):
-    def __init__(self):
-        super().__init__("while-to-loop")
+    def __init__(self, seed: int = 42):
+        super().__init__("while-to-loop", seed)
 
 
 class IfElseReorderMutation(MizanMutMutation):
-    def __init__(self):
-        super().__init__("if-else-reorder")
+    def __init__(self, seed: int = 42):
+        super().__init__("if-else-reorder", seed)
 
 
 class DeriveReorderMutation(MizanMutMutation):
-    def __init__(self):
-        super().__init__("derive-reorder")
+    def __init__(self, seed: int = 42):
+        super().__init__("derive-reorder", seed)
 
 
 class TraitBoundReorderMutation(MizanMutMutation):
-    def __init__(self):
-        super().__init__("trait-bound-reorder")
+    def __init__(self, seed: int = 42):
+        super().__init__("trait-bound-reorder", seed)
 
 
 class UseReorderMutation(MizanMutMutation):
-    def __init__(self):
-        super().__init__("use-reorder")
+    def __init__(self, seed: int = 42):
+        super().__init__("use-reorder", seed)
 
 
 class ArithmeticIdentityMutation(MizanMutMutation):
-    def __init__(self):
-        super().__init__("arithmetic-identity")
+    def __init__(self, seed: int = 42):
+        super().__init__("arithmetic-identity", seed)
 
 
 class MizanMutAllMutation(MizanMutMutation):
     """Apply all mizan-mut mutations at once"""
 
-    def __init__(self):
+    def __init__(self, seed: int = 42):
         # Call BaseMutation.__init__ directly to avoid the validation
-        BaseMutation.__init__(self, "mizan-mut-all")
+        BaseMutation.__init__(self, "mizan-mut-all", seed)
         self.mutation_name = "all"  # Use "all" for the mizan-mut command

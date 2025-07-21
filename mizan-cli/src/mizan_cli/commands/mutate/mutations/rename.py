@@ -4,10 +4,10 @@ import json
 import subprocess
 import random
 import string
-from typing import Dict, Any, List, Tuple
+from pathlib import Path
+from typing import Dict, Any, List, Tuple, Optional
 from mizan_cli.utils.logging import get_logger
 from ..orchestrator import BaseMutation
-from ..utils.markers import MarkerHandler
 
 
 logger = get_logger()
@@ -16,24 +16,28 @@ logger = get_logger()
 class RenameMutation(BaseMutation):
     """Base class for rename mutations using mizan-mut rename tool."""
 
-    def __init__(self, name: str, rename_type: str, target_type: str):
-        super().__init__(name)
+    def __init__(self, name: str, rename_type: str, target_type: str, seed: int = 42):
+        super().__init__(name, seed)
         self.rename_type = rename_type  # "benign" or "malignant"
         self.target_type = target_type  # "function" or "variable"
         self.rename_counter = 0
+        
+        # Set random seed for reproducibility
+        random.seed(seed)
 
-        self.malignant_names = [
-            "safe",
-            "secure",
-            "valid",
-            "checked",
-            "verified",
-            "correct",
-            "sanitized",
-        ]
+        # Load malignant names from JSON file
+        malignant_names_path = (
+            Path(__file__).parent.parent.parent.parent
+            / "assets"
+            / "mutate"
+            / "malignant_names.json"
+        )
+        with open(malignant_names_path, "r") as f:
+            malignant_data = json.load(f)
+        self.malignant_names = malignant_data["names"]
 
     def apply(self, base_dir: str) -> bool:
-        """Apply rename mutations to all code samples."""
+        """Apply rename mutations to each code sample independently."""
         try:
             logger.info(f"Applying {self.name} mutation...")
 
@@ -42,24 +46,21 @@ class RenameMutation(BaseMutation):
             with open(mizan_path, "r") as f:
                 data = json.load(f)
 
-            # Create marker handler
-            marker_handler = MarkerHandler(base_dir)
-
-            # Add markers to track vulnerable lines
-            marker_handler.add_markers_to_vulnerable_lines(data)
-
-            # Apply renames to all samples
-            self._apply_renames(data, base_dir)
-
-            # Extract new line numbers
-            updated_data = marker_handler.extract_new_line_numbers(data)
-
-            # Remove markers
-            marker_handler.remove_all_markers()
+            # Apply renames to each sample independently
+            for vuln in data["vulnerabilities"]:
+                for sample in vuln["code_samples"]:
+                    if not sample.get("is_vulnerability", True):
+                        continue
+                    
+                    sample_path = sample["path_to_crate"]
+                    logger.debug(f"Applying {self.name} to sample: {sample_path}")
+                    
+                    # Apply renames for this specific sample
+                    self._apply_renames_to_sample(sample, base_dir)
 
             # Save updated ground truth
             with open(mizan_path, "w") as f:
-                json.dump(updated_data, f, indent=2)
+                json.dump(data, f, indent=2)
 
             logger.debug(f"Successfully applied {self.name} mutation")
             return True
@@ -68,83 +69,113 @@ class RenameMutation(BaseMutation):
             logger.error(f"Failed to apply {self.name} mutation: {e}")
             return False
 
-    def _apply_renames(self, data: Dict[str, Any], base_dir: str) -> None:
-        """Apply renames to vulnerable samples."""
-        for vuln in data["vulnerabilities"]:
-            for sample in vuln["code_samples"]:
-                if not sample.get("is_vulnerability", True):
+    def _apply_renames_to_sample(self, sample: Dict[str, Any], base_dir: str) -> None:
+        """Apply renames to a specific code sample and update its ground truth."""
+        path_to_crate = sample["path_to_crate"]
+        sample_path = os.path.join(base_dir, "samples", path_to_crate)
+        
+        # Track successful renames for this sample
+        successful_renames = {}
+
+        # Process each file with vulnerable lines
+        for file_name, line_numbers in sample.get("vulnerable_lines", {}).items():
+            file_path = os.path.join(sample_path, file_name)
+
+            if not os.path.exists(file_path):
+                logger.warning(f"File not found: {file_path}")
+                continue
+
+            # Find and rename identifiers around vulnerable lines
+            identifiers = self._find_identifiers_in_region(
+                file_path, line_numbers, context_lines=10
+            )
+
+            for old_name, byte_offset, id_type in identifiers:
+                # Skip if this identifier type doesn't match our target
+                if id_type != self.target_type:
+                    continue
+                    
+                # Skip common names that might cause issues
+                if old_name in ["self", "main", "new", "default", "_", "pack", "index", "deserialize"]:
                     continue
 
-                path_to_crate = sample["path_to_crate"]
-                sample_path = os.path.join(base_dir, "samples", path_to_crate)
+                new_name = self._generate_unique_name(id_type)
 
-                # Process each file with vulnerable lines
-                for file_name, line_numbers in sample.get(
-                    "vulnerable_lines", {}
-                ).items():
-                    file_path = os.path.join(sample_path, file_name)
+                logger.debug(
+                    f"{path_to_crate}: Attempting to rename {id_type} '{old_name}' "
+                    f"at offset {byte_offset} in {file_name}"
+                )
+                
+                # Use the sample directory as the crate root for mizan-mut
+                cmd = [
+                    "mizan-mut",
+                    "rename",
+                    "-c",
+                    sample_path,
+                    "-f",
+                    file_name,
+                    "-o",
+                    str(byte_offset),
+                    "-n",
+                    new_name,
+                ]
+                result = subprocess.run(cmd, capture_output=True, text=True)
 
-                    if not os.path.exists(file_path):
-                        logger.warning(f"File not found: {file_path}")
-                        continue
-
-                    # Find and rename identifiers around vulnerable lines
-                    identifiers = self._find_identifiers_in_region(
-                        file_path, line_numbers, context_lines=10
+                if result.returncode == 0:
+                    logger.info(
+                        f"{path_to_crate}: Successfully renamed {id_type} '{old_name}' to '{new_name}' "
+                        f"in {file_name} at offset {byte_offset}"
                     )
-
-                    for old_name, byte_offset, id_type in identifiers:
-                        # Skip if this identifier type doesn't match our target
-                        if id_type != self.target_type:
-                            continue
-                            
-                        # Skip common names that might cause issues
-                        if old_name in ["self", "main", "new", "default", "_"]:
-                            continue
-
-                        new_name = self._generate_unique_name(id_type)
-
-                        relative_file_path = os.path.join(
-                            "samples", path_to_crate, file_name
-                        )
+                    # Track successful rename
+                    successful_renames[old_name] = new_name
+                else:
+                    stderr_msg = result.stderr.strip()
+                    if stderr_msg and "No references found at position" in stderr_msg:
                         logger.debug(
-                            f"{path_to_crate}: Attempting to rename {id_type} '{old_name}' "
-                            f"at offset {byte_offset} in {file_name}"
+                            f"{path_to_crate}: Could not rename '{old_name}' at offset {byte_offset} "
+                            f"(no references found - might be in a macro or special context)"
                         )
-                        cmd = [
-                            "mizan-mut",
-                            "rename",
-                            "-c",
-                            base_dir,
-                            "-f",
-                            relative_file_path,
-                            "-o",
-                            str(byte_offset),
-                            "-n",
-                            new_name,
-                        ]
-                        result = subprocess.run(cmd, capture_output=True, text=True)
+                    else:
+                        logger.warning(
+                            f"{path_to_crate}: Failed to rename '{old_name}' at offset {byte_offset}: "
+                            f"{stderr_msg}"
+                        )
+        
+        # Update this sample's ground truth with the renames
+        if successful_renames:
+            self._update_sample_ground_truth(sample, successful_renames)
 
-                        if result.returncode == 0:
-                            logger.info(
-                                f"{path_to_crate}: Successfully renamed {id_type} '{old_name}' to '{new_name}' "
-                                f"in {file_name} at offset {byte_offset}"
-                            )
-                        else:
-                            stderr_msg = result.stderr.strip()
-                            if (
-                                stderr_msg
-                                and "No references found at position" in stderr_msg
-                            ):
-                                logger.debug(
-                                    f"{path_to_crate}: Could not rename '{old_name}' at offset {byte_offset} "
-                                    f"(no references found - might be in a macro or special context)"
-                                )
-                            else:
-                                logger.warning(
-                                    f"{path_to_crate}: Failed to rename '{old_name}' at offset {byte_offset}: "
-                                    f"{stderr_msg}"
-                                )
+    def _update_sample_ground_truth(self, sample: Dict[str, Any], renames: Dict[str, str]) -> None:
+        """Update the ground truth for a specific sample with successful renames."""
+        sample_path = sample["path_to_crate"]
+        
+        # For variable renames, we should NOT update function signatures
+        # Function signatures are used for identification and shouldn't change
+        # when we rename variables/parameters inside them
+        if self.target_type == "variable":
+            logger.info(f"Variable renames applied to {sample_path}: {renames}")
+            logger.info(f"Function signatures in ground truth remain unchanged for identification purposes")
+            return
+        
+        # For function renames, update the function signatures in ground truth
+        if self.target_type == "function":
+            vulnerable_functions = sample.get("vulnerable_functions", {})
+            for file_name, functions in vulnerable_functions.items():
+                updated_functions = []
+                for func in functions:
+                    updated_func = func
+                    for old_name, new_name in renames.items():
+                        # Use word boundaries to avoid partial matches
+                        pattern = r'\b' + re.escape(old_name) + r'\b'
+                        updated_func = re.sub(pattern, new_name, updated_func)
+                    
+                    updated_functions.append(updated_func)
+                    if updated_func != func:
+                        logger.info(f"Ground truth for code sample {sample_path} was updated: function '{func}' -> '{updated_func}'")
+                
+                vulnerable_functions[file_name] = updated_functions
+        
+        logger.info(f"Ground truth for code sample {sample_path} was updated with renamed identifiers: {renames}")
 
     def _generate_unique_name(self, id_type: str) -> str:
         """Generate a unique variable/function name based on mutation type."""
@@ -210,19 +241,8 @@ class RenameMutation(BaseMutation):
                     continue
                 # Skip common trait method names
                 if func_name in [
-                    "from",
-                    "into",
-                    "clone",
-                    "drop",
-                    "deref",
-                    "as_ref",
-                    "as_mut",
-                    "fmt",
-                    "hash",
-                    "eq",
-                    "ne",
-                    "cmp",
-                    "partial_cmp",
+                    "from", "into", "clone", "drop", "deref", "as_ref", "as_mut",
+                    "fmt", "hash", "eq", "ne", "cmp", "partial_cmp", "pack", "index", "deserialize"
                 ]:
                     continue
                 # Calculate byte offset to the start of the function name
@@ -238,26 +258,26 @@ class RenameMutation(BaseMutation):
 class BenignRenameFnMutation(RenameMutation):
     """Apply benign rename mutations to functions with neutral names."""
 
-    def __init__(self):
-        super().__init__("benign-rename-fn", "benign", "function")
+    def __init__(self, seed: int = 42):
+        super().__init__("benign-rename-fn", "benign", "function", seed)
 
 
 class BenignRenameVarMutation(RenameMutation):
     """Apply benign rename mutations to variables with neutral names."""
 
-    def __init__(self):
-        super().__init__("benign-rename-var", "benign", "variable")
+    def __init__(self, seed: int = 42):
+        super().__init__("benign-rename-var", "benign", "variable", seed)
 
 
 class MalignantRenameFnMutation(RenameMutation):
     """Apply malignant rename mutations to functions with names that suggest safety."""
 
-    def __init__(self):
-        super().__init__("malignant-rename-fn", "malignant", "function")
+    def __init__(self, seed: int = 42):
+        super().__init__("malignant-rename-fn", "malignant", "function", seed)
 
 
 class MalignantRenameVarMutation(RenameMutation):
     """Apply malignant rename mutations to variables with names that suggest safety."""
 
-    def __init__(self):
-        super().__init__("malignant-rename-var", "malignant", "variable")
+    def __init__(self, seed: int = 42):
+        super().__init__("malignant-rename-var", "malignant", "variable", seed)
