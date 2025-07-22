@@ -44,7 +44,7 @@ class EvaluationRunner:
         logger.info(f"Loaded {len(examples)} examples")
 
         target_function = create_target_function(
-            self.provider, self.model, self.temperature
+            self.provider, self.model, self.temperature, self.experiment_dir
         )
 
         evaluators = get_all_evaluators()

@@ -8,7 +8,7 @@ from mizan_cli.utils.logging import get_logger
 logger = get_logger()
 
 
-def create_target_function(provider: str, model: str, temperature: float):
+def create_target_function(provider: str, model: str, temperature: float, experiment_dir=None):
     """Create a target function for the specified provider and model
 
 
@@ -20,10 +20,16 @@ def create_target_function(provider: str, model: str, temperature: float):
     def target_function(inputs: Dict[str, Any]) -> Dict[str, Any]:
         system_prompt = inputs.get("system_prompt", "")
         prompt = inputs.get("prompt", "")
+        
+        # Set up logging file if experiment_dir is provided
+        full_responses_file = None
+        if experiment_dir:
+            from pathlib import Path
+            full_responses_file = Path(experiment_dir) / "full_responses.log"
 
         try:
             if provider == "openai":
-                client = openai.OpenAI()
+                client = openai.OpenAI(max_retries=5)
 
                 messages = []
                 if system_prompt:
@@ -34,9 +40,15 @@ def create_target_function(provider: str, model: str, temperature: float):
                 )
 
                 raw_response = response.choices[0].message.content
+                
+                # Log full response to file
+                if full_responses_file:
+                    with open(full_responses_file, "a") as f:
+                        f.write(str(response))
+                        f.write("\n")
 
             elif provider == "anthropic":
-                client = anthropic.Anthropic()
+                client = anthropic.Anthropic(max_retries=5)
 
                 # Anthropic API handles messages differently
                 if system_prompt:
@@ -45,17 +57,23 @@ def create_target_function(provider: str, model: str, temperature: float):
                         system=system_prompt,
                         messages=[{"role": "user", "content": prompt}],
                         temperature=temperature,
-                        max_tokens=1000,
+                        max_tokens=2000,
                     )
                 else:
                     response = client.messages.create(
                         model=model,
                         messages=[{"role": "user", "content": prompt}],
                         temperature=temperature,
-                        max_tokens=1000,
+                        max_tokens=2000,
                     )
 
                 raw_response = response.content[0].text
+                
+                # Log full response to file
+                if full_responses_file:
+                    with open(full_responses_file, "a") as f:
+                        f.write(str(response))
+                        f.write("\n")
 
             else:
                 raise ValueError(f"Unsupported provider: {provider}")
@@ -68,16 +86,14 @@ def create_target_function(provider: str, model: str, temperature: float):
                     json_str = json_match.group(0)
                     parsed_response = json.loads(json_str)
                 else:
-                    # If no JSON found, return error format
                     return {
-                        "raw_response": None,
+                        "raw_response": raw_response,
                         "parsed_response": None,
                         "errors": "No JSON found in response",
                     }
             except json.JSONDecodeError as e:
-                # If JSON parsing fails, return error format
                 return {
-                    "raw_response": None,
+                    "raw_response": raw_response,
                     "parsed_response": None,
                     "errors": f"JSON parsing failed: {str(e)}",
                 }

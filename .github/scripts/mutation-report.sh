@@ -19,7 +19,7 @@ fi
 # Define mutation groups
 NEUTRAL_MUTATIONS=(
     "remove-comments"
-    "format-expanded"
+    "format-compact"
     "mizan-mut-while-to-loop"     # Must come before mizan-mut-for-to-while
     "mizan-mut-for-to-while"
     "mizan-mut-if-else-reorder"
@@ -45,7 +45,7 @@ MALIGNANT_MUTATIONS=(
 
 # Additional individual mutations to test
 ADDITIONAL_MUTATIONS=(
-    "format-compact"
+    "format-expanded"
 )
 
 # Combine all mutations for individual testing
