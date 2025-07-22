@@ -1,12 +1,7 @@
 name: Mutation Analysis and Dataset Generation
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
   mutation-analysis:
