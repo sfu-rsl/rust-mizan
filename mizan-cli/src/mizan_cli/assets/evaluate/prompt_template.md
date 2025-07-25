@@ -124,8 +124,9 @@ list the function as `fn from(body: Vec<u8>) -> Body`, not the `impl From<Vec<u8
 
 ### Unsafe Functions and Traits
 
-- If the vulnerability that a function or a trait should be marked as `unsafe`, include the function or trait in the `vulnerable_functions` list.
-- If the vulnerability that a trait makes a vulnerable assumption about the safety of a type, include the trait in the `vulnerable_functions` list (e.g., `unsafe impl<T> Sync for Array<T>`).
+- Missing `unsafe` keyword: If a function should be marked as `unsafe` but is not, include the function signature in `vulnerable_functions`. Example: `fn dangerous_deref(ptr: *const u8) -> u8` is a vulnerable function and should have been marked `unsafe` so it should be included in `vulnerable_functions`.
+
+- Unsafe trait implementations: If a trait implementation makes incorrect safety assumptions, include the trait implementation in `vulnerable_functions`. Example: For `unsafe impl<T> Send for MyStruct<T>`, include `unsafe impl<T> Send for MyStruct<T>` if the implementation is unsound
 
 ### Function Signatures
 

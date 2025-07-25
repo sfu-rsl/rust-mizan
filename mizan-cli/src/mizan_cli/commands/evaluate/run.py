@@ -9,13 +9,8 @@ from langsmith import Client, evaluate
 from langsmith.schemas import Example
 
 from mizan_cli.utils.logging import get_logger
-from mizan_cli.commands.evaluate.evaluators import (
-    get_all_evaluators,
-    get_all_summary_evaluators,
-    calculate_all_summary_evaluations,
-)
+from mizan_cli.commands.evaluate.utils.evaluators import get_all_evaluators
 from mizan_cli.commands.evaluate.target_function import create_target_function
-from mizan_cli.commands.evaluate.utils import generate_csv_export
 
 logger = get_logger()
 
@@ -48,7 +43,6 @@ class EvaluationRunner:
         )
 
         evaluators = get_all_evaluators()
-        summary_evaluators = get_all_summary_evaluators()
 
         experiment_name = f"mizan-{self.provider}-{self.model}-{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
@@ -57,7 +51,6 @@ class EvaluationRunner:
                 target_function,
                 data=examples,
                 evaluators=evaluators,
-                summary_evaluators=summary_evaluators,
                 experiment_prefix=experiment_name,
                 upload_results=False,  # Don't upload to LangSmith for local datasets
                 max_concurrency=1,  # Avoid rate limits. Should we make this configurable?
@@ -75,10 +68,6 @@ class EvaluationRunner:
             )
 
             processed_results = self._process_results(results)
-            # Calculate summary evaluations manually (since upload_results=True may fail with local datasets)
-            summary_evaluations = self._calculate_summary_evaluations_manually(
-                processed_results
-            )
             experiment_metadata = {
                 "experiment_id": self.experiment_id,
                 "experiment_name": experiment_name,
@@ -88,17 +77,11 @@ class EvaluationRunner:
                 "created_at": datetime.now().isoformat(),
                 "total_examples": len(examples),
                 "mutations_metadata": mutations_metadata,
-                "summary_evaluations": summary_evaluations,
             }
             self._save_results(processed_results, experiment_metadata)
-            generate_csv_export(processed_results, self.experiment_dir / "results.csv")
 
             logger.info(f"Evaluation completed successfully")
             logger.info(f"Results saved to: {self.experiment_dir}")
-            if summary_evaluations:
-                logger.info(
-                    f"Summary evaluations saved to: {self.experiment_dir}/metadata.json"
-                )
 
             return {
                 "experiment_id": self.experiment_id,
@@ -145,23 +128,6 @@ class EvaluationRunner:
             logger.error(f"Dataset file not found: {self.dataset_path}")
             raise
 
-    def _calculate_summary_evaluations_manually(
-        self, processed_results: List[Dict[str, Any]]
-    ) -> Dict[str, float]:
-        """Calculate summary evaluations manually from processed results."""
-        if not processed_results:
-            return {}
-
-        # Extract outputs and reference outputs
-        outputs = []
-        reference_outputs = []
-
-        for result in processed_results:
-            outputs.append(result.get("outputs", {}))
-            reference_outputs.append(result.get("reference_outputs", {}))
-
-        return calculate_all_summary_evaluations(outputs, reference_outputs)
-
     def _process_results(self, results) -> List[Dict[str, Any]]:
         """Process evaluation results into a structured format."""
         processed_results = []
@@ -174,13 +140,11 @@ class EvaluationRunner:
                 evaluation_results = result["evaluation_results"]["results"]
 
                 scores = {}
-                comments = {}
                 errors = []
 
                 for eval_result in evaluation_results:
                     key = eval_result.key
                     scores[key] = eval_result.score
-                    comments[key] = eval_result.comment
 
                     if eval_result.extra and eval_result.extra.get("error"):
                         errors.append(f"{key}: {eval_result.comment}")
@@ -201,7 +165,6 @@ class EvaluationRunner:
                     "outputs": run.outputs,
                     "reference_outputs": example.outputs,
                     "scores": scores,
-                    "comments": comments,
                     "errors": errors,
                     "timestamp": datetime.now().isoformat(),
                 }

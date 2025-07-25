@@ -8,7 +8,9 @@ from mizan_cli.utils.logging import get_logger
 logger = get_logger()
 
 
-def create_target_function(provider: str, model: str, temperature: float, experiment_dir=None):
+def create_target_function(
+    provider: str, model: str, temperature: float, experiment_dir=None
+):
     """Create a target function for the specified provider and model
 
 
@@ -20,11 +22,12 @@ def create_target_function(provider: str, model: str, temperature: float, experi
     def target_function(inputs: Dict[str, Any]) -> Dict[str, Any]:
         system_prompt = inputs.get("system_prompt", "")
         prompt = inputs.get("prompt", "")
-        
+
         # Set up logging file if experiment_dir is provided
         full_responses_file = None
         if experiment_dir:
             from pathlib import Path
+
             full_responses_file = Path(experiment_dir) / "full_responses.log"
 
         try:
@@ -40,7 +43,7 @@ def create_target_function(provider: str, model: str, temperature: float, experi
                 )
 
                 raw_response = response.choices[0].message.content
-                
+
                 # Log full response to file
                 if full_responses_file:
                     with open(full_responses_file, "a") as f:
@@ -68,7 +71,7 @@ def create_target_function(provider: str, model: str, temperature: float, experi
                     )
 
                 raw_response = response.content[0].text
-                
+
                 # Log full response to file
                 if full_responses_file:
                     with open(full_responses_file, "a") as f:
@@ -105,6 +108,12 @@ def create_target_function(provider: str, model: str, temperature: float, experi
             }
 
         except Exception as e:
+            # Log failure to file
+            if full_responses_file:
+                with open(full_responses_file, "a") as f:
+                    f.write(f"ERROR: {str(e)}\n")
+                    f.write("\n")
+
             return {
                 "raw_response": None,
                 "parsed_response": None,

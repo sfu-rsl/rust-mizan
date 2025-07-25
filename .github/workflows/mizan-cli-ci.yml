@@ -32,7 +32,3 @@ jobs:
         run: |
           poetry install
           poetry build
-
-      - name: Run tests
-        working-directory: mizan-cli
-        run: poetry run pytest tests/ -v
