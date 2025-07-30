@@ -238,23 +238,27 @@ mizan evaluate run [OPTIONS]
 
 Options:
 
-| Option       | Short | Description                                    | Default |
-| ------------ | ----- | ---------------------------------------------- | ------- |
-| `--dataset`  | `-d`  | Path to prepared dataset file (required)       | None    |
-| `--provider` | `-p`  | LLM provider: `openai`, `anthropic` (required) | None    |
-| `--model`    | `-m`  | Model name (required)                          | None    |
+| Option       | Short | Description                                               |
+| ------------ | ----- | --------------------------------------------------------- |
+| `--dataset`  | `-d`  | Path to prepared dataset file                             |
+| `--provider` | `-p`  | LLM provider: `openai`, `anthropic`, `gemini`, `deepseek` |
+| `--model`    | `-m`  | Model name                                                |
 
 > Before running evaluations, make sure you have set up the required API keys in your environment:
 >
 > - For OpenAI: Set the `OPENAI_API_KEY` environment variable
 > - For Anthropic: Set the `ANTHROPIC_API_KEY` environment variable
+> - For Gemini: Set the `GOOGLE_API_KEY` or `GEMINI_API_KEY` environment variable
+> - For DeepSeek: Set the `DEEPSEEK_API_KEY` environment variable
 >
 > Temperature is fixed at `0.0` for all evaluations.
 
-Example:
+Examples:
 
 ```bash
 mizan evaluate run -d ./evaluation_dataset.json -p anthropic -m claude-3-7-sonnet-20250219
+mizan evaluate run -d ./evaluation_dataset.json -p gemini -m gemini-1.5-pro
+mizan evaluate run -d ./evaluation_dataset.json -p deepseek -m deepseek-chat
 ```
 
 Output Files:

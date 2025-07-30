@@ -699,6 +699,8 @@
       "id": "vuln-0008",
       "author": "Eunsong Koh",
       "source_link": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-35925",
+      "crate_name": "magnetic",
+      "year": 2020,
       "code_samples": [
         {
           "path_to_crate": "vuln-0008/sample-00008-crate",
