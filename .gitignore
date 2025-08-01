@@ -1,2 +1,6 @@
 **/target
 **/.DS_Store
+
+evaluation/**/full_responses.log
+evaluation/**/results.json
+evaluation/mizan-datasets/

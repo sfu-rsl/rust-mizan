@@ -1,0 +1,17 @@
+{
+  "experiment_id": "0a7031e1",
+  "experiment_name": "mizan-openai-gpt-4.1-2025-04-14-20250729_134531",
+  "provider": "openai",
+  "model": "gpt-4.1-2025-04-14",
+  "temperature": 0.0,
+  "created_at": "2025-07-29T14:48:51.237614",
+  "total_examples": 173,
+  "mutations_metadata": {
+    "mutations_applied": [
+      "benign-blocks"
+    ],
+    "skipped": {},
+    "partial_mutations": {},
+    "timestamp": "2025-07-25T19:05:43.087035"
+  }
+}
