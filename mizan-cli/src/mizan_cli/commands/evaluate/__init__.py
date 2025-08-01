@@ -51,7 +51,7 @@ def prepare_dataset(ctx, output: Path):
 @click.option(
     "--provider",
     "-p",
-    type=click.Choice(["openai", "anthropic"]),
+    type=click.Choice(["openai", "anthropic", "gemini", "deepseek"]),
     required=True,
     help="LLM provider to use",
 )

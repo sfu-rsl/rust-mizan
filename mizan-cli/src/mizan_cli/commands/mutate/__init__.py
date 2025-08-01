@@ -34,9 +34,16 @@ def cmd(ctx, mutations: List[str], seed: int):
             logger.error(f"No {required_file} found")
             ctx.exit(1)
 
-    selected_mutations = (
-        list(MUTATION_REGISTRY.keys()) if "all" in mutations else list(set(mutations))
-    )
+    if "all" in mutations:
+        selected_mutations = list(MUTATION_REGISTRY.keys())
+    else:
+        # Preserve order and remove duplicates
+        seen = set()
+        selected_mutations = []
+        for mutation in mutations:
+            if mutation not in seen:
+                selected_mutations.append(mutation)
+                seen.add(mutation)
     logger.info(f"Selected mutations: {', '.join(selected_mutations)}")
     logger.info(f"Using random seed: {seed}")
 
