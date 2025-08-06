@@ -1,0 +1,17 @@
+{
+  "experiment_id": "7cd7ca95",
+  "experiment_name": "mizan-gemini-gemini-1.5-pro-20250805_205413",
+  "provider": "gemini",
+  "model": "gemini-1.5-pro",
+  "temperature": 0.0,
+  "created_at": "2025-08-05T21:22:49.129148",
+  "total_examples": 173,
+  "mutations_metadata": {
+    "mutations_applied": [
+      "remove-comments"
+    ],
+    "skipped": {},
+    "partial_mutations": {},
+    "timestamp": "2025-07-25T18:41:19.548464"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "experiment_id": "9c998f04",
+  "experiment_name": "mizan-deepseek-deepseek-chat-20250805_200101",
+  "provider": "deepseek",
+  "model": "deepseek-chat",
+  "temperature": 0.0,
+  "created_at": "2025-08-05T21:00:55.936074",
+  "total_examples": 173,
+  "mutations_metadata": {}
+}

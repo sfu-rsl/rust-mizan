@@ -123,6 +123,48 @@ class RustMizanMultiExperimentAnalyzer:
                 lines.add(f"{file_path}::{line}")
         return lines
 
+    def validate_json_schema(self, parsed_response: Dict) -> bool:
+        """Validate if the parsed response matches the expected JSON schema."""
+        if not isinstance(parsed_response, dict):
+            return False
+
+        # Check required fields exist
+        required_fields = [
+            "is_vulnerable",
+            "cwe_type",
+            "vulnerable_functions",
+            "vulnerable_lines",
+        ]
+        if not all(field in parsed_response for field in required_fields):
+            return False
+
+        # Check is_vulnerable is boolean
+        if not isinstance(parsed_response["is_vulnerable"], bool):
+            return False
+
+        # Check cwe_type is a list
+        if not isinstance(parsed_response["cwe_type"], list):
+            return False
+
+        # Check vulnerable_functions is a dict with string keys and list values
+        if not isinstance(parsed_response["vulnerable_functions"], dict):
+            return False
+        for key, value in parsed_response["vulnerable_functions"].items():
+            if not isinstance(key, str) or not isinstance(value, list):
+                return False
+
+        # Check vulnerable_lines is a dict with string keys and list values
+        if not isinstance(parsed_response["vulnerable_lines"], dict):
+            return False
+        for key, value in parsed_response["vulnerable_lines"].items():
+            if not isinstance(key, str) or not isinstance(value, list):
+                return False
+            # Check that line numbers are integers
+            if not all(isinstance(line, int) for line in value):
+                return False
+
+        return True
+
     def calculate_sample_metrics(self, sample: Dict) -> Dict[str, Any]:
         """Calculate all metrics for a single sample."""
         metrics = {}
@@ -133,11 +175,20 @@ class RustMizanMultiExperimentAnalyzer:
         metrics["granularity"] = sample["granularity"]
         metrics["reference_is_vulnerable"] = sample["is_vulnerable"]
 
-        # JSON validity
-        metrics["json_validity"] = sample["scores"].get("json_validity", 0)
+        # JSON validity - first check original validity, then schema validation
+        original_json_validity = sample["scores"].get("json_validity", 0)
+        parsed_response = sample["outputs"].get("parsed_response")
+
+        # Additional schema validation
+        if original_json_validity == 1 and parsed_response is not None:
+            schema_valid = self.validate_json_schema(parsed_response)
+        else:
+            schema_valid = False
+
+        # Final json_validity is only true if both original parsing and schema validation pass
+        metrics["json_validity"] = int(original_json_validity == 1 and schema_valid)
 
         # Check if we have a valid parsed response
-        parsed_response = sample["outputs"].get("parsed_response")
         reference = sample["reference_outputs"]
 
         if parsed_response is None or metrics["json_validity"] == 0:
