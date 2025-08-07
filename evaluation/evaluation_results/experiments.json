@@ -70,13 +70,13 @@
         "mizan-mut-trait-bound-reorder": "bacddc3a",
         "mizan-mut-use-reorder": "7fc363b6",
         "mizan-mut-while-to-loop": "27aa3c6f",
-        "benign-blocks": "",
-        "benign-comments": "",
-        "benign-rename-fn": "",
-        "benign-rename-var": "",
-        "malignant-blocks": "",
-        "malignant-comments": "",
-        "malignant-rename-fn": "",
-        "malignant-rename-var": ""
+        "benign-blocks": "943682d4",
+        "benign-comments": "e9a78380",
+        "benign-rename-fn": "c516f7c9",
+        "benign-rename-var": "dad40458",
+        "malignant-blocks": "6b774221",
+        "malignant-comments": "a2604c3f",
+        "malignant-rename-fn": "4ae9f7bc",
+        "malignant-rename-var": "edd25ec0"
     }
 }
