@@ -15,11 +15,8 @@ python common/vulnerability_utils.py;
 python scripts/process_experiments.py;
 python scripts/generate_vanilla_analysis.py;
 python scripts/generate_granularity_analysis.py;
-python scripts/generate_hit_at_1_analysis.py;
-python scripts/generate_transformation_analysis.py;
-
-# Generate compact hit@1 table with real CVE/CWE data
 python scripts/generate_compact_hit_at_1_table.py;
+python scripts/generate_transformation_analysis.py;
 
 # After generating tables with the scripts above, convert them to LaTeX format:
 cd latex_formatters/
@@ -27,12 +24,6 @@ python csv_to_latex.py
 ```
 
 ## LaTeX Formatting Notes
-
-### Table 7.2 Hit@1-Function Analysis
-
-- Shows actual hit counts vs total vulnerable functions: "2/3", "0/1", etc.
-- Successful hits should be colored green in LaTeX
-- Zero hits should be colored red in LaTeX
 
 ### Transformation Impact Table
 

@@ -80,80 +80,6 @@ def format_vanilla_performance_table():
     print(f"LaTeX table generated: {output_path}")
 
 
-def format_hit_at_1_table():
-    """Convert hit@1 detailed CSV to LaTeX format"""
-
-    # Read the CSV file
-    csv_path = "../tables/table_7_2_hit_at_1_detailed.csv"
-    df = pd.read_csv(csv_path)
-
-    # Extract vulnerability ID from Sample ID
-    df["Vuln_ID"] = df["Sample ID"].str.extract(r"(vuln-\d+)")
-
-    # Define model order: GPT, Gemini, Claude, DeepSeek
-    model_order = ["GPT-4.1", "Gemini 1.5 Pro", "Claude 3.7 Sonnet", "DeepSeek-V3.1"]
-    model_columns = [col for col in model_order if col in df.columns]
-
-    # Create LaTeX table
-    latex_content = []
-    latex_content.append("\\begin{table*}[tp]")
-    latex_content.append("\\centering")
-    latex_content.append(
-        "\\caption{Hit@1-Function success rates per sample across models and granularities}"
-    )
-    latex_content.append("\\label{tab:hit_at_1}")
-    latex_content.append("\\tiny")
-    latex_content.append("\\begin{tabular}{llcccc}")
-    latex_content.append("\\toprule")
-
-    # Headers
-    headers = ["\\textbf{Vulnerability ID}", "\\textbf{Granularity}"]
-    for model in model_columns:
-        headers.append(f"\\textbf{{{model}}}")
-    latex_content.append(" & ".join(headers) + " \\\\")
-    latex_content.append("\\midrule")
-
-    # Group by vulnerability ID and process rows
-    current_vuln_id = None
-    for _, row in df.iterrows():
-        vuln_id = row["Vuln_ID"]
-
-        # Add spacing between different vulnerability groups
-        if current_vuln_id is not None and current_vuln_id != vuln_id:
-            latex_content.append("\\addlinespace[2pt]")
-        current_vuln_id = vuln_id
-
-        # Build row data
-        row_data = [vuln_id, row["Granularity"]]
-
-        for model in model_columns:
-            hit_data = row[model]  # Format like "1/3" or "0/1"
-
-            if "/" in str(hit_data):
-                hits, _ = map(int, str(hit_data).split("/"))
-                if hits > 0:
-                    symbol = "\\textcolor{green}{\\checkmark}"
-                else:
-                    symbol = "\\textcolor{red}{\\texttimes}"
-                row_data.append(symbol)
-            else:
-                # Fallback for unexpected format
-                row_data.append(str(hit_data))
-
-        latex_content.append(" & ".join(row_data) + " \\\\")
-
-    latex_content.append("\\bottomrule")
-    latex_content.append("\\end{tabular}")
-    latex_content.append("\\end{table*}")
-
-    # Write to LaTeX file
-    output_path = "../latex/hit_at_1_generated.tex"
-    with open(output_path, "w") as f:
-        f.write("\n".join(latex_content))
-
-    print(f"LaTeX table generated: {output_path}")
-
-
 def format_transformation_impact_table():
     """Convert transformation impact CSV to LaTeX format"""
 
@@ -323,5 +249,4 @@ def format_transformation_impact_table():
 
 if __name__ == "__main__":
     format_vanilla_performance_table()
-    format_hit_at_1_table()
     format_transformation_impact_table()
