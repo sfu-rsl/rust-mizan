@@ -1,0 +1,17 @@
+{
+  "experiment_id": "e9a78380",
+  "experiment_name": "mizan-deepseek-deepseek-chat-20250806_101851",
+  "provider": "deepseek",
+  "model": "deepseek-chat",
+  "temperature": 0.0,
+  "created_at": "2025-08-06T11:21:32.219076",
+  "total_examples": 173,
+  "mutations_metadata": {
+    "mutations_applied": [
+      "benign-comments"
+    ],
+    "skipped": {},
+    "partial_mutations": {},
+    "timestamp": "2025-07-25T19:03:06.229401"
+  }
+}

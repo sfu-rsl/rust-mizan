@@ -1,0 +1,109 @@
+\begin{table*}[tp]
+\centering
+\caption{Hit@1-Function success rates per sample across models and granularities}
+\label{tab:hit_at_1}
+\tiny
+\begin{tabular}{llcccc}
+\toprule
+\textbf{Vulnerability ID} & \textbf{Granularity} & \textbf{GPT-4.1} & \textbf{Gemini 1.5 Pro} & \textbf{Claude 3.7 Sonnet} & \textbf{DeepSeek-V3.1} \\
+\midrule
+vuln-0001 & file & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0001 & function & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+\addlinespace[2pt]
+vuln-0002 & function & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0003 & crate & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+vuln-0003 & file & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+vuln-0003 & function & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+\addlinespace[2pt]
+vuln-0004 & file & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+vuln-0004 & function & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} \\
+\addlinespace[2pt]
+vuln-0005 & file & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0005 & function & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0006 & crate & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+vuln-0006 & file & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+vuln-0006 & function & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0007 & crate & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} \\
+vuln-0007 & file & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+vuln-0007 & function & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+\addlinespace[2pt]
+vuln-0008 & crate & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0008 & function & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0009 & crate & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+vuln-0009 & file & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+vuln-0009 & function & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+\addlinespace[2pt]
+vuln-0011 & crate & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0011 & function & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0012 & crate & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0012 & file & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0012 & function & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0013 & function & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0014 & crate & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+vuln-0014 & file & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+vuln-0014 & function & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+\addlinespace[2pt]
+vuln-0015 & crate & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0015 & function & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0016 & crate & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0016 & function & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0017 & crate & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0017 & function & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0018 & function & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0019 & function & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0020 & function & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0021 & file & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0021 & function & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0022 & file & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0022 & function & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0023 & file & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0023 & function & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0024 & crate & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+vuln-0024 & function & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+\addlinespace[2pt]
+vuln-0025 & crate & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+vuln-0025 & function & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+\addlinespace[2pt]
+vuln-0026 & file & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0027 & file & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0028 & crate & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0028 & function & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0029 & crate & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0029 & function & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0038 & crate & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0038 & function & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0039 & crate & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0039 & function & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0040 & crate & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+vuln-0040 & function & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+\addlinespace[2pt]
+vuln-0041 & crate & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} \\
+vuln-0041 & function & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} & \textcolor{green}{\checkmark} \\
+\addlinespace[2pt]
+vuln-0042 & crate & \textcolor{red}{\texttimes} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+vuln-0042 & file & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} & \textcolor{green}{\checkmark} & \textcolor{red}{\texttimes} \\
+\bottomrule
+\end{tabular}
+\end{table*}

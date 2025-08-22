@@ -1,0 +1,32 @@
+{
+  "experiment_id": "ff983d04",
+  "experiment_name": "mizan-gemini-gemini-1.5-pro-20250806_054601",
+  "provider": "gemini",
+  "model": "gemini-1.5-pro",
+  "temperature": 0.0,
+  "created_at": "2025-08-06T06:18:03.637665",
+  "total_examples": 173,
+  "mutations_metadata": {
+    "mutations_applied": [
+      "malignant-rename-var"
+    ],
+    "skipped": {
+      "malignant-rename-var": [
+        "vuln-0003/sample-00003-file",
+        "vuln-0004/sample-00004-crate",
+        "vuln-0004/sample-00004-function",
+        "vuln-0006/sample-00006-crate",
+        "vuln-0006/sample-00006-file",
+        "vuln-0006/sample-00006-function",
+        "vuln-0007/sample-00007-crate",
+        "vuln-0007/sample-00007-file",
+        "vuln-0007/sample-00007-function",
+        "vuln-0014/sample-00014-crate",
+        "vuln-0027/sample-00027-crate",
+        "vuln-0027/sample-00027-file"
+      ]
+    },
+    "partial_mutations": {},
+    "timestamp": "2025-07-25T19:28:44.575832"
+  }
+}

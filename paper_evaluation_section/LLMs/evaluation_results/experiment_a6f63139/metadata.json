@@ -1,0 +1,17 @@
+{
+  "experiment_id": "a6f63139",
+  "experiment_name": "mizan-anthropic-claude-3-7-sonnet-20250219-20250729_034615",
+  "provider": "anthropic",
+  "model": "claude-3-7-sonnet-20250219",
+  "temperature": 0.0,
+  "created_at": "2025-07-29T04:19:15.281214",
+  "total_examples": 173,
+  "mutations_metadata": {
+    "mutations_applied": [
+      "benign-comments"
+    ],
+    "skipped": {},
+    "partial_mutations": {},
+    "timestamp": "2025-07-25T19:03:06.229401"
+  }
+}

@@ -1,0 +1,21 @@
+[package]
+name = "kani_poc"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# CVE-2020-25791: Out-of-bounds write vulnerability in sized-chunks 
+# Vulnerable samples
+sample-00018-crate = { path = "../../../samples/vuln-0018/sample-00018-crate" }
+sample-00018-file = { path = "../../../samples/vuln-0018/sample-00018-file" }
+sample-00018-function = { path = "../../../samples/vuln-0018/sample-00018-function" }
+# Fixed samples  
+sample-10018-crate = { path = "../../../samples/vuln-0018/sample-10018-crate" }
+sample-10018-file = { path = "../../../samples/vuln-0018/sample-10018-file" }
+sample-10018-function = { path = "../../../samples/vuln-0018/sample-10018-function" }
+
+
+typenum = "1.18"
+
+# Empty workspace to avoid conflict with parent
+[workspace]

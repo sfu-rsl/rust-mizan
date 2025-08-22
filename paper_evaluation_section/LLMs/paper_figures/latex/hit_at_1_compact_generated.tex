@@ -1,0 +1,338 @@
+% Template for vulnerability detection hit@1 table
+
+%-----------------------------------------------------------
+% Define new column type for centered columns
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+%-----------------------------------------------------------
+% Define colors (using RGB or HTML formats)
+\definecolor{verylightgreennew}{RGB}{220,255,220}
+\definecolor{verylightrednew}{RGB}{255,230,230}
+\definecolor{verylightreddarker}{HTML}{FFCBCB}
+\definecolor{lightgraynew}{rgb}{0.95,0.95,0.95}
+\definecolor{newgray}{RGB}{77,77,77}
+\definecolor{greencm}{RGB}{0,153,0}
+\definecolor{googleblue}{HTML}{4285F4}
+\definecolor{googlered}{HTML}{DB4437}
+\definecolor{googlegreen}{HTML}{0F9D58}
+\definecolor{googleorange}{HTML}{FBBC05}
+
+%-----------------------------------------------------------
+% Cell size definitions
+\newcommand{\cellsz}{0.40cm} 
+\newcommand{\cellszlg}{0.50cm} 
+\newcommand{\cellszsm}{0.40cm} 
+
+%-----------------------------------------------------------
+% Check and cross mark commands
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+% Redefine shorthand commands for table cells
+\renewcommand{\cm}{{\color{greencm}\normalsize\cmark}}
+\renewcommand{\cmgray}{{\color{lightgraynew}\normalsize\cmark}}
+\renewcommand{\xm}{{\color{verylightreddarker}\normalsize\xmark}}
+
+% Spacing rules for vertical alignment in cells
+\newcommand\BBBBB{\rule[1.6ex]{0pt}{1.6ex}}
+\newcommand\BBBnew{\rule[-2.5ex]{0pt}{0pt}}
+\newcommand\BBBBBB{\rule[-1.1ex]{0pt}{0pt}}
+
+% A simple command to render vulnerability IDs
+\newcommand{\vulnId}[1]{{\sf #1}}
+
+% Commands to fill a cell with a "yes" or "no" mark and a background color:
+\newcommand{\cellsomewhat}{\BBBBB \cmgray \cellcolor{verylightgreennew}}
+\newcommand{\cellno}{\BBBBB \xm \cellcolor{verylightrednew}}
+\newcommand{\cellyes}{\BBBBB \cm \cellcolor{verylightgreennew}}
+\newcommand{\cellna}{\BBBBB \cellcolor{lightgraynew}}
+
+\begin{table*}[t!]
+\vspace{3mm}
+\centering
+\def\arraystretch{1.2}
+\scriptsize
+
+% Resize the entire table to the text width
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{P{2mm} l l l !{\vrule width 0.8pt} 
+                % GPT-4.1 group: 3 columns (crate, file, function)
+                P{\cellszlg} P{\cellszlg} P{\cellszlg} 
+                !{\vrule width 0.6pt} 
+                % Gemini group: 3 columns
+                P{\cellszlg} P{\cellszlg} P{\cellszlg}  
+                !{\vrule width 0.6pt} 
+                % Claude group: 3 columns
+                P{\cellszsm} P{\cellszsm} P{\cellszsm} 
+                !{\vrule width 0.6pt}
+                % DeepSeek group: 3 columns
+                P{\cellszsm} P{\cellszsm} P{\cellszsm}
+                !{\vrule width 0.8pt} @{}}
+%------------------------------------------------------------------
+% Header rows
+& \multicolumn{1}{c}{\textbf{Vulnerability ID}} & \multicolumn{1}{c}{\textbf{CWE}} & 
+& \multicolumn{3}{c!{\vrule width 0.6pt}}{\textsc{\bfseries\scshape GPT-4.1}} 
+& \multicolumn{3}{c!{\vrule width 0.6pt}}{\textsc{\bfseries\scshape Gemini 1.5 Pro}} 
+& \multicolumn{3}{c!{\vrule width 0.6pt}}{\textsc{\bfseries\scshape Claude 3.7}} 
+& \multicolumn{3}{c!{\vrule width 0.8pt}}{\textsc{\bfseries\scshape DeepSeek}} \\
+& & & 
+& \rotatebox{90}{\textbf{C}} 
+& \rotatebox{90}{\textbf{Fi}} 
+& \rotatebox{90}{\textbf{Fu}} 
+& \rotatebox{90}{\textbf{C}} 
+& \rotatebox{90}{\textbf{Fi}}  
+& \rotatebox{90}{\textbf{Fu}} 
+& \rotatebox{90}{\textbf{C}} 
+& \rotatebox{90}{\textbf{Fi}} 
+& \rotatebox{90}{\textbf{Fu}}
+& \rotatebox{90}{\textbf{C}} 
+& \rotatebox{90}{\textbf{Fi}} 
+& \rotatebox{90}{\textbf{Fu}} \\
+\noalign{\hrule height 0.8pt}
+%------------------------------------------------------------------
+% Data rows - will be filled by script
+% Row for vuln-0001
+& \vulnId{CVE-2019-16140} & CWE-416 & 
+& \cellna & \cellno & \cellyes 
+& \cellna & \cellno & \cellyes 
+& \cellna & \cellno & \cellno 
+& \cellna & \cellno & \cellyes \\
+\hline
+% Row for vuln-0002
+& \vulnId{CVE-2020-35711} & CWE-416 & 
+& \cellna & \cellna & \cellyes 
+& \cellna & \cellna & \cellno 
+& \cellna & \cellna & \cellyes 
+& \cellna & \cellna & \cellno \\
+\hline
+% Row for vuln-0003
+& \vulnId{CVE-2018-21000} & CWE-119 & 
+& \cellyes & \cellyes & \cellyes 
+& \cellyes & \cellyes & \cellyes 
+& \cellno & \cellno & \cellyes 
+& \cellno & \cellno & \cellyes \\
+\hline
+% Row for vuln-0004
+& \vulnId{CVE-2020-35891} & CWE-415 & 
+& \cellna & \cellyes & \cellno 
+& \cellna & \cellno & \cellno 
+& \cellna & \cellno & \cellyes 
+& \cellna & \cellno & \cellyes \\
+\hline
+% Row for vuln-0005
+& \vulnId{CVE-2020-35916} & CWE-400 & 
+& \cellna & \cellno & \cellyes 
+& \cellna & \cellno & \cellyes 
+& \cellna & \cellno & \cellyes 
+& \cellna & \cellno & \cellno \\
+\hline
+% Row for vuln-0006
+& \vulnId{CVE-2021-25900} & CWE-787 & 
+& \cellyes & \cellyes & \cellyes 
+& \cellno & \cellno & \cellno 
+& \cellno & \cellno & \cellno 
+& \cellno & \cellno & \cellno \\
+\hline
+% Row for vuln-0007
+& \vulnId{CVE-2020-35890} & CWE-125 & 
+& \cellno & \cellyes & \cellyes 
+& \cellno & \cellno & \cellyes 
+& \cellno & \cellno & \cellno 
+& \cellyes & \cellyes & \cellyes \\
+\hline
+% Row for vuln-0008
+& \vulnId{CVE-2020-35925} & CWE-362 & 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno \\
+\hline
+% Row for vuln-0009
+& \vulnId{CVE-2020-36432} & CWE-908 & 
+& \cellyes & \cellyes & \cellyes 
+& \cellyes & \cellyes & \cellyes 
+& \cellno & \cellyes & \cellyes 
+& \cellyes & \cellno & \cellyes \\
+\hline
+% Row for vuln-0010
+& \vulnId{CVE-2020-36204} & CWE-362 & 
+& \cellna & \cellna & \cellna 
+& \cellna & \cellna & \cellna 
+& \cellna & \cellna & \cellna 
+& \cellna & \cellna & \cellna \\
+\hline
+% Row for vuln-0011
+& \vulnId{RUSTSEC-2025-0019} & CWE-672 & 
+& \cellno & \cellna & \cellyes 
+& \cellno & \cellna & \cellno 
+& \cellyes & \cellna & \cellyes 
+& \cellno & \cellna & \cellno \\
+\hline
+% Row for vuln-0012
+& \vulnId{CVE-2020-36215} & CWE-662 & 
+& \cellno & \cellno & \cellno 
+& \cellno & \cellno & \cellno 
+& \cellno & \cellno & \cellno 
+& \cellno & \cellno & \cellno \\
+\hline
+% Row for vuln-0013
+& \vulnId{CVE-2020-35862} & CWE-415 & 
+& \cellna & \cellna & \cellno 
+& \cellna & \cellna & \cellno 
+& \cellna & \cellna & \cellno 
+& \cellna & \cellna & \cellno \\
+\hline
+% Row for vuln-0014
+& \vulnId{RUSTSEC-2025-0032} & CWE-122 & 
+& \cellyes & \cellyes & \cellyes 
+& \cellyes & \cellyes & \cellyes 
+& \cellyes & \cellyes & \cellyes 
+& \cellyes & \cellyes & \cellyes \\
+\hline
+% Row for vuln-0015
+& \vulnId{CVE-2020-35886} & CWE-362 & 
+& \cellno & \cellna & \cellno 
+& \cellyes & \cellna & \cellno 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno \\
+\hline
+% Row for vuln-0016
+& \vulnId{CVE-2020-35887} & CWE-120 & 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno \\
+\hline
+% Row for vuln-0017
+& \vulnId{CVE-2020-35888} & CWE-908 & 
+& \cellno & \cellna & \cellyes 
+& \cellno & \cellna & \cellyes 
+& \cellno & \cellna & \cellyes 
+& \cellno & \cellna & \cellno \\
+\hline
+% Row for vuln-0018
+& \vulnId{CVE-2020-25791} & CWE-129 & 
+& \cellna & \cellna & \cellno 
+& \cellna & \cellna & \cellno 
+& \cellna & \cellna & \cellyes 
+& \cellna & \cellna & \cellno \\
+\hline
+% Row for vuln-0019
+& \vulnId{CVE-2020-25792} & CWE-129 & 
+& \cellna & \cellna & \cellno 
+& \cellna & \cellna & \cellyes 
+& \cellna & \cellna & \cellyes 
+& \cellna & \cellna & \cellno \\
+\hline
+% Row for vuln-0020
+& \vulnId{CVE-2020-25793} & CWE-129 & 
+& \cellna & \cellna & \cellno 
+& \cellna & \cellna & \cellno 
+& \cellna & \cellna & \cellno 
+& \cellna & \cellna & \cellno \\
+\hline
+% Row for vuln-0021
+& \vulnId{CVE-2020-25794} & CWE-401 & 
+& \cellna & \cellno & \cellyes 
+& \cellna & \cellno & \cellno 
+& \cellna & \cellno & \cellyes 
+& \cellna & \cellno & \cellno \\
+\hline
+% Row for vuln-0022
+& \vulnId{CVE-2020-25795} & CWE-401 & 
+& \cellna & \cellno & \cellno 
+& \cellna & \cellno & \cellno 
+& \cellna & \cellno & \cellno 
+& \cellna & \cellno & \cellno \\
+\hline
+% Row for vuln-0023
+& \vulnId{CVE-2020-25796} & CWE-129 & 
+& \cellna & \cellno & \cellno 
+& \cellna & \cellno & \cellno 
+& \cellna & \cellyes & \cellyes 
+& \cellna & \cellno & \cellno \\
+\hline
+% Row for vuln-0024
+& \vulnId{CVE-2020-35892} & CWE-125 & 
+& \cellyes & \cellna & \cellyes 
+& \cellyes & \cellna & \cellyes 
+& \cellyes & \cellna & \cellyes 
+& \cellyes & \cellna & \cellyes \\
+\hline
+% Row for vuln-0025
+& \vulnId{CVE-2020-35893} & CWE-193 & 
+& \cellyes & \cellna & \cellyes 
+& \cellyes & \cellna & \cellyes 
+& \cellyes & \cellna & \cellyes 
+& \cellyes & \cellna & \cellyes \\
+\hline
+% Row for vuln-0026
+& \vulnId{CVE-2023-50711} & CWE-787 & 
+& \cellna & \cellno & \cellna 
+& \cellna & \cellno & \cellna 
+& \cellna & \cellyes & \cellna 
+& \cellna & \cellno & \cellna \\
+\hline
+% Row for vuln-0027
+& \vulnId{CVE-2018-20992} & CWE-908 & 
+& \cellna & \cellno & \cellna 
+& \cellna & \cellno & \cellna 
+& \cellna & \cellno & \cellna 
+& \cellna & \cellno & \cellna \\
+\hline
+% Row for vuln-0028
+& \vulnId{CVE-2019-16141} & CWE-20 & 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno \\
+\hline
+% Row for vuln-0029
+& \vulnId{RUSTSEC-2025-0016} & CWE-416 & 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellno \\
+\hline
+% Row for vuln-0038
+& \vulnId{RUSTSEC-2025-0033} & CWE-125 & 
+& \cellno & \cellna & \cellyes 
+& \cellno & \cellna & \cellyes 
+& \cellno & \cellna & \cellyes 
+& \cellno & \cellna & \cellno \\
+\hline
+% Row for vuln-0039
+& \vulnId{CVE-2019-15554} & CWE-787 & 
+& \cellno & \cellna & \cellyes 
+& \cellyes & \cellna & \cellno 
+& \cellno & \cellna & \cellyes 
+& \cellno & \cellna & \cellno \\
+\hline
+% Row for vuln-0040
+& \vulnId{RUSTSEC-2025-0027} & CWE-119 & 
+& \cellyes & \cellna & \cellno 
+& \cellno & \cellna & \cellno 
+& \cellyes & \cellna & \cellno 
+& \cellno & \cellna & \cellno \\
+\hline
+% Row for vuln-0041
+& \vulnId{RUSTSEC-2025-0018} & CWE-125 & 
+& \cellno & \cellna & \cellyes 
+& \cellyes & \cellna & \cellyes 
+& \cellyes & \cellna & \cellyes 
+& \cellno & \cellna & \cellyes \\
+\hline
+% Row for vuln-0042
+& \vulnId{RUSTSEC-2025-0003} & CWE-119 & 
+& \cellyes & \cellyes & \cellna 
+& \cellno & \cellyes & \cellna 
+& \cellno & \cellno & \cellna 
+& \cellno & \cellno & \cellna \\
+\hline
+\noalign{\hrule height 0.7pt}
+\end{tabular}%
+} % end resizebox
+\caption{Hit@1 vulnerability detection success rates across models and granularities. Each cell shows whether the model successfully detected the vulnerability at the specified granularity level (\underline{C}rate, \underline{Fi}le, or \underline{Fu}nction).}
+\label{table:vulnerability-detection-compact}
+\vspace{-3mm}
+\end{table*}
