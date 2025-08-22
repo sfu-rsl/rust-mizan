@@ -1,5 +1,4 @@
 import sys
-import pandas as pd
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
@@ -8,29 +7,27 @@ from common.data_utils import get_vanilla_experiment_ids, get_ordered_models
 from common.metrics import compute_experiment_metrics, compute_aggregate_metrics
 
 
-def generate_latex_table(metrics_data):
-    latex_content = [
-        "\\begin{table}[htbp]",
-        "\\centering", 
-        "\\caption{Overall LLM performance on vanilla RustMizan dataset}",
-        "\\label{tab:vanilla_performance}",
-        "\\begin{tabular}{lccccc}",
-        "\\toprule",
-        "\\textbf{Model} & \\textbf{Binary Acc.} & \\textbf{CWE F1} & \\textbf{Function F1} & \\textbf{Line F1} & \\textbf{Hit@1-Func} \\\\",
-        "\\midrule"
+def generate_table_rows(metrics_data):
+    metrics_order = [
+        ("Binary Accuracy", "Binary Acc."),
+        ("CWE F1", "CWE F1"),
+        ("Function F1", "Function F1"),
+        ("Line F1", "Line F1"),
+        ("Hit@1-Function", "Hit@1-Func"),
+        ("Hit@1-Line", "Hit@1-Line"),
     ]
-    
-    for metric in metrics_data:
-        row = f"{metric['Model']} & {metric['Binary Accuracy']} & {metric['CWE F1']} & {metric['Function F1']} & {metric['Line F1']} & {metric['Hit@1-Function']} \\\\"
-        latex_content.append(row)
-    
-    latex_content.extend([
-        "\\bottomrule",
-        "\\end{tabular}",
-        "\\end{table}"
-    ])
-    
-    return "\n".join(latex_content)
+
+    table_rows = []
+    for metric_key, metric_display in metrics_order:
+        row_parts = [metric_display]
+
+        for model_data in metrics_data:
+            value = model_data[metric_key]
+            row_parts.append(value)
+
+        table_rows.append(" & ".join(row_parts) + " \\\\")
+
+    return "\n".join(table_rows)
 
 
 def main():
@@ -49,14 +46,17 @@ def main():
     metrics_list = []
     for i, all_metric in enumerate(all_metrics):
         vuln_metric = vuln_metrics[i]
-        metrics_list.append({
-            "Model": all_metric["Model"],
-            "Binary Accuracy": f"{all_metric['Binary Accuracy']:.3f}",
-            "CWE F1": f"{all_metric['CWE F1']:.3f}",
-            "Function F1": f"{all_metric['Function F1']:.3f}",
-            "Line F1": f"{all_metric['Line F1']:.3f}",
-            "Hit@1-Function": f"{vuln_metric['Hit@1-Function']:.3f} ({vuln_metric['Hit@1-Function Hits']}/{vuln_metric['Hit@1-Function Total']})"
-        })
+        metrics_list.append(
+            {
+                "Model": all_metric["Model"],
+                "Binary Accuracy": f"{all_metric['Binary Accuracy']:.3f}",
+                "CWE F1": f"{all_metric['CWE F1']:.3f}",
+                "Function F1": f"{all_metric['Function F1']:.3f}",
+                "Line F1": f"{all_metric['Line F1']:.3f}",
+                "Hit@1-Function": f"{vuln_metric['Hit@1-Function']*100:.1f}\\% ({vuln_metric['Hit@1-Function Hits']}/{vuln_metric['Hit@1-Function Total']})",
+                "Hit@1-Line": f"{vuln_metric['Hit@1-Line']*100:.1f}\\% ({vuln_metric['Hit@1-Line Hits']}/{vuln_metric['Hit@1-Line Total']})",
+            }
+        )
 
     ordered_metrics = []
     available_models = [m["Model"] for m in metrics_list]
@@ -66,10 +66,16 @@ def main():
                 ordered_metrics.append(metric)
                 break
 
-    latex_content = generate_latex_table(ordered_metrics)
+    template_path = current_dir / "latex" / "TEMPLATE_vanilla_performance.tex"
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_content = f.read()
+
+    table_rows = generate_table_rows(ordered_metrics)
+    final_content = template_content.replace("{TABLE_ROWS}", table_rows)
+
     output_path = latex_dir / "vanilla_performance_generated.tex"
-    with open(output_path, "w") as f:
-        f.write(latex_content)
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(final_content)
 
 
 if __name__ == "__main__":

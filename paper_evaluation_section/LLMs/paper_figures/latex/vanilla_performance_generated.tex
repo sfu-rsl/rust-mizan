@@ -2,14 +2,16 @@
 \centering
 \caption{Overall LLM performance on vanilla RustMizan dataset}
 \label{tab:vanilla_performance}
-\begin{tabular}{lccccc}
+\begin{tabular}{lcccc}
 \toprule
-\textbf{Model} & \textbf{Binary Acc.} & \textbf{CWE F1} & \textbf{Function F1} & \textbf{Line F1} & \textbf{Hit@1-Func} \\
+\textbf{Metric} & \textbf{GPT-4.1} & \textbf{Gemini 1.5 Pro} & \textbf{Claude 3.7 Sonnet} & \textbf{DeepSeek-V3.1} \\
 \midrule
-GPT-4.1 & 0.590 & 0.115 & 0.169 & 0.185 & 0.369 (24/65) \\
-Gemini 1.5 Pro & 0.632 & 0.102 & 0.126 & 0.109 & 0.415 (27/65) \\
-Claude 3.7 Sonnet & 0.581 & 0.099 & 0.205 & 0.132 & 0.477 (31/65) \\
-DeepSeek-V3.1 & 0.521 & 0.069 & 0.119 & 0.066 & 0.246 (16/65) \\
+Binary Acc. & 0.590 & 0.632 & 0.581 & 0.521 \\
+CWE F1 & 0.115 & 0.102 & 0.099 & 0.069 \\
+Function F1 & 0.169 & 0.126 & 0.205 & 0.119 \\
+Line F1 & 0.185 & 0.109 & 0.132 & 0.066 \\
+Hit@1-Func & 36.9\% (24/65) & 41.5\% (27/65) & 47.7\% (31/65) & 24.6\% (16/65) \\
+Hit@1-Line & 41.5\% (27/65) & 43.1\% (28/65) & 41.5\% (27/65) & 27.7\% (18/65) \\
 \bottomrule
 \end{tabular}
 \end{table}

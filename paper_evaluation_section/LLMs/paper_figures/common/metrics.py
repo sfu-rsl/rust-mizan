@@ -41,6 +41,10 @@ def hit_at_1_function_from_tp(tp: int) -> float:
     return 1.0 if tp > 0 else 0.0
 
 
+def hit_at_1_line_from_tp(tp: int) -> float:
+    return 1.0 if tp > 0 else 0.0
+
+
 def compute_all_sample_metrics(sample: Dict[str, Any]) -> Dict[str, Any]:
     predicted = sample["outputs"]["parsed_response"]
     actual = sample["reference_outputs"]
@@ -76,9 +80,14 @@ def compute_all_sample_metrics(sample: Dict[str, Any]) -> Dict[str, Any]:
 
     line_tp, line_fp, line_fn = compute_tp_fp_fn_sets(line_pred_set, line_actual_set)
 
-    # Hit@1-Function only applies to vulnerable samples
+    # Hit@1 metrics only apply to vulnerable samples
     is_vulnerable_sample = actual["is_vulnerable"]
-    hit_at_1_score = hit_at_1_function_from_tp(func_tp) if is_vulnerable_sample else 0.0
+    hit_at_1_function_score = (
+        hit_at_1_function_from_tp(func_tp) if is_vulnerable_sample else 0.0
+    )
+    hit_at_1_line_score = (
+        hit_at_1_line_from_tp(line_tp) if is_vulnerable_sample else 0.0
+    )
 
     return {
         "binary_accuracy": binary_accuracy(
@@ -96,7 +105,8 @@ def compute_all_sample_metrics(sample: Dict[str, Any]) -> Dict[str, Any]:
         "line_tp": line_tp,
         "line_fp": line_fp,
         "line_fn": line_fn,
-        "hit_at_1_function": hit_at_1_score,
+        "hit_at_1_function": hit_at_1_function_score,
+        "hit_at_1_line": hit_at_1_line_score,
     }
 
 
@@ -149,6 +159,9 @@ def compute_aggregate_metrics(
                     "Hit@1-Function": 0.0,
                     "Hit@1-Function Hits": 0,
                     "Hit@1-Function Total": 0,
+                    "Hit@1-Line": 0.0,
+                    "Hit@1-Line Hits": 0,
+                    "Hit@1-Line Total": 0,
                 }
             )
             continue
@@ -166,13 +179,19 @@ def compute_aggregate_metrics(
         line_fp_total = df["line_fp"].sum()
         line_fn_total = df["line_fn"].sum()
 
-        # Hit@1-Function only for vulnerable samples
+        # Hit@1 metrics only for vulnerable samples
         vuln_samples = df[df["is_vulnerable_gt"] == True]
-        hit_at_1_avg = (
+        hit_at_1_function_avg = (
             vuln_samples["hit_at_1_function"].mean() if len(vuln_samples) > 0 else 0.0
         )
-        hit_at_1_hits = (
+        hit_at_1_function_hits = (
             int(vuln_samples["hit_at_1_function"].sum()) if len(vuln_samples) > 0 else 0
+        )
+        hit_at_1_line_avg = (
+            vuln_samples["hit_at_1_line"].mean() if len(vuln_samples) > 0 else 0.0
+        )
+        hit_at_1_line_hits = (
+            int(vuln_samples["hit_at_1_line"].sum()) if len(vuln_samples) > 0 else 0
         )
         hit_at_1_total = len(vuln_samples)
 
@@ -190,9 +209,12 @@ def compute_aggregate_metrics(
                 "Line F1": f1_score_from_tp_fp_fn(
                     line_tp_total, line_fp_total, line_fn_total
                 ),
-                "Hit@1-Function": hit_at_1_avg,
-                "Hit@1-Function Hits": hit_at_1_hits,
+                "Hit@1-Function": hit_at_1_function_avg,
+                "Hit@1-Function Hits": hit_at_1_function_hits,
                 "Hit@1-Function Total": hit_at_1_total,
+                "Hit@1-Line": hit_at_1_line_avg,
+                "Hit@1-Line Hits": hit_at_1_line_hits,
+                "Hit@1-Line Total": hit_at_1_total,
             }
         )
 
@@ -228,22 +250,22 @@ def compute_aggregate_f1_from_dataframe(
 
 
 def compute_hit_at_1_function_from_dataframe(df: pd.DataFrame) -> float:
-    """
-    Compute hit@1-function score from a DataFrame.
-    Only considers vulnerable samples, returns mean hit@1-function score.
-
-    Args:
-        df: DataFrame containing hit_at_1_function and is_vulnerable_gt columns
-
-    Returns:
-        Hit@1-function score (0.0 if no vulnerable samples)
-    """
     if len(df) == 0:
         return 0.0
 
-    # Filter to vulnerable samples only
     vuln_df = df[df["is_vulnerable_gt"] == True]
     if len(vuln_df) == 0:
         return 0.0
 
     return vuln_df["hit_at_1_function"].mean()
+
+
+def compute_hit_at_1_line_from_dataframe(df: pd.DataFrame) -> float:
+    if len(df) == 0:
+        return 0.0
+
+    vuln_df = df[df["is_vulnerable_gt"] == True]
+    if len(vuln_df) == 0:
+        return 0.0
+
+    return vuln_df["hit_at_1_line"].mean()
