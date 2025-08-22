@@ -3,33 +3,19 @@
 ## Usage
 
 ```bash
-# Clean previous processed experiment results and figures
+# Clean previous processed experiment results
 find ../evaluation_results -name "processed_results.csv" -delete;
-rm -rf tables/ figures/;
-rm -rf latex_formatters/latex_tables/;
 
 # Generate vulnerability mapping (run once or when mizan.json changes)
 python common/vulnerability_utils.py;
 
-# Generate tables and figures
+# Generate LaTeX tables and figures
 python scripts/process_experiments.py;
 python scripts/generate_vanilla_analysis.py;
 python scripts/generate_granularity_analysis.py;
 python scripts/generate_compact_hit_at_1_table.py;
 python scripts/generate_transformation_analysis.py;
-
-# After generating tables with the scripts above, convert them to LaTeX format:
-cd latex_formatters/
-python csv_to_latex.py
 ```
-
-## LaTeX Formatting Notes
-
-### Transformation Impact Table
-
-- First row shows vanilla baseline values
-- All other rows show actual score and delta: "0.400 (+0.000)"
-- The value with the most negative delta should be colored red in LaTeX
 
 ## Statistical Decisions
 

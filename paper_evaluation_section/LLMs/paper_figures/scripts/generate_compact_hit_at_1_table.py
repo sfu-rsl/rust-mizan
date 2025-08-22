@@ -6,7 +6,7 @@ from typing import Dict
 
 sys.path.append(str(Path(__file__).parent.parent))
 
-from common.data_utils import get_vanilla_experiment_ids
+from common.data_utils import get_vanilla_experiment_ids, MODEL_ORDER
 from common.metrics import compute_experiment_metrics
 
 
@@ -22,12 +22,7 @@ def load_vulnerability_mapping() -> Dict[str, Dict[str, str]]:
 
 
 def get_hit_status(df: pd.DataFrame, vuln_id: str, granularity: str, model: str) -> str:
-    model_mapping = {
-        "Claude 3.7 Sonnet": "Claude 3.7 Sonnet",
-        "GPT-4.1": "GPT-4.1",
-        "Gemini 1.5 Pro": "Gemini 1.5 Pro",
-        "DeepSeek-V3.1": "DeepSeek-V3.1",
-    }
+    model_mapping = {model: model for model in MODEL_ORDER}
 
     actual_model_name = model_mapping.get(model, model)
 
@@ -91,7 +86,7 @@ def generate_compact_table() -> None:
     table_rows = generate_table_rows(experiment_data, vulnerability_mapping)
 
     current_dir = Path(__file__).parent.parent
-    template_path = current_dir / "latex_formatters" / "TEMPLATE_hit_at_1.tex"
+    template_path = current_dir / "latex" / "TEMPLATE_hit_at_1.tex"
 
     with open(template_path, "r", encoding="utf-8") as f:
         template_content = f.read()

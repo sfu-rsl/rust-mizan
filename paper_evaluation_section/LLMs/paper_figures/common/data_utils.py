@@ -10,17 +10,23 @@ def get_evaluation_results_path() -> Path:
     return repo_root / "paper_evaluation_section" / "LLMs" / "evaluation_results"
 
 
+MODEL_NAMES = {
+    "claude-3-7-sonnet": "Claude 3.7 Sonnet",
+    "gpt-4.1": "GPT-4.1", 
+    "gemini-1.5-pro": "Gemini 1.5 Pro",
+    "deepseek-chat": "DeepSeek-V3.1"
+}
+
+MODEL_ORDER = ["GPT-4.1", "Gemini 1.5 Pro", "Claude 3.7 Sonnet", "DeepSeek-V3.1"]
+
 def get_short_model_name(model_name: str) -> str:
-    if "claude-3-7-sonnet" in model_name:
-        return "Claude 3.7 Sonnet"
-    elif "gpt-4.1" in model_name:
-        return "GPT-4.1"
-    elif "gemini-1.5-pro" in model_name:
-        return "Gemini 1.5 Pro"
-    elif "deepseek-chat" in model_name:
-        return "DeepSeek-V3.1"
-    else:
-        return model_name
+    for key, value in MODEL_NAMES.items():
+        if key in model_name:
+            return value
+    return model_name
+
+def get_ordered_models(available_models: List[str]) -> List[str]:
+    return [model for model in MODEL_ORDER if model in available_models]
 
 
 def load_experiments_catalog() -> Dict[str, Dict[str, str]]:
