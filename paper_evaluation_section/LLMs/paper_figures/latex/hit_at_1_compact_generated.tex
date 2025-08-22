@@ -29,9 +29,9 @@
 \newcommand{\xmark}{\ding{55}}
 
 % Redefine shorthand commands for table cells
-\renewcommand{\cm}{{\color{greencm}\normalsize\cmark}}
-\renewcommand{\cmgray}{{\color{lightgraynew}\normalsize\cmark}}
-\renewcommand{\xm}{{\color{verylightreddarker}\normalsize\xmark}}
+\newcommand{\cm}{{\color{greencm}\normalsize\cmark}}
+\newcommand{\cmgray}{{\color{lightgraynew}\normalsize\cmark}}
+\newcommand{\xm}{{\color{verylightreddarker}\normalsize\xmark}}
 
 % Spacing rules for vertical alignment in cells
 \newcommand\BBBBB{\rule[1.6ex]{0pt}{1.6ex}}
@@ -70,12 +70,12 @@
                 !{\vrule width 0.8pt} @{}}
 %------------------------------------------------------------------
 % Header rows
-& \multicolumn{1}{c}{\textbf{Vulnerability ID}} & \multicolumn{1}{c}{\textbf{CWE}} & 
+& & & 
 & \multicolumn{3}{c!{\vrule width 0.6pt}}{\textsc{\bfseries\scshape GPT-4.1}} 
 & \multicolumn{3}{c!{\vrule width 0.6pt}}{\textsc{\bfseries\scshape Gemini 1.5 Pro}} 
 & \multicolumn{3}{c!{\vrule width 0.6pt}}{\textsc{\bfseries\scshape Claude 3.7}} 
-& \multicolumn{3}{c!{\vrule width 0.8pt}}{\textsc{\bfseries\scshape DeepSeek}} \\
-& & & 
+& \multicolumn{3}{c!{\vrule width 0.8pt}}{\textsc{\bfseries\scshape DeepSeek-V3.1}} \\
+& \multicolumn{1}{c}{\textbf{Vulnerability ID}} & \multicolumn{1}{c}{\textbf{CWE}} & 
 & \rotatebox{90}{\textbf{C}} 
 & \rotatebox{90}{\textbf{Fi}} 
 & \rotatebox{90}{\textbf{Fu}} 

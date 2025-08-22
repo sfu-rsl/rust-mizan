@@ -21,21 +21,6 @@ def load_vulnerability_mapping() -> Dict[str, Dict[str, str]]:
         return json.load(f)
 
 
-def get_model_short_names() -> Dict[str, str]:
-    return {
-        "claude-3-7-sonnet": "Claude 3.7",
-        "gpt-4.1": "GPT-4.1",
-        "gemini-1.5-pro": "Gemini 1.5 Pro",
-        "deepseek-chat": "DeepSeek",
-    }
-
-
-def format_cwe_for_latex(cwe: str, description: str) -> str:
-    if cwe == "Unknown":
-        return "Unknown"
-    return cwe
-
-
 def get_hit_status(df: pd.DataFrame, vuln_id: str, granularity: str, model: str) -> str:
     model_mapping = {
         "Claude 3.7 Sonnet": "Claude 3.7 Sonnet",
@@ -75,7 +60,7 @@ def generate_table_rows(
 
         vuln_info = vulnerability_mapping[vuln_id]
         cve_id = vuln_info["cve_id"]
-        cwe_info = format_cwe_for_latex(vuln_info["cwe"], vuln_info["description"])
+        cwe_info = vuln_info["cwe"]
 
         row_parts = [f"% Row for {vuln_id}"]
         row_parts.append(f"& \\vulnId{{{cve_id}}} & {cwe_info} & ")
