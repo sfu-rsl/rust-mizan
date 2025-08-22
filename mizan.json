@@ -3047,7 +3047,9 @@
         {
           "path_to_crate": "vuln-0041/sample-00041-crate",
           "is_vulnerability": true,
-          "cwe_type": [],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
             "src/hash.rs": [
               "pub fn get_bucket(&self, index: u32) -> u32",
@@ -3065,7 +3067,9 @@
         {
           "path_to_crate": "vuln-0041/sample-00041-function",
           "is_vulnerability": true,
-          "cwe_type": [],
+          "cwe_type": [
+            "CWE-125"
+          ],
           "vulnerable_functions": {
             "src/lib.rs": [
               "pub fn get_bucket(&self, index: u32) -> u32",
