@@ -8,7 +8,7 @@ from tqdm import tqdm
 sys.path.append(str(Path(__file__).parent.parent))
 
 from common.validation import validate_json_schema
-from common.metrics import compute_all_sample_metrics
+from common.metrics import compute_sample_metrics
 from common.data_utils import (
     load_experiments_catalog,
     load_experiment_results,
@@ -45,7 +45,7 @@ def process_single_experiment(
                 row_data["is_vulnerable_pred"] = parsed_response["is_vulnerable"]
                 row_data["cwe_types_pred"] = json.dumps(parsed_response["cwe_type"])
 
-                metrics = compute_all_sample_metrics(sample)
+                metrics = compute_sample_metrics(sample)
                 row_data.update(metrics)
 
         except Exception:
@@ -55,19 +55,17 @@ def process_single_experiment(
             row_data.update(
                 {
                     "binary_accuracy": 0.0,
-                    "cwe_f1": 0.0,
                     "cwe_tp": 0,
                     "cwe_fp": 0,
                     "cwe_fn": 0,
-                    "function_f1": 0.0,
                     "function_tp": 0,
                     "function_fp": 0,
                     "function_fn": 0,
-                    "line_f1": 0.0,
                     "line_tp": 0,
                     "line_fp": 0,
                     "line_fn": 0,
-                    "hit_at_1_function": 0.0,
+                    "success_at_1_function": 0.0,
+                    "success_at_1_line": 0.0,
                 }
             )
 

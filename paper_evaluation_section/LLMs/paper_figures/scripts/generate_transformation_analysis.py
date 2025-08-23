@@ -12,8 +12,8 @@ from common.data_utils import (
     get_ordered_models,
 )
 from common.metrics import (
-    compute_hit_at_1_function_from_dataframe,
-    compute_experiment_metrics,
+    compute_success_at_1_function_rate,
+    load_experiment_data,
     compute_aggregate_metrics,
 )
 
@@ -101,8 +101,8 @@ def compute_transformation_deltas(experiments_map):
                     trans_valid["example_id"].isin(common_samples)
                 ]
 
-                vanilla_score = compute_hit_at_1_function_from_dataframe(vanilla_common)
-                trans_score = compute_hit_at_1_function_from_dataframe(trans_common)
+                vanilla_score = compute_success_at_1_function_rate(vanilla_common)
+                trans_score = compute_success_at_1_function_rate(trans_common)
                 delta = trans_score - vanilla_score
 
                 delta_data.append(
@@ -211,12 +211,12 @@ def main():
     vanilla_experiments = get_vanilla_experiment_ids()
     experiment_ids = list(vanilla_experiments.values())
     model_names = list(vanilla_experiments.keys())
-    vanilla_data = compute_experiment_metrics(experiment_ids, model_names)
+    vanilla_data = load_experiment_data(experiment_ids, model_names)
     vanilla_metrics = compute_aggregate_metrics(vanilla_data, vulnerable_only=True)
 
     vanilla_baseline_scores = {}
     for metric in vanilla_metrics:
-        vanilla_baseline_scores[metric["Model"]] = metric["Hit@1-Function"]
+        vanilla_baseline_scores[metric["Model"]] = metric["Success@1-Function"]
 
     experiments_map = load_experiments_mapping()
     delta_df = compute_transformation_deltas(experiments_map)

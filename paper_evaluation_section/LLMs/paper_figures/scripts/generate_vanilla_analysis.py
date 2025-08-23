@@ -4,7 +4,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 from common.data_utils import get_vanilla_experiment_ids, get_ordered_models
-from common.metrics import compute_experiment_metrics, compute_aggregate_metrics
+from common.metrics import load_experiment_data, compute_aggregate_metrics
 
 
 def generate_table_rows(metrics_data):
@@ -13,8 +13,8 @@ def generate_table_rows(metrics_data):
         ("CWE F1", "CWE F1"),
         ("Function F1", "Function F1"),
         ("Line F1", "Line F1"),
-        ("Hit@1-Function", "Hit@1-Func"),
-        ("Hit@1-Line", "Hit@1-Line"),
+        ("Success@1-Function", "Success@1-Func"),
+        ("Success@1-Line", "Success@1-Line"),
     ]
 
     table_rows = []
@@ -39,7 +39,7 @@ def main():
     experiment_ids = list(vanilla_experiments.values())
     model_names = list(vanilla_experiments.keys())
 
-    experiment_data = compute_experiment_metrics(experiment_ids, model_names)
+    experiment_data = load_experiment_data(experiment_ids, model_names)
     all_metrics = compute_aggregate_metrics(experiment_data, vulnerable_only=False)
     vuln_metrics = compute_aggregate_metrics(experiment_data, vulnerable_only=True)
 
@@ -53,8 +53,8 @@ def main():
                 "CWE F1": f"{all_metric['CWE F1']:.3f}",
                 "Function F1": f"{all_metric['Function F1']:.3f}",
                 "Line F1": f"{all_metric['Line F1']:.3f}",
-                "Hit@1-Function": f"{vuln_metric['Hit@1-Function']*100:.1f}\\% ({vuln_metric['Hit@1-Function Hits']}/{vuln_metric['Hit@1-Function Total']})",
-                "Hit@1-Line": f"{vuln_metric['Hit@1-Line']*100:.1f}\\% ({vuln_metric['Hit@1-Line Hits']}/{vuln_metric['Hit@1-Line Total']})",
+                "Success@1-Function": f"{vuln_metric['Success@1-Function']*100:.1f}\\% ({vuln_metric['Success@1-Function Hits']}/{vuln_metric['Success@1-Function Total']})",
+                "Success@1-Line": f"{vuln_metric['Success@1-Line']*100:.1f}\\% ({vuln_metric['Success@1-Line Hits']}/{vuln_metric['Success@1-Line Total']})",
             }
         )
 

@@ -12,18 +12,20 @@ def get_evaluation_results_path() -> Path:
 
 MODEL_NAMES = {
     "claude-3-7-sonnet": "Claude 3.7 Sonnet",
-    "gpt-4.1": "GPT-4.1", 
+    "gpt-4.1": "GPT-4.1",
     "gemini-1.5-pro": "Gemini 1.5 Pro",
-    "deepseek-chat": "DeepSeek-V3.1"
+    "deepseek-chat": "DeepSeek-V3.1",
 }
 
 MODEL_ORDER = ["GPT-4.1", "Gemini 1.5 Pro", "Claude 3.7 Sonnet", "DeepSeek-V3.1"]
+
 
 def get_short_model_name(model_name: str) -> str:
     for key, value in MODEL_NAMES.items():
         if key in model_name:
             return value
     return model_name
+
 
 def get_ordered_models(available_models: List[str]) -> List[str]:
     return [model for model in MODEL_ORDER if model in available_models]

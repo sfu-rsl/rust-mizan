@@ -1,14 +1,37 @@
 import sys
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
 
-from common.data_utils import get_vanilla_experiment_ids
-from common.metrics import (
-    compute_experiment_metrics,
-    compute_aggregate_f1_from_dataframe,
+from common.data_utils import (
+    get_vanilla_experiment_ids,
+    get_short_model_name,
+    get_ordered_models,
+)
+from common.metrics import load_experiment_data, compute_micro_averaged_f1
+
+plt.style.use("default")
+plt.rcParams.update(
+    {
+        "font.size": 14,
+        "font.family": "serif",
+        "font.serif": ["Times New Roman", "DejaVu Serif"],
+        "axes.labelsize": 16,
+        "axes.titlesize": 18,
+        "xtick.labelsize": 14,
+        "ytick.labelsize": 14,
+        "legend.fontsize": 14,
+        "figure.titlesize": 20,
+        "axes.linewidth": 0.8,
+        "grid.alpha": 0.3,
+        "grid.linewidth": 0.5,
+        "pdf.fonttype": 42,
+        "ps.fonttype": 42,
+        "svg.fonttype": "none",
+    }
 )
 
 
@@ -18,71 +41,34 @@ def main():
     figures_dir.mkdir(exist_ok=True)
 
     vanilla_experiments = get_vanilla_experiment_ids()
+    experiment_ids = list(vanilla_experiments.values())
+    model_names = list(vanilla_experiments.keys())
 
-    # Define model order mapping: GPT, Gemini, Claude, DeepSeek
-    model_order_mapping = {
-        "gpt-4.1-2025-04-14": "GPT-4.1",
-        "gemini-1.5-pro": "Gemini 1.5 Pro",
-        "claude-3-7-sonnet-20250219": "Claude 3.7 Sonnet",
-        "deepseek-chat": "DeepSeek-V3.1",
-    }
+    experiment_data = load_experiment_data(experiment_ids, model_names)
 
-    # Reorder based on desired display order
-    desired_display_order = [
-        "GPT-4.1",
-        "Gemini 1.5 Pro",
-        "Claude 3.7 Sonnet",
-        "DeepSeek-V3.1",
-    ]
-
-    # Find the original keys that map to our desired order
-    experiment_ids = []
-    model_names = []
-    for display_name in desired_display_order:
-        for orig_key, mapped_name in model_order_mapping.items():
-            if mapped_name == display_name and orig_key in vanilla_experiments:
-                model_names.append(orig_key)
-                experiment_ids.append(vanilla_experiments[orig_key])
-                break
-
-    # Get common samples and compute metrics for all experiments
-    experiment_data = compute_experiment_metrics(experiment_ids, model_names)
-
-    # Generate Figure 7.1
     granularity_data = []
-
     for model_name, df in experiment_data.items():
-        # Map to display name - need to handle the shortened names from compute_experiment_metrics
-        if model_name == "Claude 3.7":
-            display_name = "Claude 3.7 Sonnet"
-        elif model_name == "DeepSeek":
-            display_name = "DeepSeek-V3.1"
-        else:
-            display_name = model_name
-
         for granularity in ["crate", "file", "function"]:
             gran_df = df[df["granularity"] == granularity]
             if len(gran_df) > 0:
-                # Use common function to compute aggregate F1 from filtered DataFrame
-                aggregated_f1 = compute_aggregate_f1_from_dataframe(gran_df, "function")
-
+                aggregated_f1 = compute_micro_averaged_f1(gran_df, "function")
                 granularity_data.append(
                     {
-                        "Model": display_name,
+                        "Model": get_short_model_name(model_name),
                         "Granularity": granularity,
-                        "Macro Vulnerable Function F1": aggregated_f1,
+                        "Micro-averaged Vulnerable Function F1": aggregated_f1,
                     }
                 )
 
     granularity_df = pd.DataFrame(granularity_data)
 
-    # Create bar plot
-    fig, ax = plt.subplots(figsize=(10, 6))
-
-    models = desired_display_order
+    fig, ax = plt.subplots(figsize=(12, 7))
+    palette = plt.get_cmap("tab10")
+    models = get_ordered_models(granularity_df["Model"].unique())
     granularities = ["crate", "file", "function"]
+    hatches = ["///", "...", "xxx"]
 
-    x = range(len(models))
+    x = np.arange(len(models))
     width = 0.25
 
     for i, granularity in enumerate(granularities):
@@ -92,27 +78,94 @@ def main():
                 (granularity_df["Model"] == model)
                 & (granularity_df["Granularity"] == granularity)
             ]
-            if len(model_data) > 0:
-                values.append(model_data["Macro Vulnerable Function F1"].iloc[0])
-            else:
-                values.append(0)
+            values.append(
+                model_data["Micro-averaged Vulnerable Function F1"].iloc[0]
+                if len(model_data) > 0
+                else 0
+            )
 
-        ax.bar(
-            [xi + i * width for xi in x], values, width, label=granularity.capitalize()
+        bars = ax.bar(
+            x + i * width,
+            values,
+            width,
+            label=granularity.capitalize(),
+            color=palette(i),
+            alpha=0.7,
+            edgecolor="black",
+            linewidth=0.5,
+            hatch=hatches[i],
         )
 
-    ax.set_xlabel("Model", fontweight="bold")
-    ax.set_ylabel("Macro Vulnerable Function F1", fontweight="bold")
-    ax.set_title("Performance by Code Granularity", fontsize=14, fontweight="bold")
-    ax.set_xticks([xi + width for xi in x])
+        for bar, value in zip(bars, values):
+            if value > 0:
+                ax.text(
+                    bar.get_x() + bar.get_width() / 2.0,
+                    bar.get_height() + 0.01,
+                    f"{value:.3f}",
+                    ha="center",
+                    va="bottom",
+                    fontsize=12,
+                )
+
+    ax.set_xlabel("Model", fontweight="bold", fontsize=16)
+    ax.set_ylabel(
+        "Micro-averaged Vulnerable Function F1 Score", fontweight="bold", fontsize=16
+    )
+    ax.set_title(
+        "LLM Performance by Code Granularity", fontsize=18, fontweight="bold", pad=20
+    )
+    ax.set_xticks(x + width)
     ax.set_xticklabels(models)
     ax.set_ylim(0.0, 1.0)
-    ax.legend(title="Granularity")
-    ax.grid(True, alpha=0.3)
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:.2f}"))
+
+    legend = ax.legend(
+        title="Code Granularity",
+        loc="upper left",
+        frameon=True,
+        fancybox=True,
+        shadow=True,
+        bbox_to_anchor=(0.02, 0.98),
+    )
+    legend.get_frame().set_facecolor("white")
+    legend.get_frame().set_alpha(0.9)
+    legend.get_frame().set_edgecolor("lightgray")
+
+    ax.grid(True, alpha=0.3, axis="y", linestyle="-", linewidth=0.5)
+    ax.set_axisbelow(True)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["left"].set_linewidth(0.8)
+    ax.spines["bottom"].set_linewidth(0.8)
 
     plt.tight_layout()
-    output_path = figures_dir / "figure_7_1_performance_by_granularity.png"
-    plt.savefig(output_path, dpi=300, bbox_inches="tight")
+    base_name = "figure_7_1_performance_by_granularity"
+
+    plt.savefig(
+        figures_dir / f"{base_name}.png",
+        dpi=300,
+        bbox_inches="tight",
+        facecolor="white",
+    )
+    plt.savefig(
+        figures_dir / f"{base_name}.pdf",
+        format="pdf",
+        bbox_inches="tight",
+        facecolor="white",
+    )
+    plt.savefig(
+        figures_dir / f"{base_name}.eps",
+        format="eps",
+        bbox_inches="tight",
+        facecolor="white",
+    )
+    plt.savefig(
+        figures_dir / f"{base_name}.svg",
+        format="svg",
+        bbox_inches="tight",
+        facecolor="white",
+    )
+
     plt.close()
 
 

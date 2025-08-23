@@ -1,174 +1,174 @@
-example_id,vuln_id,granularity,crate_name,year,is_vulnerable_gt,cwe_types_gt,is_valid_json,is_vulnerable_pred,cwe_types_pred,binary_accuracy,cwe_f1,cwe_tp,cwe_fp,cwe_fn,function_f1,function_tp,function_fp,function_fn,line_f1,line_tp,line_fp,line_fn,hit_at_1_function,hit_at_1_line,model
-vuln-0001/sample-00001-function,vuln-0001,function,chttp,2019.0,True,"[""CWE-416""]",True,True,"[""CWE-119"", ""CWE-787""]",1.0,0.0,0,2,1,1.0,1,0,0,1.0,1,0,0,1.0,1.0,DeepSeek-V3.1
-vuln-0001/sample-00001-file,vuln-0001,file,chttp,2019.0,True,"[""CWE-416""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0001/sample-00001-crate,vuln-0001,crate,chttp,2019.0,True,"[""CWE-416""]",True,True,"[""CWE-908""]",1.0,0.0,0,1,1,0.0,0,1,1,0.0,0,1,1,0.0,0.0,DeepSeek-V3.1
-vuln-0001/sample-10001-function,vuln-0001,function,chttp,2019.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0001/sample-10001-file,vuln-0001,file,chttp,2019.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0001/sample-10001-crate,vuln-0001,crate,chttp,2019.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0002/sample-00002-crate,vuln-0002,crate,arc-swap,2020.0,True,"[""CWE-416""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,3,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0002/sample-00002-file,vuln-0002,file,arc-swap,2020.0,True,"[""CWE-416""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,3,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0002/sample-00002-function,vuln-0002,function,arc-swap,2020.0,True,"[""CWE-416""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,3,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0002/sample-10002-crate,vuln-0002,crate,arc-swap,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0002/sample-10002-file,vuln-0002,file,arc-swap,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0002/sample-10002-function,vuln-0002,function,arc-swap,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0003/sample-00003-crate,vuln-0003,crate,safe-transmute,2018.0,True,"[""CWE-119""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0003/sample-00003-file,vuln-0003,file,safe-transmute,2018.0,True,"[""CWE-119""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0003/sample-00003-function,vuln-0003,function,safe-transmute,2018.0,True,"[""CWE-119""]",True,True,"[""CWE-843"", ""CWE-119"", ""CWE-131""]",1.0,0.5,1,2,0,1.0,1,0,0,1.0,1,0,0,1.0,1.0,DeepSeek-V3.1
-vuln-0003/sample-10003-crate,vuln-0003,crate,safe-transmute,2018.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0003/sample-10003-file,vuln-0003,file,safe-transmute,2018.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0003/sample-10003-function,vuln-0003,function,safe-transmute,2018.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0004/sample-00004-crate,vuln-0004,crate,ordnung,2020.0,True,"[""CWE-415""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-788""]",1.0,0.0,0,4,1,0.0,0,4,2,0.0,0,25,2,0.0,0.0,DeepSeek-V3.1
-vuln-0004/sample-00004-file,vuln-0004,file,ordnung,2020.0,True,"[""CWE-415""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0004/sample-00004-function,vuln-0004,function,ordnung,2020.0,True,"[""CWE-415""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-788"", ""CWE-415""]",1.0,0.33333333333333337,1,4,0,0.25,1,5,1,0.33333333333333337,2,8,0,1.0,1.0,DeepSeek-V3.1
-vuln-0005/sample-00005-function,vuln-0005,function,image,2020.0,True,"[""CWE-400""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0005/sample-00005-file,vuln-0005,file,image,2020.0,True,"[""CWE-400""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0005/sample-00005-crate,vuln-0005,crate,image,2020.0,True,"[""CWE-400""]",False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0005/sample-10005-function,vuln-0005,function,image,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0005/sample-10005-file,vuln-0005,file,image,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0005/sample-10005-crate,vuln-0005,crate,image,2020.0,False,[],False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0006/sample-00006-crate,vuln-0006,crate,smallvec,2021.0,True,"[""CWE-787""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0006/sample-00006-file,vuln-0006,file,smallvec,2021.0,True,"[""CWE-787""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0006/sample-00006-function,vuln-0006,function,smallvec,2021.0,True,"[""CWE-787""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0006/sample-10006-crate,vuln-0006,crate,smallvec,2021.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0006/sample-10006-file,vuln-0006,file,smallvec,2021.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0006/sample-10006-function,vuln-0006,function,smallvec,2021.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0007/sample-00007-crate,vuln-0007,crate,ordnung,2020.0,True,"[""CWE-125""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-416""]",1.0,0.4,1,3,0,0.13333333333333333,2,11,15,0.09876543209876543,4,59,14,1.0,1.0,DeepSeek-V3.1
-vuln-0007/sample-00007-file,vuln-0007,file,ordnung,2020.0,True,"[""CWE-125""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,17,0.0,0,0,18,0.0,0.0,DeepSeek-V3.1
-vuln-0007/sample-00007-function,vuln-0007,function,ordnung,2020.0,True,"[""CWE-125""]",True,True,"[""CWE-119"", ""CWE-787"", ""CWE-125""]",1.0,0.5,1,2,0,0.2857142857142857,3,1,14,0.2580645161290323,4,9,14,1.0,1.0,DeepSeek-V3.1
-vuln-0008/sample-00008-crate,vuln-0008,crate,,,True,"[""CWE-362""]",True,True,"[""CWE-119"", ""CWE-120"", ""CWE-362"", ""CWE-416""]",1.0,0.4,1,3,0,0.0,0,4,13,0.0,0,6,13,0.0,0.0,DeepSeek-V3.1
-vuln-0008/sample-00008-function,vuln-0008,function,,,True,"[""CWE-362""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,13,0.0,0,0,13,0.0,0.0,DeepSeek-V3.1
-vuln-0008/sample-10008-function,vuln-0008,function,,,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0008/sample-10008-crate,vuln-0008,crate,,,False,[],True,True,"[""CWE-119"", ""CWE-362"", ""CWE-416"", ""CWE-787""]",0.0,0.0,0,4,0,0.0,0,20,0,0.0,0,334,0,0.0,0.0,DeepSeek-V3.1
-vuln-0009/sample-00009-crate,vuln-0009,crate,alg_ds,2020.0,True,"[""CWE-908""]",True,True,"[""CWE-190"", ""CWE-415"", ""CWE-787"", ""CWE-125""]",1.0,0.0,0,4,1,0.4,1,2,1,0.0,0,6,2,1.0,0.0,DeepSeek-V3.1
-vuln-0009/sample-00009-file,vuln-0009,file,alg_ds,2020.0,True,"[""CWE-908""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0009/sample-00009-function,vuln-0009,function,alg_ds,2020.0,True,"[""CWE-908""]",True,True,"[""CWE-119"", ""CWE-908"", ""CWE-787""]",1.0,0.5,1,2,0,0.6666666666666666,1,0,1,0.0,0,2,2,1.0,0.0,DeepSeek-V3.1
-vuln-0010/sample-00010-crate,vuln-0010,crate,im,2020.0,True,"[""CWE-362""]",False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0010/sample-00010-file,vuln-0010,file,im,2020.0,True,"[""CWE-362""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0010/sample-00010-function,vuln-0010,function,im,2020.0,True,"[""CWE-362""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0010/sample-10010-crate,vuln-0010,crate,im,2020.0,False,[],False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0010/sample-10010-file,vuln-0010,file,im,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0010/sample-10010-function,vuln-0010,function,im,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0011/sample-00011-crate,vuln-0011,crate,array-init-cursor,2025.0,True,"[""CWE-672""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0011/sample-00011-function,vuln-0011,function,array-init-cursor,2025.0,True,"[""CWE-672""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0011/sample-10011-crate,vuln-0011,crate,array-init-cursor,2025.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0011/sample-10011-function,vuln-0011,function,array-init-cursor,2025.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0012/sample-00012-crate,vuln-0012,crate,hashconsing,2020.0,True,"[""CWE-662"", ""CWE-787""]",True,False,[],0.0,0.0,0,0,2,0.0,0,0,2,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0012/sample-00012-file,vuln-0012,file,hashconsing,2020.0,True,"[""CWE-662"", ""CWE-787""]",True,False,[],0.0,0.0,0,0,2,0.0,0,0,2,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0012/sample-00012-function,vuln-0012,function,hashconsing,2020.0,True,"[""CWE-662"", ""CWE-787""]",True,False,[],0.0,0.0,0,0,2,0.0,0,0,2,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0012/sample-10012-crate,vuln-0012,crate,hashconsing,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0012/sample-10012-file,vuln-0012,file,hashconsing,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0012/sample-10012-function,vuln-0012,function,hashconsing,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0013/sample-00013-crate,vuln-0013,crate,bitvec,2020.0,True,"[""CWE-415"", ""CWE-416""]",False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0013/sample-00013-file,vuln-0013,file,bitvec,2020.0,True,"[""CWE-415"", ""CWE-416""]",True,False,[],0.0,0.0,0,0,2,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0013/sample-00013-function,vuln-0013,function,bitvec,2020.0,True,"[""CWE-415"", ""CWE-416""]",True,False,[],0.0,0.0,0,0,2,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0013/sample-10013-crate,vuln-0013,crate,bitvec,2020.0,False,[],False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0013/sample-10013-file,vuln-0013,file,bitvec,2020.0,False,[],True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-788""]",0.0,0.0,0,4,0,0.0,0,7,0,0.0,0,30,0,0.0,0.0,DeepSeek-V3.1
-vuln-0013/sample-10013-function,vuln-0013,function,bitvec,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0014/sample-00014-crate,vuln-0014,crate,redox_uefi_std,2025.0,True,"[""CWE-122""]",True,True,"[""CWE-119"", ""CWE-20"", ""CWE-126""]",1.0,0.0,0,3,1,1.0,1,0,0,0.8,2,0,1,1.0,1.0,DeepSeek-V3.1
-vuln-0014/sample-00014-file,vuln-0014,file,redox_uefi_std,2025.0,True,"[""CWE-122""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-362"", ""CWE-416""]",1.0,0.0,0,4,1,0.4,1,3,0,0.5,2,3,1,1.0,1.0,DeepSeek-V3.1
-vuln-0014/sample-00014-function,vuln-0014,function,redox_uefi_std,2025.0,True,"[""CWE-122""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787""]",1.0,0.0,0,3,1,1.0,1,0,0,0.8,2,0,1,1.0,1.0,DeepSeek-V3.1
-vuln-0014/sample-10014-crate,vuln-0014,crate,redox_uefi_std,2025.0,False,[],True,True,"[""CWE-822"", ""CWE-476"", ""CWE-119""]",0.0,0.0,0,3,0,0.0,0,4,0,0.0,0,4,0,0.0,0.0,DeepSeek-V3.1
-vuln-0014/sample-10014-file,vuln-0014,file,redox_uefi_std,2025.0,False,[],True,True,"[""CWE-416"", ""CWE-476"", ""CWE-362"", ""CWE-822""]",0.0,0.0,0,4,0,0.0,0,4,0,0.0,0,6,0,0.0,0.0,DeepSeek-V3.1
-vuln-0014/sample-10014-function,vuln-0014,function,redox_uefi_std,2025.0,False,[],True,True,"[""CWE-119"", ""CWE-822"", ""CWE-908""]",0.0,0.0,0,3,0,0.0,0,1,0,0.0,0,2,0,0.0,0.0,DeepSeek-V3.1
-vuln-0015/sample-00015-crate,vuln-0015,crate,arr,2020.0,True,"[""CWE-362""]",True,True,"[""CWE-119"", ""CWE-125""]",1.0,0.0,0,2,1,0.0,0,2,2,0.0,0,4,2,0.0,0.0,DeepSeek-V3.1
-vuln-0015/sample-00015-function,vuln-0015,function,arr,2020.0,True,"[""CWE-362""]",True,True,"[""CWE-362"", ""CWE-416"", ""CWE-667""]",1.0,0.5,1,2,0,0.0,0,2,2,1.0,2,0,0,0.0,1.0,DeepSeek-V3.1
-vuln-0016/sample-00016-crate,vuln-0016,crate,arr,2020.0,True,"[""CWE-120""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-362""]",1.0,0.0,0,4,1,0.0,0,4,2,0.6666666666666666,2,2,0,0.0,1.0,DeepSeek-V3.1
-vuln-0016/sample-00016-function,vuln-0016,function,arr,2020.0,True,"[""CWE-120""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-788""]",1.0,0.0,0,4,1,0.0,0,2,2,0.6666666666666666,2,2,0,0.0,1.0,DeepSeek-V3.1
-vuln-0017/sample-00017-crate,vuln-0017,crate,arr,2020.0,True,"[""CWE-908""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-843""]",1.0,0.0,0,4,1,0.0,0,4,1,0.0,0,4,2,0.0,0.0,DeepSeek-V3.1
-vuln-0017/sample-00017-function,vuln-0017,function,arr,2020.0,True,"[""CWE-908""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0018/sample-00018-crate,vuln-0018,crate,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,4,0.0,0.0,DeepSeek-V3.1
-vuln-0018/sample-00018-file,vuln-0018,file,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,4,0.0,0.0,DeepSeek-V3.1
-vuln-0018/sample-00018-function,vuln-0018,function,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0018/sample-10018-crate,vuln-0018,crate,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0018/sample-10018-file,vuln-0018,file,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0018/sample-10018-function,vuln-0018,function,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0019/sample-00019-crate,vuln-0019,crate,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,6,0.0,0.0,DeepSeek-V3.1
-vuln-0019/sample-00019-file,vuln-0019,file,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,6,0.0,0.0,DeepSeek-V3.1
-vuln-0019/sample-00019-function,vuln-0019,function,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,3,0.0,0.0,DeepSeek-V3.1
-vuln-0019/sample-10019-crate,vuln-0019,crate,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0019/sample-10019-file,vuln-0019,file,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0019/sample-10019-function,vuln-0019,function,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0020/sample-00020-crate,vuln-0020,crate,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0020/sample-00020-file,vuln-0020,file,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0020/sample-00020-function,vuln-0020,function,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0020/sample-10020-crate,vuln-0020,crate,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0020/sample-10020-file,vuln-0020,file,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0020/sample-10020-function,vuln-0020,function,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0021/sample-00021-crate,vuln-0021,crate,sized-chunks,2020.0,True,"[""CWE-401""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0021/sample-00021-file,vuln-0021,file,sized-chunks,2020.0,True,"[""CWE-401""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0021/sample-00021-function,vuln-0021,function,sized-chunks,2020.0,True,"[""CWE-401""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0021/sample-10021-crate,vuln-0021,crate,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0021/sample-10021-file,vuln-0021,file,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0021/sample-10021-function,vuln-0021,function,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0022/sample-00022-crate,vuln-0022,crate,sized-chunks,2020.0,True,"[""CWE-401""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0022/sample-00022-file,vuln-0022,file,sized-chunks,2020.0,True,"[""CWE-401""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0022/sample-00022-function,vuln-0022,function,sized-chunks,2020.0,True,"[""CWE-401""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0022/sample-10022-crate,vuln-0022,crate,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0022/sample-10022-file,vuln-0022,file,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0022/sample-10022-function,vuln-0022,function,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0023/sample-00023-crate,vuln-0023,crate,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,8,0.0,0,0,8,0.0,0.0,DeepSeek-V3.1
-vuln-0023/sample-00023-file,vuln-0023,file,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,8,0.0,0,0,8,0.0,0.0,DeepSeek-V3.1
-vuln-0023/sample-00023-function,vuln-0023,function,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,8,0.0,0,0,8,0.0,0.0,DeepSeek-V3.1
-vuln-0023/sample-10023-crate,vuln-0023,crate,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0023/sample-10023-file,vuln-0023,file,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0023/sample-10023-function,vuln-0023,function,sized-chunks,2020.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0024/sample-00024-crate,vuln-0024,crate,simple-slab,2020.0,True,"[""CWE-125""]",True,True,"[""CWE-125"", ""CWE-119"", ""CWE-843"", ""CWE-190""]",1.0,0.4,1,3,0,0.4,1,3,0,0.0,0,4,1,1.0,0.0,DeepSeek-V3.1
-vuln-0024/sample-00024-function,vuln-0024,function,simple-slab,2020.0,True,"[""CWE-125""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-416""]",1.0,0.4,1,3,0,1.0,1,0,0,1.0,1,0,0,1.0,1.0,DeepSeek-V3.1
-vuln-0024/sample-10024-crate,vuln-0024,crate,simple-slab,2020.0,False,[],True,True,"[""CWE-416"", ""CWE-672"", ""CWE-843""]",0.0,0.0,0,3,0,0.0,0,2,0,0.0,0,4,0,0.0,0.0,DeepSeek-V3.1
-vuln-0024/sample-10024-function,vuln-0024,function,simple-slab,2020.0,False,[],True,True,"[""CWE-119"", ""CWE-125"", ""CWE-788""]",0.0,0.0,0,3,0,0.0,0,1,0,0.0,0,1,0,0.0,0.0,DeepSeek-V3.1
-vuln-0025/sample-00025-crate,vuln-0025,crate,simple-slab,2020.0,True,"[""CWE-193"", ""CWE-908"", ""CWE-401""]",True,True,"[""CWE-125"", ""CWE-908"", ""CWE-119"", ""CWE-843"", ""CWE-190""]",1.0,0.25,1,4,2,0.4,1,3,0,0.5714285714285715,2,3,0,1.0,1.0,DeepSeek-V3.1
-vuln-0025/sample-00025-function,vuln-0025,function,simple-slab,2020.0,True,"[""CWE-193"", ""CWE-908"", ""CWE-401""]",True,True,"[""CWE-125""]",1.0,0.0,0,1,3,1.0,1,0,0,0.6666666666666666,1,0,1,1.0,1.0,DeepSeek-V3.1
-vuln-0025/sample-10025-crate,vuln-0025,crate,simple-slab,2020.0,False,[],True,True,"[""CWE-416"", ""CWE-672"", ""CWE-787"", ""CWE-825"", ""CWE-190""]",0.0,0.0,0,5,0,0.0,0,4,0,0.0,0,12,0,0.0,0.0,DeepSeek-V3.1
-vuln-0025/sample-10025-function,vuln-0025,function,simple-slab,2020.0,False,[],True,True,"[""CWE-190"", ""CWE-908"", ""CWE-823""]",0.0,0.0,0,3,0,0.0,0,1,0,0.0,0,5,0,0.0,0.0,DeepSeek-V3.1
-vuln-0026/sample-00026-crate,vuln-0026,crate,vmm-sys-util,2023.0,True,"[""CWE-787""]",False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0026/sample-00026-file,vuln-0026,file,vmm-sys-util,2023.0,True,"[""CWE-787""]",True,True,"[""CWE-119"", ""CWE-416"", ""CWE-908""]",1.0,0.0,0,3,1,0.0,0,4,1,0.0,0,5,2,0.0,0.0,DeepSeek-V3.1
-vuln-0026/sample-10026-crate,vuln-0026,crate,vmm-sys-util,2023.0,False,[],False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0026/sample-10026-file,vuln-0026,file,vmm-sys-util,2023.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0027/sample-00027-crate,vuln-0027,crate,claxon,2018.0,True,"[""CWE-908""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,3,0.0,0,0,3,0.0,0.0,DeepSeek-V3.1
-vuln-0027/sample-00027-file,vuln-0027,file,claxon,2018.0,True,"[""CWE-908""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,3,0.0,0,0,3,0.0,0.0,DeepSeek-V3.1
-vuln-0027/sample-10027-crate,vuln-0027,crate,claxon,2018.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0027/sample-10027-file,vuln-0027,file,claxon,2018.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0028/sample-00028-crate,vuln-0028,crate,once_cell,2019.0,True,"[""CWE-20""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0028/sample-00028-function,vuln-0028,function,once_cell,2019.0,True,"[""CWE-20""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0028/sample-10028-crate,vuln-0028,crate,once_cell,2019.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0028/sample-10028-function,vuln-0028,function,once_cell,2019.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0029/sample-00029-crate,vuln-0029,crate,pared,2025.0,True,"[""CWE-416""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-416"", ""CWE-843""]",1.0,0.4,1,3,0,0.0,0,8,6,0.0,0,53,6,0.0,0.0,DeepSeek-V3.1
-vuln-0029/sample-00029-function,vuln-0029,function,pared,2025.0,True,"[""CWE-416""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,6,0.0,0,0,6,0.0,0.0,DeepSeek-V3.1
-vuln-0029/sample-10029-crate,vuln-0029,crate,pared,2025.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0029/sample-10029-function,vuln-0029,function,pared,2025.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0030/sample-00030-crate,vuln-0030,crate,rusqlite,2020.0,True,"[""CWE-362""]",False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0030/sample-10030-crate,vuln-0030,crate,rusqlite,2020.0,False,[],False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0031/sample-00031-crate,vuln-0031,crate,rusqlite,2020.0,True,"[""CWE-362""]",False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0031/sample-10031-crate,vuln-0031,crate,rusqlite,2020.0,False,[],False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0032/sample-00032-crate,vuln-0032,crate,rusqlite,2020.0,True,"[""CWE-362""]",False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0032/sample-10032-crate,vuln-0032,crate,rusqlite,2020.0,False,[],False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0033/sample-00033-crate,vuln-0033,crate,rusqlite,2020.0,True,"[""CWE-134""]",False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0033/sample-10033-crate,vuln-0033,crate,rusqlite,2020.0,False,[],False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0034/sample-00034-crate,vuln-0034,crate,rusqlite,2020.0,True,"[""CWE-416""]",False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0034/sample-10034-crate,vuln-0034,crate,rusqlite,2020.0,False,[],False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0035/sample-00035-crate,vuln-0035,crate,rusqlite,2020.0,True,"[""CWE-362""]",False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0035/sample-10035-crate,vuln-0035,crate,rusqlite,2020.0,False,[],False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0036/sample-00036-crate,vuln-0036,crate,rusqlite,2020.0,True,"[""CWE-351""]",False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0036/sample-10036-crate,vuln-0036,crate,rusqlite,2020.0,False,[],False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0037/sample-00037-crate,vuln-0037,crate,rusqlite,2020.0,True,"[""CWE-416""]",False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0037/sample-10037-crate,vuln-0037,crate,rusqlite,2020.0,False,[],False,,,0.0,0.0,0,0,0,0.0,0,0,0,0.0,0,0,0,0.0,,DeepSeek-V3.1
-vuln-0038/sample-00038-crate,vuln-0038,crate,scanner,2019.0,True,"[""CWE-125""]",True,True,"[""CWE-823"", ""CWE-908""]",1.0,0.0,0,2,1,0.0,0,1,2,0.0,0,2,2,0.0,0.0,DeepSeek-V3.1
-vuln-0038/sample-00038-function,vuln-0038,function,scanner,2019.0,True,"[""CWE-125""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,2,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0039/sample-00039-crate,vuln-0039,crate,smallvec,2019.0,True,"[""CWE-787""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0039/sample-00039-function,vuln-0039,function,smallvec,2019.0,True,"[""CWE-787""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0039/sample-10039-crate,vuln-0039,crate,smallvec,2019.0,False,[],True,True,"[""CWE-908"", ""CWE-119"", ""CWE-125"", ""CWE-787""]",0.0,0.0,0,4,0,0.0,0,4,0,0.0,0,4,0,0.0,0.0,DeepSeek-V3.1
-vuln-0039/sample-10039-function,vuln-0039,function,smallvec,2019.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0040/sample-00040-crate,vuln-0040,crate,mp3-metadata,2025.0,True,"[""CWE-119""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0040/sample-00040-function,vuln-0040,function,mp3-metadata,2025.0,True,"[""CWE-119""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0040/sample-10040-crate,vuln-0040,crate,mp3-metadata,2025.0,False,[],True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-788""]",0.0,0.0,0,4,0,0.0,0,2,0,0.0,0,98,0,0.0,0.0,DeepSeek-V3.1
-vuln-0040/sample-10040-function,vuln-0040,function,mp3-metadata,2025.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0041/sample-00041-crate,vuln-0041,crate,xmas-elf,2025.0,True,[],True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-823""]",1.0,0.0,0,4,0,0.8,2,1,0,0.4,2,6,0,1.0,1.0,DeepSeek-V3.1
-vuln-0041/sample-00041-function,vuln-0041,function,xmas-elf,2025.0,True,[],True,False,[],0.0,1.0,0,0,0,0.0,0,0,2,0.0,0,0,2,0.0,0.0,DeepSeek-V3.1
-vuln-0041/sample-10041-crate,vuln-0041,crate,xmas-elf,2025.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0041/sample-10041-function,vuln-0041,function,xmas-elf,2025.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0042/sample-00042-crate,vuln-0042,crate,fast-float,2025.0,True,"[""CWE-119""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0042/sample-00042-file,vuln-0042,file,fast-float,2025.0,True,"[""CWE-119""]",True,False,[],0.0,0.0,0,0,1,0.0,0,0,1,0.0,0,0,1,0.0,0.0,DeepSeek-V3.1
-vuln-0042/sample-00042-function,vuln-0042,function,fast-float,2025.0,True,"[""CWE-119""]",True,True,"[""CWE-119""]",1.0,1.0,1,0,0,1.0,1,0,0,1.0,1,0,0,1.0,1.0,DeepSeek-V3.1
-vuln-0042/sample-10042-crate,vuln-0042,crate,fast-float,2025.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0042/sample-10042-file,vuln-0042,file,fast-float,2025.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
-vuln-0042/sample-10042-function,vuln-0042,function,fast-float,2025.0,False,[],True,False,[],1.0,1.0,0,0,0,1.0,0,0,0,1.0,0,0,0,0.0,0.0,DeepSeek-V3.1
+example_id,vuln_id,granularity,crate_name,year,is_vulnerable_gt,cwe_types_gt,is_valid_json,is_vulnerable_pred,cwe_types_pred,binary_accuracy,cwe_tp,cwe_fp,cwe_fn,function_tp,function_fp,function_fn,line_tp,line_fp,line_fn,success_at_1_function,success_at_1_line,model
+vuln-0001/sample-00001-function,vuln-0001,function,chttp,2019.0,True,"[""CWE-416""]",True,True,"[""CWE-119"", ""CWE-787""]",1.0,0,2,1,1,0,0,1,0,0,1.0,1.0,DeepSeek-V3.1
+vuln-0001/sample-00001-file,vuln-0001,file,chttp,2019.0,True,"[""CWE-416""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0001/sample-00001-crate,vuln-0001,crate,chttp,2019.0,True,"[""CWE-416""]",True,True,"[""CWE-908""]",1.0,0,1,1,0,1,1,0,1,1,0.0,0.0,DeepSeek-V3.1
+vuln-0001/sample-10001-function,vuln-0001,function,chttp,2019.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0001/sample-10001-file,vuln-0001,file,chttp,2019.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0001/sample-10001-crate,vuln-0001,crate,chttp,2019.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0002/sample-00002-crate,vuln-0002,crate,arc-swap,2020.0,True,"[""CWE-416""]",True,False,[],0.0,0,0,1,0,0,3,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0002/sample-00002-file,vuln-0002,file,arc-swap,2020.0,True,"[""CWE-416""]",True,False,[],0.0,0,0,1,0,0,3,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0002/sample-00002-function,vuln-0002,function,arc-swap,2020.0,True,"[""CWE-416""]",True,False,[],0.0,0,0,1,0,0,3,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0002/sample-10002-crate,vuln-0002,crate,arc-swap,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0002/sample-10002-file,vuln-0002,file,arc-swap,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0002/sample-10002-function,vuln-0002,function,arc-swap,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0003/sample-00003-crate,vuln-0003,crate,safe-transmute,2018.0,True,"[""CWE-119""]",True,False,[],0.0,0,0,1,0,0,2,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0003/sample-00003-file,vuln-0003,file,safe-transmute,2018.0,True,"[""CWE-119""]",True,False,[],0.0,0,0,1,0,0,2,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0003/sample-00003-function,vuln-0003,function,safe-transmute,2018.0,True,"[""CWE-119""]",True,True,"[""CWE-843"", ""CWE-119"", ""CWE-131""]",1.0,1,2,0,1,0,0,1,0,0,1.0,1.0,DeepSeek-V3.1
+vuln-0003/sample-10003-crate,vuln-0003,crate,safe-transmute,2018.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0003/sample-10003-file,vuln-0003,file,safe-transmute,2018.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0003/sample-10003-function,vuln-0003,function,safe-transmute,2018.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0004/sample-00004-crate,vuln-0004,crate,ordnung,2020.0,True,"[""CWE-415""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-788""]",1.0,0,4,1,0,4,2,0,25,2,0.0,0.0,DeepSeek-V3.1
+vuln-0004/sample-00004-file,vuln-0004,file,ordnung,2020.0,True,"[""CWE-415""]",True,False,[],0.0,0,0,1,0,0,2,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0004/sample-00004-function,vuln-0004,function,ordnung,2020.0,True,"[""CWE-415""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-788"", ""CWE-415""]",1.0,1,4,0,1,5,1,2,8,0,1.0,1.0,DeepSeek-V3.1
+vuln-0005/sample-00005-function,vuln-0005,function,image,2020.0,True,"[""CWE-400""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0005/sample-00005-file,vuln-0005,file,image,2020.0,True,"[""CWE-400""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0005/sample-00005-crate,vuln-0005,crate,image,2020.0,True,"[""CWE-400""]",False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0005/sample-10005-function,vuln-0005,function,image,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0005/sample-10005-file,vuln-0005,file,image,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0005/sample-10005-crate,vuln-0005,crate,image,2020.0,False,[],False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0006/sample-00006-crate,vuln-0006,crate,smallvec,2021.0,True,"[""CWE-787""]",True,False,[],0.0,0,0,1,0,0,1,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0006/sample-00006-file,vuln-0006,file,smallvec,2021.0,True,"[""CWE-787""]",True,False,[],0.0,0,0,1,0,0,1,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0006/sample-00006-function,vuln-0006,function,smallvec,2021.0,True,"[""CWE-787""]",True,False,[],0.0,0,0,1,0,0,1,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0006/sample-10006-crate,vuln-0006,crate,smallvec,2021.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0006/sample-10006-file,vuln-0006,file,smallvec,2021.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0006/sample-10006-function,vuln-0006,function,smallvec,2021.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0007/sample-00007-crate,vuln-0007,crate,ordnung,2020.0,True,"[""CWE-125""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-416""]",1.0,1,3,0,2,11,15,4,59,14,1.0,1.0,DeepSeek-V3.1
+vuln-0007/sample-00007-file,vuln-0007,file,ordnung,2020.0,True,"[""CWE-125""]",True,False,[],0.0,0,0,1,0,0,17,0,0,18,0.0,0.0,DeepSeek-V3.1
+vuln-0007/sample-00007-function,vuln-0007,function,ordnung,2020.0,True,"[""CWE-125""]",True,True,"[""CWE-119"", ""CWE-787"", ""CWE-125""]",1.0,1,2,0,3,1,14,4,9,14,1.0,1.0,DeepSeek-V3.1
+vuln-0008/sample-00008-crate,vuln-0008,crate,,,True,"[""CWE-362""]",True,True,"[""CWE-119"", ""CWE-120"", ""CWE-362"", ""CWE-416""]",1.0,1,3,0,0,4,13,0,6,13,0.0,0.0,DeepSeek-V3.1
+vuln-0008/sample-00008-function,vuln-0008,function,,,True,"[""CWE-362""]",True,False,[],0.0,0,0,1,0,0,13,0,0,13,0.0,0.0,DeepSeek-V3.1
+vuln-0008/sample-10008-function,vuln-0008,function,,,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0008/sample-10008-crate,vuln-0008,crate,,,False,[],True,True,"[""CWE-119"", ""CWE-362"", ""CWE-416"", ""CWE-787""]",0.0,0,4,0,0,20,0,0,334,0,0.0,0.0,DeepSeek-V3.1
+vuln-0009/sample-00009-crate,vuln-0009,crate,alg_ds,2020.0,True,"[""CWE-908""]",True,True,"[""CWE-190"", ""CWE-415"", ""CWE-787"", ""CWE-125""]",1.0,0,4,1,1,2,1,0,6,2,1.0,0.0,DeepSeek-V3.1
+vuln-0009/sample-00009-file,vuln-0009,file,alg_ds,2020.0,True,"[""CWE-908""]",True,False,[],0.0,0,0,1,0,0,2,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0009/sample-00009-function,vuln-0009,function,alg_ds,2020.0,True,"[""CWE-908""]",True,True,"[""CWE-119"", ""CWE-908"", ""CWE-787""]",1.0,1,2,0,1,0,1,0,2,2,1.0,0.0,DeepSeek-V3.1
+vuln-0010/sample-00010-crate,vuln-0010,crate,im,2020.0,True,"[""CWE-362""]",False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0010/sample-00010-file,vuln-0010,file,im,2020.0,True,"[""CWE-362""]",True,False,[],0.0,0,0,1,0,0,2,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0010/sample-00010-function,vuln-0010,function,im,2020.0,True,"[""CWE-362""]",True,False,[],0.0,0,0,1,0,0,2,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0010/sample-10010-crate,vuln-0010,crate,im,2020.0,False,[],False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0010/sample-10010-file,vuln-0010,file,im,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0010/sample-10010-function,vuln-0010,function,im,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0011/sample-00011-crate,vuln-0011,crate,array-init-cursor,2025.0,True,"[""CWE-672""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0011/sample-00011-function,vuln-0011,function,array-init-cursor,2025.0,True,"[""CWE-672""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0011/sample-10011-crate,vuln-0011,crate,array-init-cursor,2025.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0011/sample-10011-function,vuln-0011,function,array-init-cursor,2025.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0012/sample-00012-crate,vuln-0012,crate,hashconsing,2020.0,True,"[""CWE-662"", ""CWE-787""]",True,False,[],0.0,0,0,2,0,0,2,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0012/sample-00012-file,vuln-0012,file,hashconsing,2020.0,True,"[""CWE-662"", ""CWE-787""]",True,False,[],0.0,0,0,2,0,0,2,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0012/sample-00012-function,vuln-0012,function,hashconsing,2020.0,True,"[""CWE-662"", ""CWE-787""]",True,False,[],0.0,0,0,2,0,0,2,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0012/sample-10012-crate,vuln-0012,crate,hashconsing,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0012/sample-10012-file,vuln-0012,file,hashconsing,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0012/sample-10012-function,vuln-0012,function,hashconsing,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0013/sample-00013-crate,vuln-0013,crate,bitvec,2020.0,True,"[""CWE-415"", ""CWE-416""]",False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0013/sample-00013-file,vuln-0013,file,bitvec,2020.0,True,"[""CWE-415"", ""CWE-416""]",True,False,[],0.0,0,0,2,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0013/sample-00013-function,vuln-0013,function,bitvec,2020.0,True,"[""CWE-415"", ""CWE-416""]",True,False,[],0.0,0,0,2,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0013/sample-10013-crate,vuln-0013,crate,bitvec,2020.0,False,[],False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0013/sample-10013-file,vuln-0013,file,bitvec,2020.0,False,[],True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-788""]",0.0,0,4,0,0,7,0,0,30,0,0.0,0.0,DeepSeek-V3.1
+vuln-0013/sample-10013-function,vuln-0013,function,bitvec,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0014/sample-00014-crate,vuln-0014,crate,redox_uefi_std,2025.0,True,"[""CWE-122""]",True,True,"[""CWE-119"", ""CWE-20"", ""CWE-126""]",1.0,0,3,1,1,0,0,2,0,1,1.0,1.0,DeepSeek-V3.1
+vuln-0014/sample-00014-file,vuln-0014,file,redox_uefi_std,2025.0,True,"[""CWE-122""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-362"", ""CWE-416""]",1.0,0,4,1,1,3,0,2,3,1,1.0,1.0,DeepSeek-V3.1
+vuln-0014/sample-00014-function,vuln-0014,function,redox_uefi_std,2025.0,True,"[""CWE-122""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787""]",1.0,0,3,1,1,0,0,2,0,1,1.0,1.0,DeepSeek-V3.1
+vuln-0014/sample-10014-crate,vuln-0014,crate,redox_uefi_std,2025.0,False,[],True,True,"[""CWE-822"", ""CWE-476"", ""CWE-119""]",0.0,0,3,0,0,4,0,0,4,0,0.0,0.0,DeepSeek-V3.1
+vuln-0014/sample-10014-file,vuln-0014,file,redox_uefi_std,2025.0,False,[],True,True,"[""CWE-416"", ""CWE-476"", ""CWE-362"", ""CWE-822""]",0.0,0,4,0,0,4,0,0,6,0,0.0,0.0,DeepSeek-V3.1
+vuln-0014/sample-10014-function,vuln-0014,function,redox_uefi_std,2025.0,False,[],True,True,"[""CWE-119"", ""CWE-822"", ""CWE-908""]",0.0,0,3,0,0,1,0,0,2,0,0.0,0.0,DeepSeek-V3.1
+vuln-0015/sample-00015-crate,vuln-0015,crate,arr,2020.0,True,"[""CWE-362""]",True,True,"[""CWE-119"", ""CWE-125""]",1.0,0,2,1,0,2,2,0,4,2,0.0,0.0,DeepSeek-V3.1
+vuln-0015/sample-00015-function,vuln-0015,function,arr,2020.0,True,"[""CWE-362""]",True,True,"[""CWE-362"", ""CWE-416"", ""CWE-667""]",1.0,1,2,0,0,2,2,2,0,0,0.0,1.0,DeepSeek-V3.1
+vuln-0016/sample-00016-crate,vuln-0016,crate,arr,2020.0,True,"[""CWE-120""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-362""]",1.0,0,4,1,0,4,2,2,2,0,0.0,1.0,DeepSeek-V3.1
+vuln-0016/sample-00016-function,vuln-0016,function,arr,2020.0,True,"[""CWE-120""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-788""]",1.0,0,4,1,0,2,2,2,2,0,0.0,1.0,DeepSeek-V3.1
+vuln-0017/sample-00017-crate,vuln-0017,crate,arr,2020.0,True,"[""CWE-908""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-843""]",1.0,0,4,1,0,4,1,0,4,2,0.0,0.0,DeepSeek-V3.1
+vuln-0017/sample-00017-function,vuln-0017,function,arr,2020.0,True,"[""CWE-908""]",True,False,[],0.0,0,0,1,0,0,1,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0018/sample-00018-crate,vuln-0018,crate,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0,0,1,0,0,2,0,0,4,0.0,0.0,DeepSeek-V3.1
+vuln-0018/sample-00018-file,vuln-0018,file,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0,0,1,0,0,2,0,0,4,0.0,0.0,DeepSeek-V3.1
+vuln-0018/sample-00018-function,vuln-0018,function,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0,0,1,0,0,1,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0018/sample-10018-crate,vuln-0018,crate,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0018/sample-10018-file,vuln-0018,file,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0018/sample-10018-function,vuln-0018,function,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0019/sample-00019-crate,vuln-0019,crate,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0,0,1,0,0,2,0,0,6,0.0,0.0,DeepSeek-V3.1
+vuln-0019/sample-00019-file,vuln-0019,file,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0,0,1,0,0,2,0,0,6,0.0,0.0,DeepSeek-V3.1
+vuln-0019/sample-00019-function,vuln-0019,function,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0,0,1,0,0,1,0,0,3,0.0,0.0,DeepSeek-V3.1
+vuln-0019/sample-10019-crate,vuln-0019,crate,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0019/sample-10019-file,vuln-0019,file,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0019/sample-10019-function,vuln-0019,function,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0020/sample-00020-crate,vuln-0020,crate,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0,0,1,0,0,1,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0020/sample-00020-file,vuln-0020,file,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0,0,1,0,0,1,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0020/sample-00020-function,vuln-0020,function,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0,0,1,0,0,1,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0020/sample-10020-crate,vuln-0020,crate,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0020/sample-10020-file,vuln-0020,file,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0020/sample-10020-function,vuln-0020,function,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0021/sample-00021-crate,vuln-0021,crate,sized-chunks,2020.0,True,"[""CWE-401""]",True,False,[],0.0,0,0,1,0,0,2,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0021/sample-00021-file,vuln-0021,file,sized-chunks,2020.0,True,"[""CWE-401""]",True,False,[],0.0,0,0,1,0,0,2,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0021/sample-00021-function,vuln-0021,function,sized-chunks,2020.0,True,"[""CWE-401""]",True,False,[],0.0,0,0,1,0,0,2,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0021/sample-10021-crate,vuln-0021,crate,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0021/sample-10021-file,vuln-0021,file,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0021/sample-10021-function,vuln-0021,function,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0022/sample-00022-crate,vuln-0022,crate,sized-chunks,2020.0,True,"[""CWE-401""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0022/sample-00022-file,vuln-0022,file,sized-chunks,2020.0,True,"[""CWE-401""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0022/sample-00022-function,vuln-0022,function,sized-chunks,2020.0,True,"[""CWE-401""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0022/sample-10022-crate,vuln-0022,crate,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0022/sample-10022-file,vuln-0022,file,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0022/sample-10022-function,vuln-0022,function,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0023/sample-00023-crate,vuln-0023,crate,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0,0,1,0,0,8,0,0,8,0.0,0.0,DeepSeek-V3.1
+vuln-0023/sample-00023-file,vuln-0023,file,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0,0,1,0,0,8,0,0,8,0.0,0.0,DeepSeek-V3.1
+vuln-0023/sample-00023-function,vuln-0023,function,sized-chunks,2020.0,True,"[""CWE-129""]",True,False,[],0.0,0,0,1,0,0,8,0,0,8,0.0,0.0,DeepSeek-V3.1
+vuln-0023/sample-10023-crate,vuln-0023,crate,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0023/sample-10023-file,vuln-0023,file,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0023/sample-10023-function,vuln-0023,function,sized-chunks,2020.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0024/sample-00024-crate,vuln-0024,crate,simple-slab,2020.0,True,"[""CWE-125""]",True,True,"[""CWE-125"", ""CWE-119"", ""CWE-843"", ""CWE-190""]",1.0,1,3,0,1,3,0,0,4,1,1.0,0.0,DeepSeek-V3.1
+vuln-0024/sample-00024-function,vuln-0024,function,simple-slab,2020.0,True,"[""CWE-125""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-416""]",1.0,1,3,0,1,0,0,1,0,0,1.0,1.0,DeepSeek-V3.1
+vuln-0024/sample-10024-crate,vuln-0024,crate,simple-slab,2020.0,False,[],True,True,"[""CWE-416"", ""CWE-672"", ""CWE-843""]",0.0,0,3,0,0,2,0,0,4,0,0.0,0.0,DeepSeek-V3.1
+vuln-0024/sample-10024-function,vuln-0024,function,simple-slab,2020.0,False,[],True,True,"[""CWE-119"", ""CWE-125"", ""CWE-788""]",0.0,0,3,0,0,1,0,0,1,0,0.0,0.0,DeepSeek-V3.1
+vuln-0025/sample-00025-crate,vuln-0025,crate,simple-slab,2020.0,True,"[""CWE-193"", ""CWE-908"", ""CWE-401""]",True,True,"[""CWE-125"", ""CWE-908"", ""CWE-119"", ""CWE-843"", ""CWE-190""]",1.0,1,4,2,1,3,0,2,3,0,1.0,1.0,DeepSeek-V3.1
+vuln-0025/sample-00025-function,vuln-0025,function,simple-slab,2020.0,True,"[""CWE-193"", ""CWE-908"", ""CWE-401""]",True,True,"[""CWE-125""]",1.0,0,1,3,1,0,0,1,0,1,1.0,1.0,DeepSeek-V3.1
+vuln-0025/sample-10025-crate,vuln-0025,crate,simple-slab,2020.0,False,[],True,True,"[""CWE-416"", ""CWE-672"", ""CWE-787"", ""CWE-825"", ""CWE-190""]",0.0,0,5,0,0,4,0,0,12,0,0.0,0.0,DeepSeek-V3.1
+vuln-0025/sample-10025-function,vuln-0025,function,simple-slab,2020.0,False,[],True,True,"[""CWE-190"", ""CWE-908"", ""CWE-823""]",0.0,0,3,0,0,1,0,0,5,0,0.0,0.0,DeepSeek-V3.1
+vuln-0026/sample-00026-crate,vuln-0026,crate,vmm-sys-util,2023.0,True,"[""CWE-787""]",False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0026/sample-00026-file,vuln-0026,file,vmm-sys-util,2023.0,True,"[""CWE-787""]",True,True,"[""CWE-119"", ""CWE-416"", ""CWE-908""]",1.0,0,3,1,0,4,1,0,5,2,0.0,0.0,DeepSeek-V3.1
+vuln-0026/sample-10026-crate,vuln-0026,crate,vmm-sys-util,2023.0,False,[],False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0026/sample-10026-file,vuln-0026,file,vmm-sys-util,2023.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0027/sample-00027-crate,vuln-0027,crate,claxon,2018.0,True,"[""CWE-908""]",True,False,[],0.0,0,0,1,0,0,3,0,0,3,0.0,0.0,DeepSeek-V3.1
+vuln-0027/sample-00027-file,vuln-0027,file,claxon,2018.0,True,"[""CWE-908""]",True,False,[],0.0,0,0,1,0,0,3,0,0,3,0.0,0.0,DeepSeek-V3.1
+vuln-0027/sample-10027-crate,vuln-0027,crate,claxon,2018.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0027/sample-10027-file,vuln-0027,file,claxon,2018.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0028/sample-00028-crate,vuln-0028,crate,once_cell,2019.0,True,"[""CWE-20""]",True,False,[],0.0,0,0,1,0,0,1,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0028/sample-00028-function,vuln-0028,function,once_cell,2019.0,True,"[""CWE-20""]",True,False,[],0.0,0,0,1,0,0,1,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0028/sample-10028-crate,vuln-0028,crate,once_cell,2019.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0028/sample-10028-function,vuln-0028,function,once_cell,2019.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0029/sample-00029-crate,vuln-0029,crate,pared,2025.0,True,"[""CWE-416""]",True,True,"[""CWE-119"", ""CWE-125"", ""CWE-416"", ""CWE-843""]",1.0,1,3,0,0,8,6,0,53,6,0.0,0.0,DeepSeek-V3.1
+vuln-0029/sample-00029-function,vuln-0029,function,pared,2025.0,True,"[""CWE-416""]",True,False,[],0.0,0,0,1,0,0,6,0,0,6,0.0,0.0,DeepSeek-V3.1
+vuln-0029/sample-10029-crate,vuln-0029,crate,pared,2025.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0029/sample-10029-function,vuln-0029,function,pared,2025.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0030/sample-00030-crate,vuln-0030,crate,rusqlite,2020.0,True,"[""CWE-362""]",False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0030/sample-10030-crate,vuln-0030,crate,rusqlite,2020.0,False,[],False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0031/sample-00031-crate,vuln-0031,crate,rusqlite,2020.0,True,"[""CWE-362""]",False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0031/sample-10031-crate,vuln-0031,crate,rusqlite,2020.0,False,[],False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0032/sample-00032-crate,vuln-0032,crate,rusqlite,2020.0,True,"[""CWE-362""]",False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0032/sample-10032-crate,vuln-0032,crate,rusqlite,2020.0,False,[],False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0033/sample-00033-crate,vuln-0033,crate,rusqlite,2020.0,True,"[""CWE-134""]",False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0033/sample-10033-crate,vuln-0033,crate,rusqlite,2020.0,False,[],False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0034/sample-00034-crate,vuln-0034,crate,rusqlite,2020.0,True,"[""CWE-416""]",False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0034/sample-10034-crate,vuln-0034,crate,rusqlite,2020.0,False,[],False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0035/sample-00035-crate,vuln-0035,crate,rusqlite,2020.0,True,"[""CWE-362""]",False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0035/sample-10035-crate,vuln-0035,crate,rusqlite,2020.0,False,[],False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0036/sample-00036-crate,vuln-0036,crate,rusqlite,2020.0,True,"[""CWE-351""]",False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0036/sample-10036-crate,vuln-0036,crate,rusqlite,2020.0,False,[],False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0037/sample-00037-crate,vuln-0037,crate,rusqlite,2020.0,True,"[""CWE-416""]",False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0037/sample-10037-crate,vuln-0037,crate,rusqlite,2020.0,False,[],False,,,0.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0038/sample-00038-crate,vuln-0038,crate,scanner,2019.0,True,"[""CWE-125""]",True,True,"[""CWE-823"", ""CWE-908""]",1.0,0,2,1,0,1,2,0,2,2,0.0,0.0,DeepSeek-V3.1
+vuln-0038/sample-00038-function,vuln-0038,function,scanner,2019.0,True,"[""CWE-125""]",True,False,[],0.0,0,0,1,0,0,2,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0039/sample-00039-crate,vuln-0039,crate,smallvec,2019.0,True,"[""CWE-787""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0039/sample-00039-function,vuln-0039,function,smallvec,2019.0,True,"[""CWE-787""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0039/sample-10039-crate,vuln-0039,crate,smallvec,2019.0,False,[],True,True,"[""CWE-908"", ""CWE-119"", ""CWE-125"", ""CWE-787""]",0.0,0,4,0,0,4,0,0,4,0,0.0,0.0,DeepSeek-V3.1
+vuln-0039/sample-10039-function,vuln-0039,function,smallvec,2019.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0040/sample-00040-crate,vuln-0040,crate,mp3-metadata,2025.0,True,"[""CWE-119""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0040/sample-00040-function,vuln-0040,function,mp3-metadata,2025.0,True,"[""CWE-119""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0040/sample-10040-crate,vuln-0040,crate,mp3-metadata,2025.0,False,[],True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-788""]",0.0,0,4,0,0,2,0,0,98,0,0.0,0.0,DeepSeek-V3.1
+vuln-0040/sample-10040-function,vuln-0040,function,mp3-metadata,2025.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0041/sample-00041-crate,vuln-0041,crate,xmas-elf,2025.0,True,[],True,True,"[""CWE-119"", ""CWE-125"", ""CWE-787"", ""CWE-823""]",1.0,0,4,0,2,1,0,2,6,0,1.0,1.0,DeepSeek-V3.1
+vuln-0041/sample-00041-function,vuln-0041,function,xmas-elf,2025.0,True,[],True,False,[],0.0,0,0,0,0,0,2,0,0,2,0.0,0.0,DeepSeek-V3.1
+vuln-0041/sample-10041-crate,vuln-0041,crate,xmas-elf,2025.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0041/sample-10041-function,vuln-0041,function,xmas-elf,2025.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0042/sample-00042-crate,vuln-0042,crate,fast-float,2025.0,True,"[""CWE-119""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0042/sample-00042-file,vuln-0042,file,fast-float,2025.0,True,"[""CWE-119""]",True,False,[],0.0,0,0,1,0,0,1,0,0,1,0.0,0.0,DeepSeek-V3.1
+vuln-0042/sample-00042-function,vuln-0042,function,fast-float,2025.0,True,"[""CWE-119""]",True,True,"[""CWE-119""]",1.0,1,0,0,1,0,0,1,0,0,1.0,1.0,DeepSeek-V3.1
+vuln-0042/sample-10042-crate,vuln-0042,crate,fast-float,2025.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0042/sample-10042-file,vuln-0042,file,fast-float,2025.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
+vuln-0042/sample-10042-function,vuln-0042,function,fast-float,2025.0,False,[],True,False,[],1.0,0,0,0,0,0,0,0,0,0,0.0,0.0,DeepSeek-V3.1
