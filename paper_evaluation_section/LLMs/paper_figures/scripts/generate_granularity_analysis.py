@@ -109,10 +109,10 @@ def main():
 
     ax.set_xlabel("Model", fontweight="bold", fontsize=16)
     ax.set_ylabel(
-        "Micro-averaged Vulnerable Function F1 Score", fontweight="bold", fontsize=16
+        "Vulnerable Function Localization F1", fontweight="bold", fontsize=16
     )
     ax.set_title(
-        "LLM Performance by Code Granularity", fontsize=18, fontweight="bold", pad=20
+        "Vulnerable Function Localization Across Code Granularities", fontsize=18, fontweight="bold", pad=20
     )
     ax.set_xticks(x + width)
     ax.set_xticklabels(models)

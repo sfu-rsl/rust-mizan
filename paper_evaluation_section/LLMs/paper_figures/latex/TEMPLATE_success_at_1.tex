@@ -84,7 +84,7 @@
 \noalign{\hrule height 0.7pt}
 \end{tabular}%
 } % end resizebox
-\caption{Hit@1 vulnerability detection success rates across models and granularities. Each cell shows whether the model successfully detected the vulnerability at the specified granularity level (\underline{C}rate, \underline{Fi}le, or \underline{Fu}nction).}
-\label{table:vulnerability-detection-compact}
+\caption{Success@1 vulnerable function localization results across models and code granularities, computed on vulnerable samples where all models produced valid JSON responses. Green checkmarks indicate the model identified at least one correct vulnerable function; red crosses indicate failure. Gray cells indicate samples where at least one model failed to return valid JSON. Columns represent granularities: \underline{C}rate, \underline{Fi}le, \underline{Fu}nction.}
+\label{table:success_at_1_compact}
 \vspace{-3mm}
 \end{table*}

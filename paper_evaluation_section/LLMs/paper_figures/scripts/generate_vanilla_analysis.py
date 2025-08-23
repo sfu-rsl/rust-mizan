@@ -9,10 +9,10 @@ from common.metrics import load_experiment_data, compute_aggregate_metrics
 
 def generate_table_rows(metrics_data):
     metrics_order = [
-        ("Binary Accuracy", "Binary Acc."),
+        ("Binary Accuracy", "Binary Accuracy"),
         ("CWE F1", "CWE F1"),
-        ("Function F1", "Function F1"),
-        ("Line F1", "Line F1"),
+        ("Function F1", "Func. Localization F1"),
+        ("Line F1", "Line Localization F1"),
         ("Success@1-Function", "Success@1-Func"),
         ("Success@1-Line", "Success@1-Line"),
     ]
