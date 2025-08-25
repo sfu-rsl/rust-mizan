@@ -3,40 +3,11 @@
 \footnotesize
 \caption{RustMizan dataset summary statistics}
 \label{tab:dataset_summary}
-\begin{tabular}{@{}lr@{}}
+\begin{tabular}{@{}ccccccc@{}}
 \toprule
-\textbf{Metric} & \textbf{Value} \\
+\textbf{\# Vulns} & \textbf{\# Vulns with Fix}  & \textbf{\# Code Samples} & \textbf{\# Crate-Level} & \textbf{\# File-Level} & \textbf{\# Function-Level} \\
 \midrule
-
-% Dataset Composition
-\multicolumn{2}{l}{\textit{Dataset Composition}} \\
-\quad Total vulnerabilities & 42 \\
-\quad Total code samples & 173 \\
-\quad Vulnerabilities with paired fix & 35 (83.3\%) \\
-\quad Vulnerable code samples & 95 \\
-\quad Fixed code samples & 78 \\
-\addlinespace[0.5em]
-
-% Multi-Granularity Coverage
-\multicolumn{2}{l}{\textit{Multi-Granularity Coverage}} \\
-\quad Crate-level samples & 77 \\
-\quad File-level samples & 39 \\
-\quad Function-level samples & 57 \\
-\addlinespace[0.5em]
-
-% Vulnerability Profile  
-\multicolumn{2}{l}{\textit{Vulnerability Profile}} \\
-\quad Unique CWE types & 18 \\
-\quad Vulnerability years range & 2018--2025 \\
-\addlinespace[0.5em]
-
-% Lines of Code Statistics
-\multicolumn{2}{l}{\textit{Lines of Code}} \\
-\quad Overall (Mean/Median) & 3483 LoC / 1328 LoC \\
-\quad Crate-level (Mean/Median) & 6464 LoC / 3584 LoC \\
-\quad File-level (Mean/Median) & 2176 LoC / 1997 LoC \\
-\quad Function-level (Mean/Median) & 351 LoC / 96 LoC \\
-
+42 & 35 (83.3\%) & 173  & 77 & 39 & 57 \\
 \bottomrule
 \end{tabular}
 \end{table}

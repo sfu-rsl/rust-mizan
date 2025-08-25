@@ -19,6 +19,12 @@ python scripts/generate_vanilla_analysis.py;
 python scripts/generate_granularity_analysis.py;
 python scripts/generate_compact_success_at_1_table.py;
 python scripts/generate_transformation_analysis.py;
+
+
+# For the dataset statistics section
+python scripts/generate_dataset_summary.py;
+python scripts/generate_cwe_table.py;
+python scripts/generate_loc_boxplot.py;
 ```
 
 ## Scoring

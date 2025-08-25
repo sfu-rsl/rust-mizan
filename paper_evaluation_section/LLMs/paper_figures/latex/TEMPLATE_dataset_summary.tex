@@ -3,40 +3,11 @@
 \footnotesize
 \caption{RustMizan dataset summary statistics}
 \label{tab:dataset_summary}
-\begin{tabular}{@{}lr@{}}
+\begin{tabular}{@{}ccccccc@{}}
 \toprule
-\textbf{Metric} & \textbf{Value} \\
+\textbf{\# Vulns} & \textbf{\# Vulns with Fix}  & \textbf{\# Code Samples} & \textbf{\# Crate-Level} & \textbf{\# File-Level} & \textbf{\# Function-Level} \\
 \midrule
-
-% Dataset Composition
-\multicolumn{2}{l}{\textit{Dataset Composition}} \\
-\quad Total vulnerabilities & 0 \\
-\quad Total code samples & 0 \\
-\quad Vulnerabilities with paired fix & 0 (0\%) \\
-\quad Vulnerable code samples & 0 \\
-\quad Fixed code samples & 0 \\
-\addlinespace[0.5em]
-
-% Multi-Granularity Coverage
-\multicolumn{2}{l}{\textit{Multi-Granularity Coverage}} \\
-\quad Crate-level samples & 0 \\
-\quad File-level samples & 0 \\
-\quad Function-level samples & 0 \\
-\addlinespace[0.5em]
-
-% Vulnerability Profile  
-\multicolumn{2}{l}{\textit{Vulnerability Profile}} \\
-\quad Unique CWE types & 0 \\
-\quad Vulnerability years range & 0--0 \\
-\addlinespace[0.5em]
-
-% Lines of Code Statistics
-\multicolumn{2}{l}{\textit{Lines of Code}} \\
-\quad Overall (Mean/Median) & 0/0 \\
-\quad Crate-level (Mean/Median) & 0/0 \\
-\quad File-level (Mean/Median) & 0/0 \\
-\quad Function-level (Mean/Median) & 0/0 \\
-
+42 & 35 (83.3\%) & 173  & 77 & 39 & 57 \\
 \bottomrule
 \end{tabular}
 \end{table}

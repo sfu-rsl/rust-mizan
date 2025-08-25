@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
+import matplotlib.ticker as ticker
 
 plt.style.use("default")
 plt.rcParams.update(
@@ -33,7 +34,7 @@ def main():
 
     df = pd.read_csv(data_dir / "dataset_samples_detailed.csv")
 
-    fig, ax = plt.subplots(figsize=(10, 7))
+    fig, ax = plt.subplots(figsize=(10, 5))
 
     granularity_order = ["function", "file", "crate"]
     granularity_labels = ["Function", "File", "Crate"]
@@ -57,9 +58,13 @@ def main():
         "Code Sample Size Distribution by Granularity",
         fontweight="bold",
         fontsize=18,
-        pad=20,
+        pad=10,
     )
     ax.set_yscale("log")
+    
+    # Custom y-axis formatter to show 100, 1000, 10000 instead of 10^2, 10^3, 10^4
+    ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: f'{int(y):,}'))
+    
     ax.grid(True, alpha=0.3, axis="y", linestyle="-", linewidth=0.5)
     ax.set_xticklabels(granularity_labels)
 
