@@ -1,0 +1,17 @@
+{
+  "experiment_id": "6b774221",
+  "experiment_name": "mizan-deepseek-deepseek-chat-20250806_174815",
+  "provider": "deepseek",
+  "model": "deepseek-chat",
+  "temperature": 0.0,
+  "created_at": "2025-08-06T18:37:15.826982",
+  "total_examples": 173,
+  "mutations_metadata": {
+    "mutations_applied": [
+      "malignant-blocks"
+    ],
+    "skipped": {},
+    "partial_mutations": {},
+    "timestamp": "2025-07-25T19:19:07.955573"
+  }
+}

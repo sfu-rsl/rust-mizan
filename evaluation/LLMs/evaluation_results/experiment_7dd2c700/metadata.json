@@ -1,0 +1,10 @@
+{
+  "experiment_id": "7dd2c700",
+  "experiment_name": "mizan-openai-gpt-4.1-2025-04-14-20250729_113010",
+  "provider": "openai",
+  "model": "gpt-4.1-2025-04-14",
+  "temperature": 0.0,
+  "created_at": "2025-07-29T12:32:42.193767",
+  "total_examples": 173,
+  "mutations_metadata": {}
+}

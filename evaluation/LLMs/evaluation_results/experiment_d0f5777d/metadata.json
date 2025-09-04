@@ -1,0 +1,26 @@
+{
+  "experiment_id": "d0f5777d",
+  "experiment_name": "mizan-openai-gpt-4.1-2025-04-14-20250729_220215",
+  "provider": "openai",
+  "model": "gpt-4.1-2025-04-14",
+  "temperature": 0.0,
+  "created_at": "2025-07-29T23:04:29.695975",
+  "total_examples": 173,
+  "mutations_metadata": {
+    "mutations_applied": [
+      "malignant-rename-fn"
+    ],
+    "skipped": {
+      "malignant-rename-fn": [
+        "vuln-0016/sample-00016-crate",
+        "vuln-0016/sample-00016-function",
+        "vuln-0018/sample-00018-crate",
+        "vuln-0018/sample-00018-file",
+        "vuln-0019/sample-00019-crate",
+        "vuln-0019/sample-00019-file"
+      ]
+    },
+    "partial_mutations": {},
+    "timestamp": "2025-07-25T19:21:45.822620"
+  }
+}

@@ -1,0 +1,90 @@
+% Template for vulnerability detection Success@1 table
+% Note: Requires \usepackage{multirow} for merged CWE cells
+
+%-----------------------------------------------------------
+% Define new column type for centered columns
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+%-----------------------------------------------------------
+% Define colors
+\definecolor{verylightgreennew}{RGB}{220,255,220}
+\definecolor{verylightrednew}{RGB}{255,230,230}
+\definecolor{verylightreddarker}{HTML}{FFCBCB}
+\definecolor{lightgraynew}{rgb}{0.95,0.95,0.95}
+\definecolor{greencm}{RGB}{0,153,0}
+
+%-----------------------------------------------------------
+% Cell size definitions
+\newcommand{\cellszlg}{0.50cm} 
+\newcommand{\cellszsm}{0.40cm} 
+
+%-----------------------------------------------------------
+% Check and cross mark commands
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+% Table cell commands
+\newcommand{\cm}{{\color{greencm}\normalsize\cmark}}
+\newcommand{\xm}{{\color{verylightreddarker}\normalsize\xmark}}
+\newcommand\BBBBB{\rule[1.6ex]{0pt}{1.6ex}}
+
+% A simple command to render vulnerability IDs
+\newcommand{\vulnId}[1]{{\sf #1}}
+
+% Cell content commands
+\newcommand{\cellno}{\BBBBB \xm \cellcolor{verylightrednew}}
+\newcommand{\cellyes}{\BBBBB \cm \cellcolor{verylightgreennew}}
+\newcommand{\cellna}{\BBBBB \cellcolor{lightgraynew}}
+
+\begin{table*}[t!]
+\vspace{3mm}
+\centering
+\def\arraystretch{1.2}
+\scriptsize
+
+% Resize the entire table to the text width
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{P{2mm} l l l !{\vrule width 0.8pt} 
+                % GPT-4.1 group: 3 columns (crate, file, function)
+                P{\cellszlg} P{\cellszlg} P{\cellszlg} 
+                !{\vrule width 0.6pt} 
+                % Gemini group: 3 columns
+                P{\cellszlg} P{\cellszlg} P{\cellszlg}  
+                !{\vrule width 0.6pt} 
+                % Claude group: 3 columns
+                P{\cellszsm} P{\cellszsm} P{\cellszsm} 
+                !{\vrule width 0.6pt}
+                % DeepSeek group: 3 columns
+                P{\cellszsm} P{\cellszsm} P{\cellszsm}
+                !{\vrule width 0.8pt} @{}}
+%------------------------------------------------------------------
+% Header rows
+& & & 
+& \multicolumn{3}{c!{\vrule width 0.6pt}}{\textsc{\bfseries\scshape GPT-4.1}} 
+& \multicolumn{3}{c!{\vrule width 0.6pt}}{\textsc{\bfseries\scshape Gemini 1.5 Pro}} 
+& \multicolumn{3}{c!{\vrule width 0.6pt}}{\textsc{\bfseries\scshape Claude 3.7}} 
+& \multicolumn{3}{c!{\vrule width 0.8pt}}{\textsc{\bfseries\scshape DeepSeek-V3.1}} \\
+& \multicolumn{1}{c}{\textbf{CWE}} & \multicolumn{1}{c}{\textbf{Vulnerability ID}} & 
+& \rotatebox{90}{\textbf{C}} 
+& \rotatebox{90}{\textbf{Fi}} 
+& \rotatebox{90}{\textbf{Fu}} 
+& \rotatebox{90}{\textbf{C}} 
+& \rotatebox{90}{\textbf{Fi}}  
+& \rotatebox{90}{\textbf{Fu}} 
+& \rotatebox{90}{\textbf{C}} 
+& \rotatebox{90}{\textbf{Fi}} 
+& \rotatebox{90}{\textbf{Fu}}
+& \rotatebox{90}{\textbf{C}} 
+& \rotatebox{90}{\textbf{Fi}} 
+& \rotatebox{90}{\textbf{Fu}} \\
+\noalign{\hrule height 0.8pt}
+%------------------------------------------------------------------
+% Data rows - will be filled by script
+{TABLE_ROWS}
+\noalign{\hrule height 0.7pt}
+\end{tabular}%
+} % end resizebox
+\caption{Success@1 vulnerable function localization results across models and code granularities, computed on vulnerable samples where all models produced valid JSON responses. Green checkmarks indicate the model identified at least one correct vulnerable function; red crosses indicate failure. Gray cells indicate samples where at least one model failed to return valid JSON. Columns represent granularities: \underline{C}rate, \underline{Fi}le, \underline{Fu}nction.}
+\label{table:success_at_1_compact}
+\vspace{-3mm}
+\end{table*}

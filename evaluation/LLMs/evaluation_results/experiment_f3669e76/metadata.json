@@ -1,0 +1,65 @@
+{
+  "experiment_id": "f3669e76",
+  "experiment_name": "mizan-anthropic-claude-3-7-sonnet-20250219-20250729_000425",
+  "provider": "anthropic",
+  "model": "claude-3-7-sonnet-20250219",
+  "temperature": 0.0,
+  "created_at": "2025-07-29T00:50:59.897102",
+  "total_examples": 173,
+  "mutations_metadata": {
+    "mutations_applied": [
+      "mizan-mut-for-to-while"
+    ],
+    "skipped": {
+      "mizan-mut-for-to-while": [
+        "vuln-0004/sample-00004-crate",
+        "vuln-0004/sample-00004-file",
+        "vuln-0006/sample-10006-crate",
+        "vuln-0006/sample-10006-file",
+        "vuln-0006/sample-10006-function",
+        "vuln-0007/sample-00007-crate",
+        "vuln-0007/sample-00007-file",
+        "vuln-0014/sample-00014-crate",
+        "vuln-0014/sample-00014-file",
+        "vuln-0014/sample-10014-crate",
+        "vuln-0014/sample-10014-file",
+        "vuln-0041/sample-00041-crate",
+        "vuln-0041/sample-10041-crate"
+      ]
+    },
+    "partial_mutations": {
+      "mizan-mut-for-to-while": [
+        "vuln-0005/sample-00005-function",
+        "vuln-0005/sample-00005-file",
+        "vuln-0005/sample-00005-crate",
+        "vuln-0006/sample-00006-crate",
+        "vuln-0006/sample-00006-file",
+        "vuln-0006/sample-00006-function",
+        "vuln-0007/sample-00007-crate",
+        "vuln-0007/sample-00007-file",
+        "vuln-0007/sample-00007-function",
+        "vuln-0015/sample-00015-crate",
+        "vuln-0015/sample-00015-function",
+        "vuln-0016/sample-00016-crate",
+        "vuln-0016/sample-00016-function",
+        "vuln-0017/sample-00017-crate",
+        "vuln-0017/sample-00017-function",
+        "vuln-0018/sample-00018-crate",
+        "vuln-0018/sample-00018-file",
+        "vuln-0019/sample-00019-crate",
+        "vuln-0019/sample-00019-file",
+        "vuln-0027/sample-00027-crate",
+        "vuln-0027/sample-00027-file",
+        "vuln-0028/sample-00028-crate",
+        "vuln-0028/sample-00028-function",
+        "vuln-0029/sample-00029-crate",
+        "vuln-0029/sample-00029-function",
+        "vuln-0031/sample-00031-crate",
+        "vuln-0039/sample-00039-crate",
+        "vuln-0041/sample-00041-crate",
+        "vuln-0041/sample-00041-function"
+      ]
+    },
+    "timestamp": "2025-07-25T18:48:06.460628"
+  }
+}
