@@ -10,10 +10,10 @@ from common.data_utils import (
     get_short_model_name,
     get_vanilla_experiment_ids,
     get_ordered_models,
+    find_common_samples,
 )
 from common.metrics import (
-    compute_success_at_1_function_rate,
-    load_experiment_data,
+    compute_success_at_1_line_rate,
     compute_aggregate_metrics,
 )
 
@@ -36,6 +36,8 @@ TRANSFORMATIONS = {
     "malignant-comments": "Malignant Comments",
     "malignant-rename-fn": "Malignant Rename Fn",
     "malignant-rename-var": "Malignant Rename Var",
+    "benign": "Benign (all)",
+    "malignant": "Malignant (all)",
 }
 
 TRANSFORMATION_ORDER = [
@@ -57,6 +59,8 @@ TRANSFORMATION_ORDER = [
     "Malignant Blocks",
     "Malignant Rename Fn",
     "Malignant Rename Var",
+    "Benign (all)",
+    "Malignant (all)",
 ]
 
 
@@ -70,41 +74,63 @@ def load_experiments_mapping():
 
 def compute_transformation_deltas(experiments_map):
     models = list(experiments_map.keys())
+    
+    # First, collect ALL experiment IDs to find common samples
+    all_experiment_ids = []
+    experiment_info = {}  # Store mapping of exp_id to (model, transformation)
+    
+    for model in models:
+        model_experiments = experiments_map[model]
+        
+        # Add vanilla
+        vanilla_exp_id = model_experiments["vanilla"]
+        all_experiment_ids.append(vanilla_exp_id)
+        experiment_info[vanilla_exp_id] = (model, "vanilla")
+        
+        # Add all transformations
+        for transformation_raw, transformation_display in TRANSFORMATIONS.items():
+            if transformation_raw in model_experiments:
+                trans_exp_id = model_experiments[transformation_raw]
+                all_experiment_ids.append(trans_exp_id)
+                experiment_info[trans_exp_id] = (model, transformation_display)
+    
+    # Find samples common across ALL experiments
+    common_samples = find_common_samples(all_experiment_ids)
+    
+    if len(common_samples) == 0:
+        return pd.DataFrame()
+    
     delta_data = []
-
+    
+    # Now compute metrics using only common samples
     for model in models:
         model_experiments = experiments_map[model]
         vanilla_exp_id = model_experiments["vanilla"]
         vanilla_df = load_processed_experiment(vanilla_exp_id)
         vanilla_valid = vanilla_df[vanilla_df["is_valid_json"] == True]
-
+        vanilla_common = vanilla_valid[vanilla_valid["example_id"].isin(common_samples)]
+        
         for transformation_raw, transformation_display in TRANSFORMATIONS.items():
             if transformation_raw not in model_experiments:
                 continue
-
+            
             trans_exp_id = model_experiments[transformation_raw]
             try:
                 trans_df = load_processed_experiment(trans_exp_id)
                 trans_valid = trans_df[trans_df["is_valid_json"] == True]
-
-                vanilla_samples = set(vanilla_valid["example_id"].unique())
-                trans_samples = set(trans_valid["example_id"].unique())
-                common_samples = vanilla_samples.intersection(trans_samples)
-
-                if len(common_samples) == 0:
-                    continue
-
-                vanilla_common = vanilla_valid[
-                    vanilla_valid["example_id"].isin(common_samples)
-                ]
-                trans_common = trans_valid[
-                    trans_valid["example_id"].isin(common_samples)
-                ]
-
-                vanilla_score = compute_success_at_1_function_rate(vanilla_common)
-                trans_score = compute_success_at_1_function_rate(trans_common)
+                trans_common = trans_valid[trans_valid["example_id"].isin(common_samples)]
+                
+                # Get vulnerable samples for Success@1 calculation
+                trans_vuln = trans_common[trans_common["is_vulnerable_gt"] == True]
+                
+                vanilla_score = compute_success_at_1_line_rate(vanilla_common)
+                trans_score = compute_success_at_1_line_rate(trans_common)
                 delta = trans_score - vanilla_score
-
+                
+                # Calculate hits and total for fractions
+                trans_hits = int(trans_vuln["success_at_1_line"].sum()) if len(trans_vuln) > 0 else 0
+                trans_total = len(trans_vuln)
+                
                 delta_data.append(
                     {
                         "model": get_short_model_name(model),
@@ -112,28 +138,34 @@ def compute_transformation_deltas(experiments_map):
                         "vanilla_score": vanilla_score,
                         "transformation_score": trans_score,
                         "delta": delta,
+                        "hits": trans_hits,
+                        "total": trans_total,
                     }
                 )
             except Exception:
                 continue
-
+    
     return pd.DataFrame(delta_data)
 
 
 def generate_table_rows(table_data):
     models = get_ordered_models(
-        [col for col in table_data[0].keys() if col != "Transformation"]
+        [
+            col
+            for col in table_data[0].keys()
+            if col != "Transformation" and not col.endswith("_delta")
+        ]
     )
 
-    def extract_delta(value_str):
-        if "(" in str(value_str) and ")" in str(value_str):
-            delta_part = str(value_str).split("(")[1].split(")")[0]
-            return float(delta_part)
+    def get_delta(row, model):
+        delta_key = f"{model}_delta"
+        if delta_key in row:
+            return row[delta_key]
         return 0.0
 
     min_deltas = {}
     for model in models:
-        deltas = [extract_delta(row[model]) for row in table_data[1:] if model in row]
+        deltas = [get_delta(row, model) for row in table_data[1:] if model in row]
         if deltas:
             min_deltas[model] = min(deltas)
 
@@ -165,6 +197,8 @@ def generate_table_rows(table_data):
             new_group = "malignant_insert"
         elif transform_name in ["Malignant Rename Fn", "Malignant Rename Var"]:
             new_group = "malignant_rename"
+        elif transform_name in ["Benign (all)", "Malignant (all)"]:
+            new_group = "aggregate"
         else:
             new_group = "other"
 
@@ -186,6 +220,8 @@ def generate_table_rows(table_data):
                 )
             ):
                 table_rows.append("\\addlinespace[2pt]")
+            elif current_group != "aggregate" and new_group == "aggregate":
+                table_rows.append("\\midrule")
 
         current_group = new_group
         row_data = [transform_name]
@@ -193,9 +229,13 @@ def generate_table_rows(table_data):
         for model in models:
             value_str = str(row[model])
             if transform_name != "vanilla (baseline)":
-                delta = extract_delta(value_str)
-                if delta == min_deltas.get(model, 0) and delta < 0:
-                    value_str = f"\\textcolor{{red}}{{{value_str}}}"
+                delta = get_delta(row, model)
+                if (
+                    delta == min_deltas.get(model, 0)
+                    and delta < 0
+                    and transform_name not in ["Benign (all)", "Malignant (all)"]
+                ):
+                    value_str = f"\\cellcolor{{red!20}}{{{value_str}}}"
             row_data.append(value_str)
 
         table_rows.append(" & ".join(row_data) + " \\\\")
@@ -208,17 +248,44 @@ def main():
     latex_dir = current_dir / "latex"
     latex_dir.mkdir(exist_ok=True)
 
+    experiments_map = load_experiments_mapping()
+    
+    # Collect ALL experiment IDs (vanilla + all transformations)
+    all_experiment_ids = []
+    for model, model_experiments in experiments_map.items():
+        all_experiment_ids.append(model_experiments["vanilla"])
+        for transformation_raw in TRANSFORMATIONS.keys():
+            if transformation_raw in model_experiments:
+                all_experiment_ids.append(model_experiments[transformation_raw])
+    
+    # Find common samples across ALL experiments
+    common_samples = find_common_samples(all_experiment_ids)
+    
+    if len(common_samples) == 0:
+        print("No common samples found across all experiments")
+        return
+    
+    # Load vanilla data with common samples only
     vanilla_experiments = get_vanilla_experiment_ids()
-    experiment_ids = list(vanilla_experiments.values())
-    model_names = list(vanilla_experiments.keys())
-    vanilla_data = load_experiment_data(experiment_ids, model_names)
+    
+    # Load vanilla data and filter to common samples
+    vanilla_data = {}
+    for model_name, exp_id in vanilla_experiments.items():
+        df = load_processed_experiment(exp_id)
+        valid_df = df[df["is_valid_json"] == True]
+        common_df = valid_df[valid_df["example_id"].isin(common_samples)]
+        vanilla_data[get_short_model_name(model_name)] = common_df
+    
     vanilla_metrics = compute_aggregate_metrics(vanilla_data, vulnerable_only=True)
 
     vanilla_baseline_scores = {}
+    vanilla_baseline_hits = {}
+    vanilla_baseline_totals = {}
     for metric in vanilla_metrics:
-        vanilla_baseline_scores[metric["Model"]] = metric["Success@1-Function"]
+        vanilla_baseline_scores[metric["Model"]] = metric["Success@1-Line"]
+        vanilla_baseline_hits[metric["Model"]] = metric["Success@1-Line Hits"]
+        vanilla_baseline_totals[metric["Model"]] = metric["Success@1-Line Total"]
 
-    experiments_map = load_experiments_mapping()
     delta_df = compute_transformation_deltas(experiments_map)
 
     if len(delta_df) == 0:
@@ -226,13 +293,15 @@ def main():
 
     transformation_data = (
         delta_df.groupby(["transformation", "model"])
-        .agg({"delta": "mean", "transformation_score": "mean"})
+        .agg({"delta": "mean", "transformation_score": "mean", "hits": "sum", "total": "sum"})
         .reset_index()
     )
 
     vanilla_row = {"Transformation": "vanilla (baseline)"}
     for model, score in vanilla_baseline_scores.items():
-        vanilla_row[model] = f"{score:.3f}"
+        hits = vanilla_baseline_hits[model]
+        total = vanilla_baseline_totals[model]
+        vanilla_row[model] = f"{score*100:.1f}\\% ({hits}/{total})"
 
     table_rows = [vanilla_row]
     for transformation in TRANSFORMATION_ORDER[1:]:
@@ -248,7 +317,11 @@ def main():
             actual_score = trans_row["transformation_score"]
             baseline_score = vanilla_baseline_scores[model]
             delta = actual_score - baseline_score
-            row[model] = f"{actual_score:.3f} ({delta:+.3f})"
+            hits = int(trans_row["hits"])
+            total = int(trans_row["total"])
+            # Store delta separately for highlighting logic
+            row[model] = f"{actual_score*100:.1f}\\% ({hits}/{total})"
+            row[f"{model}_delta"] = delta
         table_rows.append(row)
 
     template_path = current_dir / "latex" / "TEMPLATE_transformation_impact.tex"

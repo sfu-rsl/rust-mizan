@@ -1,35 +1,46 @@
 \begin{table}[htbp]
 \centering
-\caption{Impact of code transformations on Success@1 vulnerable function localization performance, computed on vulnerable samples where all models produced valid JSON responses. Baseline scores show vanilla performance; delta values in parentheses indicate change from baseline. Red highlighting identifies the transformation with the highest negative impact per model.}
-\label{tab:transformation_impact}
+\small
+\caption{%
+``Success@1 vulnerable line'' localization performance, computed on vulnerable variants where all models returned valid JSON responses (in total, 38 vulnerable variants where all 80 experiments produced valid JSON). 
+A model is considered successful if it identified at least one vulnerable line in the variant. 
+Red highlighting marks the mutation with the highest negative impact per model. 
+The \emph{Benign (all)} and \emph{Malignant (all)} mutations (separated by a line) correspond to aggregate experiments where multiple mutation operators are applied simultaneously to each variant. 
+For \emph{Benign}, we first remove comments, then apply ``Format Compact,'' followed by all AST and benign mutations. 
+For \emph{Malignant}, the same procedure is used, but with malignant mutations in place of benign ones.
+}
+\label{tab:mutation_impact}
 \begin{tabular}{lcccc}
 \toprule
-\textbf{Transformation} & \textbf{GPT-4.1} & \textbf{Gemini 1.5 Pro} & \textbf{Claude 3.7 Sonnet} & \textbf{DeepSeek-V3.1} \\
+\textbf{Mutation} & \textbf{GPT-4.1} & \textbf{Gemini 1.5 Pro} & \textbf{Claude 3.7 Sonnet} & \textbf{DeepSeek-V3.1} \\
 \midrule
-vanilla (baseline) & 0.369 & 0.415 & 0.477 & 0.246 \\
+vanilla (baseline) & 39.5\% (15/38) & 50.0\% (19/38) & 52.6\% (20/38) & 31.6\% (12/38) \\
 \addlinespace[4pt]
-Format Compact & 0.303 (-0.066) & 0.287 (-0.128) & 0.356 (-0.121) & 0.247 (+0.001) \\
-Format Expanded & 0.365 (-0.004) & 0.290 (-0.125) & 0.400 (-0.077) & 0.294 (+0.048) \\
+Format Compact & 42.1\% (16/38) & 44.7\% (17/38) & 47.4\% (18/38) & 31.6\% (12/38) \\
+Format Expanded & 39.5\% (15/38) & 39.5\% (15/38) & 63.2\% (24/38) & 39.5\% (15/38) \\
 \addlinespace[2pt]
-For→While & 0.282 (-0.087) & 0.309 (-0.107) & 0.372 (-0.105) & 0.247 (+0.001) \\
-While→Loop & 0.314 (-0.055) & 0.323 (-0.093) & 0.391 (-0.086) & 0.212 (-0.034) \\
-If-Else Reorder & 0.297 (-0.072) & 0.337 (-0.078) & 0.386 (-0.091) & 0.222 (-0.024) \\
-Derive Reorder & 0.282 (-0.088) & 0.323 (-0.093) & 0.409 (-0.068) & 0.198 (-0.049) \\
-Trait Bound Reorder & 0.296 (-0.073) & 0.269 (-0.147) & 0.364 (-0.113) & 0.222 (-0.024) \\
-Use Reorder & 0.338 (-0.031) & 0.290 (-0.125) & 0.375 (-0.102) & 0.198 (-0.049) \\
-Arithmetic Identity & 0.306 (-0.064) & 0.312 (-0.104) & 0.364 (-0.113) & 0.210 (-0.036) \\
+For→While & 36.8\% (14/38) & 42.1\% (16/38) & 52.6\% (20/38) & 39.5\% (15/38) \\
+While→Loop & 34.2\% (13/38) & 42.1\% (16/38) & 50.0\% (19/38) & 31.6\% (12/38) \\
+If-Else Reorder & 31.6\% (12/38) & 44.7\% (17/38) & 52.6\% (20/38) & 28.9\% (11/38) \\
+Derive Reorder & 28.9\% (11/38) & 55.3\% (21/38) & 52.6\% (20/38) & 31.6\% (12/38) \\
+Trait Bound Reorder & 28.9\% (11/38) & 39.5\% (15/38) & 42.1\% (16/38) & 26.3\% (10/38) \\
+Use Reorder & 34.2\% (13/38) & 42.1\% (16/38) & 55.3\% (21/38) & 26.3\% (10/38) \\
+Arithmetic Identity & 34.2\% (13/38) & 42.1\% (16/38) & 50.0\% (19/38) & 31.6\% (12/38) \\
 \addlinespace[4pt]
-Benign Comments & 0.329 (-0.040) & 0.426 (+0.010) & 0.391 (-0.086) & 0.237 (-0.009) \\
-Benign Blocks & 0.351 (-0.019) & 0.277 (-0.139) & 0.494 (+0.017) & 0.250 (+0.004) \\
+Benign Comments & 39.5\% (15/38) & 63.2\% (24/38) & 47.4\% (18/38) & 34.2\% (13/38) \\
+Benign Blocks & 36.8\% (14/38) & 39.5\% (15/38) & 55.3\% (21/38) & 31.6\% (12/38) \\
 \addlinespace[2pt]
-Benign Rename Fn & 0.263 (-0.106) & 0.277 (-0.139) & 0.352 (-0.125) & 0.259 (+0.013) \\
-Benign Rename Var & 0.286 (-0.084) & 0.360 (-0.055) & 0.430 (-0.047) & 0.287 (+0.041) \\
+Benign Rename Fn & 36.8\% (14/38) & 47.4\% (18/38) & 57.9\% (22/38) & 34.2\% (13/38) \\
+Benign Rename Var & 34.2\% (13/38) & 52.6\% (20/38) & 55.3\% (21/38) & 36.8\% (14/38) \\
 \addlinespace[4pt]
-Malignant Comments & \textcolor{red}{0.077 (-0.292)} & 0.277 (-0.139) & 0.333 (-0.144) & \textcolor{red}{0.062 (-0.184)} \\
-Malignant Blocks & 0.273 (-0.097) & \textcolor{red}{0.140 (-0.276)} & \textcolor{red}{0.205 (-0.272)} & 0.225 (-0.021) \\
+Malignant Comments & \cellcolor{red!20}{13.2\% (5/38)} & 39.5\% (15/38) & 36.8\% (14/38) & \cellcolor{red!20}{10.5\% (4/38)} \\
+Malignant Blocks & 28.9\% (11/38) & \cellcolor{red!20}{23.7\% (9/38)} & \cellcolor{red!20}{31.6\% (12/38)} & 28.9\% (11/38) \\
 \addlinespace[2pt]
-Malignant Rename Fn & 0.299 (-0.071) & 0.279 (-0.136) & 0.368 (-0.109) & 0.237 (-0.009) \\
-Malignant Rename Var & 0.372 (+0.003) & 0.330 (-0.086) & 0.414 (-0.063) & 0.259 (+0.013) \\
+Malignant Rename Fn & 36.8\% (14/38) & 42.1\% (16/38) & 52.6\% (20/38) & 36.8\% (14/38) \\
+Malignant Rename Var & 44.7\% (17/38) & 39.5\% (15/38) & 60.5\% (23/38) & 34.2\% (13/38) \\
+\midrule
+Benign (all) & 39.5\% (15/38) & 50.0\% (19/38) & 57.9\% (22/38) & 60.5\% (23/38) \\
+Malignant (all) & 26.3\% (10/38) & 28.9\% (11/38) & 34.2\% (13/38) & 52.6\% (20/38) \\
 \bottomrule
 \end{tabular}
 \end{table}
