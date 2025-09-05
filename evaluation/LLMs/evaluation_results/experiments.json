@@ -1,6 +1,9 @@
 {
     "claude-3-7-sonnet-20250219": {
         "vanilla": "7f0feb42",
+        "benign": "d8ab06fe",
+        "malignant": "5f1b6557",
+        "remove-comments": "29d5b82b",
         "format-expanded": "d13af563",
         "format-compact": "ac17676d",
         "mizan-mut-arithmetic-identity": "bcf47760",
@@ -21,6 +24,9 @@
     },
     "gpt-4.1-2025-04-14": {
         "vanilla": "7dd2c700",
+        "benign": "2d7ce38a",
+        "malignant": "b8a9f1c9",
+        "remove-comments": "880afc0e",
         "format-expanded": "d5b8be06",
         "format-compact": "7b480732",
         "mizan-mut-arithmetic-identity": "daa4c3ef",
@@ -41,6 +47,9 @@
     },
     "gemini-1.5-pro": {
         "vanilla": "7ead3d40",
+        "benign": "176fe950",
+        "malignant": "53cadcbe",
+        "remove-comments": "6a2b581c",
         "format-expanded": "d8ced398",
         "format-compact": "3e6fabbe",
         "mizan-mut-arithmetic-identity": "3822365b",
@@ -61,6 +70,9 @@
     },
     "deepseek-chat": {
         "vanilla": "9c998f04",
+        "benign": "3be76632",
+        "malignant": "0478e473",
+        "remove-comments": "a44521b0",
         "format-expanded": "d9ad707a",
         "format-compact": "e2e65a9c",
         "mizan-mut-arithmetic-identity": "ea83894f",
