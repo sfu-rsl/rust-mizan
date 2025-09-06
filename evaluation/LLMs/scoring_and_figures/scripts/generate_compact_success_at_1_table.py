@@ -25,7 +25,7 @@ def get_success_status(
     df: pd.DataFrame, vuln_id: str, granularity: str, model: str
 ) -> str:
     """
-    Check if model achieved Success@1 for function localization on this vulnerability.
+    Check if model achieved Success@1 for line localization on this vulnerability.
 
     Args:
         df: Combined dataframe with results from all models
@@ -46,7 +46,7 @@ def get_success_status(
     if filtered.empty:
         return "\\cellna"
 
-    has_success = (filtered["function_tp"] > 0).any()
+    has_success = (filtered["line_tp"] > 0).any()
     return "\\cellyes" if has_success else "\\cellno"
 
 
@@ -55,11 +55,33 @@ def generate_table_rows(
 ) -> str:
     models = list(experiment_data.keys())
     granularities = ["crate", "file", "function"]
+    
+    # Add model column to each dataframe before concatenating
+    for model_name, df in experiment_data.items():
+        df["model"] = model_name
+    
     combined_df = pd.concat(experiment_data.values(), ignore_index=True)
 
-    # Group vulnerabilities by CWE
-    cwe_groups = {}
+    # Filter out vulnerabilities that have all NA results
+    valid_vuln_ids = set()
     for vuln_id in sorted(combined_df["vuln_id"].unique()):
+        # Check if this vulnerability has at least one non-NA result
+        has_valid_result = False
+        for model in models:
+            for granularity in granularities:
+                status = get_success_status(combined_df, vuln_id, granularity, model)
+                if status != "\\cellna":
+                    has_valid_result = True
+                    break
+            if has_valid_result:
+                break
+        
+        if has_valid_result:
+            valid_vuln_ids.add(vuln_id)
+    
+    # Group vulnerabilities by CWE (only including valid ones)
+    cwe_groups = {}
+    for vuln_id in sorted(valid_vuln_ids):
         if vuln_id in vulnerability_mapping:
             cwe = vulnerability_mapping[vuln_id]["cwe"]
             cwe_groups.setdefault(cwe, []).append(vuln_id)
@@ -70,7 +92,8 @@ def generate_table_rows(
     for i, cwe in enumerate(sorted_cwes):
         vuln_ids = sorted(cwe_groups[cwe])
 
-        for j, vuln_id in enumerate(vuln_ids):
+        valid_cwe_vulns = vuln_ids  # These are already filtered
+        for j, vuln_id in enumerate(valid_cwe_vulns):
             cve_id = vulnerability_mapping[vuln_id]["cve_id"]
 
             # Build row
@@ -79,7 +102,7 @@ def generate_table_rows(
             # CWE cell (multirow on first occurrence)
             if j == 0:
                 row.append(
-                    f"& \\multirow{{{len(vuln_ids)}}}{{*}}{{{cwe}}} & \\vulnId{{{cve_id}}} & "
+                    f"& \\multirow{{{len(valid_cwe_vulns)}}}{{*}}{{{cwe}}} & \\vulnId{{{cve_id}}} & "
                 )
             else:
                 row.append(f"& & \\vulnId{{{cve_id}}} & ")

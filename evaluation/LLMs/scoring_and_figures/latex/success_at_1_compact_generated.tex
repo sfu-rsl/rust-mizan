@@ -39,6 +39,7 @@
 \begin{table*}[t!]
 \vspace{3mm}
 \centering
+\caption{Success@1 vulnerable line localization results across models and code levels, computed on vulnerable variants where all models produced valid JSON responses. Green checkmarks indicate the model identified at least one correct vulnerable line; red crosses indicate failure. Gray cells indicate variants where at least one model failed to return valid JSON. Columns represent code levels: \underline{C}rate, \underline{Fi}le, \underline{Fu}nction.}
 \def\arraystretch{1.2}
 \scriptsize
 
@@ -65,46 +66,46 @@
 & \multicolumn{3}{c!{\vrule width 0.6pt}}{\textsc{\bfseries\scshape Claude 3.7}} 
 & \multicolumn{3}{c!{\vrule width 0.8pt}}{\textsc{\bfseries\scshape DeepSeek-V3.1}} \\
 & \multicolumn{1}{c}{\textbf{CWE}} & \multicolumn{1}{c}{\textbf{Vulnerability ID}} & 
-& \rotatebox{90}{\textbf{C}} 
-& \rotatebox{90}{\textbf{Fi}} 
-& \rotatebox{90}{\textbf{Fu}} 
-& \rotatebox{90}{\textbf{C}} 
-& \rotatebox{90}{\textbf{Fi}}  
-& \rotatebox{90}{\textbf{Fu}} 
-& \rotatebox{90}{\textbf{C}} 
-& \rotatebox{90}{\textbf{Fi}} 
-& \rotatebox{90}{\textbf{Fu}}
-& \rotatebox{90}{\textbf{C}} 
-& \rotatebox{90}{\textbf{Fi}} 
-& \rotatebox{90}{\textbf{Fu}} \\
+& {\textbf{C}} 
+& {\textbf{Fi}} 
+& {\textbf{Fu}} 
+& {\textbf{C}} 
+& {\textbf{Fi}}  
+& {\textbf{Fu}} 
+& {\textbf{C}} 
+& {\textbf{Fi}} 
+& {\textbf{Fu}}
+& {\textbf{C}} 
+& {\textbf{Fi}} 
+& {\textbf{Fu}} \\
 \noalign{\hrule height 0.8pt}
 %------------------------------------------------------------------
 % Data rows - will be filled by script
 % Row for vuln-0003
 & \multirow{3}{*}{CWE-119} & \vulnId{CVE-2018-21000} & 
-& \cellyes & \cellyes & \cellyes 
+& \cellno & \cellyes & \cellyes 
 & \cellyes & \cellyes & \cellyes 
 & \cellno & \cellno & \cellyes 
 & \cellno & \cellno & \cellyes \\
 % Row for vuln-0040
 & & \vulnId{RUSTSEC-2025-0027} & 
 & \cellyes & \cellna & \cellno 
-& \cellno & \cellna & \cellno 
-& \cellyes & \cellna & \cellno 
+& \cellno & \cellna & \cellyes 
+& \cellno & \cellna & \cellyes 
 & \cellno & \cellna & \cellno \\
 % Row for vuln-0042
 & & \vulnId{RUSTSEC-2025-0003} & 
 & \cellyes & \cellyes & \cellna 
+& \cellyes & \cellyes & \cellna 
 & \cellno & \cellyes & \cellna 
-& \cellno & \cellno & \cellna 
 & \cellno & \cellno & \cellna \\
 \hline
 % Row for vuln-0016
 & \multirow{1}{*}{CWE-120} & \vulnId{CVE-2020-35887} & 
-& \cellno & \cellna & \cellno 
-& \cellno & \cellna & \cellno 
-& \cellno & \cellna & \cellno 
-& \cellno & \cellna & \cellno \\
+& \cellyes & \cellna & \cellyes 
+& \cellyes & \cellna & \cellyes 
+& \cellyes & \cellna & \cellyes 
+& \cellyes & \cellna & \cellyes \\
 \hline
 % Row for vuln-0014
 & \multirow{1}{*}{CWE-122} & \vulnId{RUSTSEC-2025-0032} & 
@@ -115,9 +116,9 @@
 \hline
 % Row for vuln-0007
 & \multirow{4}{*}{CWE-125} & \vulnId{CVE-2020-35890} & 
-& \cellno & \cellyes & \cellyes 
-& \cellno & \cellno & \cellyes 
 & \cellno & \cellno & \cellno 
+& \cellno & \cellno & \cellno 
+& \cellyes & \cellno & \cellyes 
 & \cellyes & \cellyes & \cellyes \\
 % Row for vuln-0024
 & & \vulnId{CVE-2020-35892} & 
@@ -130,12 +131,12 @@
 & \cellno & \cellna & \cellyes 
 & \cellno & \cellna & \cellyes 
 & \cellno & \cellna & \cellyes 
-& \cellno & \cellna & \cellno \\
+& \cellyes & \cellna & \cellno \\
 % Row for vuln-0041
 & & \vulnId{RUSTSEC-2025-0018} & 
 & \cellno & \cellna & \cellyes 
 & \cellyes & \cellna & \cellyes 
-& \cellyes & \cellna & \cellyes 
+& \cellno & \cellna & \cellyes 
 & \cellno & \cellna & \cellyes \\
 \hline
 % Row for vuln-0018
@@ -148,7 +149,7 @@
 & & \vulnId{CVE-2020-25792} & 
 & \cellna & \cellna & \cellno 
 & \cellna & \cellna & \cellyes 
-& \cellna & \cellna & \cellyes 
+& \cellna & \cellna & \cellno 
 & \cellna & \cellna & \cellno \\
 % Row for vuln-0020
 & & \vulnId{CVE-2020-25793} & 
@@ -178,23 +179,17 @@
 & \cellno & \cellna & \cellno \\
 \hline
 % Row for vuln-0008
-& \multirow{3}{*}{CWE-362} & \vulnId{CVE-2020-35925} & 
+& \multirow{2}{*}{CWE-362} & \vulnId{CVE-2020-35925} & 
 & \cellno & \cellna & \cellno 
 & \cellno & \cellna & \cellno 
 & \cellno & \cellna & \cellno 
 & \cellno & \cellna & \cellno \\
-% Row for vuln-0010
-& & \vulnId{CVE-2020-36204} & 
-& \cellna & \cellna & \cellna 
-& \cellna & \cellna & \cellna 
-& \cellna & \cellna & \cellna 
-& \cellna & \cellna & \cellna \\
 % Row for vuln-0015
 & & \vulnId{CVE-2020-35886} & 
-& \cellno & \cellna & \cellno 
-& \cellyes & \cellna & \cellno 
-& \cellno & \cellna & \cellno 
-& \cellno & \cellna & \cellno \\
+& \cellno & \cellna & \cellyes 
+& \cellyes & \cellna & \cellyes 
+& \cellno & \cellna & \cellyes 
+& \cellno & \cellna & \cellyes \\
 \hline
 % Row for vuln-0005
 & \multirow{1}{*}{CWE-400} & \vulnId{CVE-2020-35916} & 
@@ -218,10 +213,10 @@
 \hline
 % Row for vuln-0004
 & \multirow{2}{*}{CWE-415} & \vulnId{CVE-2020-35891} & 
-& \cellna & \cellyes & \cellno 
+& \cellna & \cellno & \cellno 
 & \cellna & \cellno & \cellno 
 & \cellna & \cellno & \cellyes 
-& \cellna & \cellno & \cellyes \\
+& \cellna & \cellno & \cellno \\
 % Row for vuln-0013
 & & \vulnId{CVE-2020-35862} & 
 & \cellna & \cellna & \cellno 
@@ -238,7 +233,7 @@
 % Row for vuln-0002
 & & \vulnId{CVE-2020-35711} & 
 & \cellna & \cellna & \cellyes 
-& \cellna & \cellna & \cellno 
+& \cellna & \cellna & \cellyes 
 & \cellna & \cellna & \cellyes 
 & \cellna & \cellna & \cellno \\
 % Row for vuln-0029
@@ -250,21 +245,21 @@
 \hline
 % Row for vuln-0012
 & \multirow{1}{*}{CWE-662} & \vulnId{CVE-2020-36215} & 
-& \cellno & \cellno & \cellno 
-& \cellno & \cellno & \cellno 
-& \cellno & \cellno & \cellno 
+& \cellno & \cellno & \cellyes 
+& \cellno & \cellno & \cellyes 
+& \cellno & \cellno & \cellyes 
 & \cellno & \cellno & \cellno \\
 \hline
 % Row for vuln-0011
 & \multirow{1}{*}{CWE-672} & \vulnId{RUSTSEC-2025-0019} & 
-& \cellno & \cellna & \cellyes 
 & \cellno & \cellna & \cellno 
-& \cellyes & \cellna & \cellyes 
+& \cellno & \cellna & \cellno 
+& \cellno & \cellna & \cellyes 
 & \cellno & \cellna & \cellno \\
 \hline
 % Row for vuln-0006
 & \multirow{3}{*}{CWE-787} & \vulnId{CVE-2021-25900} & 
-& \cellyes & \cellyes & \cellyes 
+& \cellno & \cellyes & \cellno 
 & \cellno & \cellno & \cellno 
 & \cellno & \cellno & \cellno 
 & \cellno & \cellno & \cellno \\
@@ -272,21 +267,21 @@
 & & \vulnId{CVE-2023-50711} & 
 & \cellna & \cellno & \cellna 
 & \cellna & \cellno & \cellna 
-& \cellna & \cellyes & \cellna 
+& \cellna & \cellno & \cellna 
 & \cellna & \cellno & \cellna \\
 % Row for vuln-0039
 & & \vulnId{CVE-2019-15554} & 
-& \cellno & \cellna & \cellyes 
+& \cellno & \cellna & \cellno 
 & \cellyes & \cellna & \cellno 
-& \cellno & \cellna & \cellyes 
+& \cellno & \cellna & \cellno 
 & \cellno & \cellna & \cellno \\
 \hline
 % Row for vuln-0009
 & \multirow{3}{*}{CWE-908} & \vulnId{CVE-2020-36432} & 
 & \cellyes & \cellyes & \cellyes 
-& \cellyes & \cellyes & \cellyes 
-& \cellno & \cellyes & \cellyes 
-& \cellyes & \cellno & \cellyes \\
+& \cellno & \cellno & \cellno 
+& \cellno & \cellyes & \cellno 
+& \cellyes & \cellno & \cellno \\
 % Row for vuln-0017
 & & \vulnId{CVE-2020-35888} & 
 & \cellno & \cellna & \cellyes 
@@ -302,7 +297,6 @@
 \noalign{\hrule height 0.7pt}
 \end{tabular}%
 } % end resizebox
-\caption{Success@1 vulnerable function localization results across models and code granularities, computed on vulnerable samples where all models produced valid JSON responses. Green checkmarks indicate the model identified at least one correct vulnerable function; red crosses indicate failure. Gray cells indicate samples where at least one model failed to return valid JSON. Columns represent granularities: \underline{C}rate, \underline{Fi}le, \underline{Fu}nction.}
 \label{table:success_at_1_compact}
 \vspace{-3mm}
 \end{table*}
