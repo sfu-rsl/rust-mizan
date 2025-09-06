@@ -16,15 +16,15 @@ from common.metrics import load_experiment_data, compute_micro_averaged_f1
 plt.style.use("default")
 plt.rcParams.update(
     {
-        "font.size": 14,
+        "font.size": 12,
         "font.family": "serif",
         "font.serif": ["Times New Roman", "DejaVu Serif"],
-        "axes.labelsize": 16,
-        "axes.titlesize": 18,
-        "xtick.labelsize": 14,
-        "ytick.labelsize": 14,
-        "legend.fontsize": 14,
-        "figure.titlesize": 20,
+        "axes.labelsize": 13,
+        "axes.titlesize": 14,
+        "xtick.labelsize": 12,
+        "ytick.labelsize": 12,
+        "legend.fontsize": 11,
+        "figure.titlesize": 16,
         "axes.linewidth": 0.8,
         "grid.alpha": 0.3,
         "grid.linewidth": 0.5,
@@ -62,7 +62,7 @@ def main():
 
     granularity_df = pd.DataFrame(granularity_data)
 
-    fig, ax = plt.subplots(figsize=(12, 7))
+    fig, ax = plt.subplots(figsize=(12, 4))
     palette = plt.get_cmap("tab10")
     models = get_ordered_models(granularity_df["Model"].unique())
     granularities = ["crate", "file", "function"]
@@ -100,32 +100,35 @@ def main():
             if value > 0:
                 ax.text(
                     bar.get_x() + bar.get_width() / 2.0,
-                    bar.get_height() + 0.01,
-                    f"{value:.3f}",
+                    bar.get_height() + 0.005,
+                    f"{value*100:.1f}%",
                     ha="center",
                     va="bottom",
-                    fontsize=12,
+                    fontsize=11,
+                    fontweight="bold",
                 )
 
-    ax.set_xlabel("Model", fontweight="bold", fontsize=16)
-    ax.set_ylabel(
-        "Vulnerable Function Localization F1", fontweight="bold", fontsize=16
-    )
+    ax.set_xlabel("Model", fontsize=13)
+    ax.set_ylabel("Vuln. Func. Localization Micro F1 (%)", fontsize=13)
     ax.set_title(
-        "Vulnerable Function Localization Across Code Granularities", fontsize=18, fontweight="bold", pad=20
+        "Vulnerable Function Localization Across Code Levels",
+        fontsize=14,
+        pad=15,
     )
     ax.set_xticks(x + width)
     ax.set_xticklabels(models)
-    ax.set_ylim(0.0, 1.0)
-    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:.2f}"))
+    ax.set_ylim(0.0, 0.4)
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y*100:.0f}%"))
 
     legend = ax.legend(
-        title="Code Granularity",
+        title="Code Level",
         loc="upper left",
         frameon=True,
         fancybox=True,
-        shadow=True,
+        shadow=False,
         bbox_to_anchor=(0.02, 0.98),
+        fontsize=10,
+        title_fontsize=10,
     )
     legend.get_frame().set_facecolor("white")
     legend.get_frame().set_alpha(0.9)
@@ -139,7 +142,7 @@ def main():
     ax.spines["bottom"].set_linewidth(0.8)
 
     plt.tight_layout()
-    base_name = "figure_7_1_performance_by_granularity"
+    base_name = "performance_by_level"
 
     plt.savefig(
         figures_dir / f"{base_name}.png",
