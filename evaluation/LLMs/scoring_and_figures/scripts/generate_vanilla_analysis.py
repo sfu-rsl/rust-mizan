@@ -9,12 +9,12 @@ from common.metrics import load_experiment_data, compute_aggregate_metrics
 
 def generate_table_rows(metrics_data):
     metrics_order = [
-        ("Binary Accuracy", "Binary Accuracy"),
+        ("Binary Accuracy", "Vulnerability Detection Accuracy"),
+        ("Success@1-Function", "Success@1-Func"),
+        ("Success@1-Line", "Success@1-Line"),
         ("CWE F1", "CWE F1"),
         ("Function F1", "Func. Localization F1"),
         ("Line F1", "Line Localization F1"),
-        ("Success@1-Function", "Success@1-Func"),
-        ("Success@1-Line", "Success@1-Line"),
     ]
 
     table_rows = []
@@ -50,9 +50,9 @@ def main():
             {
                 "Model": all_metric["Model"],
                 "Binary Accuracy": f"{all_metric['Binary Accuracy']*100:.1f}\\% ({int(all_metric['Binary Accuracy'] * all_metric['Samples'])}/{all_metric['Samples']})",
-                "CWE F1": f"{all_metric['CWE F1']:.3f}",
-                "Function F1": f"{all_metric['Function F1']:.3f}",
-                "Line F1": f"{all_metric['Line F1']:.3f}",
+                "CWE F1": f"{all_metric['CWE F1']*100:.1f}\\%",
+                "Function F1": f"{all_metric['Function F1']*100:.1f}\\%",
+                "Line F1": f"{all_metric['Line F1']*100:.1f}\\%",
                 "Success@1-Function": f"{vuln_metric['Success@1-Function']*100:.1f}\\% ({vuln_metric['Success@1-Function Hits']}/{vuln_metric['Success@1-Function Total']})",
                 "Success@1-Line": f"{vuln_metric['Success@1-Line']*100:.1f}\\% ({vuln_metric['Success@1-Line Hits']}/{vuln_metric['Success@1-Line Total']})",
             }
