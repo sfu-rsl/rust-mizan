@@ -1,60 +1,62 @@
 # RustMizan
 
-RustMizan (**ميزانَ**- meaning "scale" in Arabic) is a benchmark designed to evaluate LLMs for Rust vulnerability detection. The goal is to build a structured dataset of real-world vulnerabilities that provides a framework to test the ability of LLMs to detect vulnerabilities in code samples at different granularities (function, file, module and crate levels).
+**RustMizan** (_Mizan_ - Arabic for "scale" or "balance") is an extensible benchmarking framework for evaluating both traditional and LLM-based vulnerability analysis techniques in Rust. It provides a curated dataset of real-world vulnerabilities and supporting infrastructure to enable systematic vulnerability detection research.
 
-## Project Structure
+## Key Features
 
-All code samples are organized in the `samples/` directory, with each vulnerability having its own folder (e.g., `vuln-0001`, `vuln-0002`, etc.). Each vulnerability folder contains up to 6 code samples.
+- **Fully compilable**: All variants compile with the Rust compiler. This is essential for traditional static analysis tools that operate on compiler intermediate representations (e.g., MIR)
 
-### Naming Convention
+- **Multi-level context**: Each vulnerability is available at crate, file, and function levels. This allows researchers to evaluate how traditional tools handle increasing scale and how LLMs perform with varying amounts of context
 
-Samples follow the pattern: `sample-XNNNN-level` where:
+- **Contamination-aware**: LLMs train on vast public data, which means they potentially memorize benchmarks rather than genuinely reasoning about vulnerabilities. RustMizan includes semantic-preserving mutations that transform code syntax while preserving vulnerabilities. This enables evaluation of true reasoning capabilities
 
-- X: First digit indicates vulnerability status
-  - `0`: Vulnerable code
-  - `1`: Fixed code
-- NNNN: Four-digit vulnerability ID (e.g., 0001, 0002)
-- level: Granularity level (function, file, or crate)
+- **Extensible**: The framework provides infrastructure for researchers to easily add new vulnerabilities and design custom mutations
 
-Example:
+## Getting Started
 
-- `sample-00001-function` - Vulnerable function from vulnerability 0001
-- `sample-10001-function` - Fixed function from vulnerability 0001
+To build all code variants, run:
 
-To add a new vulnerability to the dataset, please follow the instructions in [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-## Setup Instructions
-
-1. Clone the repository
-2. Build the project
-
-```sh
+```bash
 cargo +nightly build --workspace
 ```
 
-> Using nightly toolchain because `mizan-mut` depends on rust-analyzer crates which require nightly features
+> Using nightly toolchain because mizan-mut depends on `rust-analyzer` crates which require nightly features
 
-## Granularity Levels
+## Project Structure
 
-For each vulnerability, we include up to 6 samples:
-
-- 3 vulnerable and 3 fixed crates: each at the crate, module, file, and function level.
-- This allows testing model performance across different code sizes and contexts.
-
-> By file code sample, we don't mean that the whole code sample is a single file. It is the file that contains the vulnerability
-> along with all of its dependencies to keep the file itself unmodified. Same for function code sample.
+```
+rust-mizan/
+├── samples/              # Vulnerability dataset
+│   ├── vuln-0001/       # Each CVE in its own directory
+│   ├── vuln-0002/
+│   └── ...
+├── mizan-mut/           # Semantic-preserving mutation tool
+└── mizan-cli/           # Python CLI for dataset interaction
+```
 
 ## Tools
 
-### mizan-mut
+### [mizan-mut](./mizan-mut)
 
-[`mizan-mut`](./mizan-mut) is a Rust code mutation tool that provides semantic-preserving transformations and symbol renaming. It offers two main commands:
+Rust code mutation tool providing semantic-preserving transformations:
 
-1. mutate: Applies various AST-based mutations like converting for loops to while loops and reordering if-else branches
-2. rename: Renames any symbol in Rust codebases using rust-analyzer
+- **mutate**: AST-based mutations (e.g., for-to-while loop conversion)
+- **rename**: Symbol renaming using `rust-analyzer`
 
-> Note: While not fully tested across all edge cases, we have manually verified the implementation by applying all mutations to large crates like `ripgrep`, `tokio`, `clap`, `hyper`, and `pulldown-cmark`, and making sure that their tests still pass.
+### [mizan-cli](./mizan-cli)
 
-### mizan-cli
+Python CLI for dataset interaction:
 
-[`mizan-cli`](./mizan-cli) is a Python CLI tool that provides convenient interaction with RustMizan dataset. It allows developers to checkout specific code samples, apply various mutations, and run experiments on subsets of the dataset.
+- Checkout specific code samples
+- Apply mutations to samples
+- Run experiments on dataset subsets
+
+## Usage Model
+
+![RustMizan Usage Model](./docs/images/usage_model.jpeg)
+
+_Curated vulnerable crates (from RustSec, CVE records, and other sources) are manually reduced to multi-level variants, optionally transformed via semantic-preserving mutations, and evaluated with traditional program analysis tools and LLM-based methods._
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on adding new vulnerabilities to the dataset.
