@@ -27,6 +27,12 @@ python scripts/generate_transformation_analysis.py;
 python scripts/generate_dataset_summary.py;
 python scripts/generate_yearly_stats_table.py;
 python scripts/generate_loc_boxplot.py;
+
+# Generate single-model table (vanilla, benign, malignant only)
+# Default: Qwen2.5-7B-Instruct
+python scripts/generate_qwen_table.py;
+# Or specify a different model
+python scripts/generate_qwen_table.py --model "claude-3-7-sonnet-20250219";
 ```
 
 ## Scoring

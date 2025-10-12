@@ -238,11 +238,11 @@ mizan evaluate run [OPTIONS]
 
 Options:
 
-| Option       | Short | Description                                               |
-| ------------ | ----- | --------------------------------------------------------- |
-| `--dataset`  | `-d`  | Path to prepared dataset file                             |
-| `--provider` | `-p`  | LLM provider: `openai`, `anthropic`, `gemini`, `deepseek` |
-| `--model`    | `-m`  | Model name                                                |
+| Option       | Short | Description                                                        |
+| ------------ | ----- | ------------------------------------------------------------------ |
+| `--dataset`  | `-d`  | Path to prepared dataset file                                      |
+| `--provider` | `-p`  | LLM provider: `openai`, `anthropic`, `gemini`, `deepseek`, `local` |
+| `--model`    | `-m`  | Model name                                                         |
 
 > Before running evaluations, make sure you have set up the required API keys in your environment:
 >
@@ -250,6 +250,7 @@ Options:
 > - For Anthropic: Set the `ANTHROPIC_API_KEY` environment variable
 > - For Gemini: Set the `GOOGLE_API_KEY` or `GEMINI_API_KEY` environment variable
 > - For DeepSeek: Set the `DEEPSEEK_API_KEY` environment variable
+> - For Local LLM: Set `LOCAL_LLM_API_KEY` and `LOCAL_LLM_BASE_URL`
 >
 > Temperature is fixed at `0.0` for all evaluations.
 
@@ -259,6 +260,7 @@ Examples:
 mizan evaluate run -d ./evaluation_dataset.json -p anthropic -m claude-3-7-sonnet-20250219
 mizan evaluate run -d ./evaluation_dataset.json -p gemini -m gemini-1.5-pro
 mizan evaluate run -d ./evaluation_dataset.json -p deepseek -m deepseek-chat
+mizan evaluate run -d ./evaluation_dataset.json -p local -m Qwen/Qwen2.5-7B-Instruct
 ```
 
 Output Files:

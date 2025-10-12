@@ -90,5 +90,28 @@
         "malignant-comments": "a2604c3f",
         "malignant-rename-fn": "4ae9f7bc",
         "malignant-rename-var": "edd25ec0"
+    },
+    "Qwen2.5-7B-Instruct": {
+        "vanilla": "96cf1949",
+        "benign": "af75f105",
+        "malignant": "e95efbe6",
+        "remove-comments": "1011d633",
+        "format-expanded": "na",
+        "format-compact": "na",
+        "mizan-mut-arithmetic-identity": "na",
+        "mizan-mut-derive-reorder": "na",
+        "mizan-mut-for-to-while": "na",
+        "mizan-mut-if-else-reorder": "na",
+        "mizan-mut-trait-bound-reorder": "na",
+        "mizan-mut-use-reorder": "na",
+        "mizan-mut-while-to-loop": "na",
+        "benign-blocks": "na",
+        "benign-comments": "na",
+        "benign-rename-fn": "na",
+        "benign-rename-var": "na",
+        "malignant-blocks": "na",
+        "malignant-comments": "na",
+        "malignant-rename-fn": "na",
+        "malignant-rename-var": "na"
     }
 }

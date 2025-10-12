@@ -1,0 +1,17 @@
+{
+  "experiment_id": "1011d633",
+  "experiment_name": "mizan-local-Qwen/Qwen2.5-7B-Instruct-20251011_165800",
+  "provider": "local",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "temperature": 0.0,
+  "created_at": "2025-10-11T17:14:23.129961",
+  "total_examples": 173,
+  "mutations_metadata": {
+    "mutations_applied": [
+      "remove-comments"
+    ],
+    "skipped": {},
+    "partial_mutations": {},
+    "timestamp": "2025-07-25T18:41:19.548464"
+  }
+}

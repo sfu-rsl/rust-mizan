@@ -155,6 +155,47 @@ def create_target_function(
                         f.write(str(response))
                         f.write("\n")
 
+            elif provider == "local":
+                api_key = os.environ.get("LOCAL_LLM_API_KEY")
+                base_url = os.environ.get("LOCAL_LLM_BASE_URL")
+                client = openai.OpenAI(
+                    base_url=base_url,
+                    api_key=api_key,
+                    max_retries=5,
+                )
+
+                messages = []
+                if system_prompt:
+                    messages.append({"role": "system", "content": system_prompt})
+                messages.append({"role": "user", "content": prompt})
+
+                max_attempts = 5
+                for attempt in range(max_attempts):
+                    try:
+                        response = client.chat.completions.create(
+                            model=model,
+                            messages=messages,
+                            temperature=temperature,
+                            top_p=0.95,
+                            max_tokens=2000,
+                        )
+
+                        raw_response = response.choices[0].message.content.strip()
+
+                        if full_responses_file:
+                            with open(full_responses_file, "a") as f:
+                                f.write(str(response))
+                                f.write("\n")
+                        break
+                    except Exception as e:
+                        if attempt < max_attempts - 1:
+                            logger.warning(
+                                f"Local LLM request failed (attempt {attempt + 1}/{max_attempts}): {e}"
+                            )
+                            continue
+                        else:
+                            raise
+
             else:
                 raise ValueError(f"Unsupported provider: {provider}")
 
