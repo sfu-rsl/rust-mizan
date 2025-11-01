@@ -3188,6 +3188,56 @@
           "deps": []
         }
       ]
+    },
+    {
+      "id": "vuln-0043",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2020-36513",
+      "source_link2": "https://www.cve.org/CVERecord?id=CVE-2020-36514",
+      "crate_name": "acc_reader",
+      "year": 2021,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0043/sample-00043-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-908"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "read_up_to(&mut self, n: u64) -> io::Result<()> ",
+              "fn fill_buf(&mut self) -> io::Result<&[u8]>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              149,
+              209
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0043/sample-00043-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-908"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "read_up_to(&mut self, n: u64) -> io::Result<()> ",
+              "fn fill_buf(&mut self) -> io::Result<&[u8]>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              210,
+              270
+            ]
+          },
+          "deps": []
+        }
+      ]
     }
   ]
 }
