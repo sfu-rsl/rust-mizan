@@ -24,6 +24,19 @@ pub enum CocoonKdf {
     Pbkdf2 = 1,
 }
 
+#[derive(Copy, Clone)]
+#[cfg_attr(test, derive(Debug, PartialEq))]
+enum CocoonKdfVariant {
+    Strong = 1,
+    Weak,
+}
+
+#[derive(Copy, Clone)]
+#[cfg_attr(test, derive(Debug, PartialEq))]
+pub enum CocoonVersion {
+    Version1 = 1,
+}
+
 #[derive(Clone)]
 #[cfg_attr(test, derive(Debug, PartialEq))]
 pub struct CocoonConfig {
@@ -45,6 +58,9 @@ impl Default for CocoonConfig {
 }
 
 impl CocoonConfig {
+    pub fn cipher(&self) -> CocoonCipher {
+        self.cipher
+    }
     pub fn kdf(&self) -> CocoonKdf {
         self.kdf
     }
@@ -56,6 +72,14 @@ impl CocoonConfig {
                 CocoonKdfVariant::Strong => 100_000,
             },
         }
+    }
+    fn serialize(&self) -> [u8; 4] {
+        let mut buf = [0u8; 4];
+        buf[0] = self.cipher as u8;
+        buf[1] = self.kdf as u8;
+        buf[2] = self.kdf_variant as u8;
+        buf[3] = Default::default();
+        buf
     }
 }
 
@@ -83,6 +107,20 @@ impl CocoonHeader {
             length,
         }
     }
+    pub fn version(&self) -> CocoonVersion {
+        self.version
+    }
+    pub fn serialize_into(&self, buf: &mut [u8]) {
+        debug_assert!(buf.len() >= Self::SIZE);
+        let length = u64::try_from(self.length).expect("Data too large");
+
+        buf[..3].copy_from_slice(&self.magic);
+        buf[3] = self.version as u8;
+        buf[4..8].copy_from_slice(&self.config.serialize());
+        buf[8..24].copy_from_slice(&self.salt);
+        buf[24..36].copy_from_slice(&self.nonce);
+        buf[36..Self::SIZE].copy_from_slice(&length.to_be_bytes());
+    }
 }
 
 pub struct MiniCocoonHeader {
@@ -95,5 +133,12 @@ impl MiniCocoonHeader {
 
     pub fn new(nonce: [u8; 12], length: usize) -> Self {
         MiniCocoonHeader { nonce, length }
+    }
+    pub fn serialize_into(&self, buf: &mut [u8]) {
+        debug_assert!(buf.len() >= Self::SIZE);
+        let length = u64::try_from(self.length).expect("Data too large");
+
+        buf[..12].copy_from_slice(&self.nonce);
+        buf[12..Self::SIZE].copy_from_slice(&length.to_be_bytes());
     }
 }

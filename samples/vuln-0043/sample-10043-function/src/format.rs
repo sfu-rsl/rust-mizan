@@ -42,6 +42,9 @@ impl FormatPrefix {
         self.raw[HEADER_SIZE..HEADER_SIZE + TAG_SIZE].copy_from_slice(tag);
         self.raw
     }
+    pub fn header(&self) -> &CocoonHeader {
+        &self.header
+    }
     pub fn prefix(&self) -> &[u8] {
         &self.raw[..HEADER_SIZE]
     }

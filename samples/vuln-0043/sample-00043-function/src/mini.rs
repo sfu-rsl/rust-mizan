@@ -7,13 +7,13 @@ use alloc::vec::Vec;
 use chacha20poly1305::ChaCha20Poly1305;
 use rand::{rngs::StdRng, RngCore, SeedableRng};
 #[cfg(feature = "std")]
-use std::io::{ Write};
+use std::io::Write;
 use zeroize::Zeroizing;
 
 use super::{
     error::Error,
     format::MiniFormatPrefix,
-    header::{CocoonCipher, CocoonConfig, MiniCocoonHeader},
+    header::{CocoonCipher, CocoonConfig, CocoonKdf, MiniCocoonHeader},
     kdf::{self, KEY_SIZE},
 };
 
@@ -26,7 +26,6 @@ pub struct MiniCocoon {
 }
 
 impl MiniCocoon {
-    
     pub fn from_key(key: &[u8], seed: &[u8]) -> Self {
         let mut k = [0u8; KEY_SIZE];
         let mut s = [0u8; KEY_SIZE];
@@ -61,7 +60,6 @@ impl MiniCocoon {
     #[cfg(feature = "alloc")]
     #[cfg_attr(docs_rs, doc(cfg(any(feature = "alloc", feature = "std"))))]
     pub fn wrap(&self, data: &[u8]) -> Result<Vec<u8>, Error> {
-
         let mut container = Vec::with_capacity(MINI_PREFIX_SIZE + data.len());
         container.extend_from_slice(&[0; MINI_PREFIX_SIZE]);
         container.extend_from_slice(data);
@@ -113,5 +111,4 @@ impl MiniCocoon {
 
         Ok(prefix.serialize(&tag))
     }
-
 }
