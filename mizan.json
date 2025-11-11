@@ -3301,6 +3301,170 @@
           "deps": []
         }
       ]
+    },
+    {
+      "id": "vuln-0045",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2020-36442",
+      "crate_name": "cow",
+      "year": 2021,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0045/sample-00045-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-362"
+          ],
+          "vulnerable_functions": {
+            "src/generic.rs": [
+              "unsafe impl<T: Beef + Send + ?Sized, U: Capacity> Send for Cow<'_, T, U> {}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/generic.rs": [
+              133
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0045/sample-00045-file",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-362"
+          ],
+          "vulnerable_functions": {
+            "src/generic.rs": [
+              "unsafe impl<T: Beef + Send + ?Sized, U: Capacity> Send for Cow<'_, T, U> {}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/generic.rs": [
+              531
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0045/sample-00045-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-362"
+          ],
+          "vulnerable_functions": {
+            "src/generic.rs": [
+              "unsafe impl<T: Beef + Send + ?Sized, U: Capacity> Send for Cow<'_, T, U> {}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/generic.rs": [
+              531
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0045/sample-10045-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0045/sample-10045-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0045/sample-10045-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        }
+      ]
+    },
+    {
+      "id": "vuln-0046",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2020-35923",
+      "crate_name": "ordered_float",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0046/sample-00046-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-416"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn add_assign(&mut self, other: T)",
+              "fn sub_assign(&mut self, other: T)",
+              "fn mul_assign(&mut self, other: T)",
+              "fn div_assign(&mut self, other: T)",
+              "fn rem_assign(&mut self, other: T)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              61,
+              71,
+              81,
+              91,
+              101
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0046/sample-00046-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-416"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn add_assign(&mut self, other: T)",
+              "fn sub_assign(&mut self, other: T)",
+              "fn mul_assign(&mut self, other: T)",
+              "fn div_assign(&mut self, other: T)",
+              "fn rem_assign(&mut self, other: T)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              61,
+              71,
+              81,
+              91,
+              101
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0046/sample-10046-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0046/sample-10046-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        }
+      ]
     }
   ]
 }
