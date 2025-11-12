@@ -33,6 +33,15 @@ python scripts/generate_loc_boxplot.py;
 python scripts/generate_qwen_table.py;
 # Or specify a different model
 python scripts/generate_qwen_table.py --model "claude-3-7-sonnet-20250219";
+
+
+# For fine-tuning results, they are in jsonl format. To process them:
+python scripts/preprocess_fine_tuning_results.py \
+    --results-file ../fine_tuning_results/mizan-vanilla_results_on_Qwen2.5-7B-128k-Instruct.jsonl \
+    --dataset-file ../mizan-datasets/mizan-vanilla.json \
+    --output-dir ../evaluation_results/experiment_ft_vanilla \
+    --experiment-name "vanilla" \
+    --model-name "Qwen2.5-7B-128k-Instruct"
 ```
 
 ## Scoring
