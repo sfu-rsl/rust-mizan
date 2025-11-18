@@ -3465,6 +3465,57 @@
           "deps": []
         }
       ]
+    },
+    {
+      "id": "vuln-0047",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2020-35860",
+      "crate_name": "cbox",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0047/sample-00047-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-476"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn drop(&mut self)",
+              "fn deref(&self) -> &str"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              52,
+              86,
+              87             
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0047/sample-00047-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-476"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn drop(&mut self)",
+              "fn deref(&self) -> &str"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              52,
+              86,
+              87 
+            ]
+          },
+          "deps": []
+        }
+      ]
     }
   ]
 }
