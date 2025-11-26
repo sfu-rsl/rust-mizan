@@ -12,7 +12,7 @@ pub mod question;
 
 pub use crate::list::AlpmListItem;
 
-use crate::libc;
+use libc;
 
 use std::error::Error;
 use std::os::raw::c_char;
