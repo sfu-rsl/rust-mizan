@@ -8,13 +8,13 @@
 #![allow(deprecated)]
 
 use super::{ParseResult, INVALID, OUT_OF_RANGE, TOO_SHORT};
-use Weekday;
+use crate::Weekday;
 
 /// Returns true when two slices are equal case-insensitively (in ASCII).
 /// Assumes that the `pattern` is already converted to lower case.
 fn equals(s: &str, pattern: &str) -> bool {
     let mut xs = s.as_bytes().iter().map(|&c| match c {
-        b'A'...b'Z' => c + 32,
+        b'A'..=b'Z' => c + 32,
         _ => c,
     });
     let mut ys = pattern.as_bytes().iter().cloned();
@@ -56,7 +56,10 @@ pub fn number(s: &str, min: usize, max: usize) -> ParseResult<(&str, i64)> {
             }
         }
 
-        n = match n.checked_mul(10).and_then(|n| n.checked_add((c - b'0') as i64)) {
+        n = match n
+            .checked_mul(10)
+            .and_then(|n| n.checked_add((c - b'0') as i64))
+        {
             Some(n) => n,
             None => return Err(OUT_OF_RANGE),
         };
@@ -74,8 +77,18 @@ pub fn nanosecond(s: &str) -> ParseResult<(&str, i64)> {
     let consumed = origlen - s.len();
 
     // scale the number accordingly.
-    static SCALE: [i64; 10] =
-        [0, 100_000_000, 10_000_000, 1_000_000, 100_000, 10_000, 1_000, 100, 10, 1];
+    static SCALE: [i64; 10] = [
+        0,
+        100_000_000,
+        10_000_000,
+        1_000_000,
+        100_000,
+        10_000,
+        1_000,
+        100,
+        10,
+        1,
+    ];
     let v = v.checked_mul(SCALE[consumed]).ok_or(OUT_OF_RANGE)?;
 
     // if there are more than 9 digits, skip next digits.
@@ -91,8 +104,18 @@ pub fn nanosecond_fixed(s: &str, digits: usize) -> ParseResult<(&str, i64)> {
     let (s, v) = number(s, digits, digits)?;
 
     // scale the number accordingly.
-    static SCALE: [i64; 10] =
-        [0, 100_000_000, 10_000_000, 1_000_000, 100_000, 10_000, 1_000, 100, 10, 1];
+    static SCALE: [i64; 10] = [
+        0,
+        100_000_000,
+        10_000_000,
+        1_000_000,
+        100_000,
+        10_000,
+        1_000,
+        100,
+        10,
+        1,
+    ];
     let v = v.checked_mul(SCALE[digits]).ok_or(OUT_OF_RANGE)?;
 
     Ok((s, v))
@@ -145,8 +168,9 @@ pub fn short_weekday(s: &str) -> ParseResult<(&str, Weekday)> {
 /// It prefers long month names to short month names when both are possible.
 pub fn short_or_long_month0(s: &str) -> ParseResult<(&str, u8)> {
     // lowercased month names, minus first three chars
-    static LONG_MONTH_SUFFIXES: [&'static str; 12] =
-        ["uary", "ruary", "ch", "il", "", "e", "y", "ust", "tember", "ober", "ember", "ember"];
+    static LONG_MONTH_SUFFIXES: [&'static str; 12] = [
+        "uary", "ruary", "ch", "il", "", "e", "y", "ust", "tember", "ober", "ember", "ember",
+    ];
 
     let (mut s, month0) = short_month0(s)?;
 
@@ -240,7 +264,7 @@ where
 
     // hours (00--99)
     let hours = match digits(s)? {
-        (h1 @ b'0'...b'9', h2 @ b'0'...b'9') => i32::from((h1 - b'0') * 10 + (h2 - b'0')),
+        (h1 @ b'0'..=b'9', h2 @ b'0'..=b'9') => i32::from((h1 - b'0') * 10 + (h2 - b'0')),
         _ => return Err(INVALID),
     };
     s = &s[2..];
@@ -252,8 +276,8 @@ where
     // if the next two items are digits then we have to add minutes
     let minutes = if let Ok(ds) = digits(s) {
         match ds {
-            (m1 @ b'0'...b'5', m2 @ b'0'...b'9') => i32::from((m1 - b'0') * 10 + (m2 - b'0')),
-            (b'6'...b'9', b'0'...b'9') => return Err(OUT_OF_RANGE),
+            (m1 @ b'0'..=b'5', m2 @ b'0'..=b'9') => i32::from((m1 - b'0') * 10 + (m2 - b'0')),
+            (b'6'..=b'9', b'0'..=b'9') => return Err(OUT_OF_RANGE),
             _ => return Err(INVALID),
         }
     } else if allow_missing_minutes {
@@ -314,7 +338,7 @@ pub fn timezone_offset_2822(s: &str) -> ParseResult<(&str, Option<i32>)> {
         .as_bytes()
         .iter()
         .position(|&c| match c {
-            b'a'...b'z' | b'A'...b'Z' => false,
+            b'a'..=b'z' | b'A'..=b'Z' => false,
             _ => true,
         })
         .unwrap_or_else(|| s.len());

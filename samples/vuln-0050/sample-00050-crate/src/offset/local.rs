@@ -3,17 +3,18 @@
 
 //! The local (system) time zone.
 
-#[cfg(not(all(target_arch = "wasm32", not(target_os = "wasi"), feature = "wasmbind")))]
-use sys::{self, Timespec};
-
 use super::fixed::FixedOffset;
 use super::{LocalResult, TimeZone};
 #[cfg(not(all(target_arch = "wasm32", not(target_os = "wasi"), feature = "wasmbind")))]
-use naive::NaiveTime;
-use naive::{NaiveDate, NaiveDateTime};
-use {Date, DateTime};
+use crate::naive::NaiveTime;
+use crate::naive::{NaiveDate, NaiveDateTime};
 #[cfg(not(all(target_arch = "wasm32", not(target_os = "wasi"), feature = "wasmbind")))]
-use {Datelike, Timelike};
+// use sys::{self, Timespec};
+use crate::sys;
+use crate::sys::Timespec;
+use crate::{Date, DateTime};
+#[cfg(not(all(target_arch = "wasm32", not(target_os = "wasi"), feature = "wasmbind")))]
+use crate::{Datelike, Timelike};
 
 /// Converts a `time::Tm` struct into the timezone-aware `DateTime`.
 /// This assumes that `time` is working correctly, i.e. any error is fatal.
@@ -127,7 +128,8 @@ impl TimeZone for Local {
     }
 
     fn offset_from_local_datetime(&self, local: &NaiveDateTime) -> LocalResult<FixedOffset> {
-        self.from_local_datetime(local).map(|datetime| *datetime.offset())
+        self.from_local_datetime(local)
+            .map(|datetime| *datetime.offset())
     }
 
     fn offset_from_utc_date(&self, utc: &NaiveDate) -> FixedOffset {
@@ -196,8 +198,8 @@ impl TimeZone for Local {
 #[cfg(test)]
 mod tests {
     use super::Local;
-    use offset::TimeZone;
-    use Datelike;
+    use crate::offset::TimeZone;
+    use crate::Datelike;
 
     #[test]
     fn test_local_date_sanity_check() {
@@ -214,7 +216,11 @@ mod tests {
         let timestr = dt.time().to_string();
         // the OS API may or may not support the leap second,
         // but there are only two sensible options.
-        assert!(timestr == "01:02:60" || timestr == "01:03:00", "unexpected timestr {:?}", timestr);
+        assert!(
+            timestr == "01:02:60" || timestr == "01:03:00",
+            "unexpected timestr {:?}",
+            timestr
+        );
 
         let dt = today.and_hms_milli(1, 2, 3, 1234);
         let timestr = dt.time().to_string();

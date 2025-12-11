@@ -3641,6 +3641,127 @@
         }
         
       ]
+    },
+    {
+      "id": "vuln-0050",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2020-26235",
+      "crate_name": "chrono",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0050/sample-00050-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-476"
+          ],
+          "vulnerable_functions": {
+            "src/sys/unix.rs": [
+              "pub fn time_to_local_tm(sec: i64, tm: &mut Tm)"
+            ],
+            "src/sys.rs":[
+              "pub fn local(self) -> Tm"
+            ],
+            "src/offset/local.rs": [
+              "pub fn today() -> Date<Local>",
+              "pub fn now() -> DateTime<Local>",
+              "fn offset_from_local_date(&self, local: &NaiveDate) -> LocalResult<FixedOffset>",
+              "fn offset_from_local_datetime(&self, local: &NaiveDateTime) -> LocalResult<FixedOffset>",
+              "fn offset_from_utc_date(&self, utc: &NaiveDate) -> FixedOffset",
+              "fn offset_from_utc_datetime(&self, utc: &NaiveDateTime) -> FixedOffset",
+              "fn from_local_date(&self, local: &NaiveDate) -> LocalResult<Date<Local>>",
+              "fn from_local_datetime(&self, local: &NaiveDateTime) -> LocalResult<DateTime<Local>>",
+              "fn from_utc_date(&self, utc: &NaiveDate) -> Date<Local>",
+              "fn from_utc_datetime(&self, utc: &NaiveDateTime) -> DateTime<Local>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/sys/unix.rs": [
+              84          
+            ],
+            "src/sys.rs":[
+              64
+            ],
+            "src/offset/local.rs": [
+              97,
+              103,
+              127,
+              131,
+              136,
+              140,
+              148,
+              166,
+              174,
+              190
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0050/sample-00050-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-476"
+          ],
+          "vulnerable_functions": {
+            "src/sys/unix.rs": [
+              "pub fn time_to_local_tm(sec: i64, tm: &mut Tm)"
+            ],
+            "src/sys.rs":[
+              "pub fn local(self) -> Tm"
+            ],
+            "src/offset/local.rs": [
+              "pub fn today() -> Date<Local>",
+              "pub fn now() -> DateTime<Local>",
+              "fn offset_from_local_date(&self, local: &NaiveDate) -> LocalResult<FixedOffset>",
+              "fn offset_from_local_datetime(&self, local: &NaiveDateTime) -> LocalResult<FixedOffset>",
+              "fn offset_from_utc_date(&self, utc: &NaiveDate) -> FixedOffset",
+              "fn offset_from_utc_datetime(&self, utc: &NaiveDateTime) -> FixedOffset",
+              "fn from_local_date(&self, local: &NaiveDate) -> LocalResult<Date<Local>>",
+              "fn from_local_datetime(&self, local: &NaiveDateTime) -> LocalResult<DateTime<Local>>",
+              "fn from_utc_date(&self, utc: &NaiveDate) -> Date<Local>",
+              "fn from_utc_datetime(&self, utc: &NaiveDateTime) -> DateTime<Local>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/sys/unix.rs": [
+              45          
+            ],
+            "src/sys.rs":[
+              60
+            ],
+            "src/offset/local.rs": [
+              91,
+              97,
+              110,
+              114,
+              119,
+              123,
+              131,
+              140,
+              148,
+              157
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0050/sample-10050-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0050/sample-10050-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        }
+      ]
     }
   ]
 }

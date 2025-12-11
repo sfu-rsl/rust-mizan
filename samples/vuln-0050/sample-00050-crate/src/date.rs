@@ -10,14 +10,15 @@ use core::ops::{Add, Sub};
 use core::{fmt, hash};
 use oldtime::Duration as OldDuration;
 
+#[cfg(any(feature = "alloc", feature = "std", test))]
+use crate::format::{DelayedFormat, Item, StrftimeItems};
+use crate::naive;
+use crate::naive::{IsoWeek, NaiveDate, NaiveTime};
+use crate::offset::{TimeZone, Utc};
+use crate::DateTime;
+use crate::{Datelike, Weekday};
 #[cfg(feature = "unstable-locales")]
 use format::Locale;
-#[cfg(any(feature = "alloc", feature = "std", test))]
-use format::{DelayedFormat, Item, StrftimeItems};
-use naive::{self, IsoWeek, NaiveDate, NaiveTime};
-use offset::{TimeZone, Utc};
-use DateTime;
-use {Datelike, Weekday};
 
 /// ISO 8601 calendar date with time zone.
 ///
@@ -50,9 +51,15 @@ pub struct Date<Tz: TimeZone> {
 }
 
 /// The minimum possible `Date`.
-pub const MIN_DATE: Date<Utc> = Date { date: naive::MIN_DATE, offset: Utc };
+pub const MIN_DATE: Date<Utc> = Date {
+    date: naive::MIN_DATE,
+    offset: Utc,
+};
 /// The maximum possible `Date`.
-pub const MAX_DATE: Date<Utc> = Date { date: naive::MAX_DATE, offset: Utc };
+pub const MAX_DATE: Date<Utc> = Date {
+    date: naive::MAX_DATE,
+    offset: Utc,
+};
 
 impl<Tz: TimeZone> Date<Tz> {
     /// Makes a new `Date` with given *UTC* date and offset.
@@ -61,7 +68,10 @@ impl<Tz: TimeZone> Date<Tz> {
     // note: this constructor is purposely not named to `new` to discourage the direct usage.
     #[inline]
     pub fn from_utc(date: NaiveDate, offset: Tz::Offset) -> Date<Tz> {
-        Date { date: date, offset: offset }
+        Date {
+            date: date,
+            offset: offset,
+        }
     }
 
     /// Makes a new `DateTime` from the current date and given `NaiveTime`.
@@ -99,7 +109,8 @@ impl<Tz: TimeZone> Date<Tz> {
     /// Panics on invalid hour, minute, second and/or millisecond.
     #[inline]
     pub fn and_hms_milli(&self, hour: u32, min: u32, sec: u32, milli: u32) -> DateTime<Tz> {
-        self.and_hms_milli_opt(hour, min, sec, milli).expect("invalid time")
+        self.and_hms_milli_opt(hour, min, sec, milli)
+            .expect("invalid time")
     }
 
     /// Makes a new `DateTime` from the current date, hour, minute, second and millisecond.
@@ -125,7 +136,8 @@ impl<Tz: TimeZone> Date<Tz> {
     /// Panics on invalid hour, minute, second and/or microsecond.
     #[inline]
     pub fn and_hms_micro(&self, hour: u32, min: u32, sec: u32, micro: u32) -> DateTime<Tz> {
-        self.and_hms_micro_opt(hour, min, sec, micro).expect("invalid time")
+        self.and_hms_micro_opt(hour, min, sec, micro)
+            .expect("invalid time")
     }
 
     /// Makes a new `DateTime` from the current date, hour, minute, second and microsecond.
@@ -151,7 +163,8 @@ impl<Tz: TimeZone> Date<Tz> {
     /// Panics on invalid hour, minute, second and/or nanosecond.
     #[inline]
     pub fn and_hms_nano(&self, hour: u32, min: u32, sec: u32, nano: u32) -> DateTime<Tz> {
-        self.and_hms_nano_opt(hour, min, sec, nano).expect("invalid time")
+        self.and_hms_nano_opt(hour, min, sec, nano)
+            .expect("invalid time")
     }
 
     /// Makes a new `DateTime` from the current date, hour, minute, second and nanosecond.
@@ -183,7 +196,9 @@ impl<Tz: TimeZone> Date<Tz> {
     /// Returns `None` when `self` is the last representable date.
     #[inline]
     pub fn succ_opt(&self) -> Option<Date<Tz>> {
-        self.date.succ_opt().map(|date| Date::from_utc(date, self.offset.clone()))
+        self.date
+            .succ_opt()
+            .map(|date| Date::from_utc(date, self.offset.clone()))
     }
 
     /// Makes a new `Date` for the prior date.
@@ -199,7 +214,9 @@ impl<Tz: TimeZone> Date<Tz> {
     /// Returns `None` when `self` is the first representable date.
     #[inline]
     pub fn pred_opt(&self) -> Option<Date<Tz>> {
-        self.date.pred_opt().map(|date| Date::from_utc(date, self.offset.clone()))
+        self.date
+            .pred_opt()
+            .map(|date| Date::from_utc(date, self.offset.clone()))
     }
 
     /// Retrieves an associated offset from UTC.
@@ -227,7 +244,10 @@ impl<Tz: TimeZone> Date<Tz> {
     #[inline]
     pub fn checked_add_signed(self, rhs: OldDuration) -> Option<Date<Tz>> {
         let date = try_opt!(self.date.checked_add_signed(rhs));
-        Some(Date { date: date, offset: self.offset })
+        Some(Date {
+            date: date,
+            offset: self.offset,
+        })
     }
 
     /// Subtracts given `Duration` from the current date.
@@ -236,7 +256,10 @@ impl<Tz: TimeZone> Date<Tz> {
     #[inline]
     pub fn checked_sub_signed(self, rhs: OldDuration) -> Option<Date<Tz>> {
         let date = try_opt!(self.date.checked_sub_signed(rhs));
-        Some(Date { date: date, offset: self.offset })
+        Some(Date {
+            date: date,
+            offset: self.offset,
+        })
     }
 
     /// Subtracts another `Date` from the current date.
@@ -442,7 +465,8 @@ impl<Tz: TimeZone> Add<OldDuration> for Date<Tz> {
 
     #[inline]
     fn add(self, rhs: OldDuration) -> Date<Tz> {
-        self.checked_add_signed(rhs).expect("`Date + Duration` overflowed")
+        self.checked_add_signed(rhs)
+            .expect("`Date + Duration` overflowed")
     }
 }
 
@@ -451,7 +475,8 @@ impl<Tz: TimeZone> Sub<OldDuration> for Date<Tz> {
 
     #[inline]
     fn sub(self, rhs: OldDuration) -> Date<Tz> {
-        self.checked_sub_signed(rhs).expect("`Date - Duration` overflowed")
+        self.checked_sub_signed(rhs)
+            .expect("`Date - Duration` overflowed")
     }
 }
 

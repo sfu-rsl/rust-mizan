@@ -16,19 +16,20 @@ use alloc::string::{String, ToString};
 use std::string::ToString;
 
 #[cfg(any(feature = "alloc", feature = "std", test))]
-use core::borrow::Borrow;
+use crate::format::DelayedFormat;
+use crate::format::{parse, ParseError, ParseResult, Parsed, StrftimeItems};
+use crate::format::{Fixed, Item};
+use crate::naive;
+#[cfg(feature = "clock")]
+use crate::offset::Local;
+use crate::offset::{FixedOffset, Offset, TimeZone, Utc};
+use crate::Date;
+use crate::{Datelike, Timelike, Weekday};
 #[cfg(any(feature = "alloc", feature = "std", test))]
-use format::DelayedFormat;
+use core::borrow::Borrow;
 #[cfg(feature = "unstable-locales")]
 use format::Locale;
-use format::{parse, ParseError, ParseResult, Parsed, StrftimeItems};
-use format::{Fixed, Item};
-use naive::{self, IsoWeek, NaiveDateTime, NaiveTime};
-#[cfg(feature = "clock")]
-use offset::Local;
-use offset::{FixedOffset, Offset, TimeZone, Utc};
-use Date;
-use {Datelike, Timelike, Weekday};
+use naive::{IsoWeek, NaiveDateTime, NaiveTime};
 
 /// Specific formatting options for seconds. This may be extended in the
 /// future, so exhaustive matching in external code is not recommended.
@@ -73,9 +74,15 @@ pub struct DateTime<Tz: TimeZone> {
 }
 
 /// The minimum possible `DateTime<Utc>`.
-pub const MIN_DATETIME: DateTime<Utc> = DateTime { datetime: naive::MIN_DATETIME, offset: Utc };
+pub const MIN_DATETIME: DateTime<Utc> = DateTime {
+    datetime: naive::MIN_DATETIME,
+    offset: Utc,
+};
 /// The maximum possible `DateTime<Utc>`.
-pub const MAX_DATETIME: DateTime<Utc> = DateTime { datetime: naive::MAX_DATETIME, offset: Utc };
+pub const MAX_DATETIME: DateTime<Utc> = DateTime {
+    datetime: naive::MAX_DATETIME,
+    offset: Utc,
+};
 
 impl<Tz: TimeZone> DateTime<Tz> {
     /// Makes a new `DateTime` with given *UTC* datetime and offset.
@@ -93,7 +100,10 @@ impl<Tz: TimeZone> DateTime<Tz> {
     // note: this constructor is purposely not named to `new` to discourage the direct usage.
     #[inline]
     pub fn from_utc(datetime: NaiveDateTime, offset: Tz::Offset) -> DateTime<Tz> {
-        DateTime { datetime: datetime, offset: offset }
+        DateTime {
+            datetime: datetime,
+            offset: offset,
+        }
     }
 
     /// Retrieves a date component.
@@ -434,8 +444,8 @@ where
     /// ```
     #[cfg(any(feature = "alloc", feature = "std", test))]
     pub fn to_rfc3339_opts(&self, secform: SecondsFormat, use_z: bool) -> String {
-        use format::Numeric::*;
-        use format::Pad::Zero;
+        use crate::format::Numeric::*;
+        use crate::format::Pad::Zero;
         use SecondsFormat::*;
 
         debug_assert!(secform != __NonExhaustive, "Do not use __NonExhaustive!");
@@ -470,8 +480,12 @@ where
         });
 
         match ssitem {
-            None => self.format_with_items(PREFIX.iter().chain([tzitem].iter())).to_string(),
-            Some(s) => self.format_with_items(PREFIX.iter().chain([s, tzitem].iter())).to_string(),
+            None => self
+                .format_with_items(PREFIX.iter().chain([tzitem].iter()))
+                .to_string(),
+            Some(s) => self
+                .format_with_items(PREFIX.iter().chain([s, tzitem].iter()))
+                .to_string(),
         }
     }
 
@@ -695,7 +709,8 @@ impl<Tz: TimeZone> Add<OldDuration> for DateTime<Tz> {
 
     #[inline]
     fn add(self, rhs: OldDuration) -> DateTime<Tz> {
-        self.checked_add_signed(rhs).expect("`DateTime + Duration` overflowed")
+        self.checked_add_signed(rhs)
+            .expect("`DateTime + Duration` overflowed")
     }
 }
 
@@ -704,7 +719,8 @@ impl<Tz: TimeZone> Sub<OldDuration> for DateTime<Tz> {
 
     #[inline]
     fn sub(self, rhs: OldDuration) -> DateTime<Tz> {
-        self.checked_sub_signed(rhs).expect("`DateTime - Duration` overflowed")
+        self.checked_sub_signed(rhs)
+            .expect("`DateTime - Duration` overflowed")
     }
 }
 
@@ -736,7 +752,8 @@ impl str::FromStr for DateTime<Utc> {
     type Err = ParseError;
 
     fn from_str(s: &str) -> ParseResult<DateTime<Utc>> {
-        s.parse::<DateTime<FixedOffset>>().map(|dt| dt.with_timezone(&Utc))
+        s.parse::<DateTime<FixedOffset>>()
+            .map(|dt| dt.with_timezone(&Utc))
     }
 }
 
@@ -745,7 +762,8 @@ impl str::FromStr for DateTime<Local> {
     type Err = ParseError;
 
     fn from_str(s: &str) -> ParseResult<DateTime<Local>> {
-        s.parse::<DateTime<FixedOffset>>().map(|dt| dt.with_timezone(&Local))
+        s.parse::<DateTime<FixedOffset>>()
+            .map(|dt| dt.with_timezone(&Local))
     }
 }
 
@@ -832,7 +850,9 @@ impl From<DateTime<Utc>> for js_sys::Date {
 #[test]
 fn test_auto_conversion() {
     let utc_dt = Utc.ymd(2018, 9, 5).and_hms(23, 58, 0);
-    let cdt_dt = FixedOffset::west(5 * 60 * 60).ymd(2018, 9, 5).and_hms(18, 58, 0);
+    let cdt_dt = FixedOffset::west(5 * 60 * 60)
+        .ymd(2018, 9, 5)
+        .and_hms(18, 58, 0);
     let utc_dt2: DateTime<Utc> = cdt_dt.into();
     assert_eq!(utc_dt, utc_dt2);
 }
@@ -859,7 +879,11 @@ where
     );
 }
 
-#[cfg(all(test, feature = "clock", any(feature = "rustc-serialize", feature = "serde")))]
+#[cfg(all(
+    test,
+    feature = "clock",
+    any(feature = "rustc-serialize", feature = "serde")
+))]
 fn test_decodable_json<FUtc, FFixed, FLocal, E>(
     utc_from_str: FUtc,
     fixed_from_str: FFixed,
@@ -886,11 +910,17 @@ fn test_decodable_json<FUtc, FFixed, FLocal, E>(
 
     assert_eq!(
         norm(&fixed_from_str(r#""2014-07-24T12:34:06Z""#).ok()),
-        norm(&Some(FixedOffset::east(0).ymd(2014, 7, 24).and_hms(12, 34, 6)))
+        norm(&Some(
+            FixedOffset::east(0).ymd(2014, 7, 24).and_hms(12, 34, 6)
+        ))
     );
     assert_eq!(
         norm(&fixed_from_str(r#""2014-07-24T13:57:06+01:23""#).ok()),
-        norm(&Some(FixedOffset::east(60 * 60 + 23 * 60).ymd(2014, 7, 24).and_hms(13, 57, 6)))
+        norm(&Some(
+            FixedOffset::east(60 * 60 + 23 * 60)
+                .ymd(2014, 7, 24)
+                .and_hms(13, 57, 6)
+        ))
     );
 
     // we don't know the exact local offset but we can check that
@@ -938,7 +968,9 @@ fn test_decodable_json_timestamps<FUtc, FFixed, FLocal, E>(
     );
     assert_eq!(
         norm(&fixed_from_str("-1").ok().map(DateTime::from)),
-        norm(&Some(FixedOffset::east(0).ymd(1969, 12, 31).and_hms(23, 59, 59)))
+        norm(&Some(
+            FixedOffset::east(0).ymd(1969, 12, 31).and_hms(23, 59, 59)
+        ))
     );
 
     assert_eq!(
@@ -1109,9 +1141,11 @@ pub mod serde {
     {
         match me {
             LocalResult::None => Err(E::custom(ne_timestamp(ts))),
-            LocalResult::Ambiguous(min, max) => {
-                Err(E::custom(SerdeError::Ambiguous { timestamp: ts, min: min, max: max }))
-            }
+            LocalResult::Ambiguous(min, max) => Err(E::custom(SerdeError::Ambiguous {
+                timestamp: ts,
+                min: min,
+                max: max,
+            })),
             LocalResult::Single(val) => Ok(val),
         }
     }
@@ -1541,7 +1575,8 @@ pub mod serde {
         where
             D: de::Deserializer<'de>,
         {
-            Ok(d.deserialize_i64(MilliSecondsTimestampVisitor).map(|dt| dt.with_timezone(&Utc))?)
+            Ok(d.deserialize_i64(MilliSecondsTimestampVisitor)
+                .map(|dt| dt.with_timezone(&Utc))?)
         }
 
         impl<'de> de::Visitor<'de> for MilliSecondsTimestampVisitor {
@@ -2074,14 +2109,19 @@ pub mod serde {
         type Value = DateTime<FixedOffset>;
 
         fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
-            write!(formatter, "a formatted date and time string or a unix timestamp")
+            write!(
+                formatter,
+                "a formatted date and time string or a unix timestamp"
+            )
         }
 
         fn visit_str<E>(self, value: &str) -> Result<DateTime<FixedOffset>, E>
         where
             E: de::Error,
         {
-            value.parse().map_err(|err: ::format::ParseError| E::custom(err))
+            value
+                .parse()
+                .map_err(|err: ::format::ParseError| E::custom(err))
         }
     }
 
@@ -2112,7 +2152,9 @@ pub mod serde {
         where
             D: de::Deserializer<'de>,
         {
-            deserializer.deserialize_str(DateTimeVisitor).map(|dt| dt.with_timezone(&Utc))
+            deserializer
+                .deserialize_str(DateTimeVisitor)
+                .map(|dt| dt.with_timezone(&Utc))
         }
     }
 
@@ -2129,7 +2171,9 @@ pub mod serde {
         where
             D: de::Deserializer<'de>,
         {
-            deserializer.deserialize_str(DateTimeVisitor).map(|dt| dt.with_timezone(&Local))
+            deserializer
+                .deserialize_str(DateTimeVisitor)
+                .map(|dt| dt.with_timezone(&Local))
         }
     }
 
@@ -2170,14 +2214,14 @@ pub mod serde {
 #[cfg(test)]
 mod tests {
     use super::DateTime;
-    use naive::{NaiveDate, NaiveTime};
+    use crate::naive::{NaiveDate, NaiveTime};
     #[cfg(feature = "clock")]
-    use offset::Local;
-    use offset::{FixedOffset, TimeZone, Utc};
+    use crate::offset::Local;
+    use crate::offset::{FixedOffset, TimeZone, Utc};
+    #[cfg(feature = "clock")]
+    use crate::Datelike;
     use oldtime::Duration;
     use std::time::{SystemTime, UNIX_EPOCH};
-    #[cfg(feature = "clock")]
-    use Datelike;
 
     #[test]
     #[allow(non_snake_case)]
@@ -2186,7 +2230,10 @@ mod tests {
         let Edt = FixedOffset::west(4 * 60 * 60);
         let Kst = FixedOffset::east(9 * 60 * 60);
 
-        assert_eq!(format!("{}", Utc.ymd(2014, 5, 6).and_hms(7, 8, 9)), "2014-05-06 07:08:09 UTC");
+        assert_eq!(
+            format!("{}", Utc.ymd(2014, 5, 6).and_hms(7, 8, 9)),
+            "2014-05-06 07:08:09 UTC"
+        );
         assert_eq!(
             format!("{}", Edt.ymd(2014, 5, 6).and_hms(7, 8, 9)),
             "2014-05-06 07:08:09 -04:00"
@@ -2195,7 +2242,10 @@ mod tests {
             format!("{}", Kst.ymd(2014, 5, 6).and_hms(7, 8, 9)),
             "2014-05-06 07:08:09 +09:00"
         );
-        assert_eq!(format!("{:?}", Utc.ymd(2014, 5, 6).and_hms(7, 8, 9)), "2014-05-06T07:08:09Z");
+        assert_eq!(
+            format!("{:?}", Utc.ymd(2014, 5, 6).and_hms(7, 8, 9)),
+            "2014-05-06T07:08:09Z"
+        );
         assert_eq!(
             format!("{:?}", Edt.ymd(2014, 5, 6).and_hms(7, 8, 9)),
             "2014-05-06T07:08:09-04:00"
@@ -2206,7 +2256,10 @@ mod tests {
         );
 
         // edge cases
-        assert_eq!(format!("{:?}", Utc.ymd(2014, 5, 6).and_hms(0, 0, 0)), "2014-05-06T00:00:00Z");
+        assert_eq!(
+            format!("{:?}", Utc.ymd(2014, 5, 6).and_hms(0, 0, 0)),
+            "2014-05-06T00:00:00Z"
+        );
         assert_eq!(
             format!("{:?}", Edt.ymd(2014, 5, 6).and_hms(0, 0, 0)),
             "2014-05-06T00:00:00-04:00"
@@ -2230,7 +2283,10 @@ mod tests {
 
         let dt = Utc.ymd(2014, 5, 6).and_hms(7, 8, 9);
         assert_eq!(dt, Edt.ymd(2014, 5, 6).and_hms(3, 8, 9));
-        assert_eq!(dt + Duration::seconds(3600 + 60 + 1), Utc.ymd(2014, 5, 6).and_hms(8, 9, 10));
+        assert_eq!(
+            dt + Duration::seconds(3600 + 60 + 1),
+            Utc.ymd(2014, 5, 6).and_hms(8, 9, 10)
+        );
         assert_eq!(
             dt.signed_duration_since(Edt.ymd(2014, 5, 6).and_hms(10, 11, 12)),
             Duration::seconds(-7 * 3600 - 3 * 60 - 3)
@@ -2290,19 +2346,27 @@ mod tests {
             "2015-02-18T23:16:09+00:00"
         );
         assert_eq!(
-            EDT.ymd(2015, 2, 18).and_hms_milli(23, 16, 9, 150).to_rfc2822(),
+            EDT.ymd(2015, 2, 18)
+                .and_hms_milli(23, 16, 9, 150)
+                .to_rfc2822(),
             "Wed, 18 Feb 2015 23:16:09 +0500"
         );
         assert_eq!(
-            EDT.ymd(2015, 2, 18).and_hms_milli(23, 16, 9, 150).to_rfc3339(),
+            EDT.ymd(2015, 2, 18)
+                .and_hms_milli(23, 16, 9, 150)
+                .to_rfc3339(),
             "2015-02-18T23:16:09.150+05:00"
         );
         assert_eq!(
-            EDT.ymd(2015, 2, 18).and_hms_micro(23, 59, 59, 1_234_567).to_rfc2822(),
+            EDT.ymd(2015, 2, 18)
+                .and_hms_micro(23, 59, 59, 1_234_567)
+                .to_rfc2822(),
             "Wed, 18 Feb 2015 23:59:60 +0500"
         );
         assert_eq!(
-            EDT.ymd(2015, 2, 18).and_hms_micro(23, 59, 59, 1_234_567).to_rfc3339(),
+            EDT.ymd(2015, 2, 18)
+                .and_hms_micro(23, 59, 59, 1_234_567)
+                .to_rfc3339(),
             "2015-02-18T23:59:60.234567+05:00"
         );
 
@@ -2330,30 +2394,54 @@ mod tests {
 
     #[test]
     fn test_rfc3339_opts() {
-        use SecondsFormat::*;
+        use crate::SecondsFormat::*;
         let pst = FixedOffset::east(8 * 60 * 60);
         let dt = pst.ymd(2018, 1, 11).and_hms_nano(10, 5, 13, 084_660_000);
         assert_eq!(dt.to_rfc3339_opts(Secs, false), "2018-01-11T10:05:13+08:00");
         assert_eq!(dt.to_rfc3339_opts(Secs, true), "2018-01-11T10:05:13+08:00");
-        assert_eq!(dt.to_rfc3339_opts(Millis, false), "2018-01-11T10:05:13.084+08:00");
-        assert_eq!(dt.to_rfc3339_opts(Micros, false), "2018-01-11T10:05:13.084660+08:00");
-        assert_eq!(dt.to_rfc3339_opts(Nanos, false), "2018-01-11T10:05:13.084660000+08:00");
-        assert_eq!(dt.to_rfc3339_opts(AutoSi, false), "2018-01-11T10:05:13.084660+08:00");
+        assert_eq!(
+            dt.to_rfc3339_opts(Millis, false),
+            "2018-01-11T10:05:13.084+08:00"
+        );
+        assert_eq!(
+            dt.to_rfc3339_opts(Micros, false),
+            "2018-01-11T10:05:13.084660+08:00"
+        );
+        assert_eq!(
+            dt.to_rfc3339_opts(Nanos, false),
+            "2018-01-11T10:05:13.084660000+08:00"
+        );
+        assert_eq!(
+            dt.to_rfc3339_opts(AutoSi, false),
+            "2018-01-11T10:05:13.084660+08:00"
+        );
 
         let ut = DateTime::<Utc>::from_utc(dt.naive_utc(), Utc);
         assert_eq!(ut.to_rfc3339_opts(Secs, false), "2018-01-11T02:05:13+00:00");
         assert_eq!(ut.to_rfc3339_opts(Secs, true), "2018-01-11T02:05:13Z");
-        assert_eq!(ut.to_rfc3339_opts(Millis, false), "2018-01-11T02:05:13.084+00:00");
+        assert_eq!(
+            ut.to_rfc3339_opts(Millis, false),
+            "2018-01-11T02:05:13.084+00:00"
+        );
         assert_eq!(ut.to_rfc3339_opts(Millis, true), "2018-01-11T02:05:13.084Z");
-        assert_eq!(ut.to_rfc3339_opts(Micros, true), "2018-01-11T02:05:13.084660Z");
-        assert_eq!(ut.to_rfc3339_opts(Nanos, true), "2018-01-11T02:05:13.084660000Z");
-        assert_eq!(ut.to_rfc3339_opts(AutoSi, true), "2018-01-11T02:05:13.084660Z");
+        assert_eq!(
+            ut.to_rfc3339_opts(Micros, true),
+            "2018-01-11T02:05:13.084660Z"
+        );
+        assert_eq!(
+            ut.to_rfc3339_opts(Nanos, true),
+            "2018-01-11T02:05:13.084660000Z"
+        );
+        assert_eq!(
+            ut.to_rfc3339_opts(AutoSi, true),
+            "2018-01-11T02:05:13.084660Z"
+        );
     }
 
     #[test]
     #[should_panic]
     fn test_rfc3339_opts_nonexhaustive() {
-        use SecondsFormat;
+        use crate::SecondsFormat;
         let dt = Utc.ymd(1999, 10, 9).and_hms(1, 2, 3);
         dt.to_rfc3339_opts(SecondsFormat::__NonExhaustive, true);
     }
@@ -2362,7 +2450,9 @@ mod tests {
     fn test_datetime_from_str() {
         assert_eq!(
             "2015-02-18T23:16:9.15Z".parse::<DateTime<FixedOffset>>(),
-            Ok(FixedOffset::east(0).ymd(2015, 2, 18).and_hms_milli(23, 16, 9, 150))
+            Ok(FixedOffset::east(0)
+                .ymd(2015, 2, 18)
+                .and_hms_milli(23, 16, 9, 150))
         );
         assert_eq!(
             "2015-02-18T23:16:9.15Z".parse::<DateTime<Utc>>(),
@@ -2379,13 +2469,19 @@ mod tests {
 
         assert_eq!(
             "2015-2-18T23:16:9.15Z".parse::<DateTime<FixedOffset>>(),
-            Ok(FixedOffset::east(0).ymd(2015, 2, 18).and_hms_milli(23, 16, 9, 150))
+            Ok(FixedOffset::east(0)
+                .ymd(2015, 2, 18)
+                .and_hms_milli(23, 16, 9, 150))
         );
         assert_eq!(
             "2015-2-18T13:16:9.15-10:00".parse::<DateTime<FixedOffset>>(),
-            Ok(FixedOffset::west(10 * 3600).ymd(2015, 2, 18).and_hms_milli(13, 16, 9, 150))
+            Ok(FixedOffset::west(10 * 3600)
+                .ymd(2015, 2, 18)
+                .and_hms_milli(13, 16, 9, 150))
         );
-        assert!("2015-2-18T23:16:9.15".parse::<DateTime<FixedOffset>>().is_err());
+        assert!("2015-2-18T23:16:9.15"
+            .parse::<DateTime<FixedOffset>>()
+            .is_err());
 
         assert_eq!(
             "2015-2-18T23:16:9.15Z".parse::<DateTime<Utc>>(),
@@ -2443,7 +2539,10 @@ mod tests {
     fn test_datetime_format_with_local() {
         // if we are not around the year boundary, local and UTC date should have the same year
         let dt = Local::now().with_month(5).unwrap();
-        assert_eq!(dt.format("%Y").to_string(), dt.with_timezone(&Utc).format("%Y").to_string());
+        assert_eq!(
+            dt.format("%Y").to_string(),
+            dt.with_timezone(&Utc).format("%Y").to_string()
+        );
     }
 
     #[test]
@@ -2513,8 +2612,14 @@ mod tests {
         {
             assert_eq!(SystemTime::from(epoch.with_timezone(&Local)), UNIX_EPOCH);
         }
-        assert_eq!(SystemTime::from(epoch.with_timezone(&FixedOffset::east(32400))), UNIX_EPOCH);
-        assert_eq!(SystemTime::from(epoch.with_timezone(&FixedOffset::west(28800))), UNIX_EPOCH);
+        assert_eq!(
+            SystemTime::from(epoch.with_timezone(&FixedOffset::east(32400))),
+            UNIX_EPOCH
+        );
+        assert_eq!(
+            SystemTime::from(epoch.with_timezone(&FixedOffset::west(28800))),
+            UNIX_EPOCH
+        );
     }
 
     #[test]
@@ -2553,8 +2658,14 @@ mod tests {
         {
             assert_eq!(SystemTime::from(epoch.with_timezone(&Local)), UNIX_EPOCH);
         }
-        assert_eq!(SystemTime::from(epoch.with_timezone(&FixedOffset::east(32400))), UNIX_EPOCH);
-        assert_eq!(SystemTime::from(epoch.with_timezone(&FixedOffset::west(28800))), UNIX_EPOCH);
+        assert_eq!(
+            SystemTime::from(epoch.with_timezone(&FixedOffset::east(32400))),
+            UNIX_EPOCH
+        );
+        assert_eq!(
+            SystemTime::from(epoch.with_timezone(&FixedOffset::west(28800))),
+            UNIX_EPOCH
+        );
     }
 
     #[test]

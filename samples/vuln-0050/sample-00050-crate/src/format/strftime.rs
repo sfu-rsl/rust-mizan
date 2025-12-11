@@ -177,8 +177,13 @@ type Fmt<'a> = Vec<Item<'a>>;
 #[cfg(not(feature = "unstable-locales"))]
 type Fmt<'a> = &'static [Item<'static>];
 
-static D_FMT: &'static [Item<'static>] =
-    &[num0!(Month), lit!("/"), num0!(Day), lit!("/"), num0!(YearMod100)];
+static D_FMT: &'static [Item<'static>] = &[
+    num0!(Month),
+    lit!("/"),
+    num0!(Day),
+    lit!("/"),
+    num0!(YearMod100),
+];
 static D_T_FMT: &'static [Item<'static>] = &[
     fix!(ShortWeekdayName),
     sp!(" "),
@@ -194,8 +199,13 @@ static D_T_FMT: &'static [Item<'static>] = &[
     sp!(" "),
     num0!(Year),
 ];
-static T_FMT: &'static [Item<'static>] =
-    &[num0!(Hour), lit!(":"), num0!(Minute), lit!(":"), num0!(Second)];
+static T_FMT: &'static [Item<'static>] = &[
+    num0!(Hour),
+    lit!(":"),
+    num0!(Minute),
+    lit!(":"),
+    num0!(Second),
+];
 
 /// Parsing iterator for `strftime`-like format strings.
 #[derive(Clone, Debug)]
@@ -310,7 +320,11 @@ impl<'a> Iterator for StrftimeItems<'a> {
                     _ => None,
                 };
                 let is_alternate = spec == '#';
-                let spec = if pad_override.is_some() || is_alternate { next!() } else { spec };
+                let spec = if pad_override.is_some() || is_alternate {
+                    next!()
+                } else {
+                    spec
+                };
                 if is_alternate && !HAVE_ALTERNATES.contains(spec) {
                     return Some(Item::Error);
                 }
@@ -351,7 +365,13 @@ impl<'a> Iterator for StrftimeItems<'a> {
                     'B' => fix!(LongMonthName),
                     'C' => num0!(YearDiv100),
                     'D' => {
-                        recons![num0!(Month), lit!("/"), num0!(Day), lit!("/"), num0!(YearMod100)]
+                        recons![
+                            num0!(Month),
+                            lit!("/"),
+                            num0!(Day),
+                            lit!("/"),
+                            num0!(YearMod100)
+                        ]
                     }
                     'F' => recons![num0!(Year), lit!("-"), num0!(Month), lit!("-"), num0!(Day)],
                     'G' => num0!(IsoYear),
@@ -361,7 +381,13 @@ impl<'a> Iterator for StrftimeItems<'a> {
                     'P' => fix!(LowerAmPm),
                     'R' => recons![num0!(Hour), lit!(":"), num0!(Minute)],
                     'S' => num0!(Second),
-                    'T' => recons![num0!(Hour), lit!(":"), num0!(Minute), lit!(":"), num0!(Second)],
+                    'T' => recons![
+                        num0!(Hour),
+                        lit!(":"),
+                        num0!(Minute),
+                        lit!(":"),
+                        num0!(Second)
+                    ],
                     'U' => num0!(WeekFromSun),
                     'V' => num0!(IsoWeek),
                     'W' => num0!(WeekFromMon),
@@ -394,7 +420,13 @@ impl<'a> Iterator for StrftimeItems<'a> {
                     't' => sp!("\t"),
                     'u' => num!(WeekdayFromMon),
                     'v' => {
-                        recons![nums!(Day), lit!("-"), fix!(ShortMonthName), lit!("-"), num0!(Year)]
+                        recons![
+                            nums!(Day),
+                            lit!("-"),
+                            fix!(ShortMonthName),
+                            lit!("-"),
+                            num0!(Year)
+                        ]
                     }
                     'w' => num!(NumDaysFromSun),
                     'x' => recons_from_slice!(self.d_fmt),
@@ -490,8 +522,16 @@ fn test_strftime_items() {
     fn parse_and_collect<'a>(s: &'a str) -> Vec<Item<'a>> {
         // map any error into `[Item::Error]`. useful for easy testing.
         let items = StrftimeItems::new(s);
-        let items = items.map(|spec| if spec == Item::Error { None } else { Some(spec) });
-        items.collect::<Option<Vec<_>>>().unwrap_or(vec![Item::Error])
+        let items = items.map(|spec| {
+            if spec == Item::Error {
+                None
+            } else {
+                Some(spec)
+            }
+        });
+        items
+            .collect::<Option<Vec<_>>>()
+            .unwrap_or(vec![Item::Error])
     }
 
     assert_eq!(parse_and_collect(""), []);
@@ -502,14 +542,20 @@ fn test_strftime_items() {
         [lit!("a"), sp!("  "), lit!("b"), sp!("\t\n"), lit!("c")]
     );
     assert_eq!(parse_and_collect("100%%"), [lit!("100"), lit!("%")]);
-    assert_eq!(parse_and_collect("100%% ok"), [lit!("100"), lit!("%"), sp!(" "), lit!("ok")]);
+    assert_eq!(
+        parse_and_collect("100%% ok"),
+        [lit!("100"), lit!("%"), sp!(" "), lit!("ok")]
+    );
     assert_eq!(parse_and_collect("%%PDF-1.0"), [lit!("%"), lit!("PDF-1.0")]);
     assert_eq!(
         parse_and_collect("%Y-%m-%d"),
         [num0!(Year), lit!("-"), num0!(Month), lit!("-"), num0!(Day)]
     );
     assert_eq!(parse_and_collect("[%F]"), parse_and_collect("[%Y-%m-%d]"));
-    assert_eq!(parse_and_collect("%m %d"), [num0!(Month), sp!(" "), num0!(Day)]);
+    assert_eq!(
+        parse_and_collect("%m %d"),
+        [num0!(Month), sp!(" "), num0!(Day)]
+    );
     assert_eq!(parse_and_collect("%"), [Item::Error]);
     assert_eq!(parse_and_collect("%%"), [lit!("%")]);
     assert_eq!(parse_and_collect("%%%"), [Item::Error]);
@@ -533,16 +579,21 @@ fn test_strftime_items() {
     assert_eq!(parse_and_collect("%0e"), [num0!(Day)]);
     assert_eq!(parse_and_collect("%_e"), [nums!(Day)]);
     assert_eq!(parse_and_collect("%z"), [fix!(TimezoneOffset)]);
-    assert_eq!(parse_and_collect("%#z"), [internal_fix!(TimezoneOffsetPermissive)]);
+    assert_eq!(
+        parse_and_collect("%#z"),
+        [internal_fix!(TimezoneOffsetPermissive)]
+    );
     assert_eq!(parse_and_collect("%#m"), [Item::Error]);
 }
 
 #[cfg(test)]
 #[test]
 fn test_strftime_docs() {
-    use {FixedOffset, TimeZone, Timelike};
+    use crate::{FixedOffset, TimeZone, Timelike};
 
-    let dt = FixedOffset::east(34200).ymd(2001, 7, 8).and_hms_nano(0, 34, 59, 1_026_490_708);
+    let dt = FixedOffset::east(34200)
+        .ymd(2001, 7, 8)
+        .and_hms_nano(0, 34, 59, 1_026_490_708);
 
     // date specifiers
     assert_eq!(dt.format("%Y").to_string(), "2001");
@@ -583,7 +634,13 @@ fn test_strftime_docs() {
     assert_eq!(dt.format("%S").to_string(), "60");
     assert_eq!(dt.format("%f").to_string(), "026490708");
     assert_eq!(dt.format("%.f").to_string(), ".026490708");
-    assert_eq!(dt.with_nanosecond(1_026_490_000).unwrap().format("%.f").to_string(), ".026490");
+    assert_eq!(
+        dt.with_nanosecond(1_026_490_000)
+            .unwrap()
+            .format("%.f")
+            .to_string(),
+        ".026490"
+    );
     assert_eq!(dt.format("%.3f").to_string(), ".026");
     assert_eq!(dt.format("%.6f").to_string(), ".026490");
     assert_eq!(dt.format("%.9f").to_string(), ".026490708");
@@ -602,9 +659,15 @@ fn test_strftime_docs() {
 
     // date & time specifiers
     assert_eq!(dt.format("%c").to_string(), "Sun Jul  8 00:34:60 2001");
-    assert_eq!(dt.format("%+").to_string(), "2001-07-08T00:34:60.026490708+09:30");
     assert_eq!(
-        dt.with_nanosecond(1_026_490_000).unwrap().format("%+").to_string(),
+        dt.format("%+").to_string(),
+        "2001-07-08T00:34:60.026490708+09:30"
+    );
+    assert_eq!(
+        dt.with_nanosecond(1_026_490_000)
+            .unwrap()
+            .format("%+")
+            .to_string(),
         "2001-07-08T00:34:60.026490+09:30"
     );
     assert_eq!(dt.format("%s").to_string(), "994518299");
@@ -620,26 +683,58 @@ fn test_strftime_docs() {
 fn test_strftime_docs_localized() {
     use {FixedOffset, TimeZone};
 
-    let dt = FixedOffset::east(34200).ymd(2001, 7, 8).and_hms_nano(0, 34, 59, 1_026_490_708);
+    let dt = FixedOffset::east(34200)
+        .ymd(2001, 7, 8)
+        .and_hms_nano(0, 34, 59, 1_026_490_708);
 
     // date specifiers
     assert_eq!(dt.format_localized("%b", Locale::fr_BE).to_string(), "jui");
-    assert_eq!(dt.format_localized("%B", Locale::fr_BE).to_string(), "juillet");
+    assert_eq!(
+        dt.format_localized("%B", Locale::fr_BE).to_string(),
+        "juillet"
+    );
     assert_eq!(dt.format_localized("%h", Locale::fr_BE).to_string(), "jui");
     assert_eq!(dt.format_localized("%a", Locale::fr_BE).to_string(), "dim");
-    assert_eq!(dt.format_localized("%A", Locale::fr_BE).to_string(), "dimanche");
-    assert_eq!(dt.format_localized("%D", Locale::fr_BE).to_string(), "07/08/01");
-    assert_eq!(dt.format_localized("%x", Locale::fr_BE).to_string(), "08/07/01");
-    assert_eq!(dt.format_localized("%F", Locale::fr_BE).to_string(), "2001-07-08");
-    assert_eq!(dt.format_localized("%v", Locale::fr_BE).to_string(), " 8-jui-2001");
+    assert_eq!(
+        dt.format_localized("%A", Locale::fr_BE).to_string(),
+        "dimanche"
+    );
+    assert_eq!(
+        dt.format_localized("%D", Locale::fr_BE).to_string(),
+        "07/08/01"
+    );
+    assert_eq!(
+        dt.format_localized("%x", Locale::fr_BE).to_string(),
+        "08/07/01"
+    );
+    assert_eq!(
+        dt.format_localized("%F", Locale::fr_BE).to_string(),
+        "2001-07-08"
+    );
+    assert_eq!(
+        dt.format_localized("%v", Locale::fr_BE).to_string(),
+        " 8-jui-2001"
+    );
 
     // time specifiers
     assert_eq!(dt.format_localized("%P", Locale::fr_BE).to_string(), "");
     assert_eq!(dt.format_localized("%p", Locale::fr_BE).to_string(), "");
-    assert_eq!(dt.format_localized("%R", Locale::fr_BE).to_string(), "00:34");
-    assert_eq!(dt.format_localized("%T", Locale::fr_BE).to_string(), "00:34:60");
-    assert_eq!(dt.format_localized("%X", Locale::fr_BE).to_string(), "00:34:60");
-    assert_eq!(dt.format_localized("%r", Locale::fr_BE).to_string(), "12:34:60 ");
+    assert_eq!(
+        dt.format_localized("%R", Locale::fr_BE).to_string(),
+        "00:34"
+    );
+    assert_eq!(
+        dt.format_localized("%T", Locale::fr_BE).to_string(),
+        "00:34:60"
+    );
+    assert_eq!(
+        dt.format_localized("%X", Locale::fr_BE).to_string(),
+        "00:34:60"
+    );
+    assert_eq!(
+        dt.format_localized("%r", Locale::fr_BE).to_string(),
+        "12:34:60 "
+    );
 
     // date & time specifiers
     assert_eq!(

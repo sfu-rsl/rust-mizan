@@ -8,10 +8,10 @@ use core::ops::{Add, Sub};
 use oldtime::Duration as OldDuration;
 
 use super::{LocalResult, Offset, TimeZone};
-use div::div_mod_floor;
-use naive::{NaiveDate, NaiveDateTime, NaiveTime};
-use DateTime;
-use Timelike;
+use crate::div::div_mod_floor;
+use crate::naive::{NaiveDate, NaiveDateTime, NaiveTime};
+use crate::DateTime;
+use crate::Timelike;
 
 /// The time zone with fixed offset, from UTC-23:59:59 to UTC+23:59:59.
 ///
@@ -49,7 +49,9 @@ impl FixedOffset {
     /// Returns `None` on the out-of-bound `secs`.
     pub fn east_opt(secs: i32) -> Option<FixedOffset> {
         if -86_400 < secs && secs < 86_400 {
-            Some(FixedOffset { local_minus_utc: secs })
+            Some(FixedOffset {
+                local_minus_utc: secs,
+            })
         } else {
             None
         }
@@ -79,7 +81,9 @@ impl FixedOffset {
     /// Returns `None` on the out-of-bound `secs`.
     pub fn west_opt(secs: i32) -> Option<FixedOffset> {
         if -86_400 < secs && secs < 86_400 {
-            Some(FixedOffset { local_minus_utc: -secs })
+            Some(FixedOffset {
+                local_minus_utc: -secs,
+            })
         } else {
             None
         }
@@ -129,7 +133,11 @@ impl Offset for FixedOffset {
 impl fmt::Debug for FixedOffset {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let offset = self.local_minus_utc;
-        let (sign, offset) = if offset < 0 { ('-', -offset) } else { ('+', offset) };
+        let (sign, offset) = if offset < 0 {
+            ('-', -offset)
+        } else {
+            ('+', offset)
+        };
         let (mins, sec) = div_mod_floor(offset, 60);
         let (hour, min) = div_mod_floor(mins, 60);
         if sec == 0 {
@@ -158,7 +166,9 @@ where
     // extract and temporarily remove the fractional part and later recover it
     let nanos = lhs.nanosecond();
     let lhs = lhs.with_nanosecond(0).unwrap();
-    (lhs + OldDuration::seconds(i64::from(rhs))).with_nanosecond(nanos).unwrap()
+    (lhs + OldDuration::seconds(i64::from(rhs)))
+        .with_nanosecond(nanos)
+        .unwrap()
 }
 
 impl Add<FixedOffset> for NaiveTime {
@@ -218,7 +228,7 @@ impl<Tz: TimeZone> Sub<FixedOffset> for DateTime<Tz> {
 #[cfg(test)]
 mod tests {
     use super::FixedOffset;
-    use offset::TimeZone;
+    use crate::offset::TimeZone;
 
     #[test]
     fn test_date_extreme_offset() {
@@ -229,7 +239,10 @@ mod tests {
             "2012-02-29+23:59:59".to_string()
         );
         assert_eq!(
-            format!("{:?}", FixedOffset::east(86399).ymd(2012, 2, 29).and_hms(5, 6, 7)),
+            format!(
+                "{:?}",
+                FixedOffset::east(86399).ymd(2012, 2, 29).and_hms(5, 6, 7)
+            ),
             "2012-02-29T05:06:07+23:59:59".to_string()
         );
         assert_eq!(
@@ -237,7 +250,10 @@ mod tests {
             "2012-03-04-23:59:59".to_string()
         );
         assert_eq!(
-            format!("{:?}", FixedOffset::west(86399).ymd(2012, 3, 4).and_hms(5, 6, 7)),
+            format!(
+                "{:?}",
+                FixedOffset::west(86399).ymd(2012, 3, 4).and_hms(5, 6, 7)
+            ),
             "2012-03-04T05:06:07-23:59:59".to_string()
         );
     }

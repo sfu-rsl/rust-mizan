@@ -505,25 +505,25 @@ pub use round::{DurationRound, RoundingError, SubsecRound};
 /// A convenience module appropriate for glob imports (`use chrono::prelude::*;`).
 pub mod prelude {
     #[doc(no_inline)]
-    pub use Date;
+    pub use crate::Date;
     #[cfg(feature = "clock")]
     #[doc(no_inline)]
-    pub use Local;
+    pub use crate::Local;
+    #[doc(no_inline)]
+    pub use crate::SubsecRound;
+    #[doc(no_inline)]
+    pub use crate::{DateTime, SecondsFormat};
+    #[doc(no_inline)]
+    pub use crate::{Datelike, Month, Timelike, Weekday};
+    #[doc(no_inline)]
+    pub use crate::{FixedOffset, Utc};
+    #[doc(no_inline)]
+    pub use crate::{NaiveDate, NaiveDateTime, NaiveTime};
+    #[doc(no_inline)]
+    pub use crate::{Offset, TimeZone};
     #[cfg(feature = "unstable-locales")]
     #[doc(no_inline)]
     pub use Locale;
-    #[doc(no_inline)]
-    pub use SubsecRound;
-    #[doc(no_inline)]
-    pub use {DateTime, SecondsFormat};
-    #[doc(no_inline)]
-    pub use {Datelike, Month, Timelike, Weekday};
-    #[doc(no_inline)]
-    pub use {FixedOffset, Utc};
-    #[doc(no_inline)]
-    pub use {NaiveDate, NaiveDateTime, NaiveTime};
-    #[doc(no_inline)]
-    pub use {Offset, TimeZone};
 }
 
 // useful throughout the codebase
@@ -627,7 +627,11 @@ impl<V: fmt::Display, D: fmt::Display> fmt::Display for SerdeError<V, D> {
             &SerdeError::NonExistent { ref timestamp } => {
                 write!(f, "value is not a legal timestamp: {}", timestamp)
             }
-            &SerdeError::Ambiguous { ref timestamp, ref min, ref max } => write!(
+            &SerdeError::Ambiguous {
+                ref timestamp,
+                ref min,
+                ref max,
+            } => write!(
                 f,
                 "value is an ambiguous timestamp: {}, could be either of {}, {}",
                 timestamp, min, max
@@ -861,7 +865,9 @@ mod weekday_serde {
         where
             E: de::Error,
         {
-            value.parse().map_err(|_| E::custom("short or long weekday names expected"))
+            value
+                .parse()
+                .map_err(|_| E::custom("short or long weekday names expected"))
         }
     }
 
@@ -927,8 +933,14 @@ mod weekday_serde {
             assert_eq!(weekday, expected_weekday);
         }
 
-        let errors: Vec<&str> =
-            vec!["\"not a weekday\"", "\"monDAYs\"", "\"mond\"", "mon", "\"thur\"", "\"thurs\""];
+        let errors: Vec<&str> = vec![
+            "\"not a weekday\"",
+            "\"monDAYs\"",
+            "\"mond\"",
+            "mon",
+            "\"thur\"",
+            "\"thurs\"",
+        ];
 
         for str in errors {
             from_str::<Weekday>(str).unwrap_err();
@@ -1163,7 +1175,9 @@ mod month_serde {
         where
             E: de::Error,
         {
-            value.parse().map_err(|_| E::custom("short (3-letter) or full month names expected"))
+            value
+                .parse()
+                .map_err(|_| E::custom("short (3-letter) or full month names expected"))
         }
     }
 
@@ -1232,8 +1246,13 @@ mod month_serde {
             assert_eq!(month, expected_month);
         }
 
-        let errors: Vec<&str> =
-            vec!["\"not a month\"", "\"ja\"", "\"Dece\"", "Dec", "\"Augustin\""];
+        let errors: Vec<&str> = vec![
+            "\"not a month\"",
+            "\"ja\"",
+            "\"Dece\"",
+            "Dec",
+            "\"Augustin\"",
+        ];
 
         for string in errors {
             from_str::<Month>(string).unwrap_err();
@@ -1469,7 +1488,9 @@ mod test {
         assert_eq!(Month::from_u32(date.month()), Some(Month::October));
 
         let month = Month::January;
-        let dt = Utc.ymd(2019, month.number_from_month(), 28).and_hms(9, 10, 11);
+        let dt = Utc
+            .ymd(2019, month.number_from_month(), 28)
+            .and_hms(9, 10, 11);
         assert_eq!((dt.year(), dt.month(), dt.day()), (2019, 1, 28));
     }
 }
@@ -1522,7 +1543,12 @@ fn test_num_days_from_ce_against_alternative_impl() {
             jan1_year
         );
         let mid_year = jan1_year + Duration::days(133);
-        assert_eq!(mid_year.num_days_from_ce(), num_days_from_ce(&mid_year), "on {:?}", mid_year);
+        assert_eq!(
+            mid_year.num_days_from_ce(),
+            num_days_from_ce(&mid_year),
+            "on {:?}",
+            mid_year
+        );
     }
 }
 

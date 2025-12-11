@@ -42,7 +42,9 @@ pub fn iso_week_from_yof(year: i32, of: Of) -> IsoWeek {
             (year, rawweek)
         }
     };
-    IsoWeek { ywf: (year << 10) | (week << 4) as DateImpl | DateImpl::from(of.flags().0) }
+    IsoWeek {
+        ywf: (year << 10) | (week << 4) as DateImpl | DateImpl::from(of.flags().0),
+    }
 }
 
 impl IsoWeek {
@@ -142,8 +144,8 @@ impl fmt::Debug for IsoWeek {
 
 #[cfg(test)]
 mod tests {
-    use naive::{internals, MAX_DATE, MIN_DATE};
-    use Datelike;
+    use crate::naive::{internals, MAX_DATE, MIN_DATE};
+    use crate::Datelike;
 
     #[test]
     fn test_iso_week_extremes() {
@@ -153,11 +155,17 @@ mod tests {
         assert_eq!(minweek.year(), internals::MIN_YEAR);
         assert_eq!(minweek.week(), 1);
         assert_eq!(minweek.week0(), 0);
-        assert_eq!(format!("{:?}", minweek), MIN_DATE.format("%G-W%V").to_string());
+        assert_eq!(
+            format!("{:?}", minweek),
+            MIN_DATE.format("%G-W%V").to_string()
+        );
 
         assert_eq!(maxweek.year(), internals::MAX_YEAR + 1);
         assert_eq!(maxweek.week(), 1);
         assert_eq!(maxweek.week0(), 0);
-        assert_eq!(format!("{:?}", maxweek), MAX_DATE.format("%G-W%V").to_string());
+        assert_eq!(
+            format!("{:?}", maxweek),
+            MAX_DATE.format("%G-W%V").to_string()
+        );
     }
 }

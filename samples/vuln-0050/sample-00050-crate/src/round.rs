@@ -1,16 +1,16 @@
 // This is a part of Chrono.
 // See README.md and LICENSE.txt for details.
 
+use crate::datetime::DateTime;
+use crate::TimeZone;
+use crate::Timelike;
 use core::cmp::Ordering;
 use core::fmt;
 use core::marker::Sized;
 use core::ops::{Add, Sub};
-use datetime::DateTime;
 use oldtime::Duration;
 #[cfg(any(feature = "std", test))]
 use std;
-use TimeZone;
-use Timelike;
 
 /// Extension trait for subsecond rounding or truncation to a maximum number
 /// of digits. Rounding can be used to decrease the error variance when
@@ -268,8 +268,8 @@ impl std::error::Error for RoundingError {
 #[cfg(test)]
 mod tests {
     use super::{Duration, DurationRound, SubsecRound};
-    use offset::{FixedOffset, TimeZone, Utc};
-    use Timelike;
+    use crate::offset::{FixedOffset, TimeZone, Utc};
+    use crate::Timelike;
 
     #[test]
     fn test_round_subsecs() {
@@ -303,7 +303,9 @@ mod tests {
 
     #[test]
     fn test_round_leap_nanos() {
-        let dt = Utc.ymd(2016, 12, 31).and_hms_nano(23, 59, 59, 1_750_500_000);
+        let dt = Utc
+            .ymd(2016, 12, 31)
+            .and_hms_nano(23, 59, 59, 1_750_500_000);
         assert_eq!(dt.round_subsecs(9), dt);
         assert_eq!(dt.round_subsecs(4), dt);
         assert_eq!(dt.round_subsecs(2).nanosecond(), 1_750_000_000);
@@ -346,7 +348,9 @@ mod tests {
 
     #[test]
     fn test_trunc_leap_nanos() {
-        let dt = Utc.ymd(2016, 12, 31).and_hms_nano(23, 59, 59, 1_750_500_000);
+        let dt = Utc
+            .ymd(2016, 12, 31)
+            .and_hms_nano(23, 59, 59, 1_750_500_000);
         assert_eq!(dt.trunc_subsecs(9), dt);
         assert_eq!(dt.trunc_subsecs(4), dt);
         assert_eq!(dt.trunc_subsecs(2).nanosecond(), 1_750_000_000);
@@ -362,7 +366,9 @@ mod tests {
         let dt = Utc.ymd(2016, 12, 31).and_hms_nano(23, 59, 59, 175_500_000);
 
         assert_eq!(
-            dt.duration_round(Duration::milliseconds(10)).unwrap().to_string(),
+            dt.duration_round(Duration::milliseconds(10))
+                .unwrap()
+                .to_string(),
             "2016-12-31 23:59:59.180 UTC"
         );
 
@@ -380,11 +386,15 @@ mod tests {
         );
 
         assert_eq!(
-            dt.duration_round(Duration::minutes(10)).unwrap().to_string(),
+            dt.duration_round(Duration::minutes(10))
+                .unwrap()
+                .to_string(),
             "2012-12-12 18:20:00 UTC"
         );
         assert_eq!(
-            dt.duration_round(Duration::minutes(30)).unwrap().to_string(),
+            dt.duration_round(Duration::minutes(30))
+                .unwrap()
+                .to_string(),
             "2012-12-12 18:30:00 UTC"
         );
         assert_eq!(
@@ -401,7 +411,9 @@ mod tests {
     fn test_duration_round_pre_epoch() {
         let dt = Utc.ymd(1969, 12, 12).and_hms(12, 12, 12);
         assert_eq!(
-            dt.duration_round(Duration::minutes(10)).unwrap().to_string(),
+            dt.duration_round(Duration::minutes(10))
+                .unwrap()
+                .to_string(),
             "1969-12-12 12:10:00 UTC"
         );
     }
@@ -411,7 +423,9 @@ mod tests {
         let dt = Utc.ymd(2016, 12, 31).and_hms_nano(23, 59, 59, 1_75_500_000);
 
         assert_eq!(
-            dt.duration_trunc(Duration::milliseconds(10)).unwrap().to_string(),
+            dt.duration_trunc(Duration::milliseconds(10))
+                .unwrap()
+                .to_string(),
             "2016-12-31 23:59:59.170 UTC"
         );
 
@@ -428,11 +442,15 @@ mod tests {
             "2012-12-12 18:20:00 UTC"
         );
         assert_eq!(
-            dt.duration_trunc(Duration::minutes(10)).unwrap().to_string(),
+            dt.duration_trunc(Duration::minutes(10))
+                .unwrap()
+                .to_string(),
             "2012-12-12 18:20:00 UTC"
         );
         assert_eq!(
-            dt.duration_trunc(Duration::minutes(30)).unwrap().to_string(),
+            dt.duration_trunc(Duration::minutes(30))
+                .unwrap()
+                .to_string(),
             "2012-12-12 18:00:00 UTC"
         );
         assert_eq!(
@@ -449,7 +467,9 @@ mod tests {
     fn test_duration_trunc_pre_epoch() {
         let dt = Utc.ymd(1969, 12, 12).and_hms(12, 12, 12);
         assert_eq!(
-            dt.duration_trunc(Duration::minutes(10)).unwrap().to_string(),
+            dt.duration_trunc(Duration::minutes(10))
+                .unwrap()
+                .to_string(),
             "1969-12-12 12:10:00 UTC"
         );
     }

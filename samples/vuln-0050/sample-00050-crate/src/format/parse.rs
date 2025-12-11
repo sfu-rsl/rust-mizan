@@ -14,7 +14,7 @@ use super::scan;
 use super::{Fixed, InternalFixed, InternalInternal, Item, Numeric, Pad, Parsed};
 use super::{ParseError, ParseErrorKind, ParseResult};
 use super::{BAD_FORMAT, INVALID, NOT_ENOUGH, OUT_OF_RANGE, TOO_LONG, TOO_SHORT};
-use {DateTime, FixedOffset, Weekday};
+use crate::{DateTime, FixedOffset, Weekday};
 
 fn set_weekday_with_num_days_from_sunday(p: &mut Parsed, v: i64) -> ParseResult<()> {
     p.set_weekday(match v {
@@ -117,10 +117,10 @@ fn parse_rfc2822<'a>(parsed: &mut Parsed, mut s: &'a str) -> ParseResult<(&'a st
     let mut year = try_consume!(scan::number(s, 2, usize::MAX));
     let yearlen = prevlen - s.len();
     match (yearlen, year) {
-        (2, 0...49) => {
+        (2, 0..=49) => {
             year += 2000;
         } //   47 -> 2047,   05 -> 2005
-        (2, 50...99) => {
+        (2, 50..=99) => {
             year += 1900;
         } //   79 -> 1979
         (3, _) => {
@@ -236,7 +236,9 @@ where
     I: Iterator<Item = B>,
     B: Borrow<Item<'a>>,
 {
-    parse_internal(parsed, s, items).map(|_| ()).map_err(|(_s, e)| e)
+    parse_internal(parsed, s, items)
+        .map(|_| ())
+        .map_err(|(_s, e)| e)
 }
 
 fn parse_internal<'a, 'b, I, B>(
@@ -345,12 +347,16 @@ where
                 match spec {
                     &ShortMonthName => {
                         let month0 = try_consume!(scan::short_month0(s));
-                        parsed.set_month(i64::from(month0) + 1).map_err(|e| (s, e))?;
+                        parsed
+                            .set_month(i64::from(month0) + 1)
+                            .map_err(|e| (s, e))?;
                     }
 
                     &LongMonthName => {
                         let month0 = try_consume!(scan::short_or_long_month0(s));
-                        parsed.set_month(i64::from(month0) + 1).map_err(|e| (s, e))?;
+                        parsed
+                            .set_month(i64::from(month0) + 1)
+                            .map_err(|e| (s, e))?;
                     }
 
                     &ShortWeekdayName => {
@@ -383,7 +389,9 @@ where
                         }
                     }
 
-                    &Internal(InternalFixed { val: InternalInternal::Nanosecond3NoDot }) => {
+                    &Internal(InternalFixed {
+                        val: InternalInternal::Nanosecond3NoDot,
+                    }) => {
                         if s.len() < 3 {
                             return Err((s, TOO_SHORT));
                         }
@@ -391,7 +399,9 @@ where
                         parsed.set_nanosecond(nano).map_err(|e| (s, e))?;
                     }
 
-                    &Internal(InternalFixed { val: InternalInternal::Nanosecond6NoDot }) => {
+                    &Internal(InternalFixed {
+                        val: InternalInternal::Nanosecond6NoDot,
+                    }) => {
                         if s.len() < 6 {
                             return Err((s, TOO_SHORT));
                         }
@@ -399,7 +409,9 @@ where
                         parsed.set_nanosecond(nano).map_err(|e| (s, e))?;
                     }
 
-                    &Internal(InternalFixed { val: InternalInternal::Nanosecond9NoDot }) => {
+                    &Internal(InternalFixed {
+                        val: InternalInternal::Nanosecond9NoDot,
+                    }) => {
                         if s.len() < 9 {
                             return Err((s, TOO_SHORT));
                         }
@@ -798,18 +810,39 @@ fn test_parse() {
 fn test_rfc2822() {
     use super::NOT_ENOUGH;
     use super::*;
-    use offset::FixedOffset;
+    use crate::offset::FixedOffset;
     use DateTime;
 
     // Test data - (input, Ok(expected result after parse and format) or Err(error code))
     let testdates = [
-        ("Tue, 20 Jan 2015 17:35:20 -0800", Ok("Tue, 20 Jan 2015 17:35:20 -0800")), // normal case
-        ("Fri,  2 Jan 2015 17:35:20 -0800", Ok("Fri, 02 Jan 2015 17:35:20 -0800")), // folding whitespace
-        ("Fri, 02 Jan 2015 17:35:20 -0800", Ok("Fri, 02 Jan 2015 17:35:20 -0800")), // leading zero
-        ("20 Jan 2015 17:35:20 -0800", Ok("Tue, 20 Jan 2015 17:35:20 -0800")), // no day of week
-        ("20 JAN 2015 17:35:20 -0800", Ok("Tue, 20 Jan 2015 17:35:20 -0800")), // upper case month
-        ("Tue, 20 Jan 2015 17:35 -0800", Ok("Tue, 20 Jan 2015 17:35:00 -0800")), // no second
-        ("11 Sep 2001 09:45:00 EST", Ok("Tue, 11 Sep 2001 09:45:00 -0500")),
+        (
+            "Tue, 20 Jan 2015 17:35:20 -0800",
+            Ok("Tue, 20 Jan 2015 17:35:20 -0800"),
+        ), // normal case
+        (
+            "Fri,  2 Jan 2015 17:35:20 -0800",
+            Ok("Fri, 02 Jan 2015 17:35:20 -0800"),
+        ), // folding whitespace
+        (
+            "Fri, 02 Jan 2015 17:35:20 -0800",
+            Ok("Fri, 02 Jan 2015 17:35:20 -0800"),
+        ), // leading zero
+        (
+            "20 Jan 2015 17:35:20 -0800",
+            Ok("Tue, 20 Jan 2015 17:35:20 -0800"),
+        ), // no day of week
+        (
+            "20 JAN 2015 17:35:20 -0800",
+            Ok("Tue, 20 Jan 2015 17:35:20 -0800"),
+        ), // upper case month
+        (
+            "Tue, 20 Jan 2015 17:35 -0800",
+            Ok("Tue, 20 Jan 2015 17:35:00 -0800"),
+        ), // no second
+        (
+            "11 Sep 2001 09:45:00 EST",
+            Ok("Tue, 11 Sep 2001 09:45:00 -0500"),
+        ),
         ("30 Feb 2015 17:35:20 -0800", Err(OUT_OF_RANGE)), // bad day of month
         ("Tue, 20 Jan 2015", Err(TOO_SHORT)),              // omitted fields
         ("Tue, 20 Avr 2015 17:35:20 -0800", Err(INVALID)), // bad month name
@@ -829,7 +862,8 @@ fn test_rfc2822() {
     }
 
     fn fmt_rfc2822_datetime(dt: DateTime<FixedOffset>) -> String {
-        dt.format_with_items([Item::Fixed(Fixed::RFC2822)].iter()).to_string()
+        dt.format_with_items([Item::Fixed(Fixed::RFC2822)].iter())
+            .to_string()
     }
 
     // Test against test data above
@@ -853,7 +887,7 @@ fn test_rfc2822() {
 #[cfg(test)]
 #[test]
 fn parse_rfc850() {
-    use {TimeZone, Utc};
+    use crate::{TimeZone, Utc};
 
     static RFC850_FMT: &'static str = "%A, %d-%b-%y %T GMT";
 
@@ -864,17 +898,38 @@ fn parse_rfc850() {
     assert_eq!(dt.format(RFC850_FMT).to_string(), dt_str);
 
     // Check that it parses correctly
-    assert_eq!(Ok(dt), Utc.datetime_from_str("Sunday, 06-Nov-94 08:49:37 GMT", RFC850_FMT));
+    assert_eq!(
+        Ok(dt),
+        Utc.datetime_from_str("Sunday, 06-Nov-94 08:49:37 GMT", RFC850_FMT)
+    );
 
     // Check that the rest of the weekdays parse correctly (this test originally failed because
     // Sunday parsed incorrectly).
     let testdates = [
-        (Utc.ymd(1994, 11, 7).and_hms(8, 49, 37), "Monday, 07-Nov-94 08:49:37 GMT"),
-        (Utc.ymd(1994, 11, 8).and_hms(8, 49, 37), "Tuesday, 08-Nov-94 08:49:37 GMT"),
-        (Utc.ymd(1994, 11, 9).and_hms(8, 49, 37), "Wednesday, 09-Nov-94 08:49:37 GMT"),
-        (Utc.ymd(1994, 11, 10).and_hms(8, 49, 37), "Thursday, 10-Nov-94 08:49:37 GMT"),
-        (Utc.ymd(1994, 11, 11).and_hms(8, 49, 37), "Friday, 11-Nov-94 08:49:37 GMT"),
-        (Utc.ymd(1994, 11, 12).and_hms(8, 49, 37), "Saturday, 12-Nov-94 08:49:37 GMT"),
+        (
+            Utc.ymd(1994, 11, 7).and_hms(8, 49, 37),
+            "Monday, 07-Nov-94 08:49:37 GMT",
+        ),
+        (
+            Utc.ymd(1994, 11, 8).and_hms(8, 49, 37),
+            "Tuesday, 08-Nov-94 08:49:37 GMT",
+        ),
+        (
+            Utc.ymd(1994, 11, 9).and_hms(8, 49, 37),
+            "Wednesday, 09-Nov-94 08:49:37 GMT",
+        ),
+        (
+            Utc.ymd(1994, 11, 10).and_hms(8, 49, 37),
+            "Thursday, 10-Nov-94 08:49:37 GMT",
+        ),
+        (
+            Utc.ymd(1994, 11, 11).and_hms(8, 49, 37),
+            "Friday, 11-Nov-94 08:49:37 GMT",
+        ),
+        (
+            Utc.ymd(1994, 11, 12).and_hms(8, 49, 37),
+            "Saturday, 12-Nov-94 08:49:37 GMT",
+        ),
     ];
 
     for val in &testdates {
@@ -886,7 +941,7 @@ fn parse_rfc850() {
 #[test]
 fn test_rfc3339() {
     use super::*;
-    use offset::FixedOffset;
+    use crate::offset::FixedOffset;
     use DateTime;
 
     // Test data - (input, Ok(expected result after parse and format) or Err(error code))
@@ -894,10 +949,22 @@ fn test_rfc3339() {
         ("2015-01-20T17:35:20-08:00", Ok("2015-01-20T17:35:20-08:00")), // normal case
         ("1944-06-06T04:04:00Z", Ok("1944-06-06T04:04:00+00:00")),      // D-day
         ("2001-09-11T09:45:00-08:00", Ok("2001-09-11T09:45:00-08:00")),
-        ("2015-01-20T17:35:20.001-08:00", Ok("2015-01-20T17:35:20.001-08:00")),
-        ("2015-01-20T17:35:20.000031-08:00", Ok("2015-01-20T17:35:20.000031-08:00")),
-        ("2015-01-20T17:35:20.000000004-08:00", Ok("2015-01-20T17:35:20.000000004-08:00")),
-        ("2015-01-20T17:35:20.000000000452-08:00", Ok("2015-01-20T17:35:20-08:00")), // too small
+        (
+            "2015-01-20T17:35:20.001-08:00",
+            Ok("2015-01-20T17:35:20.001-08:00"),
+        ),
+        (
+            "2015-01-20T17:35:20.000031-08:00",
+            Ok("2015-01-20T17:35:20.000031-08:00"),
+        ),
+        (
+            "2015-01-20T17:35:20.000000004-08:00",
+            Ok("2015-01-20T17:35:20.000000004-08:00"),
+        ),
+        (
+            "2015-01-20T17:35:20.000000000452-08:00",
+            Ok("2015-01-20T17:35:20-08:00"),
+        ), // too small
         ("2015-02-30T17:35:20-08:00", Err(OUT_OF_RANGE)), // bad day of month
         ("2015-01-20T25:35:20-08:00", Err(OUT_OF_RANGE)), // bad hour
         ("2015-01-20T17:65:20-08:00", Err(OUT_OF_RANGE)), // bad minute
@@ -912,7 +979,8 @@ fn test_rfc3339() {
     }
 
     fn fmt_rfc3339_datetime(dt: DateTime<FixedOffset>) -> String {
-        dt.format_with_items([Item::Fixed(Fixed::RFC3339)].iter()).to_string()
+        dt.format_with_items([Item::Fixed(Fixed::RFC3339)].iter())
+            .to_string()
     }
 
     // Test against test data above

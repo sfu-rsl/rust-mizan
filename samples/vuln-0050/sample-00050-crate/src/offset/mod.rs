@@ -20,10 +20,10 @@
 
 use core::fmt;
 
-use format::{parse, ParseResult, Parsed, StrftimeItems};
-use naive::{NaiveDate, NaiveDateTime, NaiveTime};
-use Weekday;
-use {Date, DateTime};
+use crate::format::{parse, ParseResult, Parsed, StrftimeItems};
+use crate::naive::{NaiveDate, NaiveDateTime, NaiveTime};
+use crate::Weekday;
+use crate::{Date, DateTime};
 
 /// The conversion result from the local time to the timezone-aware datetime types.
 #[derive(Clone, PartialEq, Debug, Copy, Eq, Hash)]
@@ -81,9 +81,9 @@ impl<Tz: TimeZone> LocalResult<Date<Tz>> {
     #[inline]
     pub fn and_time(self, time: NaiveTime) -> LocalResult<DateTime<Tz>> {
         match self {
-            LocalResult::Single(d) => {
-                d.and_time(time).map_or(LocalResult::None, LocalResult::Single)
-            }
+            LocalResult::Single(d) => d
+                .and_time(time)
+                .map_or(LocalResult::None, LocalResult::Single),
             _ => LocalResult::None,
         }
     }
@@ -95,9 +95,9 @@ impl<Tz: TimeZone> LocalResult<Date<Tz>> {
     #[inline]
     pub fn and_hms_opt(self, hour: u32, min: u32, sec: u32) -> LocalResult<DateTime<Tz>> {
         match self {
-            LocalResult::Single(d) => {
-                d.and_hms_opt(hour, min, sec).map_or(LocalResult::None, LocalResult::Single)
-            }
+            LocalResult::Single(d) => d
+                .and_hms_opt(hour, min, sec)
+                .map_or(LocalResult::None, LocalResult::Single),
             _ => LocalResult::None,
         }
     }
