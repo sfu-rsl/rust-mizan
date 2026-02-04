@@ -17,15 +17,14 @@ def cmd(ctx):
     "--output",
     "-o",
     type=click.Path(path_type=Path),
-    default=Path("dataset.json"),
+    default=Path("dataset.parquet"),
     help="Output dataset file path",
 )
 @click.pass_context
 def prepare_dataset(ctx, output: Path):
     """Prepare dataset for evaluation.
 
-    Reads mizan.json and code samples to create a dataset for evaluation. This includes
-    preparing the prompts and expected outputs for the LLM evaluation.
+    Reads mizan.json and code samples to create a parquet dataset for evaluation.
     """
     from .prepare_dataset import PrepareDatasetCommand
 
@@ -49,25 +48,18 @@ def prepare_dataset(ctx, output: Path):
     help="Path to the prepared dataset file",
 )
 @click.option(
-    "--provider",
-    "-p",
-    type=click.Choice(["openai", "anthropic", "gemini", "deepseek"]),
-    required=True,
-    help="LLM provider to use",
-)
-@click.option(
     "--model",
     "-m",
     type=str,
     required=True,
-    help="Model name to use",
+    help="Model name (e.g., openai/gpt-4, anthropic/claude-sonnet-4.5)",
 )
 @click.pass_context
-def run(ctx, dataset: Path, provider: str, model: str):
-    """Run LLM evaluation using the prepared dataset.
+def run(ctx, dataset: Path, model: str):
+    """Run LLM evaluation using the prepared dataset with inspect-ai.
 
-    Executes vulnerability detection evaluation using the specified LLM provider and model.
-    Results are stored locally in the `evaluation_results` directory.
+    Model format: provider/model-name
+    Examples: openai/gpt-4, anthropic/claude-sonnet-4.5
     """
     from .run import EvaluationRunner
 
@@ -76,14 +68,11 @@ def run(ctx, dataset: Path, provider: str, model: str):
         logger.error("Please run 'mizan evaluate prepare-dataset' first")
         raise click.ClickException("Dataset file not found")
 
-    runner = EvaluationRunner(dataset_path=dataset, provider=provider, model=model)
+    runner = EvaluationRunner(dataset_path=dataset, model=model)
 
     try:
-        result = runner.run_evaluation()
-
+        runner.run_evaluation()
         logger.info("Evaluation completed successfully")
-        logger.info(f"Experiment ID: {result['experiment_id']}")
-        logger.info(f"Results directory: {result['experiment_dir']}")
 
     except Exception as e:
         logger.error(f"Evaluation failed: {e}")

@@ -22,6 +22,20 @@ cargo +nightly build --workspace
 
 > Using nightly toolchain because mizan-mut depends on `rust-analyzer` crates which require nightly features
 
+## End-to-End Usage
+
+```bash
+mizan checkout -v vuln-0001 -v vuln-0002 -l function -o output
+cd output
+
+mizan mutate -m remove-comments
+
+mizan evaluate prepare-dataset --tag baseline  # --tag is optional
+mizan evaluate run -d dataset.parquet -m anthropic/claude-haiku-4-5
+
+inspect view
+```
+
 ## Project Structure
 
 ```

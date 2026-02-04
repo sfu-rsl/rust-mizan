@@ -1,0 +1,5 @@
+services:
+  default:
+    image: rust:1.84.1
+    command: sleep infinity
+    working_dir: /workspace

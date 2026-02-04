@@ -1,0 +1,56 @@
+name: Generate Datasets
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to checkout'
+        required: true
+        default: 'master'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.84.1
+          components: rustfmt
+
+      - name: Setup Rust Nightly
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: rustfmt
+
+      - name: Build mizan-mut
+        run: |
+          cargo +nightly build --release -p mizan-mut
+          echo "$GITHUB_WORKSPACE/target/release" >> $GITHUB_PATH
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install mizan-cli
+        run: |
+          cd mizan-cli
+          pip install -e .
+
+      - name: Generate datasets
+        run: |
+          chmod +x .github/scripts/generate-datasets.sh
+          .github/scripts/generate-datasets.sh
+
+      - name: Upload datasets
+        uses: actions/upload-artifact@v4
+        with:
+          name: mizan-datasets-${{ github.event.inputs.branch }}
+          path: datasets/*.parquet
