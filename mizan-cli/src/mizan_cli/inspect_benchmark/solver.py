@@ -7,6 +7,8 @@ def react_agent() -> Agent:
     return react(
         description="Security auditor analyzing Rust code for vulnerabilities",
         prompt="You are a security auditor. Use the bash tool to explore and analyze the Rust codebase for memory safety vulnerabilities.",
-        tools=[bash()],
+        tools=[
+            bash(300)
+        ],  # 5 minute timeout for bash commands should be sufficient for most code exploration and analysis tasks
         submit=False,
     )

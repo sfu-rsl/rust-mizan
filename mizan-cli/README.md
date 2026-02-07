@@ -5,15 +5,12 @@ A CLI for interacting with RustMizan dataset
 ## Installation
 
 ```bash
-# Install dependencies
 cd mizan-cli
 poetry install
 
-# Add to PATH (add this to your ~/.zshrc or ~/.bashrc)
-export PATH="$(poetry env info --path)/bin:$PATH"
+# Run mizan commands with poetry run
+poetry run mizan checkout --help
 ```
-
-Restart your terminal or run `source ~/.zshrc` to apply the PATH change.
 
 ## Prerequisites
 
@@ -196,68 +193,35 @@ The rename mutations use `mizan-mut rename` to rename variables and functions ar
 
 ### `evaluate` - Run LLM Evaluation
 
-```bash
-cd my-output
-mizan evaluate prepare-dataset --tag baseline  # --tag is optional
-mizan evaluate run -d dataset.parquet -m anthropic/claude-sonnet-4.5
-```
-
-#### Subcommands
-
-##### `prepare-dataset`
+#### `prepare-dataset`
 
 Converts checked out samples to parquet format for evaluation.
 
 ```bash
-mizan evaluate prepare-dataset [OPTIONS]
+cd my-output
+mizan evaluate prepare-dataset --tag baseline  # --tag is optional
 ```
+
+**Options:**
 
 | Option     | Short | Description                                      | Default           |
 | ---------- | ----- | ------------------------------------------------ | ----------------- |
 | `--output` | `-o`  | Output dataset file                              | `dataset.parquet` |
 | `--tag`    | `-t`  | Optional tag to identify dataset (e.g. baseline) | `None`            |
 
-Output files:
+**Output files:**
 
 - `dataset.parquet`: Parquet file with code samples and ground truth
 - `mutations_metadata.json`: Applied mutations metadata
 
-##### `run`
+#### Running Evaluations
 
-Runs evaluation using Inspect AI with a ReAct agent.
-
-```bash
-mizan evaluate run [OPTIONS]
-```
-
-| Option      | Short | Description           | Required |
-| ----------- | ----- | --------------------- | -------- |
-| `--dataset` | `-d`  | Path to dataset file  | Yes      |
-| `--model`   | `-m`  | Model (provider/name) | Yes      |
-
-See [Inspect AI documentation](https://inspect.aisi.org.uk) to learn more about:
-
-- supported models
-- how to run evaluations with alternative agents
-
-> For more control over evaluation parameters, use the [`run_eval.py`](run_eval.py) script
-
-#### Examples
+Use the [`run_eval.py`](run_eval.py) script to run evaluations with full control over parameters:
 
 ```bash
-# Evaluate on vanilla dataset
-mizan checkout -v vuln-0001 -l function -o eval-output
-cd eval-output
-mizan evaluate prepare-dataset --tag baseline  # --tag is optional
-mizan evaluate run -d dataset.parquet -m anthropic/claude-sonnet-4.5
-
-# Evaluate with mutations
-mizan checkout -l function -o eval-mutations
-cd eval-mutations
-mizan mutate -m remove-comments
-mizan evaluate prepare-dataset --tag mutated  # --tag is optional
-mizan evaluate run -d dataset.parquet -m openai/gpt-4
-
-# View results
-inspect view
+cd mizan-cli
+# Edit run_eval.py to configure different evaluation parameters including agent, models, dataset path, max turns, etc.
+python run_eval.py
 ```
+
+See [Inspect AI documentation](https://inspect.aisi.org.uk) to learn more about supported models and evaluation options.

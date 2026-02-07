@@ -25,6 +25,7 @@ def load_dataset(dataset_path: Path, sample_ids: str | list[str] | None = None):
         "rust_version": metadata.get("rust_version", ""),
         "dataset_version": metadata.get("dataset_version", ""),
         "benchmark_name": metadata.get("benchmark_name", ""),
+        "tag": metadata.get("tag", "") or None,
         "mutations_metadata": mutations_metadata,
     }
 

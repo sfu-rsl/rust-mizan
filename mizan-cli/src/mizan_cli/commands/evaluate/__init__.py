@@ -20,8 +20,15 @@ def cmd(ctx):
     default=Path("dataset.parquet"),
     help="Output dataset file path",
 )
+@click.option(
+    "--tag",
+    "-t",
+    type=str,
+    default=None,
+    help="Optional tag to identify this dataset",
+)
 @click.pass_context
-def prepare_dataset(ctx, output: Path):
+def prepare_dataset(ctx, output: Path, tag: str | None):
     """Prepare dataset for evaluation.
 
     Reads mizan.json and code samples to create a parquet dataset for evaluation.
@@ -35,45 +42,5 @@ def prepare_dataset(ctx, output: Path):
         )
         raise click.ClickException("mizan.json not found")
 
-    command = PrepareDatasetCommand(output)
+    command = PrepareDatasetCommand(output, tag=tag)
     command.execute()
-
-
-@cmd.command(name="run")
-@click.option(
-    "--dataset",
-    "-d",
-    type=click.Path(exists=True, path_type=Path),
-    required=True,
-    help="Path to the prepared dataset file",
-)
-@click.option(
-    "--model",
-    "-m",
-    type=str,
-    required=True,
-    help="Model name (e.g., openai/gpt-4, anthropic/claude-sonnet-4.5)",
-)
-@click.pass_context
-def run(ctx, dataset: Path, model: str):
-    """Run LLM evaluation using the prepared dataset with inspect-ai.
-
-    Model format: provider/model-name
-    Examples: openai/gpt-4, anthropic/claude-sonnet-4.5
-    """
-    from .run import EvaluationRunner
-
-    if not dataset.exists():
-        logger.error(f"Dataset file not found: {dataset}")
-        logger.error("Please run 'mizan evaluate prepare-dataset' first")
-        raise click.ClickException("Dataset file not found")
-
-    runner = EvaluationRunner(dataset_path=dataset, model=model)
-
-    try:
-        runner.run_evaluation()
-        logger.info("Evaluation completed successfully")
-
-    except Exception as e:
-        logger.error(f"Evaluation failed: {e}")
-        raise click.ClickException(str(e))

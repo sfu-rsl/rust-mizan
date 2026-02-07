@@ -11,8 +11,9 @@ logger = get_logger()
 
 
 class PrepareDatasetCommand:
-    def __init__(self, output_path: Path):
+    def __init__(self, output_path: Path, tag: str | None = None):
         self.output_path = output_path
+        self.tag = tag
         self.current_dir = Path.cwd()
         self.samples_dir = self.current_dir / "samples"
 
@@ -36,6 +37,7 @@ class PrepareDatasetCommand:
             "rust_version": general_info.get("rust_version", ""),
             "dataset_version": general_info.get("dataset_version", ""),
             "benchmark_name": general_info.get("benchmark_name", ""),
+            "tag": self.tag if self.tag else "",
             "mutations_metadata": json.dumps(mutations_metadata),
         }
         existing_metadata = table.schema.metadata or {}
