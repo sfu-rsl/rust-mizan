@@ -10,6 +10,9 @@ poetry install
 
 # Run mizan commands with poetry run
 poetry run mizan checkout --help
+
+# Add mizan to PATH (add to ~/.zshrc or ~/.bashrc)
+export PATH="$(poetry env info --path)/bin:$PATH"
 ```
 
 ## Prerequisites

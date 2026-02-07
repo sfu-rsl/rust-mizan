@@ -13,6 +13,7 @@ rich = "^14.3.2"
 pydantic = "^2.12.5"
 pyarrow = "^23.0.0"
 inspect-ai = "^0.3.170"
+inspect-swe = "^0.2.0"
 
 [tool.poetry.scripts]
 mizan = "mizan_cli.cli:main"
