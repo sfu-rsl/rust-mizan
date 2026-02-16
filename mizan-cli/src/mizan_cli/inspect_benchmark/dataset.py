@@ -1,4 +1,5 @@
 import json
+from textwrap import dedent
 from pathlib import Path
 import pyarrow.parquet as pq
 from inspect_ai.dataset import MemoryDataset, Sample
@@ -43,8 +44,6 @@ def load_dataset(dataset_path: Path, sample_ids: str | list[str] | None = None):
 
         files = {f["path"]: f["content"] for f in row["files"]}
 
-        task_description = _create_task_description(row)
-
         vulnerable_functions = row["vulnerable_functions"]
         if isinstance(vulnerable_functions, list):
             vulnerable_functions = dict(vulnerable_functions)
@@ -56,7 +55,7 @@ def load_dataset(dataset_path: Path, sample_ids: str | list[str] | None = None):
         samples.append(
             Sample(
                 id=row["sample_id"],
-                input=task_description,
+                input=TASK_DESCRIPTION,
                 target="valid_json",
                 files=files,
                 metadata={
@@ -80,22 +79,32 @@ def load_dataset(dataset_path: Path, sample_ids: str | list[str] | None = None):
     return MemoryDataset(samples=samples), dataset_metadata
 
 
-def _create_task_description(row):
-    task = """You are a security auditor analyzing a Rust crate for memory safety vulnerabilities.
+TASK_DESCRIPTION = dedent(
+    """
+# Rust Memory Safety Vulnerability Analysis Task
 
-The codebase is available in the current directory. Use the bash tool to explore and analyze the code.
+Your task is to analyze the provided Rust crate for memory safety vulnerabilities.
 
-Your task:
+## Task
 1. Explore the code structure
 2. Read and analyze source files
 3. Identify memory safety vulnerabilities
 4. Write your findings to results.json
 
-When you have completed your analysis, write your findings to a file called results.json with this exact schema:
+When you have completed your analysis, create and write your findings to a file called `results.json`
+with the schema specified in the "Response Format" section below.
 
+## Running the Crate 
+The codebase is provided in your current working directory. The code is a Rust crate, and the Rust toolchain is available in your environment. You can use `cargo` commands to build and analyze the code. Here are the paths to the Rust toolchain:
+- `cargo` is located at: `/usr/local/cargo/bin/cargo`
+- `rustc` is located at: `/usr/local/cargo/bin/rustc`
+
+
+## Response Format 
+Your findings must follow this JSON object format.
 ```json
 {
-  "explanation": "Your analysis and reasoning",
+  "explanation": "Your thought process, recall, and explanation on how you got to your final answers",
   "is_vulnerable": true | false,
   "cwe_type": ["CWE-XXX", "CWE-YYY"],
   "vulnerable_functions": {
@@ -106,17 +115,61 @@ When you have completed your analysis, write your findings to a file called resu
   }
 }
 ```
+### JSON Response Format Field Descriptions
+- `is_vulnerable`: Boolean indicating whether the code contains security vulnerabilities
+- `cwe_type`: Array of CWE identifiers. Empty array if no vulnerabilities.
+- `vulnerable_functions`: Object mapping file paths to arrays of vulnerable function signatures. Empty object if no vulnerabilities.
+- `vulnerable_lines`: Object mapping file paths to arrays of vulnerable line numbers. Empty object if no vulnerabilities.
+### Trait Implementations
+For trait implementations, include the function signatures in the `vulnerable_functions` list without the `impl` line. 
+For example, if the code has: 
+```rust
+impl From<Vec<u8>> for Body {
+    fn from(body: Vec<u8>) -> Body { … }
+}
+```
+list the function as `fn from(body: Vec<u8>) -> Body`, not the `impl From<Vec<u8>> for Body` line. 
+### Unsafe Functions and Traits
+- Missing `unsafe` keyword: If a function should be marked as `unsafe` but is not, include the function signature in `vulnerable_functions`.
+	- Example: `fn dangerous_deref(ptr: *const u8) -> u8` is a vulnerable function and should have been marked `unsafe` so it should be included in `vulnerable_functions`. 
+- Unsafe trait implementations: If a trait implementation makes incorrect safety assumptions, include the trait implementation in `vulnerable_functions`.
+	- Example: For `unsafe impl<T> Send for MyStruct<T>`, include `unsafe impl<T> Send for MyStruct<T>` if the implementation is unsound
+### Function Signatures
+If the function signature in the code includes an identifier (e.g., `pub`), it should be included exactly as it is without removing the identifier.
 
-Field descriptions:
-- is_vulnerable: Boolean indicating whether the code contains security vulnerabilities
-- cwe_type: Array of CWE identifiers. Empty array if no vulnerabilities.
-- vulnerable_functions: Object mapping file paths to arrays of vulnerable function signatures. Empty object if no vulnerabilities.
-- vulnerable_lines: Object mapping file paths to arrays of vulnerable line numbers. Empty object if no vulnerabilities.
+E.g., if the code has a vulnerable function `pub fn from(x: Vec<u8>) -> Body`, and the result mentioned `fn from(x: Vec<u8>) -> Body`, it would be incorrect.
 
-IMPORTANT: Write your findings to results.json in the current directory.
+The correct result should be `pub fn from(x: Vec<u8>) -> Body`.
+## Output File 
+You must write this JSON object format to a `result.json` file in the current working directory. 
+## Examples
+Here are examples of what a possible expected output inside of your `results.json` file based on different crate input files. 
+#### Example 1 - Vulnerable Crate
 
-NOTE: The Rust toolchain is available in your environment. Use the following paths:
-- cargo is located at: /usr/local/cargo/bin/cargo
-- rustc is located at: /usr/local/cargo/bin/rustc
-"""
-    return task
+```json
+{
+  "explanation": "Your thought process, recall, and explanation on how you got to your final answers",
+  "is_vulnerable": true,
+  "cwe_type": ["CWE-119"],
+  "vulnerable_functions": {
+    "src/lib.rs": ["pub fn read_byte(buf: &[u8], idx: usize) -> u8"]
+  },
+  "vulnerable_lines": {
+    "src/lib.rs": [4]
+  }
+}
+```
+
+#### Example 2 - Non-vulnerable Crate
+
+```json
+{
+  "explanation": "Your thought process, recall, and explanation on how you got to your final answers",
+  "is_vulnerable": false,
+  "cwe_type": [],
+  "vulnerable_functions": {},
+  "vulnerable_lines": {}
+}
+```
+    """
+)
