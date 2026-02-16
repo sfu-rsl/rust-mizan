@@ -12,7 +12,7 @@ MODELS = [
     "openai-api/deepseek/deepseek-chat",
 ]
 
-MAX_TURNS = 50
+MESSAGE_LIMIT = 60  # Limit the number of messages the agent can send during evaluation, set to None for no limit
 TIME_LIMIT = 3600  # Time limit for each task run in seconds
 LIMIT = None  # Set to an integer to limit the number of samples evaluated
 SAMPLE_IDS = None  # Set to a list of sample IDs to evaluate specific samples, e.g., ["sample-001", "sample-002"]
@@ -24,14 +24,14 @@ if __name__ == "__main__":
     task = rustmizan(
         dataset_path=dataset_path,
         sample_ids=SAMPLE_IDS,
-        max_turns=MAX_TURNS,
     )
-    # Limit each task run time to 1 hour
+
     eval(
         tasks=task,
         model=MODELS,
         limit=LIMIT,
         fail_on_error=False,
+        message_limit=MESSAGE_LIMIT,
         time_limit=TIME_LIMIT,
         # only affects Gemini 3 Pro
         # See https://inspect.aisi.org.uk/reasoning.html#google-gemini

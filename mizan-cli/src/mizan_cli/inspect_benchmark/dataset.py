@@ -98,6 +98,7 @@ with the schema specified in the "Response Format" section below.
 The codebase is provided in your current working directory. The code is a Rust crate, and the Rust toolchain is available in your environment. You can use `cargo` commands to build and analyze the code. Here are the paths to the Rust toolchain:
 - `cargo` is located at: `/usr/local/cargo/bin/cargo`
 - `rustc` is located at: `/usr/local/cargo/bin/rustc`
+Important: Do not assume any additional tools are available in the environment beyond standard bash commands and the Rust toolchain. Tools that are unavilable include but are not limited to: `clippy`, `miri`, and any other static analysis tools.
 
 
 ## Response Format 

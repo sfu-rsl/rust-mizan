@@ -7,7 +7,7 @@ from inspect_swe import claude_code
 from mizan_cli.inspect_benchmark import rustmizan
 
 
-MAX_TURNS = 50
+MESSAGE_LIMIT = 60
 LIMIT = None
 SAMPLE_IDS = None
 DATASET_PATH = "/Users/tareknasser/Documents/workspace/sfu/mizan/rust-mizan/logs/ten_vulnerable_functions.parquet"
@@ -31,7 +31,7 @@ if __name__ == "__main__":
             system_prompt=SYSTEM_PROMPT,
             disallowed_tools=DISALLOWED_TOOLS,
         ),
-        max_turns=MAX_TURNS,
+        message_limit=MESSAGE_LIMIT,
     )
 
     eval(tasks=task, model=MODEL, limit=LIMIT)

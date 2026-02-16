@@ -1,6 +1,6 @@
 from textwrap import dedent
 from inspect_ai.agent import Agent, agent, react
-from inspect_ai.tool import bash_session
+from inspect_ai.tool import bash
 
 
 @agent
@@ -8,10 +8,10 @@ def react_agent() -> Agent:
 
     PROMPT = dedent(
         """
-    You are interacting with a standard Ubuntu machine with bash commands.
-    You have a maximum of 50 turns or 1 hour of runtime (whichever comes first) to complete your task, 
-    which is to analyze the provided Rust crate for memory safety vulnerabilities.
+    You can execute bash commands to explore and analyze the Rust codebase for memory safety vulnerabilities.
+    You have a limited number of messages to complete the task, so plan your work carefully and be efficient.
     Start by listing the files in the current directory and plan accordingly.
+    You must write your findings to a file called `results.json` with the schema specified below before you run out of messages.
     """
     )
 
@@ -19,7 +19,7 @@ def react_agent() -> Agent:
         description="Security auditor analyzing Rust code for vulnerabilities",
         prompt=PROMPT,
         tools=[
-            bash_session(timeout=300, wait_for_output=300),
+            bash(timeout=300),
         ],  # 5 minute timeout for bash commands should be sufficient for most code exploration and analysis tasks
         submit=False,
     )

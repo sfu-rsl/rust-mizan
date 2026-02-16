@@ -12,7 +12,6 @@ def rustmizan(
     dataset_path: Path | str,
     sample_ids: str | list[str] | None = None,
     agent: Agent | None = None,
-    max_turns: int = 50,
 ) -> Task:
     dataset_path = Path(dataset_path)
     dataset, dataset_metadata = load_dataset(dataset_path, sample_ids=sample_ids)
@@ -21,6 +20,5 @@ def rustmizan(
         dataset=dataset,
         solver=agent or react_agent(),
         scorer=rustmizan_scorer(),
-        max_messages=max_turns,
         metadata=dataset_metadata,
     )
