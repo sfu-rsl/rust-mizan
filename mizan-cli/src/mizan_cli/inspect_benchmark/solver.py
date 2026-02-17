@@ -1,6 +1,34 @@
 from textwrap import dedent
-from inspect_ai.agent import Agent, agent, react
+from inspect_ai.agent import Agent, AgentState, agent, react
 from inspect_ai.tool import bash
+from inspect_ai.util import sample_limits
+
+
+async def message_tracking_continue(state: AgentState) -> str | bool:
+    """on_continue hook that injects message warnings at key thresholds."""
+    # message_limit counts ALL messages (system, user, assistant, tool)
+    message_count = len(state.messages)
+
+    try:
+        limits = sample_limits()
+        msg_limit = limits.message.limit
+    except Exception:
+        msg_limit = None
+
+    if msg_limit:
+        remaining = msg_limit - message_count
+
+        if remaining < 10:
+            return f"[URGENT: You are almost out of messages. Focus on writing your findings to results.json immediately based on your current knowledge."
+
+        if remaining < 15:
+            return (
+                f"[WARNING: ~{remaining} messages remaining] "
+                "Plan strategically - you will need to write your findings to results.json soon."
+            )
+
+    # continue without injecting a message
+    return True
 
 
 @agent
@@ -20,6 +48,7 @@ def react_agent() -> Agent:
         prompt=PROMPT,
         tools=[
             bash(timeout=300),
-        ],  # 5 minute timeout for bash commands should be sufficient for most code exploration and analysis tasks
+        ],  # 5 minute timeout for bash commands
         submit=False,
+        on_continue=message_tracking_continue,
     )
