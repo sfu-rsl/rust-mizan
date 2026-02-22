@@ -1,0 +1,133 @@
+# docker build -t mizan-datasets .
+# docker run -v $(pwd)/datasets:/app/datasets mizan-datasets
+
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    build-essential \
+    git \
+    pkg-config \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV RUSTUP_HOME=/usr/local/rustup \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:$PATH \
+    RUST_VERSION=1.84.1
+
+# nightly needed for `mizan-mut`
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+    --default-toolchain ${RUST_VERSION} \
+    && rustup install nightly \
+    && rustup component add rustfmt --toolchain ${RUST_VERSION} \
+    && rustup component add rustfmt --toolchain nightly
+
+RUN echo "=== Verifying Rust installation ===" \
+    && rustc --version | grep -q "${RUST_VERSION}" \
+    && echo "Rust stable ${RUST_VERSION}: OK" \
+    && rustc +nightly --version \
+    && echo "Rust nightly: OK" \
+    && rustfmt --version \
+    && echo "rustfmt (stable): OK" \
+    && rustfmt +nightly --version \
+    && echo "rustfmt (nightly): OK"
+
+RUN pip install --no-cache-dir poetry
+
+WORKDIR /app
+
+COPY . .
+
+RUN echo "=== Building mizan-mut ===" \
+    && cargo +nightly build --release -p mizan-mut \
+    && cp /app/target/release/mizan-mut /usr/local/bin/ \
+    && rm -rf /app/target
+
+RUN echo "=== Verifying mizan-mut ===" \
+    && mizan-mut --help > /dev/null \
+    && echo "mizan-mut: OK"
+
+RUN echo "=== Installing mizan-cli ===" \
+    && cd mizan-cli \
+    && poetry config virtualenvs.create false \
+    && poetry install --only main \
+    && cd ..
+
+RUN echo "=== Verifying mizan-cli ===" \
+    && mizan --help > /dev/null \
+    && echo "mizan CLI: OK"
+
+RUN mkdir -p /app/datasets
+
+COPY <<'EOF' /app/generate-datasets.sh
+#!/bin/bash
+set -e
+
+cd /app
+
+NEUTRAL_MUTATIONS=(
+    "remove-comments"
+    "format-compact"
+    "mizan-mut-for-to-while"
+    "mizan-mut-while-to-loop"
+    "mizan-mut-if-else-reorder"
+    "mizan-mut-derive-reorder"
+    "mizan-mut-trait-bound-reorder"
+    "mizan-mut-use-reorder"
+    "mizan-mut-arithmetic-identity"
+)
+
+BENIGN_MUTATIONS=(
+    "${NEUTRAL_MUTATIONS[@]}"
+    "benign-comments"
+    "benign-blocks"
+    "benign-rename-fn"
+    "benign-rename-var"
+)
+
+MALIGNANT_MUTATIONS=(
+    "${NEUTRAL_MUTATIONS[@]}"
+    "malignant-comments"
+    "malignant-blocks"
+    "malignant-rename-fn"
+    "malignant-rename-var"
+)
+
+generate_dataset() {
+    local tag="$1"
+    shift
+    local mutations=("$@")
+
+    echo "=== Generating $tag dataset ==="
+    rm -rf output
+    mizan checkout --include-fixed > /dev/null
+    cd output
+
+    for mutation in "${mutations[@]}"; do
+        echo "  Applying: $mutation"
+        mizan mutate -m "$mutation" > /dev/null
+    done
+
+    echo "  Creating dataset with tag: $tag"
+    mizan evaluate prepare-dataset --tag "$tag" -o "/app/datasets/mizan-$tag.parquet"
+
+    cd ..
+    echo "$tag dataset complete"
+    echo
+}
+
+generate_dataset "vanilla"
+generate_dataset "neutral" "${NEUTRAL_MUTATIONS[@]}"
+generate_dataset "benign" "${BENIGN_MUTATIONS[@]}"
+generate_dataset "malignant" "${MALIGNANT_MUTATIONS[@]}"
+
+rm -rf output
+
+echo "=== All datasets generated ==="
+ls -lh /app/datasets/
+EOF
+
+RUN chmod +x /app/generate-datasets.sh
+
+CMD ["/app/generate-datasets.sh"]

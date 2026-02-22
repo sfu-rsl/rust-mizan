@@ -22,6 +22,24 @@ cargo +nightly build --workspace
 
 > Using nightly toolchain because mizan-mut depends on `rust-analyzer` crates which require nightly features
 
+## End-to-End Usage
+
+```bash
+# Checkout and mutate samples
+mizan checkout -v vuln-0001 -v vuln-0002 -l function -o output
+cd output
+mizan mutate -m remove-comments
+
+# Prepare dataset for evaluation
+mizan evaluate prepare-dataset --tag comments_removed -o mizan_comments_removed.parquet
+
+# Run evaluation (edit mizan-cli/run_eval.py with dataset path and config). I personally found that configuration using the python script is more flexible than using CLI flags. Also you can directly replace the agent configuration in the script with your custom agent implementation if you want to experiment with different prompting strategies or agent architectures.
+python mizan-cli/run_eval.py
+
+# View results
+inspect view
+```
+
 ## Project Structure
 
 ```

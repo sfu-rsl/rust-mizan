@@ -1,10 +1,8 @@
 import json
 from pathlib import Path
-from typing import List, Any, Dict
-from uuid import uuid4
-from datetime import datetime
-
-from langsmith.schemas import Example, Dataset
+from typing import List, Dict, Any
+import pyarrow as pa
+import pyarrow.parquet as pq
 
 from mizan_cli.commands.checkout.models import MizanDataset
 from mizan_cli.utils.logging import get_logger
@@ -13,65 +11,48 @@ logger = get_logger()
 
 
 class PrepareDatasetCommand:
-    def __init__(self, output_path: Path):
+    def __init__(self, output_path: Path, tag: str | None = None):
         self.output_path = output_path
+        self.tag = tag
         self.current_dir = Path.cwd()
         self.samples_dir = self.current_dir / "samples"
-        self.prompt_template_path = self._get_prompt_template_path()
-        self.system_prompt_path = self._get_system_prompt_path()
-
-    def _get_prompt_template_path(self) -> Path:
-        assets_dir = Path(__file__).parent.parent.parent / "assets" / "evaluate"
-        return assets_dir / "prompt_template.md"
-
-    def _get_system_prompt_path(self) -> Path:
-        assets_dir = Path(__file__).parent.parent.parent / "assets" / "evaluate"
-        return assets_dir / "system_prompt.md"
 
     def execute(self):
         logger.info("Preparing dataset for evaluation")
 
         mizan_path = self.current_dir / "mizan.json"
         dataset = MizanDataset.from_file(mizan_path)
+
+        with open(mizan_path, "r") as f:
+            mizan_data = json.load(f)
+        general_info = mizan_data.get("general_information", {})
         mutations_metadata = self._get_mutations_metadata()
-        prompt_template = self._load_prompt_template()
-        system_prompt = self._load_system_prompt()
 
-        examples = self._create_examples(dataset, prompt_template, system_prompt)
+        rows = self._create_rows(dataset)
 
-        # A dataset is a collection of examples with metadata
-        dataset_name = f"mizan-evaluation-{'-'.join(mutations_metadata.get('mutations_applied', [])) if mutations_metadata.get('mutations_applied') else 'vanilla'}"
-        evaluation_dataset = Dataset(
-            name=dataset_name,
-            id=uuid4(),
-            created_at=datetime.now(),
-        )
+        schema = self._create_schema()
+        table = pa.Table.from_pylist(rows, schema=schema)
 
-        dataset_data = {
-            "dataset": {
-                "name": evaluation_dataset.name,
-                "id": str(evaluation_dataset.id),
-                "created_at": evaluation_dataset.created_at.isoformat(),
-            },
-            "mutations_metadata": mutations_metadata,
-            "examples": [
-                {
-                    "inputs": example.inputs,
-                    "outputs": example.outputs,
-                    "metadata": example.metadata,
-                }
-                for example in examples
-            ],
+        file_metadata = {
+            "rust_version": general_info.get("rust_version", ""),
+            "dataset_version": general_info.get("dataset_version", ""),
+            "benchmark_name": general_info.get("benchmark_name", ""),
+            "tag": self.tag if self.tag else "",
+            "mutations_metadata": json.dumps(mutations_metadata),
         }
+        existing_metadata = table.schema.metadata or {}
+        merged_metadata = {
+            **existing_metadata,
+            **{k.encode(): v.encode() for k, v in file_metadata.items()},
+        }
+        table = table.replace_schema_metadata(merged_metadata)
 
         self.output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(self.output_path, "w") as f:
-            json.dump(dataset_data, f, indent=2)
+        pq.write_table(table, self.output_path)
 
         logger.info(f"Dataset saved to: {self.output_path}")
 
     def _get_mutations_metadata(self) -> Dict[str, Any]:
-        # We expect to run this command in the output directory of 'mizan checkout'
         mutations_file = self.current_dir / "mizan_mutations.json"
         if not mutations_file.exists():
             return {}
@@ -83,89 +64,77 @@ class PrepareDatasetCommand:
             logger.warning(f"Could not read mutations file: {e}")
             return {}
 
-    def _load_prompt_template(self) -> str:
-        with open(self.prompt_template_path, "r") as f:
-            return f.read()
+    def _create_schema(self):
+        return pa.schema(
+            [
+                ("sample_id", pa.string()),
+                ("vuln_id", pa.string()),
+                ("crate_name", pa.string()),
+                ("granularity", pa.string()),
+                ("year", pa.int64()),
+                ("is_vulnerable", pa.bool_()),
+                ("cwe_type", pa.list_(pa.string())),
+                ("vulnerable_functions", pa.map_(pa.string(), pa.list_(pa.string()))),
+                ("vulnerable_lines", pa.map_(pa.string(), pa.list_(pa.int64()))),
+                (
+                    "files",
+                    pa.list_(
+                        pa.struct([("path", pa.string()), ("content", pa.string())])
+                    ),
+                ),
+            ]
+        )
 
-    def _load_system_prompt(self) -> str:
-        with open(self.system_prompt_path, "r") as f:
-            return f.read()
-
-    def _create_examples(
-        self, dataset: MizanDataset, prompt_template: str, system_prompt: str
-    ) -> List[Example]:
-        examples = []
+    def _create_rows(self, dataset: MizanDataset) -> List[Dict[str, Any]]:
+        rows = []
 
         for vuln in dataset.vulnerabilities:
-            for sample_idx, sample in enumerate(vuln.code_samples):
-                prompt = self._generate_prompt(sample, prompt_template)
+            for sample in vuln.code_samples:
+                sample_path = self.samples_dir / sample.path_to_crate
+                files = self._collect_files(sample_path)
 
-                example = Example(
-                    id=uuid4(),
-                    dataset_id=uuid4(),
-                    inputs={
-                        "system_prompt": system_prompt,
-                        "prompt": prompt,
-                    },
-                    outputs={
-                        "is_vulnerable": sample.is_vulnerability,
-                        "cwe_type": sample.cwe_type,
-                        "vulnerable_functions": sample.vulnerable_functions,
-                        "vulnerable_lines": sample.vulnerable_lines,
-                    },
-                    metadata={
-                        "id": sample.path_to_crate,
-                        "vuln_id": vuln.id,
-                        "granularity": sample.level,
-                        "crate_name": vuln.crate_name,
-                        "is_vulnerable": sample.is_vulnerability,
-                        "year": vuln.year,
-                        "cwe_types": sample.cwe_type,
-                    },
-                    created_at=datetime.now(),
-                )
+                row = {
+                    "sample_id": sample.path_to_crate,
+                    "vuln_id": vuln.id,
+                    "crate_name": vuln.crate_name,
+                    "granularity": sample.level,
+                    "year": vuln.year,
+                    "is_vulnerable": sample.is_vulnerability,
+                    "cwe_type": sample.cwe_type,
+                    "vulnerable_functions": sample.vulnerable_functions,
+                    "vulnerable_lines": sample.vulnerable_lines,
+                    "files": files,
+                }
 
-                examples.append(example)
+                rows.append(row)
 
-        return examples
+        return rows
 
-    def _generate_prompt(self, sample: Any, prompt_template: str) -> str:
-        sample_path = self.samples_dir / sample.path_to_crate
-        code_content = self._collect_code_files(sample_path)
-
-        # The prompt has a placeholder for the code content
-        return prompt_template.replace("{CODE}", code_content)
-
-    def _collect_code_files(self, sample_path: Path) -> str:
-        """Collect all code files from a sample directory. We only include Rust files and their Cargo.toml if it exists."""
-        code_parts = []
-        files_to_include = []
+    def _collect_files(self, sample_path: Path) -> List[Dict[str, str]]:
+        files = []
 
         cargo_toml = sample_path / "Cargo.toml"
         if cargo_toml.exists():
-            files_to_include.append(cargo_toml)
-
-        for rs_file in sample_path.rglob("*.rs"):
-            files_to_include.append(rs_file)
-
-        files_to_include.sort()
-
-        for file_path in files_to_include:
             try:
-                relative_path = file_path.relative_to(sample_path)
-
-                with open(file_path, "r", encoding="utf-8") as f:
-                    content = f.read()
-
-                lines = content.split("\n")
-                numbered_lines = [f"{i:04d}: {line}" for i, line in enumerate(lines, 1)]
-                numbered_content = "\n".join(numbered_lines)
-
-                code_parts.append(
-                    f"## File: {relative_path}\n\n```rust\n{numbered_content}\n```\n"
+                files.append(
+                    {
+                        "path": "Cargo.toml",
+                        "content": cargo_toml.read_text(encoding="utf-8"),
+                    }
                 )
-
             except Exception as e:
-                logger.warning(f"Could not read file {file_path}: {e}")
+                logger.warning(f"Could not read file {cargo_toml}: {e}")
 
-        return "\n".join(code_parts)
+        for rs_file in sorted(sample_path.rglob("*.rs")):
+            try:
+                relative_path = rs_file.relative_to(sample_path)
+                files.append(
+                    {
+                        "path": str(relative_path),
+                        "content": rs_file.read_text(encoding="utf-8"),
+                    }
+                )
+            except Exception as e:
+                logger.warning(f"Could not read file {rs_file}: {e}")
+
+        return files

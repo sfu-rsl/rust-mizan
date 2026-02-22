@@ -2,18 +2,16 @@
 
 A CLI for interacting with RustMizan dataset
 
-## Install in Development Mode
+## Installation
 
 ```bash
-poetry build
-
-# Install in editable mode (changes to source code are reflected immediately)
-pip install -e .
-
-# Or with poetry
+cd mizan-cli
 poetry install
 
-# Add poetry's virtualenv to PATH
+# Run mizan commands with poetry run
+poetry run mizan checkout --help
+
+# Add mizan to PATH (add to ~/.zshrc or ~/.bashrc)
 export PATH="$(poetry env info --path)/bin:$PATH"
 ```
 
@@ -171,7 +169,6 @@ Warning: `mizan-mut` removes all code comments (including our line markers) beca
 1. Content-based Line Tracking: Due to comment removal during AST manipulation, we cannot rely on line markers alone. Instead, we track vulnerable lines by their content.
 
 2. Handling Tracking Issues: When applying AST mutations:
-
    - If a vulnerable line appears multiple times in a file, the mutation is re-applied with that file excluded from mutation
    - If a vulnerable line cannot be found after mutation (e.g., the mutation modified the line), the file is excluded and mutation is re-applied
    - Excluded files retain their original vulnerable line numbers in the ground truth
@@ -186,7 +183,6 @@ The rename mutations use `mizan-mut rename` to rename variables and functions ar
 1. Scope of Renaming: The mutations identify and rename variables (`let` bindings) and function declarations within 10 lines before and after each vulnerable line.
 
 2. Naming Strategies:
-
    - `benign-rename-fn`: Renames functions to neutral names like `fn_1_abc123` or `fn_2_xyz789`
    - `benign-rename-var`: Renames variables to neutral names like `var_1_def456` or `var_2_ghi012`
    - `malignant-rename-fn`: Renames functions to names falsely suggesting safety like `safe_fn_1`, `verified_fn_2`
@@ -200,86 +196,35 @@ The rename mutations use `mizan-mut rename` to rename variables and functions ar
 
 ### `evaluate` - Run LLM Evaluation
 
-Evaluate LLMs on vulnerability detection tasks using prepared datasets. Includes two subcommands for dataset preparation and evaluation execution.
+#### `prepare-dataset`
 
-> Note: We use [LangSmith](https://docs.smith.langchain.com) for evaluation orchestration. All evaluation runs locally.
-
-#### Subcommands
-
-##### `prepare-dataset` - Prepare Evaluation Dataset
-
-Converts the checked out samples and ground truth data into a format suitable for LLM evaluation.
+Converts checked out samples to parquet format for evaluation.
 
 ```bash
-mizan evaluate prepare-dataset [OPTIONS]
-```
-
-Options:
-
-| Option     | Short | Description                          | Default                     |
-| ---------- | ----- | ------------------------------------ | --------------------------- |
-| `--output` | `-o`  | Output path for the prepared dataset | `./evaluation_dataset.json` |
-
-Output Files:
-
-- `evaluation_dataset.json`: Contains the prepared dataset with examples and mutations metadata
-- Each example includes:
-  - `inputs`: Only the prompt (including the code sample)
-  - `outputs`: Ground truth data (is_vulnerable, cwe_type, vulnerable_functions, vulnerable_lines)
-  - `metadata`: Sample metadata (id, vuln_id, granularity)
-
-##### `run` - Execute LLM Evaluation
-
-Runs the LLM evaluation on a prepared dataset using the specified model and provider.
-
-```bash
-mizan evaluate run [OPTIONS]
-```
-
-Options:
-
-| Option       | Short | Description                                               |
-| ------------ | ----- | --------------------------------------------------------- |
-| `--dataset`  | `-d`  | Path to prepared dataset file                             |
-| `--provider` | `-p`  | LLM provider: `openai`, `anthropic`, `gemini`, `deepseek` |
-| `--model`    | `-m`  | Model name                                                |
-
-> Before running evaluations, make sure you have set up the required API keys in your environment:
->
-> - For OpenAI: Set the `OPENAI_API_KEY` environment variable
-> - For Anthropic: Set the `ANTHROPIC_API_KEY` environment variable
-> - For Gemini: Set the `GOOGLE_API_KEY` or `GEMINI_API_KEY` environment variable
-> - For DeepSeek: Set the `DEEPSEEK_API_KEY` environment variable
->
-> Temperature is fixed at `0.0` for all evaluations.
-
-Examples:
-
-```bash
-mizan evaluate run -d ./evaluation_dataset.json -p anthropic -m claude-3-7-sonnet-20250219
-mizan evaluate run -d ./evaluation_dataset.json -p gemini -m gemini-1.5-pro
-mizan evaluate run -d ./evaluation_dataset.json -p deepseek -m deepseek-chat
-```
-
-Output Files:
-The evaluation creates a timestamped experiment directory under `./evaluation_results/` containing:
-
-- `results.json`: Detailed per-sample results including JSON validity scores and errors
-- `metadata.json`: Experiment metadata including mutations metadata
-
-## End-to-End Example
-
-Evaluating GPT-4 on function-level samples for vulnerability `vuln-0001` with multiple mutations:
-
-```bash
-# Checkout specific vulnerability at function level
-mizan checkout -v vuln-0001 -l function -o my-output
-
-# Enter output directory and apply mutations
 cd my-output
-mizan mutate -m remove-comments -m format-compact -m benign-rename-fn
-
-# Prepare dataset and run evaluation
-mizan evaluate prepare-dataset -o vuln-0001-mutated.json
-mizan evaluate run -d vuln-0001-mutated.json -p openai -m gpt-4
+mizan evaluate prepare-dataset --tag baseline  # --tag is optional
 ```
+
+**Options:**
+
+| Option     | Short | Description                                      | Default           |
+| ---------- | ----- | ------------------------------------------------ | ----------------- |
+| `--output` | `-o`  | Output dataset file                              | `dataset.parquet` |
+| `--tag`    | `-t`  | Optional tag to identify dataset (e.g. baseline) | `None`            |
+
+**Output files:**
+
+- `dataset.parquet`: Parquet file with code samples and ground truth
+- `mutations_metadata.json`: Applied mutations metadata
+
+#### Running Evaluations
+
+Use the [`run_eval.py`](run_eval.py) script to run evaluations with full control over parameters:
+
+```bash
+cd mizan-cli
+# Edit run_eval.py to configure different evaluation parameters including agent, models, dataset path, max turns, etc.
+python run_eval.py
+```
+
+See [Inspect AI documentation](https://inspect.aisi.org.uk) to learn more about supported models and evaluation options.
