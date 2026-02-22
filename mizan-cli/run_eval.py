@@ -6,10 +6,10 @@ from mizan_cli.inspect_benchmark import rustmizan
 
 # Configuration - modify these constants as needed
 MODELS = [
-    "anthropic/claude-sonnet-4-5-20250929",
+    # "anthropic/claude-sonnet-4-5-20250929",
     "openai/gpt-5.2-2025-12-11",
-    # "google/gemini-3-pro-preview",
-    "openai-api/deepseek/deepseek-chat",
+    "google/gemini-3.1-pro-preview",
+    # "openai-api/deepseek/deepseek-chat",
 ]
 
 MESSAGE_LIMIT = 100  # Limit the number of messages the agent can send during evaluation, set to None for no limit

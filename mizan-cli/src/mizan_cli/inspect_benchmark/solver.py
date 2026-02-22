@@ -49,6 +49,5 @@ def react_agent() -> Agent:
         tools=[
             bash(timeout=300),
         ],  # 5 minute timeout for bash commands
-        submit=False,
         on_continue=message_tracking_continue,
     )
