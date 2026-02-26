@@ -3188,6 +3188,93 @@
           "deps": []
         }
       ]
+    },
+    {
+      "id": "vuln-0052",
+      "author": "Alvyn Kang",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2019-15551",
+      "crate_name": "smallvec",
+      "year": 2019,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0052/sample-00052-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-415"
+          ],
+          "vulnerable_functions": {
+            "lib.rs": [
+              "pub fn grow(&mut self, new_cap: usize)"
+            ]
+          },
+          "vulnerable_lines": {
+            "lib.rs": [
+              669
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0052/sample-00052-file",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-415"
+          ],
+          "vulnerable_functions": {
+            "lib.rs": [
+              "pub fn grow(&mut self, new_cap: usize)"
+            ]
+          },
+          "vulnerable_lines": {
+            "lib.rs": [
+              669
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0052/sample-00052-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-415"
+          ],
+          "vulnerable_functions": {
+            "src/bgzip/mod.rs": [
+              "pub fn grow(&mut self, new_cap: usize)"
+            ]
+          },
+          "vulnerable_lines": {
+            "lib.rs": [
+              267
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0052/sample-10052-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0052/sample-10052-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0052/sample-10052-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        }
+      ]
     }
   ]
 }
