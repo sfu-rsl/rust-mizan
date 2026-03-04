@@ -6,11 +6,9 @@
 | **Vulnerable Commit** | [88b62b65](https://github.com/servo/rust-smallvec/commit/88b62b65fae5bc144d9e9cacf0778c8ed1ed509b) |
 | **Fixed Commit**      | [4ba0d0f6](https://github.com/servo/rust-smallvec/commit/4ba0d0f689440963e38b8adbe7fc2cabc6e573d5) |
 | **Variants**          | - [vuln-crate](vuln-crate)                                                                         |
-|                       | - [vuln-file](vuln-file)                                                                           |
-|                       | - [vuln-function](vuln-file)                                                                       |
+|                       | - [vuln-function](vuln-function)                                                                   |
 |                       | - [fixed-crate](fixed-crate)                                                                       |
-|                       | - [fixed-file](fixed-file)                                                                         |
-|                       | - [fixed-function](fixed-file)                                                                     |
+|                       | - [fixed-function](fixed-function)                                                                 |
 
 ### Vulnerable Lines
 
