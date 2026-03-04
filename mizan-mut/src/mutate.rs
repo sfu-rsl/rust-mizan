@@ -10,7 +10,7 @@ use walkdir::WalkDir;
 
 use crate::mutations::{
     arithmetic_identity::ArithmeticIdentityMutator, derive_reorder::DeriveReorderMutator,
-    explicit_where::ExplicitWhereMutator,
+    explicit_return::ExplicitReturnMutator, explicit_where::ExplicitWhereMutator,
     explicit_where_to_type_params::RemoveExplicitWhereMutator, for_to_while::ForToWhileMutator,
     if_else_reorder::IfElseReorderMutator, impl_trait_to_generic::ImplTraitToGenericMutator,
     manually_drop_wrap::ManuallyDropWrapMutator, maybe_uninit_wrap::MaybeUninitWrapMutator,
@@ -78,6 +78,11 @@ pub enum Mutation {
     /// Places owned variables into ManuallyDrop structs, and later unwraps them
     #[value(name = "manuallydrop-wrap")]
     ManuallyDropWrap,
+
+    // Expression transformations
+    /// Converts all implicit return statements to use explicit syntax
+    #[value(name = "explicit-return")]
+    ExplicitReturn,
 }
 
 /// Apply mutations to a Rust crate
@@ -106,6 +111,7 @@ pub fn apply_mutations(
             Mutation::OptionWrap,
             Mutation::MaybeUninitWrap,
             Mutation::ManuallyDropWrap,
+            Mutation::ExplicitReturn,
         ]
     } else {
         mutations.clone()
@@ -179,6 +185,7 @@ pub fn apply_mutations(
                 Mutation::OptionWrap => OptionWrapMutator::mutate(&modified_content)?,
                 Mutation::MaybeUninitWrap => MaybeUninitWrapMutator::mutate(&modified_content)?,
                 Mutation::ManuallyDropWrap => ManuallyDropWrapMutator::mutate(&modified_content)?,
+                Mutation::ExplicitReturn => ExplicitReturnMutator::mutate(&modified_content)?,
             };
         }
 

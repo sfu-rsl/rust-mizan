@@ -11,3 +11,4 @@ pub mod option_wrap;
 pub mod trait_bound_reorder;
 pub mod use_reorder;
 pub mod while_to_loop;
+pub mod explicit_return;
