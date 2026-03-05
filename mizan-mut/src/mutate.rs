@@ -10,13 +10,11 @@ use walkdir::WalkDir;
 
 use crate::mutations::{
     arithmetic_identity::ArithmeticIdentityMutator, derive_reorder::DeriveReorderMutator,
-<<<<<<< HEAD
-    explicit_where::ExplicitWhereMutator, for_to_while::ForToWhileMutator,
-=======
+    explicit_where::ExplicitWhereMutator,
     explicit_where_to_type_params::RemoveExplicitWhereMutator, for_to_while::ForToWhileMutator,
->>>>>>> abbb510 (added explicit_where_to_type_params mutations)
-    if_else_reorder::IfElseReorderMutator, trait_bound_reorder::TraitBoundReorderMutator,
-    use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
+    if_else_reorder::IfElseReorderMutator, impl_trait_to_generic::ImplTraitToGenericMutator,
+    trait_bound_reorder::TraitBoundReorderMutator, use_reorder::UseReorderMutator,
+    while_to_loop::WhileToLoopMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -55,7 +53,6 @@ pub enum Mutation {
     #[value(name = "arithmetic-identity")]
     ArithmeticIdentity,
 
-
     // Toggle explicit where
     /// Adds explicit where to function signature
     #[value(name = "explicit-where")]
@@ -65,6 +62,9 @@ pub enum Mutation {
     #[value(name = "explicit-where-to-type-params")]
     ExplicitWhereToTypeParams,
 
+    /// Converts impl form Trait bounds into generic parameters
+    #[value(name = "impl-trait-to-generic")]
+    ImplTraitToGeneric,
 }
 
 /// Apply mutations to a Rust crate
@@ -89,6 +89,7 @@ pub fn apply_mutations(
             Mutation::UseReorder,
             Mutation::ArithmeticIdentity,
             Mutation::ExplicitWhere,
+            Mutation::ImplTraitToGeneric,
         ]
     } else {
         mutations.clone()
@@ -155,6 +156,9 @@ pub fn apply_mutations(
                 Mutation::ExplicitWhere => ExplicitWhereMutator::mutate(&modified_content)?,
                 Mutation::ExplicitWhereToTypeParams => {
                     RemoveExplicitWhereMutator::mutate(&modified_content)?
+                }
+                Mutation::ImplTraitToGeneric => {
+                    ImplTraitToGenericMutator::mutate(&modified_content)?
                 }
             };
         }
