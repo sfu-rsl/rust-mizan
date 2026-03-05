@@ -1,5 +1,5 @@
 [package]
-name = "sample-00052-crate"
+name = "sample-10052-crate"
 version = "0.6.9"
 
 [features]
