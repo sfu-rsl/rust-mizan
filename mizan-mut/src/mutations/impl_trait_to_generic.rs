@@ -65,14 +65,15 @@ impl ImplTraitToGenericVisitor {
     }
 
     fn generate_trait_name(&mut self, current_names: &Vec<String>) -> String {
-        let mut current_len = 1;
-        let mut new_name: String;
+        let mut current_num = 1;
+        let mut new_name: String = String::from("T");
         loop {
-            new_name = Alphanumeric.sample_string(&mut self.rng, current_len);
+            new_name += &current_num.to_string();
             if !current_names.contains(&new_name) {
                 break;
             }
-            current_len += 1;
+            current_num += 1;
+            new_name.truncate(1);
         }
         return new_name;
     }
