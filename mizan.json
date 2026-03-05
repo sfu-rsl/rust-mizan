@@ -3221,7 +3221,7 @@
             "CWE-415"
           ],
           "vulnerable_functions": {
-            "src/bgzip/mod.rs": [
+            "lib.rs": [
               "pub fn grow(&mut self, new_cap: usize)"
             ]
           },
