@@ -1,9 +1,11 @@
 use anyhow::Result;
 use quote::quote;
+use rand::{rngs::ThreadRng, seq::IteratorRandom};
 use syn::{
-    parse_file,
+    parse_file, parse_quote,
+    visit::{self, Visit},
     visit_mut::{self, VisitMut},
-    Block, ImplItemFn, ItemFn, Stmt,
+    Attribute, Block, Expr, ImplItemFn, ItemFn, Stmt,
 };
 
 pub struct ExtraneousUnsafeMutator;
@@ -11,30 +13,64 @@ pub struct ExtraneousUnsafeMutator;
 impl ExtraneousUnsafeMutator {
     pub fn mutate(source: &str) -> Result<String> {
         let mut file = parse_file(source)?;
-        let mut visitor = ExtraneousUnsafeVisitor;
+        let mut visitor = ExtraneousUnsafeVisitor::new();
         visitor.visit_file_mut(&mut file);
         Ok(quote!(#file).to_string())
     }
 }
 
-struct ExtraneousUnsafeVisitor;
+struct ExtraneousUnsafeVisitor {
+    rng: ThreadRng,
+}
 
 impl ExtraneousUnsafeVisitor {
-    fn add_unsafe(block: &mut Block) {
+    fn new() -> ExtraneousUnsafeVisitor {
+        ExtraneousUnsafeVisitor { rng: rand::rng() }
+    }
+}
+
+struct AttrVisitor {
+    in_expr: bool,
+}
+
+impl AttrVisitor {}
+
+impl Visit<'_> for AttrVisitor {
+    fn visit_attribute<'ast>(&mut self, node: &'ast Attribute) {}
+
+    fn visit_expr<'ast>(&mut self, node: &'ast Expr) {
+        self.in_expr = true;
+        self.in_expr = false;
+    }
+}
+
+impl ExtraneousUnsafeVisitor {
+    fn add_unsafe(&mut self, block: &mut Block) {
         let statements = &mut block.stmts;
 
-        for item in statements.iter_mut() {
+        let max_unsafe_blocks = 1usize;
+
+        let real_items = statements
+            .iter_mut()
+            .filter(|item| matches!(item, Stmt::Expr(_, _)))
+            .filter(|item| match item {
+                Stmt::Expr(Expr::Block(b), None) => b.attrs.is_empty(),
+                _ => true,
+            })
+            .choose_multiple(&mut self.rng, max_unsafe_blocks);
+
+        for item in real_items {
             match item {
                 Stmt::Expr(expr, semi) => {
-                    let new_expr = quote! {
+                    let new_expr: Stmt = parse_quote! {
                         unsafe {
                             #expr #semi
                         }
                     };
-                    *item = syn::parse2(new_expr).unwrap();
+                    *item = new_expr;
                     break;
                 }
-                _ => {}
+                _ => unreachable!(),
             }
         }
     }
@@ -42,13 +78,13 @@ impl ExtraneousUnsafeVisitor {
 
 impl VisitMut for ExtraneousUnsafeVisitor {
     fn visit_item_fn_mut(&mut self, fun: &mut ItemFn) {
-        ExtraneousUnsafeVisitor::add_unsafe(&mut fun.block);
+        self.add_unsafe(&mut fun.block);
 
         visit_mut::visit_item_fn_mut(self, fun);
     }
 
     fn visit_impl_item_fn_mut(&mut self, fun: &mut ImplItemFn) {
-        ExtraneousUnsafeVisitor::add_unsafe(&mut fun.block);
+        self.add_unsafe(&mut fun.block);
 
         visit_mut::visit_impl_item_fn_mut(self, fun);
     }
