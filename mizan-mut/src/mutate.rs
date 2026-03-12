@@ -15,7 +15,8 @@ use crate::mutations::{
     if_else_reorder::IfElseReorderMutator, impl_trait_to_generic::ImplTraitToGenericMutator,
     manually_drop_wrap::ManuallyDropWrapMutator, maybe_uninit_wrap::MaybeUninitWrapMutator,
     option_wrap::OptionWrapMutator, trait_bound_reorder::TraitBoundReorderMutator,
-    use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
+    unreachable_panic::UnreachblePanicMutator, use_reorder::UseReorderMutator,
+    while_to_loop::WhileToLoopMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -83,6 +84,11 @@ pub enum Mutation {
     /// Converts implicit return statements to use explicit syntax at the function level
     #[value(name = "explicit-return")]
     ExplicitReturn,
+
+    // Control flow transformations
+    /// Adds unreachble panic!() code blocks to function bodies
+    #[value(name = "unreachable-panic")]
+    UnreachablePanic,
 }
 
 /// Apply mutations to a Rust crate
@@ -112,6 +118,7 @@ pub fn apply_mutations(
             Mutation::MaybeUninitWrap,
             Mutation::ManuallyDropWrap,
             Mutation::ExplicitReturn,
+            Mutation::UnreachablePanic,
         ]
     } else {
         mutations.clone()
@@ -186,6 +193,7 @@ pub fn apply_mutations(
                 Mutation::MaybeUninitWrap => MaybeUninitWrapMutator::mutate(&modified_content)?,
                 Mutation::ManuallyDropWrap => ManuallyDropWrapMutator::mutate(&modified_content)?,
                 Mutation::ExplicitReturn => ExplicitReturnMutator::mutate(&modified_content)?,
+                Mutation::UnreachablePanic => UnreachblePanicMutator::mutate(&modified_content)?,
             };
         }
 

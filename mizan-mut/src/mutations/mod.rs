@@ -1,5 +1,6 @@
 pub mod arithmetic_identity;
 pub mod derive_reorder;
+pub mod explicit_return;
 pub mod explicit_where;
 pub mod explicit_where_to_type_params;
 pub mod for_to_while;
@@ -9,6 +10,6 @@ pub mod manually_drop_wrap;
 pub mod maybe_uninit_wrap;
 pub mod option_wrap;
 pub mod trait_bound_reorder;
+pub mod unreachable_panic;
 pub mod use_reorder;
 pub mod while_to_loop;
-pub mod explicit_return;
