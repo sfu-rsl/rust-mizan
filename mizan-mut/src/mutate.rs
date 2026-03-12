@@ -13,6 +13,7 @@ use crate::mutations::{
     for_to_while::ForToWhileMutator, if_else_reorder::IfElseReorderMutator,
     trait_bound_reorder::TraitBoundReorderMutator, use_reorder::UseReorderMutator,
     while_to_loop::WhileToLoopMutator,
+    unreachable_panic::UnreachblePanicMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -50,6 +51,11 @@ pub enum Mutation {
     /// Adds arithmetic identity operations (x + N - N)
     #[value(name = "arithmetic-identity")]
     ArithmeticIdentity,
+
+    // Control flow transformations
+    /// Adds unreachble panic!() code blocks to function bodies 
+    #[value(name = "unreachable-panic")]
+    UnreachablePanic,
 }
 
 /// Apply mutations to a Rust crate
@@ -69,6 +75,7 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[Pa
             Mutation::TraitBoundReorder,
             Mutation::UseReorder,
             Mutation::ArithmeticIdentity,
+            Mutation::UnreachablePanic,
         ]
     } else {
         mutations.clone()
@@ -132,6 +139,7 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[Pa
                 Mutation::UseReorder => UseReorderMutator::mutate(&modified_content)?,
                 Mutation::WhileToLoop => WhileToLoopMutator::mutate(&modified_content)?,
                 Mutation::IfElseReorder => IfElseReorderMutator::mutate(&modified_content)?,
+                Mutation::UnreachablePanic => UnreachblePanicMutator::mutate(&modified_content)?,
             };
         }
 
