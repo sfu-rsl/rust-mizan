@@ -1,6 +1,7 @@
 pub mod arithmetic_identity;
 pub mod derive_reorder;
 pub mod explicit_where;
+pub mod explicit_where_to_type_params;
 pub mod for_to_while;
 pub mod if_else_reorder;
 pub mod trait_bound_reorder;
