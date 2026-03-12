@@ -1,7 +1,7 @@
 use anyhow::Result;
 use quote::quote;
 use rand::{
-    self, distr::{Alphanumeric, SampleString}, rngs::ThreadRng
+    self, rngs::ThreadRng
 };
 use syn::{
     parse_file, Token, parse_quote,
