@@ -1,4 +1,4 @@
-# docker build -t mizan-datasets .
+# docker build -f docker/Dockerfile.datasets -t mizan-datasets .
 # docker run -v $(pwd)/datasets:/app/datasets mizan-datasets
 
 FROM python:3.12-slim

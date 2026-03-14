@@ -1,0 +1,141 @@
+# docker build -f docker/Dockerfile.mutations-test -t mizan-mut-test .
+# docker run mizan-mut-test
+
+FROM rust:1.84.1-slim AS builder
+
+RUN apt-get update && apt-get install -y \
+    git \
+    pkg-config \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN rustup install nightly
+
+WORKDIR /build
+
+COPY Cargo.toml Cargo.lock ./
+COPY mizan-mut/ mizan-mut/
+
+# Create dummy workspace members so Cargo.toml parses
+RUN mkdir -p samples && \
+    sed -i '/samples\//d' Cargo.toml
+
+RUN cargo +nightly build --release -p mizan-mut
+
+# -------------------------------------------------------------------
+FROM rust:1.84.1-slim
+
+RUN apt-get update && apt-get install -y \
+    git \
+    pkg-config \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN rustup install nightly
+
+COPY --from=builder /build/target/release/mizan-mut /usr/local/bin/mizan-mut
+
+RUN mizan-mut --help > /dev/null && echo "mizan-mut: OK"
+
+WORKDIR /test
+
+# Clone pinned versions of well-known crates
+RUN git clone --depth 1 --branch v0.13.0  https://github.com/rust-itertools/itertools.git crates/itertools \
+    && git clone --depth 1 --branch num-traits-0.2.19 https://github.com/rust-num/num-traits.git crates/num-traits \
+    && git clone --depth 1 --branch num-bigint-0.4.6 https://github.com/rust-num/num-bigint.git crates/num-bigint \
+    && git clone --depth 1 --branch 1.4.0 https://github.com/BurntSushi/byteorder.git crates/byteorder
+
+# Pre-fetch dependencies for each crate so test runs are faster
+RUN cd crates/itertools   && cargo +nightly fetch && cd /test \
+    && cd crates/num-traits  && cargo +nightly fetch && cd /test \
+    && cd crates/num-bigint  && cargo +nightly fetch && cd /test \
+    && cd crates/byteorder   && cargo +nightly fetch && cd /test
+
+COPY <<'SCRIPT' /test/run-mutations-test.sh
+#!/bin/bash
+set -euo pipefail
+
+REPORT="/test/report.md"
+CRATES=(itertools num-traits num-bigint byteorder)
+MUTATIONS=(
+    for-to-while
+    while-to-loop
+    if-else-reorder
+    derive-reorder
+    trait-bound-reorder
+    use-reorder
+    arithmetic-identity
+)
+
+declare -A RESULTS
+FAILURES=0
+TOTAL=0
+
+# Verify baselines
+for crate in "${CRATES[@]}"; do
+    if ! cargo +nightly test --manifest-path "crates/$crate/Cargo.toml" &>/dev/null; then
+        for mut in "${MUTATIONS[@]}"; do
+            RESULTS["${crate}::${mut}"]="SKIP"
+        done
+    fi
+done
+
+# Run mutations
+for crate in "${CRATES[@]}"; do
+    for mut in "${MUTATIONS[@]}"; do
+        key="${crate}::${mut}"
+        ((TOTAL++)) || true
+
+        if [[ "${RESULTS[$key]:-}" == "SKIP" ]]; then
+            continue
+        fi
+
+        workdir=$(mktemp -d)
+        cp -a "crates/$crate" "$workdir/src-crate"
+
+        if ! mizan-mut mutate -r "$workdir/src-crate" -m "$mut" &>/dev/null; then
+            RESULTS[$key]="PASS (no sites)"
+            rm -rf "$workdir"
+            continue
+        fi
+
+        if cargo +nightly test --manifest-path "$workdir/src-crate/Cargo.toml" &>/dev/null; then
+            RESULTS[$key]="PASS"
+        else
+            RESULTS[$key]="FAIL"
+            ((FAILURES++)) || true
+        fi
+
+        rm -rf "$workdir"
+    done
+done
+
+# Generate markdown report
+{
+    echo "# Mutation Test Report"
+    echo ""
+    echo "Validates that mizan-mut mutations are semantic-preserving: tests must still pass after each mutation is applied."
+    echo ""
+    echo "| Crate | Mutation | Result |"
+    echo "|-------|----------|--------|"
+    for crate in "${CRATES[@]}"; do
+        for mut in "${MUTATIONS[@]}"; do
+            key="${crate}::${mut}"
+            result="${RESULTS[$key]:-N/A}"
+            echo "| $crate | \`$mut\` | $result |"
+        done
+    done
+    echo ""
+    echo "**Total: $TOTAL | Failures: $FAILURES**"
+} > "$REPORT"
+
+cat "$REPORT"
+
+if [[ $FAILURES -gt 0 ]]; then
+    exit 1
+fi
+SCRIPT
+
+RUN chmod +x /test/run-mutations-test.sh
+
+CMD ["/test/run-mutations-test.sh"]

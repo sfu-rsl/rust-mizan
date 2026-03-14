@@ -118,7 +118,7 @@ mizan mutate [OPTIONS]
   - `mizan-mut-derive-reorder`: Randomly reorders traits in derive attributes
   - `mizan-mut-trait-bound-reorder`: Randomly reorders trait bounds in where clauses
   - `mizan-mut-use-reorder`: Randomly reorders items in use statements
-  - `mizan-mut-arithmetic-identity`: Adds arithmetic identity operations (x + N - N)
+  - `mizan-mut-arithmetic-identity`: Wraps integer literals with multiplication identity (N * 1)
   - `mizan-mut-all`: Applies all mizan-mut mutations at once
 - Rename Mutations (via `mizan-mut rename`):
   - `benign-rename-fn`: Renames functions to neutral names (e.g., `fn_1_abc123`)
