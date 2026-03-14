@@ -17,10 +17,10 @@
 To build all code variants, run:
 
 ```bash
-cargo +nightly build --workspace
+cargo build --workspace
 ```
 
-> Using nightly toolchain because mizan-mut depends on `rust-analyzer` crates which require nightly features
+> NOTE: The nightly toolchain is required because mizan-mut depends on `rust-analyzer` crates which require nightly features
 
 ## End-to-End Usage
 
