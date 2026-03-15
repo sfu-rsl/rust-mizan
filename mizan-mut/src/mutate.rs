@@ -52,7 +52,7 @@ pub enum Mutation {
     #[value(name = "arithmetic-identity")]
     ArithmeticIdentity,
 
-    /// Adds extrameous unsafe blocks around certain experssions
+    /// Adds extraneous `unsafe {...}` blocks around statements inside functions
     #[value(name = "extraneous-unsafe")]
     ExtraneousUnsafe,
 }
