@@ -1,4 +1,7 @@
-use std::{cmp::min, ops::RangeBounds};
+use std::{
+    cmp::{max, min},
+    ops::RangeBounds,
+};
 
 use anyhow::Result;
 use quote::quote;
@@ -98,7 +101,7 @@ impl<'a, Range: RangeBounds<usize>> UnsafeAdder<'a, Range> {
             let top_index = {
                 let end = match self.unsafe_count.end_bound() {
                     std::ops::Bound::Included(i) => *i,
-                    std::ops::Bound::Excluded(i) => *i + 1,
+                    std::ops::Bound::Excluded(i) => max(*i, 1) - 1,
                     _ => usize::MAX,
                 };
                 min(self.stmt_count, end)
@@ -225,9 +228,9 @@ impl<'ast, F: FnMut(&Attribute) -> R, G: FnMut(&Attribute, R) -> S, R, S> Visit<
 
         self.found_stmt = true;
 
-        let old_attr_count = self.found_attr;
+        let old_found_attr = self.found_attr;
         visit::visit_stmt(self, stmt);
-        if self.found_attr == old_attr_count {
+        if self.found_attr == old_found_attr {
             self.found_stmt = false;
         }
     }
