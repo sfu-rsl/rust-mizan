@@ -10,8 +10,8 @@ use walkdir::WalkDir;
 
 use crate::mutations::{
     arithmetic_identity::ArithmeticIdentityMutator, derive_reorder::DeriveReorderMutator,
-    for_to_while::ForToWhileMutator,
-    if_else_reorder::IfElseReorderMutator, impl_trait_to_generic::ImplTraitToGenericMutator,
+    for_to_while::ForToWhileMutator, if_else_reorder::IfElseReorderMutator,
+    impl_trait_to_generic::ImplTraitToGenericMutator,
     trait_bound_reorder::TraitBoundReorderMutator, use_reorder::UseReorderMutator,
     while_to_loop::WhileToLoopMutator,
 };
@@ -142,7 +142,9 @@ pub fn apply_mutations(
                 Mutation::UseReorder => UseReorderMutator::mutate(&modified_content)?,
                 Mutation::WhileToLoop => WhileToLoopMutator::mutate(&modified_content)?,
                 Mutation::IfElseReorder => IfElseReorderMutator::mutate(&modified_content)?,
-                Mutation::ImplTraitToGeneric => ImplTraitToGenericMutator::mutate(&modified_content)?
+                Mutation::ImplTraitToGeneric => {
+                    ImplTraitToGenericMutator::mutate(&modified_content)?
+                }
             };
         }
 
