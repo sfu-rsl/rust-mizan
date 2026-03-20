@@ -53,12 +53,14 @@ mizan-mut mutate --help
 | `impl-trait-to-generic` | Converts impl form Trait bounds into generic parameters                         |
 | `option-wrap`           | Wraps expressions in redundant `Some(...).unwrap()` calls                       |
 | `maybeuninit-wrap`      | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
+| `manuallydrop-wrap`     | Places owned variables into `ManuallyDrop` structs, and later unwraps them      |
 
 #### Limitations
 
 - `for-to-while`: Only handles simple patterns
 - `while-to-loop`: Does not transform `while let` patterns
 - `if-else-reorder`: Only transforms if statements with else branches
+- `manuallydrop-wrap`: Immediately unwraps after initial `let` statement
 
 ### Rename Subcommand
 
