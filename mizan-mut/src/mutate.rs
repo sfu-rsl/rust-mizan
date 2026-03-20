@@ -13,9 +13,9 @@ use crate::mutations::{
     explicit_where::ExplicitWhereMutator,
     explicit_where_to_type_params::RemoveExplicitWhereMutator, for_to_while::ForToWhileMutator,
     if_else_reorder::IfElseReorderMutator, impl_trait_to_generic::ImplTraitToGenericMutator,
-    maybe_uninit_wrap::MaybeUninitWrapMutator, option_wrap::OptionWrapMutator,
-    trait_bound_reorder::TraitBoundReorderMutator, use_reorder::UseReorderMutator,
-    while_to_loop::WhileToLoopMutator,
+    manually_drop_wrap::ManuallyDropWrapMutator, maybe_uninit_wrap::MaybeUninitWrapMutator,
+    option_wrap::OptionWrapMutator, trait_bound_reorder::TraitBoundReorderMutator,
+    use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -74,6 +74,10 @@ pub enum Mutation {
     /// Wraps known safe values into a MaybeUninit<T>, automatically dererencing them
     #[value(name = "maybeuninit-wrap")]
     MaybeUninitWrap,
+
+    /// Places owned variables into ManuallyDrop structs, and later unwraps them
+    #[value(name = "manuallydrop-wrap")]
+    ManuallyDropWrap,
 }
 
 /// Apply mutations to a Rust crate
@@ -101,6 +105,7 @@ pub fn apply_mutations(
             Mutation::ImplTraitToGeneric,
             Mutation::OptionWrap,
             Mutation::MaybeUninitWrap,
+            Mutation::ManuallyDropWrap,
         ]
     } else {
         mutations.clone()
@@ -173,6 +178,7 @@ pub fn apply_mutations(
                 }
                 Mutation::OptionWrap => OptionWrapMutator::mutate(&modified_content)?,
                 Mutation::MaybeUninitWrap => MaybeUninitWrapMutator::mutate(&modified_content)?,
+                Mutation::ManuallyDropWrap => ManuallyDropWrapMutator::mutate(&modified_content)?,
             };
         }
 
