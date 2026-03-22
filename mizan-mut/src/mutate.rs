@@ -12,7 +12,7 @@ use crate::mutations::{
     arithmetic_identity::ArithmeticIdentityMutator, derive_reorder::DeriveReorderMutator,
     for_to_while::ForToWhileMutator, if_else_reorder::IfElseReorderMutator,
     trait_bound_reorder::TraitBoundReorderMutator, use_reorder::UseReorderMutator,
-    while_to_loop::WhileToLoopMutator,
+    while_to_loop::WhileToLoopMutator, repeated_shadowing::RepeatedShadowingMutator
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -50,6 +50,11 @@ pub enum Mutation {
     /// Adds arithmetic identity operations (x + N - N)
     #[value(name = "arithmetic-identity")]
     ArithmeticIdentity,
+
+    // Expression transformations
+    /// Adds multiple redundant repeated shadows for let bindings within a scope
+    #[value(name = "repeated-shadowing")]
+    RepeatedShadowing,
 }
 
 /// Apply mutations to a Rust crate
@@ -69,6 +74,7 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[Pa
             Mutation::TraitBoundReorder,
             Mutation::UseReorder,
             Mutation::ArithmeticIdentity,
+            Mutation::RepeatedShadowing,
         ]
     } else {
         mutations.clone()
@@ -132,6 +138,7 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[Pa
                 Mutation::UseReorder => UseReorderMutator::mutate(&modified_content)?,
                 Mutation::WhileToLoop => WhileToLoopMutator::mutate(&modified_content)?,
                 Mutation::IfElseReorder => IfElseReorderMutator::mutate(&modified_content)?,
+                Mutation::RepeatedShadowing => RepeatedShadowingMutator::mutate(&modified_content)?,
             };
         }
 
