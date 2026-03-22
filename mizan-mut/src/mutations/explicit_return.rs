@@ -1,7 +1,9 @@
 use anyhow::Result;
 use quote::quote;
 use syn::{
-    Attribute, Block, ImplItemFn, ItemFn, Stmt, TraitItemFn, parse_file, parse_quote, visit_mut::{self, VisitMut}
+    parse_file, parse_quote,
+    visit_mut::{self, VisitMut},
+    AttrStyle, Attribute, Block, ImplItemFn, ItemFn, Stmt, TraitItemFn,
 };
 
 pub struct ExplicitReturnMutator;
@@ -43,7 +45,12 @@ impl VisitMut for AttributeCheckVisitor {
     }
 
     fn visit_attributes_mut(&mut self, attrs: &mut Vec<syn::Attribute>) {
-        std::mem::swap(&mut self.attrs, attrs);
+        // Extract outer attributes
+        self.attrs.extend(
+            attrs.extract_if(.., |item| 
+                matches!(&item.style, &AttrStyle::Outer)
+            )
+        );
     }
 }
 
@@ -66,7 +73,7 @@ impl ExplicitReturnVisitor {
             let mut attr_visitor = AttributeCheckVisitor::new();
             attr_visitor.visit_expr_mut(expr);
 
-            let attrs = attr_visitor.attrs;
+            let attrs: Vec<Attribute> = attr_visitor.attrs;
 
             let ret_expr = parse_quote! {
                 #(#attrs)*
