@@ -55,6 +55,7 @@ mizan-mut mutate --help
 | `maybeuninit-wrap`      | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
 | `manuallydrop-wrap`     | Places owned variables into `ManuallyDrop` structs, and later unwraps them      |
 | `explicit-return`       | Converts implicit return statements to use explicit syntax                      |
+| `unreachable-panic`     | Adds an unreachable panic!() to function bodies                                 |
 
 #### Limitations
 
