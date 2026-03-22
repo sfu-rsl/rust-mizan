@@ -7,6 +7,10 @@ pub mod if_else_reorder;
 pub mod trait_bound_reorder;
 pub mod use_reorder;
 pub mod while_to_loop;
+<<<<<<< HEAD
 pub mod extraneous_unsafe;
 pub mod impl_trait_to_generic;
 pub mod option_wrap;
+=======
+pub mod maybe_uninit_wrap;
+>>>>>>> maybeuninit-wrap-mut

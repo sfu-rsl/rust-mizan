@@ -17,6 +17,7 @@ use crate::mutations::{
     extraneous_unsafe::ExtraneousUnsafeMutator,
     impl_trait_to_generic::ImplTraitToGenericMutator,
     option_wrap::OptionWrapMutator,
+    maybe_uninit_wrap::MaybeUninitWrapMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -75,6 +76,10 @@ pub enum Mutation {
     /// Wraps expressions in redundant Some(..).unwrap() calls.
     #[value(name = "option-wrap")]
     OptionWrap,
+
+    /// Wraps known safe values into a MaybeUninit<T>, automatically dererencing them
+    #[value(name = "maybeuninit-wrap")]
+    MaybeUninitWrap,
 }
 
 /// Apply mutations to a Rust crate
@@ -102,6 +107,7 @@ pub fn apply_mutations(
             Mutation::ExtraneousUnsafe,
             Mutation::ImplTraitToGeneric,
             Mutation::OptionWrap
+            Mutation::MaybeUninitWrap,
         ]
     } else {
         mutations.clone()
@@ -174,6 +180,7 @@ pub fn apply_mutations(
                     ImplTraitToGenericMutator::mutate(&modified_content)?
                 }
                 Mutation::OptionWrap => OptionWrapMutator::mutate(&modified_content)?,
+                Mutation::MaybeUninitWrap => MaybeUninitWrapMutator::mutate(&modified_content)?,
             };
         }
 
