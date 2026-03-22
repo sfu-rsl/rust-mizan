@@ -67,6 +67,7 @@ MUTATIONS=(
     arithmetic-identity
     extraneous-unsafe
     impl-trait-to-generic
+    option-wrap
 )
 
 declare -A RESULTS

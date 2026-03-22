@@ -52,6 +52,7 @@ mizan-mut mutate --help
 | `arithmetic-identity`   | Wraps integer literals with multiplication identity (N * 1) |
 | `extraneous-unsafe`     | Adds extraneous `unsafe {...}` blocks around statements inside functions |
 | `impl-trait-to-generic` | Converts impl form Trait bounds into generic parameters |
+| `option-wrap`         | Wraps expressions in redundant `Some(...).unwrap()` calls |
 
 #### Limitations
 

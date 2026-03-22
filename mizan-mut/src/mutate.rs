@@ -16,6 +16,7 @@ use crate::mutations::{
     use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
     extraneous_unsafe::ExtraneousUnsafeMutator,
     impl_trait_to_generic::ImplTraitToGenericMutator,
+    option_wrap::OptionWrapMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -70,6 +71,10 @@ pub enum Mutation {
     /// Converts impl form Trait bounds into generic parameters
     #[value(name = "impl-trait-to-generic")]
     ImplTraitToGeneric,
+
+    /// Wraps expressions in redundant Some(..).unwrap() calls.
+    #[value(name = "option-wrap")]
+    OptionWrap,
 }
 
 /// Apply mutations to a Rust crate
@@ -96,6 +101,7 @@ pub fn apply_mutations(
             Mutation::ExplicitWhere,
             Mutation::ExtraneousUnsafe,
             Mutation::ImplTraitToGeneric,
+            Mutation::OptionWrap
         ]
     } else {
         mutations.clone()
@@ -167,6 +173,7 @@ pub fn apply_mutations(
                 Mutation::ImplTraitToGeneric => {
                     ImplTraitToGenericMutator::mutate(&modified_content)?
                 }
+                Mutation::OptionWrap => OptionWrapMutator::mutate(&modified_content)?,
             };
         }
 
