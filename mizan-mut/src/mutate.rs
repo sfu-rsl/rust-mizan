@@ -80,7 +80,7 @@ pub enum Mutation {
     ManuallyDropWrap,
 
     // Expression transformations
-    /// Converts all implicit return statements to use explicit syntax
+    /// Converts implicit return statements to use explicit syntax at the function level
     #[value(name = "explicit-return")]
     ExplicitReturn,
 }

@@ -54,13 +54,17 @@ mizan-mut mutate --help
 | `option-wrap`           | Wraps expressions in redundant `Some(...).unwrap()` calls                       |
 | `maybeuninit-wrap`      | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
 | `manuallydrop-wrap`     | Places owned variables into `ManuallyDrop` structs, and later unwraps them      |
+| `explicit-return`       | Converts implicit return statements to use explicit syntax                      |
 
 #### Limitations
 
 - `for-to-while`: Only handles simple patterns
 - `while-to-loop`: Does not transform `while let` patterns
 - `if-else-reorder`: Only transforms if statements with else branches
-- `manuallydrop-wrap`: Immediately unwraps after initial `let` statement
+  <<<<<<< HEAD
+- # `manuallydrop-wrap`: Immediately unwraps after initial `let` statement
+- `explicit-return`: Only applies at the function level
+  > > > > > > > 5c502d5 (docs(mizan-mut/explicit-return): Added mutation to README)
 
 ### Rename Subcommand
 
