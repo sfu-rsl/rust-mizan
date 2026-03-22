@@ -11,8 +11,8 @@ use walkdir::WalkDir;
 use crate::mutations::{
     arithmetic_identity::ArithmeticIdentityMutator, derive_reorder::DeriveReorderMutator,
     for_to_while::ForToWhileMutator, if_else_reorder::IfElseReorderMutator,
-    trait_bound_reorder::TraitBoundReorderMutator, use_reorder::UseReorderMutator,
-    while_to_loop::WhileToLoopMutator,
+    option_wrap::OptionWrapMutator, trait_bound_reorder::TraitBoundReorderMutator,
+    use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -50,6 +50,10 @@ pub enum Mutation {
     /// Adds arithmetic identity operations (x + N - N)
     #[value(name = "arithmetic-identity")]
     ArithmeticIdentity,
+
+    /// Wraps expressions in redundant Some(..).unwrap() calls.
+    #[value(name = "option-wrap")]
+    OptionWrap,
 }
 
 /// Apply mutations to a Rust crate
@@ -69,6 +73,7 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[Pa
             Mutation::TraitBoundReorder,
             Mutation::UseReorder,
             Mutation::ArithmeticIdentity,
+            Mutation::OptionWrap
         ]
     } else {
         mutations.clone()
@@ -132,6 +137,7 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[Pa
                 Mutation::UseReorder => UseReorderMutator::mutate(&modified_content)?,
                 Mutation::WhileToLoop => WhileToLoopMutator::mutate(&modified_content)?,
                 Mutation::IfElseReorder => IfElseReorderMutator::mutate(&modified_content)?,
+                Mutation::OptionWrap => OptionWrapMutator::mutate(&modified_content)?,
             };
         }
 
