@@ -14,9 +14,9 @@ use crate::mutations::{
     explicit_where_to_type_params::RemoveExplicitWhereMutator, for_to_while::ForToWhileMutator,
     if_else_reorder::IfElseReorderMutator, impl_trait_to_generic::ImplTraitToGenericMutator,
     manually_drop_wrap::ManuallyDropWrapMutator, maybe_uninit_wrap::MaybeUninitWrapMutator,
-    option_wrap::OptionWrapMutator, trait_bound_reorder::TraitBoundReorderMutator,
-    unreachable_panic::UnreachblePanicMutator, use_reorder::UseReorderMutator,
-    while_to_loop::WhileToLoopMutator,
+    option_wrap::OptionWrapMutator, repeated_shadowing::RepeatedShadowingMutator,
+    trait_bound_reorder::TraitBoundReorderMutator, unreachable_panic::UnreachblePanicMutator,
+    use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -89,6 +89,11 @@ pub enum Mutation {
     /// Adds an unreachble panic!() to function bodies using a match expression
     #[value(name = "unreachable-panic")]
     UnreachablePanic,
+
+    // Expression transformations
+    /// Adds multiple redundant repeated shadows for let bindings within a scope
+    #[value(name = "repeated-shadowing")]
+    RepeatedShadowing,
 }
 
 /// Apply mutations to a Rust crate
@@ -119,6 +124,7 @@ pub fn apply_mutations(
             Mutation::ManuallyDropWrap,
             Mutation::ExplicitReturn,
             Mutation::UnreachablePanic,
+            Mutation::RepeatedShadowing,
         ]
     } else {
         mutations.clone()
@@ -194,6 +200,7 @@ pub fn apply_mutations(
                 Mutation::ManuallyDropWrap => ManuallyDropWrapMutator::mutate(&modified_content)?,
                 Mutation::ExplicitReturn => ExplicitReturnMutator::mutate(&modified_content)?,
                 Mutation::UnreachablePanic => UnreachblePanicMutator::mutate(&modified_content)?,
+                Mutation::RepeatedShadowing => RepeatedShadowingMutator::mutate(&modified_content)?,
             };
         }
 

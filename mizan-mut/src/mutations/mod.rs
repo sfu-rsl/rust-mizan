@@ -13,3 +13,4 @@ pub mod trait_bound_reorder;
 pub mod unreachable_panic;
 pub mod use_reorder;
 pub mod while_to_loop;
+pub mod repeated_shadowing;
