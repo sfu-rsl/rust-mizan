@@ -20,6 +20,7 @@ impl ExplicitReturnMutator {
 struct AttributeCheckVisitor {
     attrs: Vec<Attribute>,
     entered_expr: bool,
+    found_attrs: bool,
 }
 
 impl AttributeCheckVisitor {
@@ -27,6 +28,7 @@ impl AttributeCheckVisitor {
         Self {
             attrs: vec![],
             entered_expr: false,
+            found_attrs: false,
         }
     }
 }
@@ -46,11 +48,17 @@ impl VisitMut for AttributeCheckVisitor {
 
     fn visit_attributes_mut(&mut self, attrs: &mut Vec<syn::Attribute>) {
         // Extract outer attributes
+        if self.found_attrs {
+            return;
+        }
+
         self.attrs.extend(
             attrs.extract_if(.., |item| 
                 matches!(&item.style, &AttrStyle::Outer)
             )
         );
+
+        self.found_attrs = true;
     }
 }
 
@@ -65,6 +73,11 @@ impl ExplicitReturnVisitor {
         }
 
         let mut last_stmt = stmts.last_mut().unwrap();
+
+        // Verbatim expressions are the only ones which cannot have attributes applied to them
+        if let Stmt::Expr(syn::Expr::Verbatim(_), _) = &mut last_stmt {
+            return;
+        }
 
         // None ensures there is no semi-colon
         if let Stmt::Expr(ref mut expr, None) = &mut last_stmt {
