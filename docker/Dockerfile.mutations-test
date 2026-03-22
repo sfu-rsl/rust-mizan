@@ -66,6 +66,7 @@ MUTATIONS=(
     use-reorder
     arithmetic-identity
     impl-trait-to-generic
+    option-wrap
 )
 
 declare -A RESULTS
