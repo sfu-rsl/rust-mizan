@@ -18,6 +18,7 @@ use crate::mutations::{
     impl_trait_to_generic::ImplTraitToGenericMutator,
     option_wrap::OptionWrapMutator,
     maybe_uninit_wrap::MaybeUninitWrapMutator,
+    manually_drop_wrap::ManuallyDropWrapMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -80,6 +81,10 @@ pub enum Mutation {
     /// Wraps known safe values into a MaybeUninit<T>, automatically dererencing them
     #[value(name = "maybeuninit-wrap")]
     MaybeUninitWrap,
+
+    /// Places owned variables into ManuallyDrop structs, and later unwraps them
+    #[value(name = "manuallydrop-wrap")]
+    ManuallyDropWrap,
 }
 
 /// Apply mutations to a Rust crate
@@ -108,6 +113,7 @@ pub fn apply_mutations(
             Mutation::ImplTraitToGeneric,
             Mutation::OptionWrap
             Mutation::MaybeUninitWrap,
+            Mutation::ManuallyDropWrap,
         ]
     } else {
         mutations.clone()
@@ -181,6 +187,7 @@ pub fn apply_mutations(
                 }
                 Mutation::OptionWrap => OptionWrapMutator::mutate(&modified_content)?,
                 Mutation::MaybeUninitWrap => MaybeUninitWrapMutator::mutate(&modified_content)?,
+                Mutation::ManuallyDropWrap => ManuallyDropWrapMutator::mutate(&modified_content)?,
             };
         }
 
