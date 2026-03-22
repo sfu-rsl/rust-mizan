@@ -70,6 +70,7 @@ MUTATIONS=(
     option-wrap
     maybeuninit-wrap
     manuallydrop-wrap
+    explicit-return
 )
 
 declare -A RESULTS
