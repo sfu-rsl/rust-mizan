@@ -10,9 +10,10 @@ use walkdir::WalkDir;
 
 use crate::mutations::{
     arithmetic_identity::ArithmeticIdentityMutator, derive_reorder::DeriveReorderMutator,
-    for_to_while::ForToWhileMutator, if_else_reorder::IfElseReorderMutator,
-    trait_bound_reorder::TraitBoundReorderMutator, use_reorder::UseReorderMutator,
-    while_to_loop::WhileToLoopMutator,
+    for_to_while::ForToWhileMutator,
+    if_else_reorder::IfElseReorderMutator,
+    maybe_uninit_wrap::MaybeUninitWrapMutator, trait_bound_reorder::TraitBoundReorderMutator,
+    use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator, 
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -50,6 +51,10 @@ pub enum Mutation {
     /// Adds arithmetic identity operations (x + N - N)
     #[value(name = "arithmetic-identity")]
     ArithmeticIdentity,
+
+    /// Wraps known safe values into a MaybeUninit<T>, automatically dererencing them
+    #[value(name = "maybeuninit-wrap")]
+    MaybeUninitWrap,
 }
 
 /// Apply mutations to a Rust crate
@@ -69,6 +74,7 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[Pa
             Mutation::TraitBoundReorder,
             Mutation::UseReorder,
             Mutation::ArithmeticIdentity,
+            Mutation::MaybeUninitWrap,
         ]
     } else {
         mutations.clone()
@@ -103,17 +109,17 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[Pa
         .filter(|e| !e.path().to_str().unwrap_or("").contains("target"))
     {
         let path = entry.path();
-        
+
         // Check if this file should be ignored
         let should_ignore = absolute_ignore_files.iter().any(|ignore_path| {
             path == ignore_path || path.ends_with(ignore_path)
         });
-        
+
         if should_ignore {
             files_skipped += 1;
             continue;
         }
-        
+
         total_files += 1;
 
         let content = fs::read_to_string(path)?;
@@ -132,6 +138,7 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[Pa
                 Mutation::UseReorder => UseReorderMutator::mutate(&modified_content)?,
                 Mutation::WhileToLoop => WhileToLoopMutator::mutate(&modified_content)?,
                 Mutation::IfElseReorder => IfElseReorderMutator::mutate(&modified_content)?,
+                Mutation::MaybeUninitWrap => MaybeUninitWrapMutator::mutate(&modified_content)?,
             };
         }
 
