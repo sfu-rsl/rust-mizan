@@ -73,6 +73,8 @@ MUTATIONS=(
     explicit-return
     unreachable-panic
     repeated-shadowing
+    explicit-where
+    explicit-where-to-type-params
 )
 
 declare -A RESULTS

@@ -129,7 +129,7 @@ pub fn apply_mutations(
             Mutation::ExplicitWhere,
             Mutation::ExtraneousUnsafe,
             Mutation::ImplTraitToGeneric,
-            Mutation::OptionWrap
+            Mutation::OptionWrap,
             Mutation::MaybeUninitWrap,
             Mutation::ManuallyDropWrap,
             Mutation::ExplicitReturn,

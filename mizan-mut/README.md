@@ -40,39 +40,35 @@ mizan-mut mutate --help
 
 #### Available Mutations
 
-| Mutation                | Description                                         |
-| ----------------------- | --------------------------------------------------- |
-| `all`                   | Applies all available mutations                     |
-| `for-to-while`          | Converts `for` loops to `while` loops               |
-| `while-to-loop`         | Converts `while` loops to `loop` blocks with breaks |
-| `if-else-reorder`       | Reorders if-else branches by negating conditions    |
-| `derive-reorder`        | Randomly reorders traits in derive attributes       |
-| `trait-bound-reorder`   | Randomly reorders trait bounds in where clauses     |
-| `use-reorder`           | Randomly reorders items in use statements           |
-| `arithmetic-identity`   | Wraps integer literals with multiplication identity (N * 1) |
-| `extraneous-unsafe`     | Adds extraneous `unsafe {...}` blocks around statements inside functions |
-| `impl-trait-to-generic` | Converts impl form Trait bounds into generic parameters |
-| `option-wrap`           | Wraps expressions in redundant `Some(...).unwrap()` calls |
-| `maybeuninit-wrap`      | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
-| `manuallydrop-wrap`     | Places owned variables into `ManuallyDrop` structs, and later unwraps them |
-| `explicit-return`     | Converts implicit return statements to use explicit syntax |
-| `unreachable-panic`   | Adds an unreachable panic!() to function bodies     |
-| `repeated-shadowing`  | Adds multiple redundant repeated shadows for let bindings within a scope |
+| Mutation                        | Description                                         |
+| ------------------------------- | --------------------------------------------------- |
+| `all`                           | Applies all available mutations                     |
+| `for-to-while`                  | Converts `for` loops to `while` loops               |
+| `while-to-loop`                 | Converts `while` loops to `loop` blocks with breaks |
+| `if-else-reorder`               | Reorders if-else branches by negating conditions    |
+| `derive-reorder`                | Randomly reorders traits in derive attributes       |
+| `trait-bound-reorder`           | Randomly reorders trait bounds in where clauses     |
+| `use-reorder`                   | Randomly reorders items in use statements           |
+| `arithmetic-identity`           | Wraps integer literals with multiplication identity (N * 1) |
+| `extraneous-unsafe`             | Adds extraneous `unsafe {...}` blocks around statements inside functions |
+| `impl-trait-to-generic`         | Converts impl form Trait bounds into generic parameters |
+| `option-wrap`                   | Wraps expressions in redundant `Some(...).unwrap()` calls |
+| `maybeuninit-wrap`              | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
+| `manuallydrop-wrap`             | Places owned variables into `ManuallyDrop` structs, and later unwraps them |
+| `explicit-return`               | Converts implicit return statements to use explicit syntax |
+| `unreachable-panic`             | Adds an unreachable panic!() to function bodies     |
+| `repeated-shadowing`            | Adds multiple redundant repeated shadows for let bindings within a scope |
+| `explicit-where`                | Adds explicit where to function signature |
+| `explicit-where-to-type-params` | Move Simple type bounds from explicit where to type params |
 
 #### Limitations
 
 - `for-to-while`: Only handles simple patterns
 - `while-to-loop`: Does not transform `while let` patterns
 - `if-else-reorder`: Only transforms if statements with else branches
-<<<<<<< HEAD
-<<<<<<< HEAD
 - `manuallydrop-wrap`: Immediately unwraps after initial `let` statement
-=======
 - `explicit-return`: Only applies at the function level
->>>>>>> origin/mut-explicit-return
-=======
 - `repeated-shadowing`: Only adds shadows directly after the initial binding
->>>>>>> origin/mut-repeated-shadowing
 
 ### Rename Subcommand
 
