@@ -50,6 +50,7 @@ mizan-mut mutate --help
 | `trait-bound-reorder` | Randomly reorders trait bounds in where clauses     |
 | `use-reorder`         | Randomly reorders items in use statements           |
 | `arithmetic-identity` | Wraps integer literals with multiplication identity (N * 1) |
+| `maybeuninit-wrap`    | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
 
 #### Limitations
 
