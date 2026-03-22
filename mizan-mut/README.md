@@ -50,12 +50,14 @@ mizan-mut mutate --help
 | `trait-bound-reorder` | Randomly reorders trait bounds in where clauses     |
 | `use-reorder`         | Randomly reorders items in use statements           |
 | `arithmetic-identity` | Wraps integer literals with multiplication identity (N * 1) |
+| `explicit-return`     | Converts implicit return statements to use explicit syntax |
 
 #### Limitations
 
 - `for-to-while`: Only handles simple patterns
 - `while-to-loop`: Does not transform `while let` patterns
 - `if-else-reorder`: Only transforms if statements with else branches
+- `explicit-return`: Only applies at the function level
 
 ### Rename Subcommand
 
