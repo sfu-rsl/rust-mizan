@@ -13,3 +13,4 @@ pub mod option_wrap;
 pub mod maybe_uninit_wrap;
 pub mod manually_drop_wrap;
 pub mod explicit_return;
+pub mod unreachable_panic;

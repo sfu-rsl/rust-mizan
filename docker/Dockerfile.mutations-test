@@ -71,6 +71,7 @@ MUTATIONS=(
     maybeuninit-wrap
     manuallydrop-wrap
     explicit-return
+    unreachable-panic
 )
 
 declare -A RESULTS
