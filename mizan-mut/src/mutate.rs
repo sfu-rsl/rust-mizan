@@ -14,6 +14,7 @@ use crate::mutations::{
     explicit_where_to_type_params::RemoveExplicitWhereMutator,
     if_else_reorder::IfElseReorderMutator, trait_bound_reorder::TraitBoundReorderMutator,
     use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
+    extraneous_unsafe::ExtraneousUnsafeMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -60,6 +61,10 @@ pub enum Mutation {
     /// Move Simple type bounds from explicit where to type params
     #[value(name = "explicit-where-to-type-params")]
     ExplicitWhereToTypeParams,
+
+    /// Adds extraneous `unsafe {...}` blocks around statements inside functions
+    #[value(name = "extraneous-unsafe")]
+    ExtraneousUnsafe,
 }
 
 /// Apply mutations to a Rust crate
@@ -84,6 +89,7 @@ pub fn apply_mutations(
             Mutation::UseReorder,
             Mutation::ArithmeticIdentity,
             Mutation::ExplicitWhere,
+            Mutation::ExtraneousUnsafe,
         ]
     } else {
         mutations.clone()
@@ -151,6 +157,7 @@ pub fn apply_mutations(
                 Mutation::ExplicitWhereToTypeParams => {
                     RemoveExplicitWhereMutator::mutate(&modified_content)?
                 }
+                Mutation::ExtraneousUnsafe => ExtraneousUnsafeMutator::mutate(&modified_content)?,
             };
         }
 
