@@ -66,6 +66,7 @@ MUTATIONS=(
     use-reorder
     arithmetic-identity
     extraneous-unsafe
+    impl-trait-to-generic
 )
 
 declare -A RESULTS

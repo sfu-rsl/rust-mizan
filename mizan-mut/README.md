@@ -40,17 +40,18 @@ mizan-mut mutate --help
 
 #### Available Mutations
 
-| Mutation              | Description                                         |
-| --------------------- | --------------------------------------------------- |
-| `all`                 | Applies all available mutations                     |
-| `for-to-while`        | Converts `for` loops to `while` loops               |
-| `while-to-loop`       | Converts `while` loops to `loop` blocks with breaks |
-| `if-else-reorder`     | Reorders if-else branches by negating conditions    |
-| `derive-reorder`      | Randomly reorders traits in derive attributes       |
-| `trait-bound-reorder` | Randomly reorders trait bounds in where clauses     |
-| `use-reorder`         | Randomly reorders items in use statements           |
-| `arithmetic-identity` | Wraps integer literals with multiplication identity (N * 1) |
-| `extraneous-unsafe`   | Adds extraneous `unsafe {...}` blocks around statements inside functions |
+| Mutation                | Description                                         |
+| ----------------------- | --------------------------------------------------- |
+| `all`                   | Applies all available mutations                     |
+| `for-to-while`          | Converts `for` loops to `while` loops               |
+| `while-to-loop`         | Converts `while` loops to `loop` blocks with breaks |
+| `if-else-reorder`       | Reorders if-else branches by negating conditions    |
+| `derive-reorder`        | Randomly reorders traits in derive attributes       |
+| `trait-bound-reorder`   | Randomly reorders trait bounds in where clauses     |
+| `use-reorder`           | Randomly reorders items in use statements           |
+| `arithmetic-identity`   | Wraps integer literals with multiplication identity (N * 1) |
+| `extraneous-unsafe`     | Adds extraneous `unsafe {...}` blocks around statements inside functions |
+| `impl-trait-to-generic` | Converts impl form Trait bounds into generic parameters |
 
 #### Limitations
 
