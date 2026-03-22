@@ -13,8 +13,8 @@ use crate::mutations::{
     explicit_where::ExplicitWhereMutator,
     explicit_where_to_type_params::RemoveExplicitWhereMutator, for_to_while::ForToWhileMutator,
     if_else_reorder::IfElseReorderMutator, impl_trait_to_generic::ImplTraitToGenericMutator,
-    trait_bound_reorder::TraitBoundReorderMutator, use_reorder::UseReorderMutator,
-    while_to_loop::WhileToLoopMutator,
+    option_wrap::OptionWrapMutator, trait_bound_reorder::TraitBoundReorderMutator,
+    use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -65,6 +65,10 @@ pub enum Mutation {
     /// Converts impl form Trait bounds into generic parameters
     #[value(name = "impl-trait-to-generic")]
     ImplTraitToGeneric,
+
+    /// Wraps expressions in redundant Some(..).unwrap() calls.
+    #[value(name = "option-wrap")]
+    OptionWrap,
 }
 
 /// Apply mutations to a Rust crate
@@ -90,6 +94,7 @@ pub fn apply_mutations(
             Mutation::ArithmeticIdentity,
             Mutation::ExplicitWhere,
             Mutation::ImplTraitToGeneric,
+            Mutation::OptionWrap,
         ]
     } else {
         mutations.clone()
@@ -160,6 +165,7 @@ pub fn apply_mutations(
                 Mutation::ImplTraitToGeneric => {
                     ImplTraitToGenericMutator::mutate(&modified_content)?
                 }
+                Mutation::OptionWrap => OptionWrapMutator::mutate(&modified_content)?,
             };
         }
 
