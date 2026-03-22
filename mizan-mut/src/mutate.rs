@@ -86,7 +86,7 @@ pub enum Mutation {
     ExplicitReturn,
 
     // Control flow transformations
-    /// Adds unreachble panic!() code blocks to function bodies
+    /// Adds an unreachble panic!() to function bodies using a match expression
     #[value(name = "unreachable-panic")]
     UnreachablePanic,
 }
