@@ -50,12 +50,14 @@ mizan-mut mutate --help
 | `trait-bound-reorder` | Randomly reorders trait bounds in where clauses     |
 | `use-reorder`         | Randomly reorders items in use statements           |
 | `arithmetic-identity` | Wraps integer literals with multiplication identity (N * 1) |
+| `repeated-shadowing`  | Adds multiple redundant repeated shadows for let bindings within a scope |
 
 #### Limitations
 
 - `for-to-while`: Only handles simple patterns
 - `while-to-loop`: Does not transform `while let` patterns
 - `if-else-reorder`: Only transforms if statements with else branches
+- `repeated-shadowing`: Only adds shadows directly after the initial binding
 
 ### Rename Subcommand
 
