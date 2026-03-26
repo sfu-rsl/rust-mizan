@@ -1,7 +1,7 @@
 use anyhow::Result;
 use proc_macro2::Span;
 use quote::quote;
-use rand::RngCore;
+use rand::{Rng, RngCore};
 use syn::{
     parse_file, parse_quote,
     visit_mut::{self, VisitMut},
@@ -24,6 +24,7 @@ struct UnreachablePanicVisitor {
     // Our mutations currently only operate at the file level, so the flag cannot be global to the crate.
     flag_ident: syn::Ident,
     flag_name: String,
+    flag_val: bool,
     mod_level: usize,
 }
 
@@ -37,6 +38,7 @@ impl UnreachablePanicVisitor {
         Self {
             flag_ident: flag_ident,
             flag_name: flag_name,
+            flag_val: rng.random_bool(0.5f64),
             mod_level: 0,
         }
     }
@@ -52,7 +54,8 @@ impl UnreachablePanicVisitor {
         }
 
         let flag_ident = &self.flag_ident;
-        let flag_item = parse_quote! { const #flag_ident: bool = true; };
+        let flag_val = &self.flag_val;
+        let flag_item = parse_quote! { const #flag_ident: bool = #flag_val; };
         items.insert(0, flag_item);
 
         true
@@ -60,13 +63,15 @@ impl UnreachablePanicVisitor {
 
     fn apply_panic_to_block(&self, block: &mut syn::Block) -> syn::Block {
         let flag_ident = &self.flag_ident;
+        let flag_val = &self.flag_val;
+        let flag_opp_val = !flag_val;
         let original_block = block;
 
         let new_block: syn::Block = parse_quote! {
             {
                 match #flag_ident {
-                    true => #original_block,
-                    false => panic!(),
+                    #flag_val => #original_block,
+                    #flag_opp_val => panic!(),
                 }
             }
         };
@@ -103,7 +108,7 @@ impl VisitMut for UnreachablePanicVisitor {
     }
 
     fn visit_item_mod_mut(&mut self, module: &mut syn::ItemMod) {
-        // Include a use stmt for super module's flag declaration.
+        // Include a use stmt for the super module's flag declaration.
         // Only do this if the module has content.
         if let Some((_, items)) = &mut module.content {
             self.mod_level += 1;
