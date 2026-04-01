@@ -101,32 +101,48 @@ mizan mutate [OPTIONS]
 
 #### Available Mutations
 
-- Comment Removal:
-  - `remove-comments`: Remove all Rust comments while preserving code functionality
-- Formatting Mutations:
-  - `format-compact`: Apply `rustfmt` formatting to shrink code
-  - `format-expanded`: Apply `rustfmt` formatting to expand code (vertical whitespacing)
-- Insertion Mutations:
-  - `benign-comments`: Insert benign comments around vulnerable lines
-  - `benign-blocks`: Insert benign code blocks around vulnerable lines
-  - `malignant-comments`: Insert malignant comments around vulnerable lines
-  - `malignant-blocks`: Insert malignant code blocks around vulnerable lines
-- AST-based Mutations (via `mizan-mut`):
-  - `mizan-mut-for-to-while`: Converts `for` loops to `while` loops
-  - `mizan-mut-while-to-loop`: Converts `while` loops to `loop` blocks with breaks
-  - `mizan-mut-if-else-reorder`: Reorders if-else branches by negating conditions
-  - `mizan-mut-derive-reorder`: Randomly reorders traits in derive attributes
-  - `mizan-mut-trait-bound-reorder`: Randomly reorders trait bounds in where clauses
-  - `mizan-mut-use-reorder`: Randomly reorders items in use statements
-  - `mizan-mut-arithmetic-identity`: Wraps integer literals with multiplication identity (N * 1)
-  - `mizan-mut-all`: Applies all mizan-mut mutations at once
-- Rename Mutations (via `mizan-mut rename`):
-  - `benign-rename-fn`: Renames functions to neutral names (e.g., `fn_1_abc123`)
-  - `benign-rename-var`: Renames variables to neutral names (e.g., `var_1_xyz789`)
-  - `malignant-rename-fn`: Renames functions to names suggesting safety (e.g., `safe_fn_1`, `verified_fn_2`)
-  - `malignant-rename-var`: Renames variables to names suggesting safety (e.g., `secure_var_1`, `checked_var_2`)
+All mutations are **semantically preserving**. They change code syntax without altering program behavior.
 
-> Note: The AST-based and rename mutations require [`mizan-mut`](../mizan-mut/) to be installed and available in your PATH
+##### Contamination
+
+These mutations target token-level memorization to detect training data leakage. They transform surface-level syntax so that memorized snippets no longer match, while preserving the underlying vulnerability.
+
+| Mutation                    | Description                                               |
+| --------------------------- | --------------------------------------------------------- |
+| `remove-comments`           | Remove all Rust comments                                  |
+| `format-compact`            | Apply compact `rustfmt` formatting                        |
+| `format-expanded`           | Apply expanded `rustfmt` formatting (vertical whitespace) |
+| `mizan-mut-for-to-while`    | Convert `for` loops to `while` loops                      |
+| `mizan-mut-while-to-loop`   | Convert `while` loops to `loop` blocks with breaks        |
+| `mizan-mut-if-else-reorder` | Reorder if-else branches by negating conditions           |
+| `benign-comments`           | Insert neutral comments around vulnerable lines           |
+| `benign-blocks`             | Insert neutral code blocks around vulnerable lines        |
+| `benign-rename-fn`          | Rename functions to neutral names (e.g., `fn_1_abc123`)   |
+| `benign-rename-var`         | Rename variables to neutral names (e.g., `var_1_xyz789`)  |
+
+##### Robustness
+
+These mutations inject adversarial patterns into the code to test whether an agent can resist misleading cues and still identify the vulnerability.
+
+| Mutation               | Description                                                        |
+| ---------------------- | ------------------------------------------------------------------ |
+| `malignant-comments`   | Insert comments falsely suggesting code is safe                    |
+| `malignant-blocks`     | Insert code blocks falsely suggesting safety                       |
+| `malignant-rename-fn`  | Rename functions to names suggesting safety (e.g., `safe_fn_1`)    |
+| `malignant-rename-var` | Rename variables to names suggesting safety (e.g., `secure_var_1`) |
+
+##### Rust-Specific
+
+Structural transformations that leverage Rust-specific syntax features.
+
+| Mutation                        | Description                                            |
+| ------------------------------- | ------------------------------------------------------ |
+| `mizan-mut-derive-reorder`      | Randomly reorder traits in `#[derive(...)]` attributes |
+| `mizan-mut-trait-bound-reorder` | Randomly reorder trait bounds in where clauses         |
+| `mizan-mut-use-reorder`         | Randomly reorder items in `use` statements             |
+| `mizan-mut-arithmetic-identity` | Wrap integer literals with identity (e.g., `N * 1`)    |
+
+> **Note:** Mutations prefixed with `mizan-mut-` and all rename mutations use [`mizan-mut`](../mizan-mut/), which must be installed and available in your PATH.
 
 #### Mutation Order Considerations
 
