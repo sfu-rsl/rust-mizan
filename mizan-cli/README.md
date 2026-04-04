@@ -135,12 +135,23 @@ These mutations inject adversarial patterns into the code to test whether an age
 
 Structural transformations that leverage Rust-specific syntax features.
 
-| Mutation                        | Description                                            |
-| ------------------------------- | ------------------------------------------------------ |
-| `mizan-mut-derive-reorder`      | Randomly reorder traits in `#[derive(...)]` attributes |
-| `mizan-mut-trait-bound-reorder` | Randomly reorder trait bounds in where clauses         |
-| `mizan-mut-use-reorder`         | Randomly reorder items in `use` statements             |
-| `mizan-mut-arithmetic-identity` | Wrap integer literals with identity (e.g., `N * 1`)    |
+| Mutation                                  | Description                                                                     |
+| ----------------------------------------- | ------------------------------------------------------------------------------- |
+| `mizan-mut-derive-reorder`                | Randomly reorder traits in `#[derive(...)]` attributes                          |
+| `mizan-mut-trait-bound-reorder`           | Randomly reorder trait bounds in where clauses                                  |
+| `mizan-mut-use-reorder`                   | Randomly reorder items in `use` statements                                      |
+| `mizan-mut-arithmetic-identity`           | Wrap integer literals with identity (e.g., `N * 1`)                             |
+| `mizan-mut-explicit-where`                | Adds explicit where to function signature                                       |
+| `mizan-mut-explicit-where-to-type-params` | Move Simple type bounds from explicit where to type params                      |
+| `mizan-mut-extraneous-unsafe`             | Adds extraneous `unsafe {...}` blocks around statements inside functions        |
+| `mizan-mut-impl-trait-to-generic`         | Converts impl form Trait bounds into generic parameters                         |
+| `mizan-mut-option-wrap`                   | Wraps expressions in redundant `Some(...).unwrap()` calls                       |
+| `mizan-mut-maybeuninit-wrap`              | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
+| `mizan-mut-manuallydrop-wrap`             | Places owned variables into `ManuallyDrop` structs, and later unwraps them      |
+| `mizan-mut-explicit-return`               | Converts implicit return statements to use explicit syntax                      |
+| `mizan-mut-unreachable-panic`             | Adds an unreachable panic!() to function bodies                                 |
+| `mizan-mut-repeated-shadowing`            | Adds multiple redundant repeated shadows for let bindings within a scope        |
+| `mizan-mut-rename-lifetime`               | Rename lifetime parameter for standalone functions                              |
 
 > **Note:** Mutations prefixed with `mizan-mut-` and all rename mutations use [`mizan-mut`](../mizan-mut/), which must be installed and available in your PATH.
 
