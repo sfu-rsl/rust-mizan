@@ -50,6 +50,9 @@ mizan-mut mutate --help
 | `trait-bound-reorder`           | Randomly reorders trait bounds in where clauses                                 |
 | `use-reorder`                   | Randomly reorders items in use statements                                       |
 | `arithmetic-identity`           | Wraps integer literals with multiplication identity (N \* 1)                    |
+| `explicit-where`                | Adds explicit where to function signature                                       |
+| `explicit-where-to-type-params` | Move Simple type bounds from explicit where to type params                      |
+| `rename-lifetime`               | Rename lifetime parameter consistently                                          |
 | `impl-trait-to-generic`         | Converts impl form Trait bounds into generic parameters                         |
 | `option-wrap`                   | Wraps expressions in redundant `Some(...).unwrap()` calls                       |
 | `maybeuninit-wrap`              | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
@@ -57,24 +60,17 @@ mizan-mut mutate --help
 | `explicit-return`               | Converts implicit return statements to use explicit syntax                      |
 | `unreachable-panic`             | Adds an unreachable panic!() to function bodies                                 |
 | `repeated-shadowing`            | Adds multiple redundant repeated shadows for let bindings within a scope        |
-| `explicit-where`                | Adds explicit where to function signature                                       |
-| `explicit-where-to-type-params` | Move Simple type bounds from explicit where to type params                      |
 
 #### Limitations
 
 - `for-to-while`: Only handles simple patterns
 - `while-to-loop`: Does not transform `while let` patterns
 - `if-else-reorder`: Only transforms if statements with else branches
-  <<<<<<< HEAD
-  <<<<<<< HEAD
 - # `manuallydrop-wrap`: Immediately unwraps after initial `let` statement
 - `explicit-return`: Only applies at the function level
-  > > > > > > > # 5c502d5 (docs(mizan-mut/explicit-return): Added mutation to README)
 - `repeated-shadowing`: Only adds shadows directly after the initial binding
-  <<<<<<< HEAD
-  > > > > > > > # 9b5181a (docs(mizan-mut/repeated-shadowing): Added mutation to `README`)
 - `explicit-where`: Mutation is incompatible with `explicit-where-to-type-params`
-  > > > > > > > 7d88628 (docs(mizan-mut/explicit-where-to-type-params): Add mutation to `README`)
+- `rename-lifetime`: Only applies to standalone functions.
 
 ### Rename Subcommand
 

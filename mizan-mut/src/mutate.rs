@@ -14,9 +14,10 @@ use crate::mutations::{
     explicit_where_to_type_params::RemoveExplicitWhereMutator, for_to_while::ForToWhileMutator,
     if_else_reorder::IfElseReorderMutator, impl_trait_to_generic::ImplTraitToGenericMutator,
     manually_drop_wrap::ManuallyDropWrapMutator, maybe_uninit_wrap::MaybeUninitWrapMutator,
-    option_wrap::OptionWrapMutator, repeated_shadowing::RepeatedShadowingMutator,
-    trait_bound_reorder::TraitBoundReorderMutator, unreachable_panic::UnreachblePanicMutator,
-    use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
+    option_wrap::OptionWrapMutator, rename_lifetime::RenameLifetimeMutator,
+    repeated_shadowing::RepeatedShadowingMutator, trait_bound_reorder::TraitBoundReorderMutator,
+    unreachable_panic::UnreachblePanicMutator, use_reorder::UseReorderMutator,
+    while_to_loop::WhileToLoopMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -59,10 +60,13 @@ pub enum Mutation {
     /// Adds explicit where to function signature
     #[value(name = "explicit-where")]
     ExplicitWhere,
-
     /// Move Simple type bounds from explicit where to type params
     #[value(name = "explicit-where-to-type-params")]
     ExplicitWhereToTypeParams,
+
+    // Rename lifetime parameter for standalone functions
+    #[value(name = "rename-lifetime")]
+    RenameLifetime,
 
     /// Converts impl form Trait bounds into generic parameters
     #[value(name = "impl-trait-to-generic")]
@@ -125,6 +129,7 @@ pub fn apply_mutations(
             Mutation::ExplicitReturn,
             Mutation::UnreachablePanic,
             Mutation::RepeatedShadowing,
+            Mutation::RenameLifetime,
         ]
     } else {
         mutations.clone()
@@ -201,6 +206,7 @@ pub fn apply_mutations(
                 Mutation::ExplicitReturn => ExplicitReturnMutator::mutate(&modified_content)?,
                 Mutation::UnreachablePanic => UnreachblePanicMutator::mutate(&modified_content)?,
                 Mutation::RepeatedShadowing => RepeatedShadowingMutator::mutate(&modified_content)?,
+                Mutation::RenameLifetime => RenameLifetimeMutator::mutate(&modified_content)?,
             };
         }
 

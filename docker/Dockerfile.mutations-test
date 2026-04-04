@@ -67,6 +67,7 @@ MUTATIONS=(
     arithmetic-identity
     explicit-where
     explicit-where-to-type-params
+    rename-lifetime
     impl-trait-to-generic
     option-wrap
     maybeuninit-wrap
