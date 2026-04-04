@@ -66,6 +66,7 @@ MUTATIONS=(
     use-reorder
     arithmetic-identity
     explicit-where
+    explicit-where-to-type-params
     impl-trait-to-generic
     option-wrap
     maybeuninit-wrap
