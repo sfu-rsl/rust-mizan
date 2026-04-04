@@ -19,6 +19,7 @@ use crate::mutations::{
     option_wrap::OptionWrapMutator,
     maybe_uninit_wrap::MaybeUninitWrapMutator,
     manually_drop_wrap::ManuallyDropWrapMutator,
+    explicit_return::ExplicitReturnMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -85,6 +86,11 @@ pub enum Mutation {
     /// Places owned variables into ManuallyDrop structs, and later unwraps them
     #[value(name = "manuallydrop-wrap")]
     ManuallyDropWrap,
+
+    // Expression transformations
+    /// Converts implicit return statements to use explicit syntax at the function level
+    #[value(name = "explicit-return")]
+    ExplicitReturn,
 }
 
 /// Apply mutations to a Rust crate
@@ -114,6 +120,7 @@ pub fn apply_mutations(
             Mutation::OptionWrap,
             Mutation::MaybeUninitWrap,
             Mutation::ManuallyDropWrap,
+            Mutation::ExplicitReturn,
         ]
     } else {
         mutations.clone()
@@ -188,6 +195,7 @@ pub fn apply_mutations(
                 Mutation::OptionWrap => OptionWrapMutator::mutate(&modified_content)?,
                 Mutation::MaybeUninitWrap => MaybeUninitWrapMutator::mutate(&modified_content)?,
                 Mutation::ManuallyDropWrap => ManuallyDropWrapMutator::mutate(&modified_content)?,
+                Mutation::ExplicitReturn => ExplicitReturnMutator::mutate(&modified_content)?,
             };
         }
 
