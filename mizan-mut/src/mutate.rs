@@ -21,6 +21,7 @@ use crate::mutations::{
     manually_drop_wrap::ManuallyDropWrapMutator,
     explicit_return::ExplicitReturnMutator,
     unreachable_panic::UnreachblePanicMutator,
+    repeated_shadowing::RepeatedShadowingMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -97,6 +98,11 @@ pub enum Mutation {
     /// Adds an unreachble panic!() to function bodies using a match expression
     #[value(name = "unreachable-panic")]
     UnreachablePanic,
+
+    // Expression transformations
+    /// Adds multiple redundant repeated shadows for let bindings within a scope
+    #[value(name = "repeated-shadowing")]
+    RepeatedShadowing,
 }
 
 /// Apply mutations to a Rust crate
@@ -128,6 +134,7 @@ pub fn apply_mutations(
             Mutation::ManuallyDropWrap,
             Mutation::ExplicitReturn,
             Mutation::UnreachablePanic,
+            Mutation::RepeatedShadowing,
         ]
     } else {
         mutations.clone()
@@ -204,6 +211,7 @@ pub fn apply_mutations(
                 Mutation::ManuallyDropWrap => ManuallyDropWrapMutator::mutate(&modified_content)?,
                 Mutation::ExplicitReturn => ExplicitReturnMutator::mutate(&modified_content)?,
                 Mutation::UnreachablePanic => UnreachblePanicMutator::mutate(&modified_content)?,
+                Mutation::RepeatedShadowing => RepeatedShadowingMutator::mutate(&modified_content)?,
             };
         }
 

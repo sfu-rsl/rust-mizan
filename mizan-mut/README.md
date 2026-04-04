@@ -59,6 +59,7 @@ mizan-mut mutate --help
 | `manuallydrop-wrap`             | Places owned variables into `ManuallyDrop` structs, and later unwraps them      |
 | `explicit-return`               | Converts implicit return statements to use explicit syntax                      |
 | `unreachable-panic`             | Adds an unreachable panic!() to function bodies                                 |
+| `repeated-shadowing`            | Adds multiple redundant repeated shadows for let bindings within a scope        |
 
 #### Limitations
 
@@ -67,6 +68,7 @@ mizan-mut mutate --help
 - `if-else-reorder`: Only transforms if statements with else branches
 - `manuallydrop-wrap`: Immediately unwraps after initial `let` statement
 - `explicit-return`: Only applies at the function level
+- `repeated-shadowing`: Only adds shadows directly after the initial binding
 
 ### Rename Subcommand
 

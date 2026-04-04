@@ -74,6 +74,7 @@ MUTATIONS=(
     manuallydrop-wrap
     explicit-return
     unreachable-panic
+    repeated-shadowing
 )
 
 declare -A RESULTS
