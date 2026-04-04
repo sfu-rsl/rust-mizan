@@ -23,6 +23,17 @@ class MizanMutMutation(BaseMutation):
         "trait-bound-reorder": "Randomly reorders trait bounds in where clauses",
         "use-reorder": "Randomly reorders items in use statements",
         "arithmetic-identity": "Adds arithmetic identity operations (x + N - N)",
+        "explicit-where": "Adds explicit where to function signature",
+        "explicit-where-to-type-params": "Move Simple type bounds from explicit where to type params",
+        "extraneous-unsafe": "Adds extraneous `unsafe {...}` blocks around statements inside functions",
+        "impl-trait-to-generic": "Converts impl form Trait bounds into generic parameters",
+        "option-wrap": "Wraps expressions in redundant `Some(...).unwrap()` calls",
+        "maybeuninit-wrap": "Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them",
+        "manuallydrop-wrap": "Places owned variables into `ManuallyDrop` structs, and later unwraps them",
+        "explicit-return": "Converts implicit return statements to use explicit syntax",
+        "unreachable-panic": "Adds an unreachable panic!() to function bodies",
+        "repeated-shadowing": "Adds multiple redundant repeated shadows for let bindings within a scope",
+        "rename-lifetime": "Rename lifetime parameter for standalone functions",
     }
 
     def __init__(self, mutation_name: str, seed: int = 42):
@@ -286,6 +297,61 @@ class UseReorderMutation(MizanMutMutation):
 class ArithmeticIdentityMutation(MizanMutMutation):
     def __init__(self, seed: int = 42):
         super().__init__("arithmetic-identity", seed)
+
+
+class ExplicitWhereMutation(MizanMutMutation):
+    def __init__(self, seed: int = 42):
+        super().__init__("explicit-where", seed)
+
+
+class ExplicitWhereToTypeParamsMutation(MizanMutMutation):
+    def __init__(self, seed: int = 42):
+        super().__init__("explicit-where-to-type-params", seed)
+
+
+class ExtraneousUnsafeMutation(MizanMutMutation):
+    def __init__(self, seed: int = 42):
+        super().__init__("extraneous-unsafe", seed)
+
+
+class ImplTraitToGenericMutation(MizanMutMutation):
+    def __init__(self, seed: int = 42):
+        super().__init__("impl-trait-to-generic", seed)
+
+
+class ManuallyDropWrapMutation(MizanMutMutation):
+    def __init__(self, seed: int = 42):
+        super().__init__("manuallydrop-wrap", seed)
+
+
+class MaybeUninitWrapMutation(MizanMutMutation):
+    def __init__(self, seed: int = 42):
+        super().__init__("maybeuninit-wrap", seed)
+
+
+class OptionWrapMutation(MizanMutMutation):
+    def __init__(self, seed: int = 42):
+        super().__init__("option-wrap", seed)
+
+
+class ExplicitReturnMutation(MizanMutMutation):
+    def __init__(self, seed: int = 42):
+        super().__init__("explicit-return", seed)
+
+
+class UnreachablePanicMutation(MizanMutMutation):
+    def __init__(self, seed: int = 42):
+        super().__init__("unreachable-panic", seed)
+
+
+class RepeatedShadowingMutation(MizanMutMutation):
+    def __init__(self, seed: int = 42):
+        super().__init__("repeated-shadowing", seed)
+
+
+class RenameLifetimeMutation(MizanMutMutation):
+    def __init__(self, seed: int = 42):
+        super().__init__("rename-lifetime", seed)
 
 
 class MizanMutAllMutation(MizanMutMutation):
