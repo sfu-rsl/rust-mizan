@@ -40,24 +40,25 @@ mizan-mut mutate --help
 
 #### Available Mutations
 
-| Mutation                | Description                                                                     |
-| ----------------------- | ------------------------------------------------------------------------------- |
-| `all`                   | Applies all available mutations                                                 |
-| `for-to-while`          | Converts `for` loops to `while` loops                                           |
-| `while-to-loop`         | Converts `while` loops to `loop` blocks with breaks                             |
-| `if-else-reorder`       | Reorders if-else branches by negating conditions                                |
-| `derive-reorder`        | Randomly reorders traits in derive attributes                                   |
-| `trait-bound-reorder`   | Randomly reorders trait bounds in where clauses                                 |
-| `use-reorder`           | Randomly reorders items in use statements                                       |
-| `arithmetic-identity`   | Wraps integer literals with multiplication identity (N \* 1)                    |
-| `impl-trait-to-generic` | Converts impl form Trait bounds into generic parameters                         |
-| `option-wrap`           | Wraps expressions in redundant `Some(...).unwrap()` calls                       |
-| `maybeuninit-wrap`      | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
-| `manuallydrop-wrap`     | Places owned variables into `ManuallyDrop` structs, and later unwraps them      |
-| `explicit-return`       | Converts implicit return statements to use explicit syntax                      |
-| `unreachable-panic`     | Adds an unreachable panic!() to function bodies                                 |
-| `repeated-shadowing`    | Adds multiple redundant repeated shadows for let bindings within a scope        |
-| `explicit-where`        | Adds explicit where to function signature                                       |
+| Mutation                        | Description                                                                     |
+| ------------------------------- | ------------------------------------------------------------------------------- |
+| `all`                           | Applies all available mutations                                                 |
+| `for-to-while`                  | Converts `for` loops to `while` loops                                           |
+| `while-to-loop`                 | Converts `while` loops to `loop` blocks with breaks                             |
+| `if-else-reorder`               | Reorders if-else branches by negating conditions                                |
+| `derive-reorder`                | Randomly reorders traits in derive attributes                                   |
+| `trait-bound-reorder`           | Randomly reorders trait bounds in where clauses                                 |
+| `use-reorder`                   | Randomly reorders items in use statements                                       |
+| `arithmetic-identity`           | Wraps integer literals with multiplication identity (N \* 1)                    |
+| `impl-trait-to-generic`         | Converts impl form Trait bounds into generic parameters                         |
+| `option-wrap`                   | Wraps expressions in redundant `Some(...).unwrap()` calls                       |
+| `maybeuninit-wrap`              | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
+| `manuallydrop-wrap`             | Places owned variables into `ManuallyDrop` structs, and later unwraps them      |
+| `explicit-return`               | Converts implicit return statements to use explicit syntax                      |
+| `unreachable-panic`             | Adds an unreachable panic!() to function bodies                                 |
+| `repeated-shadowing`            | Adds multiple redundant repeated shadows for let bindings within a scope        |
+| `explicit-where`                | Adds explicit where to function signature                                       |
+| `explicit-where-to-type-params` | Move Simple type bounds from explicit where to type params                      |
 
 #### Limitations
 
@@ -70,7 +71,10 @@ mizan-mut mutate --help
 - `explicit-return`: Only applies at the function level
   > > > > > > > # 5c502d5 (docs(mizan-mut/explicit-return): Added mutation to README)
 - `repeated-shadowing`: Only adds shadows directly after the initial binding
-  > > > > > > > 9b5181a (docs(mizan-mut/repeated-shadowing): Added mutation to `README`)
+  <<<<<<< HEAD
+  > > > > > > > # 9b5181a (docs(mizan-mut/repeated-shadowing): Added mutation to `README`)
+- `explicit-where`: Mutation is incompatible with `explicit-where-to-type-params`
+  > > > > > > > 7d88628 (docs(mizan-mut/explicit-where-to-type-params): Add mutation to `README`)
 
 ### Rename Subcommand
 
