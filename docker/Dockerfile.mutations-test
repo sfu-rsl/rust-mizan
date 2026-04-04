@@ -70,6 +70,7 @@ MUTATIONS=(
     extraneous-unsafe
     impl-trait-to-generic
     option-wrap
+    maybeuninit-wrap
 )
 
 declare -A RESULTS
