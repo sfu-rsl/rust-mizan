@@ -57,6 +57,7 @@ mizan-mut mutate --help
 | `explicit-return`       | Converts implicit return statements to use explicit syntax                      |
 | `unreachable-panic`     | Adds an unreachable panic!() to function bodies                                 |
 | `repeated-shadowing`    | Adds multiple redundant repeated shadows for let bindings within a scope        |
+| `explicit-where`        | Adds explicit where to function signature                                       |
 
 #### Limitations
 
