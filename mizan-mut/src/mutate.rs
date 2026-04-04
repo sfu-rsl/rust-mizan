@@ -12,6 +12,7 @@ use crate::mutations::{
     arithmetic_identity::ArithmeticIdentityMutator, derive_reorder::DeriveReorderMutator,
     explicit_where::ExplicitWhereMutator, for_to_while::ForToWhileMutator,
     explicit_where_to_type_params::RemoveExplicitWhereMutator,
+    impl_trait_to_generic::ImplTraitToGenericMutator,
     if_else_reorder::IfElseReorderMutator, trait_bound_reorder::TraitBoundReorderMutator,
     use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
     extraneous_unsafe::ExtraneousUnsafeMutator,
@@ -65,6 +66,10 @@ pub enum Mutation {
     /// Adds extraneous `unsafe {...}` blocks around statements inside functions
     #[value(name = "extraneous-unsafe")]
     ExtraneousUnsafe,
+
+    /// Converts impl form Trait bounds into generic parameters
+    #[value(name = "impl-trait-to-generic")]
+    ImplTraitToGeneric,
 }
 
 /// Apply mutations to a Rust crate
@@ -90,6 +95,7 @@ pub fn apply_mutations(
             Mutation::ArithmeticIdentity,
             Mutation::ExplicitWhere,
             Mutation::ExtraneousUnsafe,
+            Mutation::ImplTraitToGeneric,
         ]
     } else {
         mutations.clone()
@@ -126,9 +132,9 @@ pub fn apply_mutations(
         let path = entry.path();
 
         // Check if this file should be ignored
-        let should_ignore = absolute_ignore_files.iter().any(|ignore_path| {
-            path == ignore_path || path.ends_with(ignore_path)
-        });
+        let should_ignore = absolute_ignore_files
+            .iter()
+            .any(|ignore_path| path == ignore_path || path.ends_with(ignore_path));
 
         if should_ignore {
             files_skipped += 1;
@@ -158,6 +164,9 @@ pub fn apply_mutations(
                     RemoveExplicitWhereMutator::mutate(&modified_content)?
                 }
                 Mutation::ExtraneousUnsafe => ExtraneousUnsafeMutator::mutate(&modified_content)?,
+                Mutation::ImplTraitToGeneric => {
+                    ImplTraitToGenericMutator::mutate(&modified_content)?
+                }
             };
         }
 

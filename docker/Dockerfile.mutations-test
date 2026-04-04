@@ -68,6 +68,7 @@ MUTATIONS=(
     explicit-where
     explicit-where-to-type-params
     extraneous-unsafe
+    impl-trait-to-generic
 )
 
 declare -A RESULTS
