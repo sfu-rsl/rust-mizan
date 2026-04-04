@@ -22,6 +22,7 @@ use crate::mutations::{
     explicit_return::ExplicitReturnMutator,
     unreachable_panic::UnreachblePanicMutator,
     repeated_shadowing::RepeatedShadowingMutator,
+    rename_lifetime::RenameLifetimeMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -68,6 +69,10 @@ pub enum Mutation {
     /// Move Simple type bounds from explicit where to type params
     #[value(name = "explicit-where-to-type-params")]
     ExplicitWhereToTypeParams,
+
+    /// Rename lifetime parameter for standalone functions
+    #[value(name = "rename-lifetime")]
+    RenameLifetime,
 
     /// Adds extraneous `unsafe {...}` blocks around statements inside functions
     #[value(name = "extraneous-unsafe")]
@@ -135,6 +140,7 @@ pub fn apply_mutations(
             Mutation::ExplicitReturn,
             Mutation::UnreachablePanic,
             Mutation::RepeatedShadowing,
+            Mutation::RenameLifetime,
         ]
     } else {
         mutations.clone()
@@ -212,6 +218,7 @@ pub fn apply_mutations(
                 Mutation::ExplicitReturn => ExplicitReturnMutator::mutate(&modified_content)?,
                 Mutation::UnreachablePanic => UnreachblePanicMutator::mutate(&modified_content)?,
                 Mutation::RepeatedShadowing => RepeatedShadowingMutator::mutate(&modified_content)?,
+                Mutation::RenameLifetime => RenameLifetimeMutator::mutate(&modified_content)?,
             };
         }
 

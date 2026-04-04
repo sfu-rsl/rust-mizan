@@ -60,6 +60,7 @@ mizan-mut mutate --help
 | `explicit-return`               | Converts implicit return statements to use explicit syntax                      |
 | `unreachable-panic`             | Adds an unreachable panic!() to function bodies                                 |
 | `repeated-shadowing`            | Adds multiple redundant repeated shadows for let bindings within a scope        |
+| `rename-lifetime`               | Rename lifetime parameter for standalone functions                              |
 
 #### Limitations
 
@@ -69,6 +70,7 @@ mizan-mut mutate --help
 - `manuallydrop-wrap`: Immediately unwraps after initial `let` statement
 - `explicit-return`: Only applies at the function level
 - `repeated-shadowing`: Only adds shadows directly after the initial binding
+- `rename-lifetime`: Only applies to standalone functions.
 
 ### Rename Subcommand
 
