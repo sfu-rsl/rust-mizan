@@ -71,6 +71,7 @@ MUTATIONS=(
     impl-trait-to-generic
     option-wrap
     maybeuninit-wrap
+    manuallydrop-wrap
 )
 
 declare -A RESULTS
