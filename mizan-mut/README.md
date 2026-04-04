@@ -54,6 +54,7 @@ mizan-mut mutate --help
 | `explicit-where-to-type-params` | Move Simple type bounds from explicit where to type params               |
 | `extraneous-unsafe`             | Adds extraneous `unsafe {...}` blocks around statements inside functions |
 | `impl-trait-to-generic`         | Converts impl form Trait bounds into generic parameters                  |
+| `option-wrap`                   | Wraps expressions in redundant `Some(...).unwrap()` calls                |
 
 #### Limitations
 

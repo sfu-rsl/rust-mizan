@@ -9,3 +9,4 @@ pub mod use_reorder;
 pub mod while_to_loop;
 pub mod extraneous_unsafe;
 pub mod impl_trait_to_generic;
+pub mod option_wrap;
