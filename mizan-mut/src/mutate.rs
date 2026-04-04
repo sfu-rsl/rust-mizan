@@ -11,6 +11,7 @@ use walkdir::WalkDir;
 use crate::mutations::{
     arithmetic_identity::ArithmeticIdentityMutator, derive_reorder::DeriveReorderMutator,
     explicit_where::ExplicitWhereMutator, for_to_while::ForToWhileMutator,
+    explicit_where_to_type_params::RemoveExplicitWhereMutator,
     if_else_reorder::IfElseReorderMutator, trait_bound_reorder::TraitBoundReorderMutator,
     use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
 };
@@ -55,6 +56,10 @@ pub enum Mutation {
     /// Adds explicit where to function signature
     #[value(name = "explicit-where")]
     ExplicitWhere,
+
+    /// Move Simple type bounds from explicit where to type params
+    #[value(name = "explicit-where-to-type-params")]
+    ExplicitWhereToTypeParams,
 }
 
 /// Apply mutations to a Rust crate
@@ -143,6 +148,9 @@ pub fn apply_mutations(
                 Mutation::WhileToLoop => WhileToLoopMutator::mutate(&modified_content)?,
                 Mutation::IfElseReorder => IfElseReorderMutator::mutate(&modified_content)?,
                 Mutation::ExplicitWhere => ExplicitWhereMutator::mutate(&modified_content)?,
+                Mutation::ExplicitWhereToTypeParams => {
+                    RemoveExplicitWhereMutator::mutate(&modified_content)?
+                }
             };
         }
 

@@ -66,6 +66,7 @@ MUTATIONS=(
     use-reorder
     arithmetic-identity
     explicit-where
+    explicit-where-to-type-params
 )
 
 declare -A RESULTS

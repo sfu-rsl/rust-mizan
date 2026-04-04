@@ -40,17 +40,18 @@ mizan-mut mutate --help
 
 #### Available Mutations
 
-| Mutation              | Description                                                 |
-| --------------------- | ----------------------------------------------------------- |
-| `all`                 | Applies all available mutations                             |
-| `for-to-while`        | Converts `for` loops to `while` loops                       |
-| `while-to-loop`       | Converts `while` loops to `loop` blocks with breaks         |
-| `if-else-reorder`     | Reorders if-else branches by negating conditions            |
-| `derive-reorder`      | Randomly reorders traits in derive attributes               |
-| `trait-bound-reorder` | Randomly reorders trait bounds in where clauses             |
-| `use-reorder`         | Randomly reorders items in use statements                   |
-| `arithmetic-identity` | Wraps integer literals with multiplication identity (N * 1) |
-| `explicit-where`      | Adds explicit where to function signature                   |
+| Mutation                        | Description                                                 |
+| ------------------------------- | ----------------------------------------------------------- |
+| `all`                           | Applies all available mutations                             |
+| `for-to-while`                  | Converts `for` loops to `while` loops                       |
+| `while-to-loop`                 | Converts `while` loops to `loop` blocks with breaks         |
+| `if-else-reorder`               | Reorders if-else branches by negating conditions            |
+| `derive-reorder`                | Randomly reorders traits in derive attributes               |
+| `trait-bound-reorder`           | Randomly reorders trait bounds in where clauses             |
+| `use-reorder`                   | Randomly reorders items in use statements                   |
+| `arithmetic-identity`           | Wraps integer literals with multiplication identity (N * 1) |
+| `explicit-where`                | Adds explicit where to function signature                   |
+| `explicit-where-to-type-params` | Move Simple type bounds from explicit where to type params  |
 
 #### Limitations
 
