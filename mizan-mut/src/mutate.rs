@@ -20,6 +20,7 @@ use crate::mutations::{
     maybe_uninit_wrap::MaybeUninitWrapMutator,
     manually_drop_wrap::ManuallyDropWrapMutator,
     explicit_return::ExplicitReturnMutator,
+    unreachable_panic::UnreachblePanicMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -91,6 +92,11 @@ pub enum Mutation {
     /// Converts implicit return statements to use explicit syntax at the function level
     #[value(name = "explicit-return")]
     ExplicitReturn,
+
+    // Control flow transformations
+    /// Adds an unreachble panic!() to function bodies using a match expression
+    #[value(name = "unreachable-panic")]
+    UnreachablePanic,
 }
 
 /// Apply mutations to a Rust crate
@@ -121,6 +127,7 @@ pub fn apply_mutations(
             Mutation::MaybeUninitWrap,
             Mutation::ManuallyDropWrap,
             Mutation::ExplicitReturn,
+            Mutation::UnreachablePanic,
         ]
     } else {
         mutations.clone()
@@ -196,6 +203,7 @@ pub fn apply_mutations(
                 Mutation::MaybeUninitWrap => MaybeUninitWrapMutator::mutate(&modified_content)?,
                 Mutation::ManuallyDropWrap => ManuallyDropWrapMutator::mutate(&modified_content)?,
                 Mutation::ExplicitReturn => ExplicitReturnMutator::mutate(&modified_content)?,
+                Mutation::UnreachablePanic => UnreachblePanicMutator::mutate(&modified_content)?,
             };
         }
 
