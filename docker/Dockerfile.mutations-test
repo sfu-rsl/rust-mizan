@@ -67,6 +67,7 @@ MUTATIONS=(
     arithmetic-identity
     explicit-where
     explicit-where-to-type-params
+    extraneous-unsafe
 )
 
 declare -A RESULTS
