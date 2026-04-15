@@ -69,8 +69,8 @@ cd /app
 NEUTRAL_MUTATIONS=(
     "remove-comments"
     "format-compact"
-    "mizan-mut-for-to-while"
     "mizan-mut-while-to-loop"
+    "mizan-mut-for-to-while"
     "mizan-mut-if-else-reorder"
     "mizan-mut-derive-reorder"
     "mizan-mut-trait-bound-reorder"
@@ -87,7 +87,7 @@ BENIGN_MUTATIONS=(
 )
 
 MALIGNANT_MUTATIONS=(
-    "${NEUTRAL_MUTATIONS[@]}"
+    "remove-comments"
     "malignant-comments"
     "malignant-blocks"
     "malignant-rename-fn"
@@ -95,6 +95,11 @@ MALIGNANT_MUTATIONS=(
 )
 
 RUST_SPECIFIC_MUTATIONS=(
+    "remove-comments"
+    "mizan-mut-derive-reorder"
+    "mizan-mut-trait-bound-reorder"
+    "mizan-mut-use-reorder"
+    "mizan-mut-arithmetic-identity"
     "mizan-mut-explicit-where"
     "mizan-mut-rename-lifetime"
     "mizan-mut-extraneous-unsafe"
