@@ -66,20 +66,12 @@ set -e
 
 cd /app
 
-NEUTRAL_MUTATIONS=(
+BENIGN_MUTATIONS=(
     "remove-comments"
     "format-compact"
     "mizan-mut-while-to-loop"
     "mizan-mut-for-to-while"
     "mizan-mut-if-else-reorder"
-    "mizan-mut-derive-reorder"
-    "mizan-mut-trait-bound-reorder"
-    "mizan-mut-use-reorder"
-    "mizan-mut-arithmetic-identity"
-)
-
-BENIGN_MUTATIONS=(
-    "${NEUTRAL_MUTATIONS[@]}"
     "benign-comments"
     "benign-blocks"
     "benign-rename-fn"
@@ -136,7 +128,6 @@ generate_dataset() {
 }
 
 generate_dataset "vanilla"
-generate_dataset "neutral" "${NEUTRAL_MUTATIONS[@]}"
 generate_dataset "benign" "${BENIGN_MUTATIONS[@]}"
 generate_dataset "malignant" "${MALIGNANT_MUTATIONS[@]}"
 generate_dataset "rust-specific" "${RUST_SPECIFIC_MUTATIONS[@]}"
