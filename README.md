@@ -34,7 +34,8 @@ mizan mutate -m remove-comments
 mizan evaluate prepare-dataset --tag comments_removed -o mizan_comments_removed.parquet
 
 # Run evaluation (edit mizan-cli/run_eval.py with dataset path and config). I personally found that configuration using the python script is more flexible than using CLI flags. Also you can directly replace the agent configuration in the script with your custom agent implementation if you want to experiment with different prompting strategies or agent architectures.
-python mizan-cli/run_eval.py
+# Must be run with the Poetry-managed Python so model-provider SDKs resolve correctly.
+cd mizan-cli && poetry run python run_eval.py
 
 # View results
 inspect view

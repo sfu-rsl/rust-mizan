@@ -15,6 +15,13 @@ poetry run mizan checkout --help
 export PATH="$(poetry env info --path)/bin:$PATH"
 ```
 
+`poetry install` resolves every runtime dependency from `pyproject.toml` —
+including the model-provider SDKs (`openai`, `anthropic`, `google-genai`) that
+`inspect-ai` leaves optional. Always invoke Python through Poetry (e.g.
+`poetry run python …`) or with the Poetry env on `PATH`; using a system
+Python will pick up the wrong versions and fail with
+`PrerequisiteError: … requires at least version X of package Y`.
+
 ## Prerequisites
 
 All commands must be run from a directory containing `mizan.json`. This is the root directory of the dataset.
@@ -251,7 +258,12 @@ Use the [`run_eval.py`](run_eval.py) script to run evaluations with full control
 ```bash
 cd mizan-cli
 # Edit run_eval.py to configure different evaluation parameters including agent, models, dataset path, max turns, etc.
-python run_eval.py
+poetry run python run_eval.py
 ```
+
+> Must be run with the Poetry-managed Python (`poetry run python …`) so the pinned
+> provider versions from `pyproject.toml` are used. A bare `python run_eval.py`
+> will resolve against whatever is on your system `$PATH` and typically fails
+> with an outdated `openai`/`anthropic`/`google-genai`.
 
 See [Inspect AI documentation](https://inspect.aisi.org.uk) to learn more about supported models and evaluation options.

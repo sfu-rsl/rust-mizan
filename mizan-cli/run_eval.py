@@ -16,14 +16,11 @@ TIME_LIMIT = 3600       # Time limit for each task run in seconds
 LIMIT = None            # Set to an integer to limit the number of samples evaluated
 SAMPLE_IDS = None       # Set to a list of sample IDs to evaluate specific samples, e.g., ["sample-001", "sample-002"]
 
-MAX_SANDBOXES = 4       # hard cap on concurrent Docker containers (primary memory lever)
-MAX_SAMPLES = 4         # parallel samples per task; capped in practice by MAX_SANDBOXES
-MAX_TASKS = 2           # parallel tasks; keeps in-flight model/log state bounded
 DATASET_PATHS = [
-    "/Users/tareknasser/Documents/workspace/sfu/mizan/rust-mizan/publication_artifacts/datasets/mizan-vanilla.parquet",
-    # "/Users/tareknasser/Documents/workspace/sfu/mizan/rust-mizan/publication_artifacts/datasets/mizan-benign.parquet",
-    # "/Users/tareknasser/Documents/workspace/sfu/mizan/rust-mizan/publication_artifacts/datasets/mizan-malignant.parquet",
-    # "/Users/tareknasser/Documents/workspace/sfu/mizan/rust-mizan/publication_artifacts/datasets/mizan-rust-specific.parquet",
+    "/home/tarek/Documents/workspace/rust-mizan/datasets/mizan-vanilla.parquet",
+    # "/home/tarek/Documents/workspace/rust-mizan/datasets/mizan-benign.parquet",
+    # "/home/tarek/Documents/workspace/rust-mizan/datasets/mizan-malignant.parquet",
+    # "/home/tarek/Documents/workspace/rust-mizan/datasets/mizan-rust-specific.parquet",
 ]
 
 if __name__ == "__main__":
@@ -39,9 +36,10 @@ if __name__ == "__main__":
         fail_on_error=False,
         message_limit=MESSAGE_LIMIT,
         time_limit=TIME_LIMIT,
-        max_sandboxes=MAX_SANDBOXES,
-        max_samples=MAX_SAMPLES,
-        max_tasks=MAX_TASKS,
+        # Keeps concurrent compose networks under Docker Desktop's default
+        # pool (~15 /16 slots). Also serves as the primary memory lever —
+        # raise/lower to trade throughput for RAM.
+        max_sandboxes=10,
         # only affects Gemini 3 Pro
         # See https://inspect.aisi.org.uk/reasoning.html#google-gemini
         reasoning_effort="low",
