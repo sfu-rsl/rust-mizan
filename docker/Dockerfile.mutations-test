@@ -65,6 +65,17 @@ MUTATIONS=(
     trait-bound-reorder
     use-reorder
     arithmetic-identity
+    explicit-where
+    explicit-where-to-type-params
+    rename-lifetime
+    extraneous-unsafe
+    impl-trait-to-generic
+    option-wrap
+    maybeuninit-wrap
+    manuallydrop-wrap
+    explicit-return
+    unreachable-panic
+    repeated-shadowing
 )
 
 declare -A RESULTS

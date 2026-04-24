@@ -15,6 +15,13 @@ poetry run mizan checkout --help
 export PATH="$(poetry env info --path)/bin:$PATH"
 ```
 
+`poetry install` resolves every runtime dependency from `pyproject.toml` —
+including the model-provider SDKs (`openai`, `anthropic`, `google-genai`) that
+`inspect-ai` leaves optional. Always invoke Python through Poetry (e.g.
+`poetry run python …`) or with the Poetry env on `PATH`; using a system
+Python will pick up the wrong versions and fail with
+`PrerequisiteError: … requires at least version X of package Y`.
+
 ## Prerequisites
 
 All commands must be run from a directory containing `mizan.json`. This is the root directory of the dataset.
@@ -135,12 +142,23 @@ These mutations inject adversarial patterns into the code to test whether an age
 
 Structural transformations that leverage Rust-specific syntax features.
 
-| Mutation                        | Description                                            |
-| ------------------------------- | ------------------------------------------------------ |
-| `mizan-mut-derive-reorder`      | Randomly reorder traits in `#[derive(...)]` attributes |
-| `mizan-mut-trait-bound-reorder` | Randomly reorder trait bounds in where clauses         |
-| `mizan-mut-use-reorder`         | Randomly reorder items in `use` statements             |
-| `mizan-mut-arithmetic-identity` | Wrap integer literals with identity (e.g., `N * 1`)    |
+| Mutation                                  | Description                                                                     |
+| ----------------------------------------- | ------------------------------------------------------------------------------- |
+| `mizan-mut-derive-reorder`                | Randomly reorder traits in `#[derive(...)]` attributes                          |
+| `mizan-mut-trait-bound-reorder`           | Randomly reorder trait bounds in where clauses                                  |
+| `mizan-mut-use-reorder`                   | Randomly reorder items in `use` statements                                      |
+| `mizan-mut-arithmetic-identity`           | Wrap integer literals with identity (e.g., `N * 1`)                             |
+| `mizan-mut-explicit-where`                | Adds explicit where to function signature                                       |
+| `mizan-mut-explicit-where-to-type-params` | Move Simple type bounds from explicit where to type params                      |
+| `mizan-mut-extraneous-unsafe`             | Adds extraneous `unsafe {...}` blocks around statements inside functions        |
+| `mizan-mut-impl-trait-to-generic`         | Converts impl form Trait bounds into generic parameters                         |
+| `mizan-mut-option-wrap`                   | Wraps expressions in redundant `Some(...).unwrap()` calls                       |
+| `mizan-mut-maybeuninit-wrap`              | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
+| `mizan-mut-manuallydrop-wrap`             | Places owned variables into `ManuallyDrop` structs, and later unwraps them      |
+| `mizan-mut-explicit-return`               | Converts implicit return statements to use explicit syntax                      |
+| `mizan-mut-unreachable-panic`             | Adds an unreachable panic!() to function bodies                                 |
+| `mizan-mut-repeated-shadowing`            | Adds multiple redundant repeated shadows for let bindings within a scope        |
+| `mizan-mut-rename-lifetime`               | Rename lifetime parameter for standalone functions                              |
 
 > **Note:** Mutations prefixed with `mizan-mut-` and all rename mutations use [`mizan-mut`](../mizan-mut/), which must be installed and available in your PATH.
 
@@ -240,7 +258,12 @@ Use the [`run_eval.py`](run_eval.py) script to run evaluations with full control
 ```bash
 cd mizan-cli
 # Edit run_eval.py to configure different evaluation parameters including agent, models, dataset path, max turns, etc.
-python run_eval.py
+poetry run python run_eval.py
 ```
+
+> Must be run with the Poetry-managed Python (`poetry run python …`) so the pinned
+> provider versions from `pyproject.toml` are used. A bare `python run_eval.py`
+> will resolve against whatever is on your system `$PATH` and typically fails
+> with an outdated `openai`/`anthropic`/`google-genai`.
 
 See [Inspect AI documentation](https://inspect.aisi.org.uk) to learn more about supported models and evaluation options.

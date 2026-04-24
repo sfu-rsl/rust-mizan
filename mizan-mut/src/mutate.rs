@@ -10,9 +10,19 @@ use walkdir::WalkDir;
 
 use crate::mutations::{
     arithmetic_identity::ArithmeticIdentityMutator, derive_reorder::DeriveReorderMutator,
-    for_to_while::ForToWhileMutator, if_else_reorder::IfElseReorderMutator,
-    trait_bound_reorder::TraitBoundReorderMutator, use_reorder::UseReorderMutator,
-    while_to_loop::WhileToLoopMutator,
+    explicit_where::ExplicitWhereMutator, for_to_while::ForToWhileMutator,
+    explicit_where_to_type_params::RemoveExplicitWhereMutator,
+    impl_trait_to_generic::ImplTraitToGenericMutator,
+    if_else_reorder::IfElseReorderMutator, trait_bound_reorder::TraitBoundReorderMutator,
+    use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
+    extraneous_unsafe::ExtraneousUnsafeMutator,
+    option_wrap::OptionWrapMutator,
+    maybe_uninit_wrap::MaybeUninitWrapMutator,
+    manually_drop_wrap::ManuallyDropWrapMutator,
+    explicit_return::ExplicitReturnMutator,
+    unreachable_panic::UnreachblePanicMutator,
+    repeated_shadowing::RepeatedShadowingMutator,
+    rename_lifetime::RenameLifetimeMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -50,10 +60,62 @@ pub enum Mutation {
     /// Adds arithmetic identity operations (x + N - N)
     #[value(name = "arithmetic-identity")]
     ArithmeticIdentity,
+
+    // Toggle explicit where
+    /// Adds explicit where to function signature
+    #[value(name = "explicit-where")]
+    ExplicitWhere,
+
+    /// Move Simple type bounds from explicit where to type params
+    #[value(name = "explicit-where-to-type-params")]
+    ExplicitWhereToTypeParams,
+
+    /// Rename lifetime parameter for standalone functions
+    #[value(name = "rename-lifetime")]
+    RenameLifetime,
+
+    /// Adds extraneous `unsafe {...}` blocks around statements inside functions
+    #[value(name = "extraneous-unsafe")]
+    ExtraneousUnsafe,
+
+    /// Converts impl form Trait bounds into generic parameters
+    #[value(name = "impl-trait-to-generic")]
+    ImplTraitToGeneric,
+
+    /// Wraps expressions in redundant Some(..).unwrap() calls.
+    #[value(name = "option-wrap")]
+    OptionWrap,
+
+    /// Wraps known safe values into a MaybeUninit<T>, automatically dererencing them
+    #[value(name = "maybeuninit-wrap")]
+    MaybeUninitWrap,
+
+    /// Places owned variables into ManuallyDrop structs, and later unwraps them
+    #[value(name = "manuallydrop-wrap")]
+    ManuallyDropWrap,
+
+    // Expression transformations
+    /// Converts implicit return statements to use explicit syntax at the function level
+    #[value(name = "explicit-return")]
+    ExplicitReturn,
+
+    // Control flow transformations
+    /// Adds an unreachble panic!() to function bodies using a match expression
+    #[value(name = "unreachable-panic")]
+    UnreachablePanic,
+
+    // Expression transformations
+    /// Adds multiple redundant repeated shadows for let bindings within a scope
+    #[value(name = "repeated-shadowing")]
+    RepeatedShadowing,
 }
 
 /// Apply mutations to a Rust crate
-pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[PathBuf]) -> Result<()> {
+pub fn apply_mutations(
+    root: &Path,
+    mutations: Vec<Mutation>,
+    ignore_files: &[PathBuf],
+) -> Result<()> {
     if mutations.is_empty() {
         eprintln!("Error: No mutations specified. Use -m <mutation-type>");
         std::process::exit(1);
@@ -69,6 +131,16 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[Pa
             Mutation::TraitBoundReorder,
             Mutation::UseReorder,
             Mutation::ArithmeticIdentity,
+            Mutation::ExplicitWhere,
+            Mutation::ExtraneousUnsafe,
+            Mutation::ImplTraitToGeneric,
+            Mutation::OptionWrap,
+            Mutation::MaybeUninitWrap,
+            Mutation::ManuallyDropWrap,
+            Mutation::ExplicitReturn,
+            Mutation::UnreachablePanic,
+            Mutation::RepeatedShadowing,
+            Mutation::RenameLifetime,
         ]
     } else {
         mutations.clone()
@@ -103,17 +175,17 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[Pa
         .filter(|e| !e.path().to_str().unwrap_or("").contains("target"))
     {
         let path = entry.path();
-        
+
         // Check if this file should be ignored
         let should_ignore = absolute_ignore_files.iter().any(|ignore_path| {
             path == ignore_path || path.ends_with(ignore_path)
         });
-        
+
         if should_ignore {
             files_skipped += 1;
             continue;
         }
-        
+
         total_files += 1;
 
         let content = fs::read_to_string(path)?;
@@ -132,6 +204,21 @@ pub fn apply_mutations(root: &Path, mutations: Vec<Mutation>, ignore_files: &[Pa
                 Mutation::UseReorder => UseReorderMutator::mutate(&modified_content)?,
                 Mutation::WhileToLoop => WhileToLoopMutator::mutate(&modified_content)?,
                 Mutation::IfElseReorder => IfElseReorderMutator::mutate(&modified_content)?,
+                Mutation::ExplicitWhere => ExplicitWhereMutator::mutate(&modified_content)?,
+                Mutation::ExplicitWhereToTypeParams => {
+                    RemoveExplicitWhereMutator::mutate(&modified_content)?
+                }
+                Mutation::ExtraneousUnsafe => ExtraneousUnsafeMutator::mutate(&modified_content)?,
+                Mutation::ImplTraitToGeneric => {
+                    ImplTraitToGenericMutator::mutate(&modified_content)?
+                }
+                Mutation::OptionWrap => OptionWrapMutator::mutate(&modified_content)?,
+                Mutation::MaybeUninitWrap => MaybeUninitWrapMutator::mutate(&modified_content)?,
+                Mutation::ManuallyDropWrap => ManuallyDropWrapMutator::mutate(&modified_content)?,
+                Mutation::ExplicitReturn => ExplicitReturnMutator::mutate(&modified_content)?,
+                Mutation::UnreachablePanic => UnreachblePanicMutator::mutate(&modified_content)?,
+                Mutation::RepeatedShadowing => RepeatedShadowingMutator::mutate(&modified_content)?,
+                Mutation::RenameLifetime => RenameLifetimeMutator::mutate(&modified_content)?,
             };
         }
 
