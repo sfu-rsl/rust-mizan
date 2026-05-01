@@ -1,5 +1,8 @@
 # RustMizan
 
+> **Reviewers / artifact evaluators:** see [ARTIFACT_EVALUATION.md](ARTIFACT_EVALUATION.md) for the step-by-step reproduction guide for the paper's results.
+
+
 **RustMizan** (_Mizan_ - Arabic for "scale" or "balance") is an extensible benchmarking framework for evaluating both traditional and LLM-based vulnerability analysis techniques in Rust. It provides a curated dataset of real-world vulnerabilities and supporting infrastructure to enable systematic vulnerability detection research.
 
 ## Key Features
