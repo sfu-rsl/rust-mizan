@@ -87,7 +87,25 @@ This image:
 
 Then re-run `run_eval.py` with all four entries in `DATASET_PATHS` uncommented.
 
-## 3. Verify the mutation framework
+## 3. Verify metric computation
+
+The metric implementation that produces the paper's RQ1 – RQ4 numbers (precision, recall, F1, with edge-case handling) lives at:
+
+```
+mizan-cli/src/mizan_cli/metrics/
+├── metrics.py       # standalone math: precision, recall, F1, set-based scoring
+└── data_utils.py    # loaders for processed eval data
+```
+
+Reviewers can read `metrics.py` directly to verify the scoring matches what the paper describes. The companion `inspect_ai` per-sample scorer (which judges each agent run during eval) is at `mizan-cli/src/mizan_cli/inspect_benchmark/scorer.py`. Together these two are the full scoring pipeline:
+
+```
+.eval files (per-sample agent traces)
+    └─ inspect_benchmark/scorer.py     →  per-sample TP / FP / FN
+        └─ metrics/metrics.py          →  per-model / per-variant aggregates (paper tables)
+```
+
+## 4. Verify the mutation framework
 
 ### Read the source
 
@@ -104,7 +122,7 @@ poetry run mizan mutate -m benign-rename-fn
 
 The output shows the diff before / after the mutation and the per-variant log of which operators applied successfully.
 
-## 4. Verify the program-analysis demos
+## 5. Verify the program-analysis demos
 
 See `program_analysis_tools/README.md` for Kani / RAPx run instructions.
 
