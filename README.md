@@ -84,3 +84,7 @@ _Curated vulnerable crates (from RustSec, CVE records, and other sources) are ma
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on adding new vulnerabilities to the dataset.
+
+## License
+
+Licensed under the Apache License, Version 2.0. See [LICENSE](./LICENSE).

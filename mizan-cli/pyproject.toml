@@ -3,6 +3,7 @@ name = "mizan-cli"
 version = "0.1.0"
 description = "CLI tool for interacting with RustMizan dataset"
 authors = ["Tarek Elsayed"]
+license = "Apache-2.0"
 readme = "README.md"
 packages = [{ include = "mizan_cli", from = "src" }]
 
