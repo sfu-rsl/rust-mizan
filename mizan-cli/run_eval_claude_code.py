@@ -10,7 +10,8 @@ from mizan_cli.inspect_benchmark import rustmizan
 MESSAGE_LIMIT = 60
 LIMIT = None
 SAMPLE_IDS = None
-DATASET_PATH = "/Users/tareknasser/Documents/workspace/sfu/mizan/rust-mizan/logs/ten_vulnerable_functions.parquet"
+# Point this at the parquet produced by `mizan evaluate prepare-dataset`
+DATASET_PATH = "dataset.parquet"
 
 # Model for Claude Code to use
 MODEL = "anthropic/claude-sonnet-4-5"

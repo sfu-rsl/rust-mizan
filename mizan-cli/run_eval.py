@@ -16,7 +16,8 @@ MESSAGE_LIMIT = 100  # Limit the number of messages the agent can send during ev
 TIME_LIMIT = 3600  # Time limit for each task run in seconds
 LIMIT = None  # Set to an integer to limit the number of samples evaluated
 SAMPLE_IDS = None  # Set to a list of sample IDs to evaluate specific samples, e.g., ["sample-001", "sample-002"]
-DATASET_PATH = "/Users/tareknasser/Documents/workspace/sfu/mizan/rust-mizan/evaluation/datasets/vanilla.parquet"
+# Point this at the parquet produced by `mizan evaluate prepare-dataset`
+DATASET_PATH = "dataset.parquet"
 
 if __name__ == "__main__":
     dataset_path = Path(DATASET_PATH)

@@ -12,6 +12,10 @@
 
 - **Extensible**: The framework provides infrastructure for researchers to easily add new vulnerabilities and design custom mutations
 
+![Multi-level compilable variants](./docs/images/multi_level_variants.png)
+
+_Each CVE is packaged as three standalone compilable crates of decreasing scope: the full crate, a single-file reduction, and a single-function reduction. The vulnerable file is tracked across all three levels._
+
 ## Getting Started
 
 To build all code variants, run:
@@ -33,7 +37,9 @@ mizan mutate -m remove-comments
 # Prepare dataset for evaluation
 mizan evaluate prepare-dataset --tag comments_removed -o mizan_comments_removed.parquet
 
-# Run evaluation (edit mizan-cli/run_eval.py with dataset path and config). I personally found that configuration using the python script is more flexible than using CLI flags. Also you can directly replace the agent configuration in the script with your custom agent implementation if you want to experiment with different prompting strategies or agent architectures.
+# Run evaluation (edit mizan-cli/run_eval.py with the dataset path and config).
+# The script is more flexible than CLI flags. You can swap in a custom agent to
+# experiment with different prompting strategies or agent architectures.
 python mizan-cli/run_eval.py
 
 # View results
