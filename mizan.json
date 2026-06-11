@@ -3188,6 +3188,459 @@
           "deps": []
         }
       ]
+    },
+    {
+      "id": "vuln-0043",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2020-36513",
+      "source_link2": "https://www.cve.org/CVERecord?id=CVE-2020-36514",
+      "crate_name": "acc_reader",
+      "year": 2021,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0043/sample-00043-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-908"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "read_up_to(&mut self, n: u64) -> io::Result<()> ",
+              "fn fill_buf(&mut self) -> io::Result<&[u8]>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              149,
+              209
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0043/sample-00043-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-908"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "read_up_to(&mut self, n: u64) -> io::Result<()> ",
+              "fn fill_buf(&mut self) -> io::Result<&[u8]>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              210,
+              270
+            ]
+          },
+          "deps": []
+        }
+      ]
+    },
+    {
+      "id": "vuln-0044",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2020-35885",
+      "crate_name": "alpm-rs",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0044/sample-00044-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-415"
+          ],
+          "vulnerable_functions": {
+            "src/macros.rs": [
+              "fn drop(&mut self)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/macros.rs": [
+              35
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0044/sample-00044-file",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-415"
+          ],
+          "vulnerable_functions": {
+            "src/macros.rs": [
+              "fn drop(&mut self)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/macros.rs": [
+              35
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0044/sample-00044-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-415"
+          ],
+          "vulnerable_functions": {
+            "src/macros.rs": [
+              "fn drop(&mut self)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/macros.rs": [
+              35
+            ]
+          },
+          "deps": []
+        }
+      ]
+    },
+    {
+      "id": "vuln-0045",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2020-36442",
+      "crate_name": "cow",
+      "year": 2021,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0045/sample-00045-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-362"
+          ],
+          "vulnerable_functions": {
+            "src/generic.rs": [
+              "unsafe impl<T: Beef + Send + ?Sized, U: Capacity> Send for Cow<'_, T, U> {}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/generic.rs": [
+              133
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0045/sample-00045-file",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-362"
+          ],
+          "vulnerable_functions": {
+            "src/generic.rs": [
+              "unsafe impl<T: Beef + Send + ?Sized, U: Capacity> Send for Cow<'_, T, U> {}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/generic.rs": [
+              531
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0045/sample-00045-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-362"
+          ],
+          "vulnerable_functions": {
+            "src/generic.rs": [
+              "unsafe impl<T: Beef + Send + ?Sized, U: Capacity> Send for Cow<'_, T, U> {}"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/generic.rs": [
+              531
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0045/sample-10045-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0045/sample-10045-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0045/sample-10045-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        }
+      ]
+    },
+    {
+      "id": "vuln-0046",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2020-35923",
+      "crate_name": "ordered_float",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0046/sample-00046-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-416"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn add_assign(&mut self, other: T)",
+              "fn sub_assign(&mut self, other: T)",
+              "fn mul_assign(&mut self, other: T)",
+              "fn div_assign(&mut self, other: T)",
+              "fn rem_assign(&mut self, other: T)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              61,
+              71,
+              81,
+              91,
+              101
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0046/sample-00046-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-416"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn add_assign(&mut self, other: T)",
+              "fn sub_assign(&mut self, other: T)",
+              "fn mul_assign(&mut self, other: T)",
+              "fn div_assign(&mut self, other: T)",
+              "fn rem_assign(&mut self, other: T)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              61,
+              71,
+              81,
+              91,
+              101
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0046/sample-10046-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0046/sample-10046-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        }
+      ]
+    },
+    {
+      "id": "vuln-0047",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2020-35860",
+      "crate_name": "cbox",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0047/sample-00047-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-476"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn drop(&mut self)",
+              "fn deref(&self) -> &str"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              52,
+              86,
+              87             
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0047/sample-00047-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-476"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "fn drop(&mut self)",
+              "fn deref(&self) -> &str"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              52,
+              86,
+              87 
+            ]
+          },
+          "deps": []
+        }
+      ]
+    },
+    {
+      "id": "vuln-0048",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2020-36511",
+      "crate_name": "bite",
+      "year": 2021,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0048/sample-00048-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-908"
+          ],
+          "vulnerable_functions": {
+            "src/bite/read.rs": [
+              "fn read_framed_max<T: Endianness>(&mut self,maximum: usize,) -> Result<Vec<u8>, std::io::Error>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/bite/read.rs": [
+              271          
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0048/sample-00048-file",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-908"
+          ],
+          "vulnerable_functions": {
+            "src/bite/read.rs": [
+              "fn read_framed_max<T: Endianness>(&mut self,maximum: usize,) -> Result<Vec<u8>, std::io::Error>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/bite/read.rs": [
+              271          
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0048/sample-00048-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-908"
+          ],
+          "vulnerable_functions": {
+            "src/bite/read.rs": [
+              "fn read_framed_max<T: Endianness>(&mut self,maximum: usize,) -> Result<Vec<u8>, std::io::Error>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/bite/read.rs": [
+              27
+            ]
+          },
+          "deps": []
+        }
+      ]
+    },
+    {
+      "id": "vuln-0049",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2021-26305",
+      "crate_name": "cdr",
+      "year": 2021,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0049/sample-00049-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-908"
+          ],
+          "vulnerable_functions": {
+            "src/de.rs": [
+              "fn read_vec(&mut self) -> Result<Vec<u8>>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/de.rs": [
+              75          
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0049/sample-00049-file",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-908"
+          ],
+          "vulnerable_functions": {
+            "src/de.rs": [
+              "fn read_vec(&mut self) -> Result<Vec<u8>>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/de.rs": [
+              75          
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0049/sample-10049-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0049/sample-10049-file",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        }
+        
+      ]
     }
   ]
 }
