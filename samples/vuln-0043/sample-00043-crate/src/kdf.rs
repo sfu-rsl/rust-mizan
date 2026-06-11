@@ -1,0 +1,71 @@
+pub const KEY_SIZE: usize = 32;
+pub const SALT_MIN_SIZE: usize = 16;
+pub const SALT_MAX_SIZE: usize = 128;
+
+pub mod pbkdf2 {
+    use hmac::Hmac;
+    use pbkdf2::pbkdf2;
+    use sha2::Sha256;
+    use zeroize::Zeroizing;
+
+    use super::{KEY_SIZE, SALT_MAX_SIZE, SALT_MIN_SIZE};
+
+    pub fn derive(salt: &[u8], password: &[u8], iterations: u32) -> Zeroizing<[u8; KEY_SIZE]> {
+        debug_assert!(salt.len() >= SALT_MIN_SIZE);
+        debug_assert!(salt.len() <= SALT_MAX_SIZE);
+
+        const COCOON_PREFIX: &[u8] = b"cocoon";
+        const COCOON_PREFIX_LEN: usize = COCOON_PREFIX.len();
+
+        let mut ext_salt = [0u8; SALT_MAX_SIZE + COCOON_PREFIX_LEN];
+        ext_salt[..COCOON_PREFIX_LEN].copy_from_slice(COCOON_PREFIX);
+        ext_salt[COCOON_PREFIX_LEN..COCOON_PREFIX_LEN + salt.len()].copy_from_slice(salt);
+
+        // Prepare an output buffer.
+        let mut derived_key = [0u8; KEY_SIZE];
+
+        pbkdf2::<Hmac<Sha256>>(
+            password,
+            &ext_salt[..COCOON_PREFIX_LEN + salt.len()],
+            iterations,
+            &mut derived_key,
+        );
+
+        Zeroizing::new(derived_key)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn encryption_key_new_salt0() {
+        let password = b"password";
+        let salt = vec![0u8; 16];
+        let key = pbkdf2::derive(&salt, password, 1000);
+
+        assert_eq!(
+            key.as_ref(),
+            &[
+                110, 120, 137, 247, 90, 238, 41, 97, 25, 140, 207, 38, 9, 49, 201, 243, 10, 228,
+                78, 48, 37, 238, 52, 193, 171, 157, 125, 89, 215, 246, 71, 6
+            ]
+        );
+    }
+
+    #[test]
+    fn encryption_key_new_salt16() {
+        let password = b"password";
+        let salt = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+        let key = pbkdf2::derive(&salt, &password[..], 1000);
+
+        assert_eq!(
+            key.as_ref(),
+            &[
+                128, 112, 58, 101, 232, 184, 2, 133, 16, 237, 161, 220, 75, 102, 29, 102, 211, 88,
+                204, 1, 46, 119, 49, 83, 180, 4, 67, 54, 14, 206, 250, 240
+            ]
+        );
+    }
+}
