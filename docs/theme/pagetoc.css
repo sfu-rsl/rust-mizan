@@ -1,0 +1,55 @@
+/* Right-hand page outline. mdBook centers content at 750px, so the TOC only
+   appears once the viewport is wide enough that the right margin clears it
+   without overlapping the text (sidebar open). Below that it stays hidden and
+   the left sidebar handles navigation. */
+.pagetoc {
+    display: none;
+}
+
+@media only screen and (min-width: 1600px) {
+    .pagetoc {
+        display: block;
+        position: fixed;
+        top: 4rem;
+        right: 1rem;
+        width: 13rem;
+        max-height: calc(100vh - 6rem);
+        overflow-y: auto;
+        padding-left: 0.75rem;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .pagetoc-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        opacity: 0.6;
+        margin-bottom: 0.7rem;
+    }
+
+    .pagetoc a {
+        display: block;
+        color: var(--fg);
+        opacity: 0.7;
+        text-decoration: none;
+        padding: 0.25rem 0 0.25rem 0.6rem;
+        border-left: 2px solid var(--quote-border, rgba(128, 128, 128, 0.25));
+    }
+
+    .pagetoc a:hover {
+        opacity: 1;
+    }
+
+    .pagetoc a.pagetoc-h3 {
+        padding-left: 1.5rem;
+        font-size: 0.88rem;
+    }
+
+    .pagetoc a.active {
+        opacity: 1;
+        color: var(--links);
+        border-left-color: var(--links);
+    }
+}

@@ -2,6 +2,8 @@
 
 **RustMizan** (_Mizan_ - Arabic for "scale" or "balance") is an extensible benchmarking framework for evaluating both traditional and LLM-based vulnerability analysis techniques in Rust. It provides a curated dataset of real-world vulnerabilities and supporting infrastructure to enable systematic vulnerability detection research.
 
+**Documentation: [sfu-rsl.github.io/rust-mizan](https://sfu-rsl.github.io/rust-mizan)**
+
 ## Key Features
 
 - **Fully compilable**: All variants compile with the Rust compiler. This is essential for traditional static analysis tools that operate on compiler intermediate representations (e.g., MIR)
@@ -83,7 +85,7 @@ _Curated vulnerable crates (from RustSec, CVE records, and other sources) are ma
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on adding new vulnerabilities to the dataset.
+See the [contributing guide](https://sfu-rsl.github.io/rust-mizan/contributing/) in the documentation for how to add vulnerabilities, mutations, and leaderboard results.
 
 ## License
 

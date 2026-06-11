@@ -1,0 +1,19 @@
+[book]
+title = "RustMizan"
+description = "A compilable, contamination-aware benchmarking framework for Rust vulnerability analysis"
+authors = ["Reliable Systems Lab, Simon Fraser University"]
+language = "en"
+src = "src"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+site-url = "/rust-mizan/"
+git-repository-url = "https://github.com/sfu-rsl/rust-mizan"
+edit-url-template = "https://github.com/sfu-rsl/rust-mizan/edit/master/docs/src/{path}"
+additional-css = ["theme/pagetoc.css"]
+additional-js = ["theme/pagetoc.js"]
+
+[output.html.fold]
+enable = true
+level = 1
