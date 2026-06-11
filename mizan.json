@@ -3188,6 +3188,69 @@
           "deps": []
         }
       ]
+    },
+    {
+      "id": "vuln-0044",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2020-35885",
+      "crate_name": "alpm-rs",
+      "year": 2020,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0044/sample-00044-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-415"
+          ],
+          "vulnerable_functions": {
+            "src/macros.rs": [
+              "fn drop(&mut self)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/macros.rs": [
+              35
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0044/sample-00044-file",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-415"
+          ],
+          "vulnerable_functions": {
+            "src/macros.rs": [
+              "fn drop(&mut self)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/macros.rs": [
+              35
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0044/sample-00044-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-415"
+          ],
+          "vulnerable_functions": {
+            "src/macros.rs": [
+              "fn drop(&mut self)"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/macros.rs": [
+              35
+            ]
+          },
+          "deps": []
+        }
+      ]
     }
   ]
 }
