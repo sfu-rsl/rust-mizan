@@ -2,7 +2,7 @@
 
 A compilable, contamination-aware benchmarking framework for Rust vulnerability analysis.
 
-[Get started](getting-started.md) · [GitHub](https://github.com/sfu-rsl/rust-mizan) · [Leaderboard](https://huggingface.co/spaces/sfu-rsl/rust-mizan-leaderboard) · [Trajectories](https://huggingface.co/spaces/sfu-rsl/rust-mizan-logs)
+[Get started](getting-started.md) · [GitHub](https://github.com/sfu-rsl/rust-mizan) · [Vanilla Dataset](https://huggingface.co/datasets/sfu-rsl/mizan-vanilla) · [Leaderboard](https://huggingface.co/spaces/sfu-rsl/rust-mizan-leaderboard) · [Trajectories](https://huggingface.co/spaces/sfu-rsl/rust-mizan-logs)
 
 ---
 
