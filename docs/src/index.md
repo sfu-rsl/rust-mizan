@@ -2,7 +2,7 @@
 
 A compilable, contamination-aware benchmarking framework for Rust vulnerability analysis.
 
-[Get started](getting-started.md) · [GitHub](https://github.com/sfu-rsl/rust-mizan) · [Vanilla Dataset](https://huggingface.co/datasets/sfu-rsl/mizan-vanilla) · [Leaderboard](https://huggingface.co/spaces/sfu-rsl/rust-mizan-leaderboard) · [Trajectories](https://huggingface.co/spaces/sfu-rsl/rust-mizan-logs)
+[Get started](getting-started.md) · [GitHub](https://github.com/sfu-rsl/rust-mizan) · [Vanilla Dataset](https://huggingface.co/datasets/sfu-rsl/mizan-vanilla) · [Leaderboard](https://huggingface.co/spaces/sfu-rsl/rust-mizan-leaderboard) · [Trajectories](https://huggingface.co/spaces/sfu-rsl/rust-mizan-logs) · [Analysis](analysis.md)
 
 ---
 
@@ -18,7 +18,7 @@ The dataset is a curated set of real-world memory-safety CVEs, each packaged as 
 - **Multi-level context.** Each vulnerability is available at crate, file, and function levels, so you can study how context granularity affects analysis.
 - **Contamination-aware.** A pluggable [mutation framework](mutations/index.md) applies semantic-preserving transformations that change syntax while preserving the vulnerability, so you can probe memorization versus reasoning.
 - **Extensible.** Adding a vulnerability or a mutation is a small, well-defined task. See [Contributing](contributing/index.md).
-- **Transparent.** Every evaluation run is published as a complete agent trajectory (prompts, reasoning, tool calls, and scoring), browsable in an [Inspect log viewer](https://huggingface.co/spaces/sfu-rsl/rust-mizan-logs) and linked from each result on the [Leaderboard](leaderboard.md).
+- **Transparent.** Every evaluation run is published as a complete agent trajectory (prompts, reasoning, tool calls, and scoring), browsable in an [Inspect log viewer](https://huggingface.co/spaces/sfu-rsl/rust-mizan-logs) and linked from each result on the [Leaderboard](leaderboard.md). Every run is also analyzed automatically with [Docent](analysis.md) for contamination signals.
 
 ## How it compares
 
@@ -34,6 +34,7 @@ Most vulnerability benchmarks use non-compilable snippets, fix a single context 
 | Learn the mutations and how they preserve ground truth | [Mutations](mutations/index.md) |
 | See how models are scored | [Evaluation](evaluation.md) |
 | Read or submit results | [Leaderboard](leaderboard.md) |
+| See how runs are analyzed for contamination | [Trajectory analysis](analysis.md) |
 | Add a vulnerability, a mutation, or results | [Contributing](contributing/index.md) |
 
 ## Acknowledgements

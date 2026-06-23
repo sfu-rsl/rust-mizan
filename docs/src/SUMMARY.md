@@ -12,6 +12,7 @@
   - [mizan-mut](mutations/mizan-mut.md)
 - [Evaluation](evaluation.md)
 - [Leaderboard](leaderboard.md)
+- [Trajectory analysis](analysis.md)
 
 # Contributing
 
@@ -19,6 +20,7 @@
 - [Add a vulnerability](contributing/vulnerabilities.md)
 - [Add a mutation](contributing/mutations.md)
 - [Submit leaderboard results](contributing/leaderboard.md)
+- [Update the analysis](contributing/analysis.md)
 
 # Reference
 
