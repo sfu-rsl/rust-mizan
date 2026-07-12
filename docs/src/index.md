@@ -2,7 +2,7 @@
 
 A compilable, contamination-aware benchmarking framework for Rust vulnerability analysis.
 
-[Get started](getting-started.md) · [GitHub](https://github.com/sfu-rsl/rust-mizan) · [Vanilla Dataset](https://huggingface.co/datasets/sfu-rsl/mizan-vanilla) · [Leaderboard](https://huggingface.co/spaces/sfu-rsl/rust-mizan-leaderboard) · [Trajectories](https://huggingface.co/spaces/sfu-rsl/rust-mizan-logs) · [Analysis](analysis.md)
+[Get started](getting-started.md) · [Paper](https://arxiv.org/abs/2607.04729) · [GitHub](https://github.com/sfu-rsl/rust-mizan) · [Vanilla Dataset](https://huggingface.co/datasets/sfu-rsl/mizan-vanilla) · [Leaderboard](https://huggingface.co/spaces/sfu-rsl/rust-mizan-leaderboard) · [Trajectories](https://huggingface.co/spaces/sfu-rsl/rust-mizan-logs) · [Analysis](analysis.md)
 
 ---
 
@@ -36,6 +36,20 @@ Most vulnerability benchmarks use non-compilable snippets, fix a single context 
 | Read or submit results | [Leaderboard](leaderboard.md) |
 | See how runs are analyzed for contamination | [Trajectory analysis](analysis.md) |
 | Add a vulnerability, a mutation, or results | [Contributing](contributing/index.md) |
+
+## Citation
+
+```bibtex
+@misc{elsayed2026rustmizancompilablecontaminationawarebenchmarking,
+title={RustMizan: A Compilable, Contamination-Aware Benchmarking Framework for Rust Vulnerabilities},
+author={Tarek Elsayed and Shiping Yang and Eunsong Koh and Sanika Goyal and Vincent Huang and Paul Ngo and Nathan Young and Mohammad Omidvar Tehrani and Alvyn Kang and Arnell Kang and Zeyu Chen and Angélica Moreira and Xuan Feng and Angel X. Chang and Nick Sumner and Steven Y. Ko},
+year={2026},
+eprint={2607.04729},
+archivePrefix={arXiv},
+primaryClass={cs.CR},
+url={https://arxiv.org/abs/2607.04729},
+}
+```
 
 ## Acknowledgements
 

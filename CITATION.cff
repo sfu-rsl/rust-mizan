@@ -1,0 +1,81 @@
+cff-version: 1.2.0
+message: "If you use RustMizan in your research, please cite the following paper."
+type: software
+title: "RustMizan: A Compilable, Contamination-Aware Benchmarking Framework for Rust Vulnerabilities"
+authors:
+  - family-names: Elsayed
+    given-names: Tarek
+  - family-names: Yang
+    given-names: Shiping
+  - family-names: Koh
+    given-names: Eunsong
+  - family-names: Goyal
+    given-names: Sanika
+  - family-names: Huang
+    given-names: Vincent
+  - family-names: Ngo
+    given-names: Paul
+  - family-names: Young
+    given-names: Nathan
+  - family-names: Omidvar Tehrani
+    given-names: Mohammad
+  - family-names: Kang
+    given-names: Alvyn
+  - family-names: Kang
+    given-names: Arnell
+  - family-names: Chen
+    given-names: Zeyu
+  - family-names: Moreira
+    given-names: Angélica
+  - family-names: Feng
+    given-names: Xuan
+  - family-names: Chang
+    given-names: Angel X.
+  - family-names: Sumner
+    given-names: Nick
+  - family-names: Ko
+    given-names: Steven Y.
+url: "https://github.com/sfu-rsl/rust-mizan"
+repository-code: "https://github.com/sfu-rsl/rust-mizan"
+preferred-citation:
+  type: article
+  title: "RustMizan: A Compilable, Contamination-Aware Benchmarking Framework for Rust Vulnerabilities"
+  authors:
+    - family-names: Elsayed
+      given-names: Tarek
+    - family-names: Yang
+      given-names: Shiping
+    - family-names: Koh
+      given-names: Eunsong
+    - family-names: Goyal
+      given-names: Sanika
+    - family-names: Huang
+      given-names: Vincent
+    - family-names: Ngo
+      given-names: Paul
+    - family-names: Young
+      given-names: Nathan
+    - family-names: Omidvar Tehrani
+      given-names: Mohammad
+    - family-names: Kang
+      given-names: Alvyn
+    - family-names: Kang
+      given-names: Arnell
+    - family-names: Chen
+      given-names: Zeyu
+    - family-names: Moreira
+      given-names: Angélica
+    - family-names: Feng
+      given-names: Xuan
+    - family-names: Chang
+      given-names: Angel X.
+    - family-names: Sumner
+      given-names: Nick
+    - family-names: Ko
+      given-names: Steven Y.
+  year: 2026
+  url: "https://arxiv.org/abs/2607.04729"
+  identifiers:
+    - type: other
+      value: "arXiv:2607.04729"
+      description: "arXiv preprint"
