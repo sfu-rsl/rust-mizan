@@ -3188,6 +3188,95 @@
           "deps": []
         }
       ]
+    },
+    {
+      "id": "vuln-0043",
+      "author": "Sanika Goyal",
+      "source_link": "https://www.cve.org/CVERecord?id=CVE-2024-21530",
+      "crate_name": "cocoon",
+      "year": 2024,
+      "code_samples": [
+        {
+          "path_to_crate": "vuln-0043/sample-00043-function",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-323"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn wrap(&mut self, data: &[u8]) -> Result<Vec<u8>, Error>",
+              "pub fn dump(&mut self, mut data: Vec<u8>, writer: &mut impl Write) -> Result<(), Error>",
+              "pub fn encrypt(&mut self, data: &mut [u8]) -> Result<[u8; PREFIX_SIZE], Error>"
+            ],
+            "src/mini.rs": [
+              "pub fn wrap(&self, data: &[u8]) -> Result<Vec<u8>, Error>",
+              "pub fn dump(&self, mut data: Vec<u8>, writer: &mut impl Write) -> Result<(), Error>",
+              "pub fn encrypt(&self, data: &mut [u8]) -> Result<[u8; MINI_PREFIX_SIZE], Error>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              102,
+              112,
+              132
+            ],
+            "src/mini.rs": [
+              71,
+              81,
+              90
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0043/sample-00043-crate",
+          "is_vulnerability": true,
+          "cwe_type": [
+            "CWE-323"
+          ],
+          "vulnerable_functions": {
+            "src/lib.rs": [
+              "pub fn wrap(&mut self, data: &[u8]) -> Result<Vec<u8>, Error>",
+              "pub fn dump(&mut self, mut data: Vec<u8>, writer: &mut impl Write) -> Result<(), Error>",
+              "pub fn encrypt(&mut self, data: &mut [u8]) -> Result<[u8; PREFIX_SIZE], Error>"
+            ],
+            "src/mini.rs": [
+              "pub fn wrap(&self, data: &[u8]) -> Result<Vec<u8>, Error>",
+              "pub fn dump(&self, mut data: Vec<u8>, writer: &mut impl Write) -> Result<(), Error>",
+              "pub fn encrypt(&self, data: &mut [u8]) -> Result<[u8; MINI_PREFIX_SIZE], Error>"
+            ]
+          },
+          "vulnerable_lines": {
+            "src/lib.rs": [
+              102,
+              112,
+              132
+            ],
+            "src/mini.rs": [
+              71,
+              81,
+              90
+            ]
+          },
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0043/sample-10043-function",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        },
+        {
+          "path_to_crate": "vuln-0043/sample-10043-crate",
+          "is_vulnerability": false,
+          "cwe_type": [],
+          "vulnerable_functions": {},
+          "vulnerable_lines": {},
+          "deps": []
+        }
+      ]
     }
   ]
 }
