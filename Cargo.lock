@@ -269,6 +269,17 @@ checksum = "7dfdb4953a096c551ce9ace855a604d702e6e62d77fac690575ae347571717f5"
 
 [[package]]
 name = "bincode"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e103c8b299b28a9c6990458b7013dc4a8356a9b854c51b9883241f5866fac36e"
+dependencies = [
+ "byteorder",
+ "num-traits 0.1.43",
+ "serde",
+]
+
+[[package]]
+name = "bincode"
 version = "1.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b1f45e9417d87227c7a56d22e471c6206462cba514c7590c09aff4cf6d1ddcad"
@@ -567,7 +578,7 @@ dependencies = [
  "android-tzdata",
  "iana-time-zone",
  "js-sys",
- "num-traits",
+ "num-traits 0.2.19",
  "wasm-bindgen",
  "windows-link",
 ]
@@ -725,7 +736,7 @@ dependencies = [
  "csv",
  "itertools 0.10.5",
  "lazy_static",
- "num-traits",
+ "num-traits 0.2.19",
  "oorandom",
  "plotters",
  "rayon",
@@ -2330,6 +2341,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6877bb514081ee2a7ff5ef9de3281f14a4dd4bceac4c09388074a6b5df8a139a"
 
 [[package]]
+name = "minicov"
+version = "0.3.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f27fe9f1cc3c22e1687f9446c2083c4c5fc7f0bcf1c7a86bdbded14985895b4b"
+dependencies = [
+ "cc",
+ "walkdir 2.5.0",
+]
+
+[[package]]
 name = "minimal-lexical"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2499,7 +2520,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a5e44f723f1133c9deac646763579fdb3ac745e418f2a7af9cd0c431da1f20b9"
 dependencies = [
  "num-integer",
- "num-traits",
+ "num-traits 0.2.19",
 ]
 
 [[package]]
@@ -2519,7 +2540,7 @@ version = "0.1.46"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7969661fd2958a5cb096e56c8e1ad0444ac2bbcd0061bd28660485a44879858f"
 dependencies = [
- "num-traits",
+ "num-traits 0.2.19",
 ]
 
 [[package]]
@@ -2530,7 +2551,7 @@ checksum = "1429034a0490724d0075ebb2bc9e875d6503c3cf69e235a8941aa757d83ef5bf"
 dependencies = [
  "autocfg",
  "num-integer",
- "num-traits",
+ "num-traits 0.2.19",
 ]
 
 [[package]]
@@ -2541,7 +2562,7 @@ checksum = "12ac428b1cb17fce6f731001d307d351ec70a6d202fc2e60f7d4c5e42d8f4f07"
 dependencies = [
  "autocfg",
  "num-integer",
- "num-traits",
+ "num-traits 0.2.19",
 ]
 
 [[package]]
@@ -2552,7 +2573,16 @@ checksum = "f83d14da390562dca69fc84082e73e548e1ad308d24accdedd2720017cb37824"
 dependencies = [
  "num-bigint",
  "num-integer",
- "num-traits",
+ "num-traits 0.2.19",
+]
+
+[[package]]
+name = "num-traits"
+version = "0.1.43"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "92e5113e9fd4cc14ded8e499429f396a20f98c772a47cc8622a736e1ec843c31"
+dependencies = [
+ "num-traits 0.2.19",
 ]
 
 [[package]]
@@ -2651,7 +2681,7 @@ version = "2.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "68f19d67e5a2795c94e73e0bb1cc1a7edeb2e28efd39e2e1c9b7a40c1108b11c"
 dependencies = [
- "num-traits",
+ "num-traits 0.2.19",
 ]
 
 [[package]]
@@ -2828,7 +2858,7 @@ version = "0.3.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5aeb6f403d7a4911efb1e33402027fc44f29b5bf6def3effcc22d7bb75f2b747"
 dependencies = [
- "num-traits",
+ "num-traits 0.2.19",
  "plotters-backend",
  "plotters-svg",
  "wasm-bindgen",
@@ -2990,7 +3020,7 @@ dependencies = [
  "bitflags 1.3.2",
  "byteorder",
  "lazy_static",
- "num-traits",
+ "num-traits 0.2.19",
  "quick-error 1.2.3",
  "rand 0.7.3",
  "rand_chacha 0.2.2",
@@ -3030,6 +3060,12 @@ checksum = "0194e6e1966c23cc5fd988714f85b18d548d773e81965413555d96569931833d"
 dependencies = [
  "pulldown-cmark",
 ]
+
+[[package]]
+name = "pure-rust-locales"
+version = "0.5.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b45c49fc4f91f35bae654f85ebb3a44d60ac64f11b3166ffa609def390c732d8"
 
 [[package]]
 name = "query-group-macro"
@@ -3323,7 +3359,7 @@ dependencies = [
  "new_debug_unreachable",
  "noop_proc_macro",
  "num-derive",
- "num-traits",
+ "num-traits 0.2.19",
  "once_cell",
  "paste",
  "profiling",
@@ -3538,6 +3574,12 @@ name = "rustc-literal-escaper"
 version = "0.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "78744cd17f5d01c75b709e49807d1363e02a940ccee2e9e72435843fdb0d076e"
+
+[[package]]
+name = "rustc-serialize"
+version = "0.3.25"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fe834bc780604f4674073badbad26d7219cadfb4a2275802db12cbae17498401"
 
 [[package]]
 name = "rustc-stable-hash"
@@ -3768,7 +3810,7 @@ dependencies = [
  "jpeg-decoder",
  "num-iter",
  "num-rational 0.3.2",
- "num-traits",
+ "num-traits 0.2.19",
  "png",
  "ravif",
  "rgb",
@@ -3787,7 +3829,7 @@ dependencies = [
  "jpeg-decoder",
  "num-iter",
  "num-rational 0.3.2",
- "num-traits",
+ "num-traits 0.2.19",
  "png",
  "ravif",
  "rgb",
@@ -3803,7 +3845,7 @@ version = "0.1.0"
 name = "sample-00006-crate"
 version = "0.1.0"
 dependencies = [
- "bincode",
+ "bincode 1.3.3",
  "serde",
 ]
 
@@ -3811,7 +3853,7 @@ dependencies = [
 name = "sample-00006-file"
 version = "0.1.0"
 dependencies = [
- "bincode",
+ "bincode 1.3.3",
  "serde",
 ]
 
@@ -4521,7 +4563,7 @@ version = "0.1.0"
 name = "sample-00039-crate"
 version = "0.6.9"
 dependencies = [
- "bincode",
+ "bincode 1.3.3",
  "serde",
 ]
 
@@ -4529,7 +4571,7 @@ dependencies = [
 name = "sample-00039-function"
 version = "0.6.9"
 dependencies = [
- "bincode",
+ "bincode 1.3.3",
  "serde",
 ]
 
@@ -4578,6 +4620,160 @@ version = "0.1.0"
 [[package]]
 name = "sample-00042-function"
 version = "0.1.0"
+
+[[package]]
+name = "sample-00043-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00043-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00044-crate"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-00044-file"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-00044-function"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-00045-crate"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
+name = "sample-00045-file"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00045-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00046-crate"
+version = "0.1.0"
+dependencies = [
+ "num-traits 0.2.19",
+ "serde",
+ "serde_test",
+]
+
+[[package]]
+name = "sample-00046-function"
+version = "0.1.0"
+dependencies = [
+ "num-traits 0.2.19",
+ "serde",
+ "serde_test",
+]
+
+[[package]]
+name = "sample-00047-crate"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-00047-function"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-00048-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00048-file"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00048-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00049-crate"
+version = "0.1.0"
+dependencies = [
+ "byteorder",
+ "serde",
+ "serde_derive",
+]
+
+[[package]]
+name = "sample-00049-file"
+version = "0.1.0"
+dependencies = [
+ "byteorder",
+ "serde",
+ "serde_derive",
+]
+
+[[package]]
+name = "sample-00050-crate"
+version = "0.1.0"
+dependencies = [
+ "bincode 0.8.0",
+ "criterion",
+ "doc-comment",
+ "js-sys",
+ "libc 0.2.174",
+ "num-integer",
+ "num-iter",
+ "num-traits 0.2.19",
+ "pure-rust-locales",
+ "rustc-serialize",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "time",
+ "wasm-bindgen",
+ "wasm-bindgen-test",
+ "winapi 0.3.9",
+]
+
+[[package]]
+name = "sample-00050-file"
+version = "0.1.0"
+dependencies = [
+ "bincode 0.8.0",
+ "criterion",
+ "doc-comment",
+ "js-sys",
+ "libc 0.2.174",
+ "num-integer",
+ "num-iter",
+ "num-traits 0.2.19",
+ "pure-rust-locales",
+ "rustc-serialize",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "time",
+ "wasm-bindgen",
+ "wasm-bindgen-test",
+ "winapi 0.3.9",
+]
 
 [[package]]
 name = "sample-10001-crate"
@@ -4649,7 +4845,7 @@ dependencies = [
  "jpeg-decoder",
  "num-iter",
  "num-rational 0.3.2",
- "num-traits",
+ "num-traits 0.2.19",
  "png",
  "ravif",
  "rgb",
@@ -4668,7 +4864,7 @@ dependencies = [
  "jpeg-decoder",
  "num-iter",
  "num-rational 0.3.2",
- "num-traits",
+ "num-traits 0.2.19",
  "png",
  "ravif",
  "rgb",
@@ -4684,7 +4880,7 @@ version = "0.1.0"
 name = "sample-10006-crate"
 version = "0.1.0"
 dependencies = [
- "bincode",
+ "bincode 1.3.3",
  "serde",
 ]
 
@@ -4692,7 +4888,7 @@ dependencies = [
 name = "sample-10006-file"
 version = "0.1.0"
 dependencies = [
- "bincode",
+ "bincode 1.3.3",
  "serde",
 ]
 
@@ -5054,7 +5250,7 @@ version = "0.1.0"
 name = "sample-10026-crate"
 version = "0.1.0"
 dependencies = [
- "bincode",
+ "bincode 1.3.3",
  "bitflags 1.3.2",
  "libc 0.2.174",
  "serde",
@@ -5066,7 +5262,7 @@ dependencies = [
 name = "sample-10026-file"
 version = "0.1.0"
 dependencies = [
- "bincode",
+ "bincode 1.3.3",
  "bitflags 1.3.2",
  "libc 0.2.174",
  "serde",
@@ -5338,7 +5534,7 @@ dependencies = [
 name = "sample-10039-crate"
 version = "0.6.10"
 dependencies = [
- "bincode",
+ "bincode 1.3.3",
  "serde",
 ]
 
@@ -5346,7 +5542,7 @@ dependencies = [
 name = "sample-10039-function"
 version = "0.6.10"
 dependencies = [
- "bincode",
+ "bincode 1.3.3",
  "serde",
 ]
 
@@ -5415,6 +5611,59 @@ dependencies = [
  "lexical-core",
  "num-bigint",
  "ryu",
+]
+
+[[package]]
+name = "sample-10045-crate"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
+name = "sample-10045-file"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10045-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10046-crate"
+version = "0.1.0"
+dependencies = [
+ "num-traits 0.2.19",
+ "serde",
+ "serde_test",
+]
+
+[[package]]
+name = "sample-10046-function"
+version = "0.1.0"
+dependencies = [
+ "num-traits 0.2.19",
+ "serde",
+ "serde_test",
+]
+
+[[package]]
+name = "sample-10049-crate"
+version = "0.1.0"
+dependencies = [
+ "byteorder",
+ "serde",
+ "serde_derive",
+]
+
+[[package]]
+name = "sample-10049-file"
+version = "0.1.0"
+dependencies = [
+ "byteorder",
+ "serde",
+ "serde_derive",
 ]
 
 [[package]]
@@ -5559,6 +5808,15 @@ name = "serde_spanned"
 version = "0.6.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "87607cb1398ed59d48732e575a4c28a7a8ebf2454b964fe3f224f2afc07909e1"
+dependencies = [
+ "serde",
+]
+
+[[package]]
+name = "serde_test"
+version = "1.0.177"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f901ee573cab6b3060453d2d5f0bae4e6d628c23c0a962ff9b5f1d7c8d4f1ed"
 dependencies = [
  "serde",
 ]
@@ -6205,7 +6463,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d6f32aaa24bacd11e488aa9ba66369c7cd514885742c9fe08cfe85884db3e92b"
 dependencies = [
  "aligned-vec",
- "num-traits",
+ "num-traits 0.2.19",
  "wasm-bindgen",
 ]
 
@@ -6393,6 +6651,30 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1a05d73b933a847d6cccdda8f838a22ff101ad9bf93e33684f39c1f5f0eece3d"
 dependencies = [
  "unicode-ident",
+]
+
+[[package]]
+name = "wasm-bindgen-test"
+version = "0.3.50"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "66c8d5e33ca3b6d9fa3b4676d774c5778031d27a578c2b007f905acf816152c3"
+dependencies = [
+ "js-sys",
+ "minicov",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "wasm-bindgen-test-macro",
+]
+
+[[package]]
+name = "wasm-bindgen-test-macro"
+version = "0.3.50"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "17d5042cc5fa009658f9a7333ef24291b1291a25b6382dd68862a7f3b969f69b"
+dependencies = [
+ "proc-macro2 1.0.94",
+ "quote 1.0.40",
+ "syn 2.0.100",
 ]
 
 [[package]]
