@@ -1,0 +1,31 @@
+{
+  "retrieved_at_utc": "2026-10-04T16:50:13.604791+00:00",
+  "source": "https://crates.io/api/v1/crates/{crate}",
+  "downloads": {
+    "alg_ds": 15080,
+    "arc-swap": 346103784,
+    "arr": 14732,
+    "array-init-cursor": 17770771,
+    "bitvec": 293057926,
+    "chttp": 106084,
+    "claxon": 5043880,
+    "fast-float": 11112752,
+    "hashconsing": 189990,
+    "im": 33082506,
+    "image": 203499138,
+    "magnetic": 29535,
+    "mp3-metadata": 143471,
+    "once_cell": 1323917484,
+    "ordnung": 5117,
+    "pared": 12237,
+    "redox_uefi_std": 41049,
+    "rusqlite": 117468289,
+    "safe-transmute": 5297974,
+    "scanner": 3779,
+    "simple-slab": 20063,
+    "sized-chunks": 48980303,
+    "smallvec": 1256704458,
+    "vmm-sys-util": 12419868,
+    "xmas-elf": 3063690
+  }
+}

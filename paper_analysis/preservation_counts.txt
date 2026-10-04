@@ -1,0 +1,92 @@
+# Mutation Test Report
+
+Validates that mizan-mut mutations are semantic-preserving: tests must still pass after each mutation is applied.
+
+BASELINE itertools 587
+BASELINE num-traits 250
+BASELINE num-bigint 199
+BASELINE byteorder 801
+
+| Crate | Mutation | Result |
+|-------|----------|--------|
+| itertools | `for-to-while` | FAIL |
+| itertools | `while-to-loop` | PASS (587) |
+| itertools | `if-else-reorder` | PASS (587) |
+| itertools | `derive-reorder` | PASS (587) |
+| itertools | `trait-bound-reorder` | PASS (587) |
+| itertools | `use-reorder` | PASS (587) |
+| itertools | `arithmetic-identity` | PASS (587) |
+| itertools | `explicit-where` | PASS (587) |
+| itertools | `explicit-where-to-type-params` | PASS (587) |
+| itertools | `rename-lifetime` | PASS (587) |
+| itertools | `extraneous-unsafe` | PASS (587) |
+| itertools | `impl-trait-to-generic` | PASS (587) |
+| itertools | `option-wrap` | FAIL |
+| itertools | `maybeuninit-wrap` | FAIL |
+| itertools | `manuallydrop-wrap` | FAIL |
+| itertools | `explicit-return` | PASS (587) |
+| itertools | `unreachable-panic` | FAIL |
+| itertools | `repeated-shadowing` | PASS (587) |
+| num-traits | `for-to-while` | PASS (250) |
+| num-traits | `while-to-loop` | PASS (250) |
+| num-traits | `if-else-reorder` | PASS (250) |
+| num-traits | `derive-reorder` | PASS (250) |
+| num-traits | `trait-bound-reorder` | PASS (250) |
+| num-traits | `use-reorder` | PASS (250) |
+| num-traits | `arithmetic-identity` | PASS (250) |
+| num-traits | `explicit-where` | PASS (250) |
+| num-traits | `explicit-where-to-type-params` | PASS (250) |
+| num-traits | `rename-lifetime` | PASS (250) |
+| num-traits | `extraneous-unsafe` | PASS (250) |
+| num-traits | `impl-trait-to-generic` | PASS (250) |
+| num-traits | `option-wrap` | PASS (250) |
+| num-traits | `maybeuninit-wrap` | PASS (250) |
+| num-traits | `manuallydrop-wrap` | PASS (250) |
+| num-traits | `explicit-return` | PASS (250) |
+| num-traits | `unreachable-panic` | PASS (250) |
+| num-traits | `repeated-shadowing` | PASS (250) |
+| num-bigint | `for-to-while` | PASS (199) |
+| num-bigint | `while-to-loop` | PASS (199) |
+| num-bigint | `if-else-reorder` | PASS (199) |
+| num-bigint | `derive-reorder` | PASS (199) |
+| num-bigint | `trait-bound-reorder` | PASS (199) |
+| num-bigint | `use-reorder` | PASS (199) |
+| num-bigint | `arithmetic-identity` | PASS (199) |
+| num-bigint | `explicit-where` | PASS (199) |
+| num-bigint | `explicit-where-to-type-params` | PASS (199) |
+| num-bigint | `rename-lifetime` | PASS (199) |
+| num-bigint | `extraneous-unsafe` | PASS (199) |
+| num-bigint | `impl-trait-to-generic` | PASS (199) |
+| num-bigint | `option-wrap` | FAIL |
+| num-bigint | `maybeuninit-wrap` | FAIL |
+| num-bigint | `manuallydrop-wrap` | PASS (199) |
+| num-bigint | `explicit-return` | PASS (199) |
+| num-bigint | `unreachable-panic` | PASS (199) |
+| num-bigint | `repeated-shadowing` | PASS (199) |
+| byteorder | `for-to-while` | PASS (801) |
+| byteorder | `while-to-loop` | PASS (801) |
+| byteorder | `if-else-reorder` | PASS (801) |
+| byteorder | `derive-reorder` | PASS (801) |
+| byteorder | `trait-bound-reorder` | PASS (801) |
+| byteorder | `use-reorder` | PASS (801) |
+| byteorder | `arithmetic-identity` | PASS (801) |
+| byteorder | `explicit-where` | PASS (801) |
+| byteorder | `explicit-where-to-type-params` | PASS (801) |
+| byteorder | `rename-lifetime` | PASS (801) |
+| byteorder | `extraneous-unsafe` | PASS (801) |
+| byteorder | `impl-trait-to-generic` | PASS (801) |
+| byteorder | `option-wrap` | PASS (801) |
+| byteorder | `maybeuninit-wrap` | PASS (801) |
+| byteorder | `manuallydrop-wrap` | PASS (801) |
+| byteorder | `explicit-return` | PASS (801) |
+| byteorder | `unreachable-panic` | PASS (801) |
+| byteorder | `repeated-shadowing` | PASS (801) |
+
+- PASS: 65
+- FAIL: 7
+- ERROR: 0
+- NO SITES: 0
+- SKIP: 0
+
+**Total: 72 | Failures: 7**
+exit=1
