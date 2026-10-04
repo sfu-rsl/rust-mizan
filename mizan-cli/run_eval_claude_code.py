@@ -32,7 +32,6 @@ if __name__ == "__main__":
             system_prompt=SYSTEM_PROMPT,
             disallowed_tools=DISALLOWED_TOOLS,
         ),
-        message_limit=MESSAGE_LIMIT,
     )
 
-    eval(tasks=task, model=MODEL, limit=LIMIT)
+    eval(tasks=task, model=MODEL, limit=LIMIT, message_limit=MESSAGE_LIMIT)

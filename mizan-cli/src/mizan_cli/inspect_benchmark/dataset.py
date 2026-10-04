@@ -44,13 +44,28 @@ def load_dataset(dataset_path: Path, sample_ids: str | list[str] | None = None):
 
         files = {f["path"]: f["content"] for f in row["files"]}
 
-        vulnerable_functions = row["vulnerable_functions"]
-        if isinstance(vulnerable_functions, list):
-            vulnerable_functions = dict(vulnerable_functions)
+        def _coerce(value):
+            # Handle three shapes:
+            #   1. dict (already a {file: items} map)
+            #   2. list of (key, value) tuples (pyarrow map<> output)
+            #   3. list of {"file": ..., "<name>": ...} structs
+            #      (the schema published on Hugging Face for the
+            #      mizan-vanilla dataset, which the HF dataset viewer
+            #      requires; original `map<>` columns are not
+            #      renderable by the viewer).
+            if isinstance(value, dict):
+                return value
+            if not isinstance(value, list) or not value:
+                return {}
+            if isinstance(value[0], dict):
+                return {
+                    e["file"]: next(v for k, v in e.items() if k != "file")
+                    for e in value
+                }
+            return dict(value)
 
-        vulnerable_lines = row["vulnerable_lines"]
-        if isinstance(vulnerable_lines, list):
-            vulnerable_lines = dict(vulnerable_lines)
+        vulnerable_functions = _coerce(row["vulnerable_functions"])
+        vulnerable_lines = _coerce(row["vulnerable_lines"])
 
         samples.append(
             Sample(

@@ -21,7 +21,7 @@ jobs:
       - name: Set up Rust nightly
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly
+          toolchain: nightly-2026-04-20
           override: true
           components: rustfmt, clippy
 
@@ -30,4 +30,4 @@ jobs:
         shell: bash
 
       - name: Build the Rust workspace
-        run: cargo build --workspace
+        run: cargo build --locked --workspace

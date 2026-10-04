@@ -1,13 +1,10 @@
-use std::collections::HashMap;
-
 use anyhow::Result;
 use quote::quote;
-use rand::{rngs::ThreadRng, seq::IteratorRandom, Rng};
+use rand::{rngs::ThreadRng, Rng};
 use syn::{
     parse_file, parse_quote,
-    visit::{self, Visit},
     visit_mut::{self, VisitMut},
-    Block, Ident, Pat, Stmt,
+    Block, Pat, Stmt,
 };
 pub struct RepeatedShadowingMutator;
 

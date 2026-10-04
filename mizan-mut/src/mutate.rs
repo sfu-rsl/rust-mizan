@@ -10,14 +10,19 @@ use walkdir::WalkDir;
 
 use crate::mutations::{
     arithmetic_identity::ArithmeticIdentityMutator, derive_reorder::DeriveReorderMutator,
-    explicit_return::ExplicitReturnMutator, explicit_where::ExplicitWhereMutator,
-    explicit_where_to_type_params::RemoveExplicitWhereMutator, for_to_while::ForToWhileMutator,
-    if_else_reorder::IfElseReorderMutator, impl_trait_to_generic::ImplTraitToGenericMutator,
-    manually_drop_wrap::ManuallyDropWrapMutator, maybe_uninit_wrap::MaybeUninitWrapMutator,
-    option_wrap::OptionWrapMutator, rename_lifetime::RenameLifetimeMutator,
-    repeated_shadowing::RepeatedShadowingMutator, trait_bound_reorder::TraitBoundReorderMutator,
-    unreachable_panic::UnreachblePanicMutator, use_reorder::UseReorderMutator,
-    while_to_loop::WhileToLoopMutator,
+    explicit_where::ExplicitWhereMutator, for_to_while::ForToWhileMutator,
+    explicit_where_to_type_params::RemoveExplicitWhereMutator,
+    impl_trait_to_generic::ImplTraitToGenericMutator,
+    if_else_reorder::IfElseReorderMutator, trait_bound_reorder::TraitBoundReorderMutator,
+    use_reorder::UseReorderMutator, while_to_loop::WhileToLoopMutator,
+    extraneous_unsafe::ExtraneousUnsafeMutator,
+    option_wrap::OptionWrapMutator,
+    maybe_uninit_wrap::MaybeUninitWrapMutator,
+    manually_drop_wrap::ManuallyDropWrapMutator,
+    explicit_return::ExplicitReturnMutator,
+    unreachable_panic::UnreachblePanicMutator,
+    repeated_shadowing::RepeatedShadowingMutator,
+    rename_lifetime::RenameLifetimeMutator,
 };
 
 #[derive(Debug, Clone, PartialEq, ValueEnum)]
@@ -60,13 +65,18 @@ pub enum Mutation {
     /// Adds explicit where to function signature
     #[value(name = "explicit-where")]
     ExplicitWhere,
+
     /// Move Simple type bounds from explicit where to type params
     #[value(name = "explicit-where-to-type-params")]
     ExplicitWhereToTypeParams,
 
-    // Rename lifetime parameter for standalone functions
+    /// Rename lifetime parameter for standalone functions
     #[value(name = "rename-lifetime")]
     RenameLifetime,
+
+    /// Adds extraneous `unsafe {...}` blocks around statements inside functions
+    #[value(name = "extraneous-unsafe")]
+    ExtraneousUnsafe,
 
     /// Converts impl form Trait bounds into generic parameters
     #[value(name = "impl-trait-to-generic")]
@@ -122,6 +132,7 @@ pub fn apply_mutations(
             Mutation::UseReorder,
             Mutation::ArithmeticIdentity,
             Mutation::ExplicitWhere,
+            Mutation::ExtraneousUnsafe,
             Mutation::ImplTraitToGeneric,
             Mutation::OptionWrap,
             Mutation::MaybeUninitWrap,
@@ -166,9 +177,9 @@ pub fn apply_mutations(
         let path = entry.path();
 
         // Check if this file should be ignored
-        let should_ignore = absolute_ignore_files
-            .iter()
-            .any(|ignore_path| path == ignore_path || path.ends_with(ignore_path));
+        let should_ignore = absolute_ignore_files.iter().any(|ignore_path| {
+            path == ignore_path || path.ends_with(ignore_path)
+        });
 
         if should_ignore {
             files_skipped += 1;
@@ -197,6 +208,7 @@ pub fn apply_mutations(
                 Mutation::ExplicitWhereToTypeParams => {
                     RemoveExplicitWhereMutator::mutate(&modified_content)?
                 }
+                Mutation::ExtraneousUnsafe => ExtraneousUnsafeMutator::mutate(&modified_content)?,
                 Mutation::ImplTraitToGeneric => {
                     ImplTraitToGenericMutator::mutate(&modified_content)?
                 }

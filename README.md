@@ -20,33 +20,43 @@ _Each CVE is packaged as three standalone compilable crates of decreasing scope:
 
 ## Getting Started
 
-To build all code variants, run:
+Install the evaluated toolchains, build the mutation tool, and install the CLI:
 
 ```bash
-cargo +nightly build --workspace
+rustup toolchain install 1.84.1 nightly-2026-04-20
+cargo +nightly-2026-04-20 build --locked -p mizan-mut
+export PATH="$(pwd)/target/debug:$PATH"
+cd mizan-cli
+poetry install --only main
+export PATH="$(poetry env info --path)/bin:$PATH"
+cd ..
 ```
 
-> Using nightly toolchain because mizan-mut depends on `rust-analyzer` crates which require nightly features
+> Use Poetry 2.3.4 with the committed lock. The mutation tool needs nightly; evaluated samples use Rust 1.84.1.
 
 ## End-to-End Usage
 
 ```bash
-# Checkout and mutate samples
-mizan checkout -v vuln-0001 -v vuln-0002 -l function -o output
-cd output
-mizan mutate -m remove-comments
+# Generate the four splits using the evaluated mutation lists
+docker build -f docker/Dockerfile.datasets -t mizan-datasets .
+mkdir -p datasets
+docker run --rm -v "$(pwd)/datasets:/app/datasets" mizan-datasets
 
-# Prepare dataset for evaluation
-mizan evaluate prepare-dataset --tag comments_removed -o mizan_comments_removed.parquet
-
-# Run evaluation (edit mizan-cli/run_eval.py with the dataset path and config).
-# The script is more flexible than CLI flags. You can swap in a custom agent to
-# experiment with different prompting strategies or agent architectures.
-python mizan-cli/run_eval.py
-
-# View results
-inspect view
+# Run the evaluated four-model configuration using provider API keys
+cd mizan-cli
+poetry run python run_eval.py
+poetry run inspect view
+cd ..
 ```
+
+Edit `MODELS` and `DATASET_PATHS` in `mizan-cli/run_eval.py` to select models
+and splits. Vanilla is selected by default.
+
+Fresh mutants can differ from the original inputs. The
+[published vanilla dataset](https://huggingface.co/datasets/sfu-rsl/mizan-vanilla)
+can be placed directly in `datasets/`. The
+[original evaluation logs](https://huggingface.co/spaces/sfu-rsl/rust-mizan-logs)
+are also available.
 
 ## Project Structure
 

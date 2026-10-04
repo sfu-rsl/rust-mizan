@@ -101,7 +101,7 @@ mizan mutate [OPTIONS]
 
 #### Available Mutations
 
-All mutations are **semantically preserving**. They change code syntax without altering program behavior.
+Mutations are intended to preserve behavior. The framework rejects transformations that fail compilation or annotation validation; regression tests provide empirical evidence of behavior preservation.
 
 ##### Contamination
 
@@ -141,16 +141,16 @@ Structural transformations that leverage Rust-specific syntax features.
 | `mizan-mut-trait-bound-reorder` | Randomly reorder trait bounds in where clauses                                  |
 | `mizan-mut-use-reorder`         | Randomly reorder items in `use` statements                                      |
 | `mizan-mut-arithmetic-identity` | Wrap integer literals with identity (e.g., `N * 1`)                             |
-| `explicit-where`                | Adds explicit where to function signature                                       |
-| `explicit-where-to-type-params` | Move Simple type bounds from explicit where to type params                      |
-| `rename-lifetime`               | Rename lifetime parameter consistently                                          |
-| `impl-trait-to-generic`         | Converts impl form Trait bounds into generic parameters                         |
-| `option-wrap`                   | Wraps expressions in redundant `Some(...).unwrap()` calls                       |
-| `maybeuninit-wrap`              | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
-| `manuallydrop-wrap`             | Places owned variables into `ManuallyDrop` structs, and later unwraps them      |
-| `explicit-return`               | Converts implicit return statements to use explicit syntax                      |
-| `unreachable-panic`             | Adds an unreachable panic!() to function bodies                                 |
-| `repeated-shadowing`            | Adds multiple redundant repeated shadows for let bindings within a scope        |
+| `mizan-mut-explicit-where`                | Adds explicit where to function signature                                       |
+| `mizan-mut-explicit-where-to-type-params` | Move Simple type bounds from explicit where to type params                      |
+| `mizan-mut-rename-lifetime`               | Rename lifetime parameter consistently                                          |
+| `mizan-mut-impl-trait-to-generic`         | Converts impl form Trait bounds into generic parameters                         |
+| `mizan-mut-option-wrap`                   | Wraps expressions in redundant `Some(...).unwrap()` calls                       |
+| `mizan-mut-maybeuninit-wrap`              | Wraps known safe values into a `MaybeUninit<T>`, automatically dererencing them |
+| `mizan-mut-manuallydrop-wrap`             | Places owned variables into `ManuallyDrop` structs, and later unwraps them      |
+| `mizan-mut-explicit-return`               | Converts implicit return statements to use explicit syntax                      |
+| `mizan-mut-unreachable-panic`             | Adds an unreachable panic!() to function bodies                                 |
+| `mizan-mut-repeated-shadowing`            | Adds multiple redundant repeated shadows for let bindings within a scope        |
 
 > **Note:** Mutations prefixed with `mizan-mut-` and all rename mutations use [`mizan-mut`](../mizan-mut/), which must be installed and available in your PATH.
 
@@ -250,8 +250,8 @@ Use the [`run_eval.py`](run_eval.py) script to run evaluations with full control
 
 ```bash
 cd mizan-cli
-# Edit run_eval.py to configure different evaluation parameters including agent, models, dataset path, max turns, etc.
-python run_eval.py
+# Edit MODELS and DATASET_PATHS in run_eval.py; requires provider API keys
+poetry run python run_eval.py
 ```
 
-See [Inspect AI documentation](https://inspect.aisi.org.uk) to learn more about supported models and evaluation options.
+The default driver uses the four reported models with Qwen reasoning disabled. Set `FAIL_ON_ERROR=True` for benign runs and `False` for the other splits.

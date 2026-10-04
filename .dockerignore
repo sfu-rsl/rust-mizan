@@ -1,0 +1,11 @@
+.git
+**/.venv
+**/__pycache__
+**/target
+**/.DS_Store
+**/.env*
+logs
+datasets
+output
+publication_artifacts
+docs/book

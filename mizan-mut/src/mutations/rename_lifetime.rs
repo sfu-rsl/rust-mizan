@@ -2,7 +2,7 @@ use quote::{format_ident, quote};
 use std::collections::{HashMap, HashSet};
 use syn::{
     parse_file,
-    visit::{self, Visit},
+    visit::Visit,
     visit_mut::{self, VisitMut},
     ItemFn, Lifetime, Result,
 };

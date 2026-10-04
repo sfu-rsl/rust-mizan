@@ -3,3 +3,8 @@
 
 **/logs/
 publication_artifacts/
+**/__pycache__/
+**/.venv/
+datasets/
+output/
+docs/book/

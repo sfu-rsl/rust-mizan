@@ -13,7 +13,9 @@ The agent writes a `results.json` file covering four tasks:
   "explanation": "reasoning and recall",
   "is_vulnerable": true,
   "cwe_type": ["CWE-416"],
-  "vulnerable_functions": { "src/lib.rs": ["pub fn read_byte(buf: &[u8], idx: usize) -> u8"] },
+  "vulnerable_functions": {
+    "src/lib.rs": ["pub fn read_byte(buf: &[u8], idx: usize) -> u8"]
+  },
   "vulnerable_lines": { "src/lib.rs": [4] }
 }
 ```
@@ -28,15 +30,15 @@ The harness is built on [Inspect-AI](https://inspect.aisi.org.uk). Each sample r
 
 Crate Vulnerability Classification (CVC) is a binary metric. CWE classification and the two localization tasks are set-based: predicted elements are compared against the ground-truth set, and true/false positives and negatives are counted per sample. The F1, precision, and recall figures are **micro-averaged**: TP, FP, and FN are summed across all variants first, then combined into one score. An invalid JSON response contributes zeros.
 
-| Metric | Definition |
-| --- | --- |
-| **CVC Accuracy** | Fraction of samples where the binary `is_vulnerable` prediction matches ground truth. Over all samples. |
-| **CWE F1 / Precision / Recall** | Micro-averaged set overlap between predicted and ground-truth CWE types. |
-| **Function F1 / Precision / Recall** | Micro-averaged set overlap between predicted and ground-truth vulnerable functions. |
-| **Line F1 / Precision / Recall** | Micro-averaged set overlap between predicted and ground-truth vulnerable lines. |
-| **Success@1-Function** | Fraction of vulnerable samples where at least one correct function was identified. Over vulnerable samples only. |
-| **Success@1-Line** | Fraction of vulnerable samples where at least one correct line was identified. Over vulnerable samples only. |
-| **Invalid JSON Rate** | Fraction of samples where the model returned invalid JSON. |
+| Metric                               | Definition                                                                                                       |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| **CVC Accuracy**                     | Fraction of samples where the binary `is_vulnerable` prediction matches ground truth. Over all samples.          |
+| **CWE F1 / Precision / Recall**      | Micro-averaged set overlap between predicted and ground-truth CWE types.                                         |
+| **Function F1 / Precision / Recall** | Micro-averaged set overlap between predicted and ground-truth vulnerable functions.                              |
+| **Line F1 / Precision / Recall**     | Micro-averaged set overlap between predicted and ground-truth vulnerable lines.                                  |
+| **Success@1-Function**               | Fraction of vulnerable samples where at least one correct function was identified. Over vulnerable samples only. |
+| **Success@1-Line**                   | Fraction of vulnerable samples where at least one correct line was identified. Over vulnerable samples only.     |
+| **Invalid JSON Rate**                | Fraction of samples where the model returned invalid JSON.                                                       |
 
 These are the same metrics shown on the [Leaderboard](leaderboard.md).
 
@@ -46,13 +48,17 @@ The evaluation consumes a parquet file produced by [`mizan evaluate prepare-data
 
 ```bash
 cd mizan-cli
-# Edit run_eval.py: DATASET_PATH, MODELS, MESSAGE_LIMIT, TIME_LIMIT
-python run_eval.py
+# Edit MODELS and DATASET_PATHS in run_eval.py; requires provider API keys
+poetry run python run_eval.py
 
 # Inspect the results
-inspect view
+poetry run inspect view
 ```
 
-`run_eval.py` exposes the full configuration as a script, including the agent scaffold, which can be replaced with a custom implementation to evaluate different prompting strategies. See the [Inspect-AI documentation](https://inspect.aisi.org.uk) for supported models and options.
+The default configuration matches the four reported models: Claude Sonnet 4.6,
+GPT 5.4, Gemini 3.1 Pro, and Qwen 3.6 Plus. It uses one rollout, 100 messages,
+and 3600 seconds per variant. Reasoning effort is low, with Qwen reasoning
+disabled. The committed lock selects Inspect 0.3.205. The agent scaffold can be
+replaced for other experiments.
 
 To publish your results to the public leaderboard, see [Submit leaderboard results](contributing/leaderboard.md).

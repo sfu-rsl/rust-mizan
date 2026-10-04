@@ -51,10 +51,10 @@ impl ManuallyDropWrapVisitor {
                 i + 1,
                 [
                     parse_quote! {
-                        let #ident = ::std::mem::ManuallyDropWrap::new(#ident);
+                        let #ident = ::std::mem::ManuallyDrop::new(#ident);
                     },
                     parse_quote! {
-                        let #mutability #ident = ::std::mem::ManuallyDropWrap::into_inner(#ident);
+                        let #mutability #ident = ::std::mem::ManuallyDrop::into_inner(#ident);
                     },
                 ],
             ));
