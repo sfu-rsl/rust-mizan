@@ -18,4 +18,5 @@ folder with `python SCRIPT.py`.
 - `dataset_statistics.py`: dataset counts and Rust code sizes, JSON and CSV.
 - `project_statistics.py`: project sizes/downloads, CSV and LaTeX. This uses the 4 October 2026 counts in `project_downloads.json`.
 - `preservation.py`: preservation table from the archived `preservation_counts.txt` report.
+- `failure_analysis.py`: vanilla detection baseline and output-failure counts, CSV and LaTeX.
 - `common.py`: shared log loading and micro-metric calculations.
