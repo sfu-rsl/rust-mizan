@@ -5,7 +5,7 @@ There are several ways to contribute to RustMizan. Each has its own guide.
 | Contribution | Guide |
 | --- | --- |
 | Add a new vulnerability to the dataset | [Add a vulnerability](vulnerabilities.md) |
-| Add a new mutation | [Add a mutation](mutations/index.md) |
+| Add a new mutation | [Add a mutation](mutations.md) |
 | Submit evaluation results to the leaderboard | [Submit leaderboard results](leaderboard.md) |
 | Update the contamination analysis | [Update the analysis](analysis.md) |
 

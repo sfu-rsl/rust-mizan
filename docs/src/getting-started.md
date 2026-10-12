@@ -43,8 +43,23 @@ cd ..
 
 All `mizan` commands run from a directory that contains `mizan.json` (the dataset root).
 
-## End-to-end run
+## Set up API keys
 
+The following API keys are supported. Export the key for each provider
+you use:
+
+| Provider   | Environment variable |
+| ---------- | -------------------- |
+| Anthropic  | `ANTHROPIC_API_KEY`  |
+| OpenAI     | `OPENAI_API_KEY`     |
+| Google     | `GOOGLE_API_KEY`     |
+| OpenRouter | `OPENROUTER_API_KEY` |
+
+The default `MODELS` in `mizan-cli/run_eval.py` is the paper's four models
+and needs all four keys. Remove any model whose provider key you haven't set.
+
+
+## End-to-end run
 This example prepares a small unmodified subset.
 
 ```bash
@@ -53,9 +68,9 @@ mizan checkout -v vuln-0001 -v vuln-0002 -l function -o output
 cd output
 
 # 2. Convert to a parquet dataset for evaluation
-mizan evaluate prepare-dataset --tag vanilla -o mizan-vanilla.parquet
+mizan evaluate prepare-dataset --tag vanilla -o ../datasets/mizan-vanilla.parquet
 
-# 3. Set DATASET_PATHS in run_eval.py to this parquet, then run with provider API keys
+# 3. Run the evaluation 
 python ../mizan-cli/run_eval.py
 
 # 4. View results

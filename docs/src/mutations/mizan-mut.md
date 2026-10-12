@@ -9,12 +9,14 @@ The `mizan mutate` CLI calls this binary for any `mizan-mut-*` mutation and for 
 
 ## Installation
 
-`mizan-mut` depends on `rust-analyzer` crates that require nightly.
+`mizan-mut` depends on `rust-analyzer` crates that require nightly. The
+repository's `rust-toolchain.toml` selects Rust 1.84.1, so pass the pinned
+nightly explicitly:
 
 ```bash
-cargo install --path mizan-mut
+cargo +nightly-2026-04-20 install --locked --path mizan-mut
 # Or build directly
-cargo build --release --bin mizan-mut
+cargo +nightly-2026-04-20 build --locked --release -p mizan-mut
 ```
 
 ## `mutate` subcommand
