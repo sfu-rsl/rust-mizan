@@ -2,12 +2,14 @@
 
 ---
 
-### Checklist for Adding a New Vulnerability
+### Checklist for adding a new vulnerability
 
-- [ ] I organized the different code samples into separate crates inside the same folder
-- [ ] I included a simple README in the vulnerability folder with:
-  - The CVE ID (if applicable)
-  - Commit references before and after the fix
-  - A list of sample variants with links to each crate
-- [ ] Updated `mizan.json`
-- [ ] Marked vulnerability as done in the dataset folder
+- [ ] Created `samples/vuln-XXXX/` with the next free ID
+- [ ] Added `sample-0XXXX-{crate,file,function}` (and `sample-1XXXX-…` if a fix exists), each with a matching package name in `Cargo.toml`
+- [ ] Every crate compiles (`cargo build` at the workspace root)
+- [ ] Shared dependency crates are in `samples/deps/` and listed in `deps`
+- [ ] Wrote `samples/vuln-XXXX/README.md` from `samples/README_TEMPLATE.md`
+- [ ] Added the entry to `mizan.json` (paths, `is_vulnerability`, CWE types, vulnerable functions and lines, `deps`)
+- [ ] The JSON validation check passes
+
+See [Add a vulnerability](https://sfu-rsl.github.io/rust-mizan/contributing/vulnerabilities.html).

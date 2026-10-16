@@ -73,7 +73,7 @@ For each sample, the framework backs up the original, applies the mutation, then
 
 Mutations change the ground truth: renaming a function invalidates annotations that reference it by name, and inserting code shifts line numbers. The framework keeps annotations accurate with three mechanisms.
 
-- **Marker tracking.** For most mutations, a unique comment marker (e.g. `// MIZAN_MARKER_vuln0001`) is inserted before each vulnerable line. After the mutation, the marker's new position gives the corrected line number, and the marker is removed.
+- **Marker tracking.** For most mutations, a unique comment marker (e.g. `// MIZAN_MARKER_vuln-0001_SAMPLE0_LINE12`) is inserted before each vulnerable line. After the mutation, the marker's new position gives the corrected line number, and the marker is removed.
 - **Content-based tracking.** AST-based `mizan-mut-*` mutations remove all comments (including markers) when they parse and regenerate the code, so vulnerable lines are tracked by their content instead. If a line appears multiple times or cannot be found after mutation, that file is excluded and the mutation is re-applied. Such cases are recorded as `partial_mutations`.
 - **Rename tracking.** Rename mutations legitimately change line content, so the validator allows content differences for them.
 
