@@ -4,7 +4,7 @@ Adding a vulnerability means providing the compilable variants and the metadata;
 
 ## Steps
 
-1. **Identify the vulnerability.** Use the CVE identifier from MITRE, not the RustSec-assigned ID.
+1. **Identify the vulnerability.** Use the CVE identifier from MITRE, not the RustSec-assigned ID. If no CVE has been assigned, use the RustSec ID.
 2. **Create a directory.** Make a new `vuln-XXXX` folder (increment the latest ID) under `samples/`. It will hold all variants for this CVE.
 3. **Find the vulnerable and fixed commits.**
    - Vulnerable commit: the commit before the fix if clear from the GitHub issue, otherwise the version before the patched release listed by RustSec.
@@ -24,7 +24,7 @@ Adding a vulnerability means providing the compilable variants and the metadata;
 ## Notes
 
 - All crates must compile. If needed, make minimal edits without changing behavior.
-- Follow the structure of existing sample `README.md` files.
+- Follow the structure from [`samples/README_TEMPLATE.md`](https://github.com/sfu-rsl/rust-mizan/blob/master/samples/README_TEMPLATE.md) for a sample file. 
 - Vulnerable line and function annotations should capture all relevant surface area, not just the line that panics.
 - Only use official, peer-reviewed fixes. If no fix exists, include only the vulnerable samples.
 

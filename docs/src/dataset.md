@@ -1,6 +1,6 @@
 # Dataset
 
-RustMizan focuses on Rust memory-safety vulnerabilities: use-after-free, buffer overflow, double free, and related issues. Every variant traces back to a publicly disclosed CVE. The benchmark is built on real vulnerabilities, not synthetic or injected ones.
+RustMizan focuses on Rust memory-safety vulnerabilities: use-after-free, buffer overflow, double free, and related issues. Every variant traces back to a publicly disclosed vulnerability, identified by its CVE or RustSec ID. The benchmark is built on real vulnerabilities, not synthetic or injected ones.
 
 ## Multi-level compilable variants
 
