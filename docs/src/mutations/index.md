@@ -44,20 +44,20 @@ Structural transformations that leverage Rust syntax, implemented as AST transfo
 
 | Mutation | Description |
 | --- | --- |
-| `derive-reorder` | Reorder traits in `#[derive(...)]` attributes |
-| `trait-bound-reorder` | Reorder trait bounds in `where` clauses |
-| `use-reorder` | Reorder items in `use` statements |
-| `arithmetic-identity` | Wrap integer literals with a multiplication identity (`N * 1`) |
-| `explicit-where` | Add an explicit `where` clause to a signature |
-| `explicit-where-to-type-params` | Move simple type bounds from a `where` clause into the type parameters |
-| `rename-lifetime` | Rename lifetime parameters consistently |
-| `impl-trait-to-generic` | Convert `impl Trait` bounds into generic parameters |
-| `option-wrap` | Wrap expressions in a redundant `Some(...).unwrap()` |
-| `maybeuninit-wrap` | Round-trip a value through `MaybeUninit<T>` |
-| `manuallydrop-wrap` | Wrap an owned variable in `ManuallyDrop`, then unwrap it |
-| `explicit-return` | Convert implicit returns to explicit `return` statements |
-| `unreachable-panic` | Guard a function body with an unreachable `panic!()` arm |
-| `repeated-shadowing` | Add redundant repeated shadows for `let` bindings |
+| `mizan-mut-derive-reorder` | Reorder traits in `#[derive(...)]` attributes |
+| `mizan-mut-trait-bound-reorder` | Reorder trait bounds in `where` clauses |
+| `mizan-mut-use-reorder` | Reorder items in `use` statements |
+| `mizan-mut-arithmetic-identity` | Wrap integer literals with a multiplication identity (`N * 1`) |
+| `mizan-mut-explicit-where` | Add an explicit `where` clause to a signature |
+| `mizan-mut-explicit-where-to-type-params` | Move simple type bounds from a `where` clause into the type parameters |
+| `mizan-mut-rename-lifetime` | Rename lifetime parameters consistently |
+| `mizan-mut-impl-trait-to-generic` | Convert `impl Trait` bounds into generic parameters |
+| `mizan-mut-option-wrap` | Wrap expressions in a redundant `Some(...).unwrap()` |
+| `mizan-mut-maybeuninit-wrap` | Round-trip a value through `MaybeUninit<T>` |
+| `mizan-mut-manuallydrop-wrap` | Wrap an owned variable in `ManuallyDrop`, then unwrap it |
+| `mizan-mut-explicit-return` | Convert implicit returns to explicit `return` statements |
+| `mizan-mut-unreachable-panic` | Guard a function body with an unreachable `panic!()` arm |
+| `mizan-mut-repeated-shadowing` | Add redundant repeated shadows for `let` bindings |
 
 See the [specification](specification.md) for before/after examples.
 

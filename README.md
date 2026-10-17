@@ -34,6 +34,21 @@ cd ..
 
 > Use Poetry 2.3.4 with the committed lock. The mutation tool needs nightly; evaluated samples use Rust 1.84.1.
 
+## Set up API keys
+
+The following API keys are supported. Export the key for each provider
+you use:
+
+| Provider   | Environment variable |
+| ---------- | -------------------- |
+| Anthropic  | `ANTHROPIC_API_KEY`  |
+| OpenAI     | `OPENAI_API_KEY`     |
+| Google     | `GOOGLE_API_KEY`     |
+| OpenRouter | `OPENROUTER_API_KEY` |
+
+The default `MODELS` in `mizan-cli/run_eval.py` is the paper's four models
+and needs all four keys. Remove any model whose provider key you haven't set.
+
 ## End-to-End Usage
 
 ```bash
