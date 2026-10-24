@@ -5,6 +5,9 @@ Put the 16 original `.eval` logs in `evals/`. For dataset/project statistics, al
 [rustmizan-eval-logs](https://huggingface.co/datasets/rustmizan-org/rustmizan-eval-logs)
 and [mizan-vanilla](https://huggingface.co/datasets/rustmizan-org/mizan-vanilla).
 
+For the reasoning effort comparison, also put `opus-low.eval` and `opus-high.eval` in
+`evals/opus/`.
+
 Install with `python -m pip install -r requirements.txt` then run scripts from this
 folder with `python SCRIPT.py`.
 
@@ -19,4 +22,5 @@ folder with `python SCRIPT.py`.
 - `project_statistics.py`: project sizes/downloads, CSV and LaTeX. This uses the 4 October 2026 counts in `project_downloads.json`.
 - `preservation.py`: preservation table from the archived `preservation_counts.txt` report.
 - `failure_analysis.py`: vanilla detection baseline and output-failure counts, CSV and LaTeX.
+- `reasoning_effort.py`: reasoning settings and scores on matched vulnerable variants, with the paired effort interval.
 - `common.py`: shared log loading and micro-metric calculations.
