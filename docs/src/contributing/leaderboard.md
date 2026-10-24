@@ -8,6 +8,8 @@ First, run an evaluation and produce an Inspect-AI `.eval` file (see [Evaluation
    ```bash
    cp your_experiment.eval data/eval_files/
    ```
+> There may be no results pushed to the leaderboard. Due to HuggingFace repository settings, there cannot be empty folders that exist. If there is not `data/eval_files/` folder, the user must create their own in the HuggingFace repository. 
+
 2. **Register it** in `data/leaderboard_config.json` by adding an entry to the `experiments` array:
    ```json
    {

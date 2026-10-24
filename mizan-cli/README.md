@@ -181,7 +181,7 @@ mizan mutate --mutations format-compact --mutations format-expanded
 
 #### Output
 
-- Updated `mizan.json`: Ground truth with corrected line numbers after mutations. We track vulnerable lines by inserting unique code comments (e.g., `// VULN_LINE_MARKER_123`) before each vulnerable line which allows us to maintain accurate line number tracking even after code transformations
+- Updated `mizan.json`: Ground truth with corrected line numbers after mutations. We track vulnerable lines by inserting unique code comments (e.g., `// MIZAN_MARKER_vuln-0001_SAMPLE0_LINE12`) before each vulnerable line which allows us to maintain accurate line number tracking even after code transformations
 - `mizan_mutations.json`: Metadata about applied mutations including:
   - `mutations_applied`: List of successfully applied mutations
   - `skipped`: Mutations that were skipped completely or specific samples that were skipped
