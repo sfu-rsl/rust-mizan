@@ -7,12 +7,14 @@ Rust code mutation and refactoring tools that provide:
 
 ## Installation
 
-> Requires nightly Rust toolchain. Either install it via `rustup` or use the `+nightly` flag with `cargo`
+> Requires the pinned nightly toolchain. The repository's `rust-toolchain.toml`
+> selects Rust 1.84.1, so pass the nightly explicitly.
 
 ```bash
-cargo install --path mizan-mut
+rustup toolchain install nightly-2026-04-20
+cargo +nightly-2026-04-20 install --locked --path mizan-mut
 # Or build directly
-cargo build --release --bin mizan-mut
+cargo +nightly-2026-04-20 build --locked --release -p mizan-mut
 ```
 
 ## Usage

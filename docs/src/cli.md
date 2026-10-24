@@ -60,6 +60,8 @@ cd output
 mizan mutate [OPTIONS]
 ```
 
+> Note: no `-m` applies every mutation in the registry 
+
 | Option | Short | Description | Default |
 | --- | --- | --- | --- |
 | `--mutations` | `-m` | Mutations to apply (repeatable) | `all` |
@@ -97,7 +99,7 @@ Use the [`run_eval.py`](https://github.com/sfu-rsl/rust-mizan/blob/master/mizan-
 ```bash
 cd mizan-cli
 # Edit run_eval.py: dataset path, models, message/time limits
-python run_eval.py
+poetry run python run_eval.py
 ```
 
 The script exposes the full evaluation configuration, including the agent, which can be replaced with a custom implementation. See [Evaluation](evaluation.md).

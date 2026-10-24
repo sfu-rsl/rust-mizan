@@ -180,9 +180,9 @@ let size = 64 * 1;
 let offset = (16 + 0) + (stride - 0);
 ```
 
-The following rust-specific mutations are implemented as AST transformations in [mizan-mut](mizan-mut.md).
+All rust-specific mutations are implemented as AST transformations in [mizan-mut](mizan-mut.md).
 
-### `explicit-where`
+### `mizan-mut-explicit-where`
 Move inline generic bounds into an explicit `where` clause.
 
 ```rust
@@ -196,7 +196,7 @@ where
 { ... }
 ```
 
-### `explicit-where-to-type-params`
+### `mizan-mut-explicit-where-to-type-params`
 The inverse: inline simple `where`-clause bounds back into the angle brackets (local type parameters only).
 
 ```rust
@@ -211,7 +211,7 @@ becomes
 impl<'a, K: Clone, V, H: Hasher + Default> Entry<'a, K, V, H> { ... }
 ```
 
-### `rename-lifetime`
+### `mizan-mut-rename-lifetime`
 Rename the lifetime parameters of a standalone function consistently.
 
 ```rust
@@ -222,7 +222,7 @@ becomes
 fn longest<'__life0, '__life1>(x: &'__life0 str, y: &'__life1 str) -> &'__life0 str { ... }
 ```
 
-### `impl-trait-to-generic`
+### `mizan-mut-impl-trait-to-generic`
 Convert `impl Trait` parameters into explicit generic parameters.
 
 ```rust
@@ -233,7 +233,7 @@ becomes
 pub fn fun<T: Debug + 'static>(d: T) { ... }
 ```
 
-### `option-wrap`
+### `mizan-mut-option-wrap`
 Wrap expressions in a redundant `Some(...).unwrap()`.
 
 ```rust
@@ -244,7 +244,7 @@ becomes
 let x = Some(a + b).unwrap();
 ```
 
-### `maybeuninit-wrap`
+### `mizan-mut-maybeuninit-wrap`
 Round-trip a value through `MaybeUninit<T>` and `assume_init()`.
 
 ```rust
@@ -258,7 +258,7 @@ let x = unsafe {
 };
 ```
 
-### `manuallydrop-wrap`
+### `mizan-mut-manuallydrop-wrap`
 Shadow an owned binding through `ManuallyDrop`, then extract it back out.
 
 ```rust
@@ -271,7 +271,7 @@ let x = std::mem::ManuallyDrop::new(x);
 let x = std::mem::ManuallyDrop::into_inner(x);
 ```
 
-### `explicit-return`
+### `mizan-mut-explicit-return`
 Convert implicit returns to explicit `return` statements.
 
 ```rust
@@ -282,7 +282,7 @@ becomes
 fn bar() -> i32 { return 1234; }
 ```
 
-### `unreachable-panic`
+### `mizan-mut-unreachable-panic`
 Guard a function body with a match that has an unreachable `panic!()` arm.
 
 ```rust
@@ -302,7 +302,7 @@ fn foo() {
 }
 ```
 
-### `repeated-shadowing`
+### `mizan-mut-repeated-shadowing`
 Add redundant repeated shadows for `let` bindings within a scope.
 
 ```rust
