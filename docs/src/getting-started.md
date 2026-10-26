@@ -5,6 +5,7 @@ Setup and a complete run, from building the dataset to viewing evaluation result
 ## Requirements
 
 - Rust 1.84.1 and nightly-2026-04-20 for `mizan-mut`.
+- Python 3.10 to 3.13. 
 - [Poetry](https://python-poetry.org/) 2.3.4 for the locked Python environment.
 - Docker, used by the evaluation harness to sandbox each sample.
 
@@ -31,14 +32,28 @@ export PATH="$(pwd)/target/debug:$PATH"
 
 ```bash
 cd mizan-cli
+# Only needed if your default python is 3.14
+poetry env use python3.13
 poetry install --only main
-
-# Run mizan through poetry
-poetry run mizan checkout --help
-
-# Or add it to your PATH
-export PATH="$(poetry env info --path)/bin:$PATH"
 cd ..
+```
+
+The `mizan`, `python` and `inspect` commands on this page need the Poetry
+environment. Either activate it once per terminal:
+
+```bash
+eval $(poetry -P mizan-cli env activate)
+```
+
+Or put `poetry -P <path-to-mizan-cli> run` in front of each command. The path
+depends on where you run it from:
+
+```bash
+# From the repository root
+poetry -P mizan-cli run mizan checkout --help
+
+# From output/
+poetry -P ../mizan-cli run python ../mizan-cli/run_eval.py
 ```
 
 All `mizan` commands run from a directory that contains `mizan.json` (the dataset root).
@@ -60,7 +75,8 @@ and needs all four keys. Remove any model whose provider key you haven't set.
 
 
 ## End-to-end run
-This example prepares a small unmodified subset.
+This example prepares a small unmodified subset. It assumes the Poetry
+environment is active (see [Install the CLI](#install-the-cli)).
 
 ```bash
 # 1. Select samples into an output directory
