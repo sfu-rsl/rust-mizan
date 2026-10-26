@@ -4,15 +4,27 @@ A CLI for interacting with RustMizan dataset
 
 ## Installation
 
+Requires Python 3.10 to 3.13. 
+
 ```bash
 cd mizan-cli
+# Only needed if your default python is 3.14
+poetry env use python3.13
 poetry install
+```
 
-# Run mizan commands with poetry run
-poetry run mizan checkout --help
+Every `mizan` command needs the Poetry environment. Either activate it once
+per terminal:
 
-# Add mizan to PATH (add to ~/.zshrc or ~/.bashrc)
-export PATH="$(poetry env info --path)/bin:$PATH"
+```bash
+eval $(poetry env activate)
+```
+
+Or put `poetry -P <path-to-mizan-cli> run` in front of each command, e.g. from
+the repository root:
+
+```bash
+poetry -P mizan-cli run mizan checkout --help
 ```
 
 ## Prerequisites
