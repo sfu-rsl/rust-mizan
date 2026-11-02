@@ -4580,6 +4580,96 @@ name = "sample-00042-function"
 version = "0.1.0"
 
 [[package]]
+name = "sample-00043-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00043-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00044-crate"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-00044-file"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-00044-function"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-00045-crate"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
+name = "sample-00045-file"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00045-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00046-crate"
+version = "0.1.0"
+dependencies = [
+ "num-traits",
+ "serde",
+ "serde_test",
+]
+
+[[package]]
+name = "sample-00046-function"
+version = "0.1.0"
+dependencies = [
+ "num-traits",
+ "serde",
+ "serde_test",
+]
+
+[[package]]
+name = "sample-00047-crate"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-00047-function"
+version = "0.1.0"
+dependencies = [
+ "libc 0.2.174",
+]
+
+[[package]]
+name = "sample-00048-crate"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00048-file"
+version = "0.1.0"
+
+[[package]]
+name = "sample-00048-function"
+version = "0.1.0"
+
+[[package]]
 name = "sample-10001-crate"
 version = "0.1.0"
 dependencies = [
@@ -5418,6 +5508,41 @@ dependencies = [
 ]
 
 [[package]]
+name = "sample-10045-crate"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
+name = "sample-10045-file"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10045-function"
+version = "0.1.0"
+
+[[package]]
+name = "sample-10046-crate"
+version = "0.1.0"
+dependencies = [
+ "num-traits",
+ "serde",
+ "serde_test",
+]
+
+[[package]]
+name = "sample-10046-function"
+version = "0.1.0"
+dependencies = [
+ "num-traits",
+ "serde",
+ "serde_test",
+]
+
+[[package]]
 name = "schannel"
 version = "0.1.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5559,6 +5684,15 @@ name = "serde_spanned"
 version = "0.6.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "87607cb1398ed59d48732e575a4c28a7a8ebf2454b964fe3f224f2afc07909e1"
+dependencies = [
+ "serde",
+]
+
+[[package]]
+name = "serde_test"
+version = "1.0.177"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f901ee573cab6b3060453d2d5f0bae4e6d628c23c0a962ff9b5f1d7c8d4f1ed"
 dependencies = [
  "serde",
 ]
