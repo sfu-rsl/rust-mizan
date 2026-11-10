@@ -33,6 +33,12 @@ cd ..
 
 > Use Python 3.10 to 3.13 (run `poetry env use python3.13` if needed) and Poetry 2.3.4 with the committed lock. The mutation tool needs nightly; evaluated samples use Rust 1.84.1.
 
+Before running `mizan mutate`, select the nightly toolchain in that terminal:
+
+```bash
+export RUSTUP_TOOLCHAIN=nightly-2026-04-20
+```
+
 `mizan` commands need the Poetry environment. Either activate it once per
 terminal with `eval $(poetry -P mizan-cli env activate)`, or put
 `poetry -P mizan-cli run` in front of each command (adjust the path if you are

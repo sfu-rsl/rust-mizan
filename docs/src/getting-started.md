@@ -28,6 +28,13 @@ cargo +nightly-2026-04-20 build --locked -p mizan-mut
 export PATH="$(pwd)/target/debug:$PATH"
 ```
 
+Before running `mizan mutate`, also select the nightly toolchain for the
+terminal session:
+
+```bash
+export RUSTUP_TOOLCHAIN=nightly-2026-04-20
+```
+
 ## Install the CLI
 
 ```bash
