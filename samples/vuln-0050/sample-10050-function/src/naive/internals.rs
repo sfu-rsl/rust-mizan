@@ -1,0 +1,450 @@
+// This is a part of Chrono.
+// See README.md and LICENSE.txt for details.
+
+//! The internal implementation of the calendar and ordinal date.
+//!
+//! The current implementation is optimized for determining year, month, day and day of week.
+//! 4-bit `YearFlags` map to one of 14 possible classes of year in the Gregorian calendar,
+//! which are included in every packed `NaiveDate` instance.
+//! The conversion between the packed calendar date (`Mdf`) and the ordinal date (`Of`) is
+//! based on the moderately-sized lookup table (~1.5KB)
+//! and the packed representation is chosen for the efficient lookup.
+//! Every internal data structure does not validate its input,
+//! but the conversion keeps the valid value valid and the invalid value invalid
+//! so that the user-facing `NaiveDate` can validate the input as late as possible.
+
+#![cfg_attr(feature = "__internal_bench", allow(missing_docs))]
+
+use crate::Weekday;
+use core::{fmt, i32};
+use num_integer::{div_rem, mod_floor};
+use num_traits::FromPrimitive;
+
+/// The internal date representation. This also includes the packed `Mdf` value.
+pub(super) type DateImpl = i32;
+
+pub(super) const MAX_YEAR: DateImpl = i32::MAX >> 13;
+pub(super) const MIN_YEAR: DateImpl = i32::MIN >> 13;
+
+/// The year flags (aka the dominical letter).
+///
+/// There are 14 possible classes of year in the Gregorian calendar:
+/// common and leap years starting with Monday through Sunday.
+/// The `YearFlags` stores this information into 4 bits `abbb`,
+/// where `a` is `1` for the common year (simplifies the `Of` validation)
+/// and `bbb` is a non-zero `Weekday` (mapping `Mon` to 7) of the last day in the past year
+/// (simplifies the day of week calculation from the 1-based ordinal).
+#[allow(unreachable_pub)] // public as an alias for benchmarks only
+#[derive(PartialEq, Eq, Copy, Clone)]
+pub struct YearFlags(pub(super) u8);
+
+pub(super) const A: YearFlags = YearFlags(0o15);
+pub(super) const AG: YearFlags = YearFlags(0o05);
+pub(super) const B: YearFlags = YearFlags(0o14);
+pub(super) const BA: YearFlags = YearFlags(0o04);
+pub(super) const C: YearFlags = YearFlags(0o13);
+pub(super) const CB: YearFlags = YearFlags(0o03);
+pub(super) const D: YearFlags = YearFlags(0o12);
+pub(super) const DC: YearFlags = YearFlags(0o02);
+pub(super) const E: YearFlags = YearFlags(0o11);
+pub(super) const ED: YearFlags = YearFlags(0o01);
+pub(super) const F: YearFlags = YearFlags(0o17);
+pub(super) const FE: YearFlags = YearFlags(0o07);
+pub(super) const G: YearFlags = YearFlags(0o16);
+pub(super) const GF: YearFlags = YearFlags(0o06);
+
+static YEAR_TO_FLAGS: [YearFlags; 400] = [
+    BA, G, F, E, DC, B, A, G, FE, D, C, B, AG, F, E, D, CB, A, G, F, ED, C, B, A, GF, E, D, C, BA,
+    G, F, E, DC, B, A, G, FE, D, C, B, AG, F, E, D, CB, A, G, F, ED, C, B, A, GF, E, D, C, BA, G,
+    F, E, DC, B, A, G, FE, D, C, B, AG, F, E, D, CB, A, G, F, ED, C, B, A, GF, E, D, C, BA, G, F,
+    E, DC, B, A, G, FE, D, C, B, AG, F, E, D, // 100
+    C, B, A, G, FE, D, C, B, AG, F, E, D, CB, A, G, F, ED, C, B, A, GF, E, D, C, BA, G, F, E, DC,
+    B, A, G, FE, D, C, B, AG, F, E, D, CB, A, G, F, ED, C, B, A, GF, E, D, C, BA, G, F, E, DC, B,
+    A, G, FE, D, C, B, AG, F, E, D, CB, A, G, F, ED, C, B, A, GF, E, D, C, BA, G, F, E, DC, B, A,
+    G, FE, D, C, B, AG, F, E, D, CB, A, G, F, // 200
+    E, D, C, B, AG, F, E, D, CB, A, G, F, ED, C, B, A, GF, E, D, C, BA, G, F, E, DC, B, A, G, FE,
+    D, C, B, AG, F, E, D, CB, A, G, F, ED, C, B, A, GF, E, D, C, BA, G, F, E, DC, B, A, G, FE, D,
+    C, B, AG, F, E, D, CB, A, G, F, ED, C, B, A, GF, E, D, C, BA, G, F, E, DC, B, A, G, FE, D, C,
+    B, AG, F, E, D, CB, A, G, F, ED, C, B, A, // 300
+    G, F, E, D, CB, A, G, F, ED, C, B, A, GF, E, D, C, BA, G, F, E, DC, B, A, G, FE, D, C, B, AG,
+    F, E, D, CB, A, G, F, ED, C, B, A, GF, E, D, C, BA, G, F, E, DC, B, A, G, FE, D, C, B, AG, F,
+    E, D, CB, A, G, F, ED, C, B, A, GF, E, D, C, BA, G, F, E, DC, B, A, G, FE, D, C, B, AG, F, E,
+    D, CB, A, G, F, ED, C, B, A, GF, E, D, C, // 400
+];
+
+static YEAR_DELTAS: [u8; 401] = [
+    0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8,
+    8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 12, 12, 12, 12, 13, 13, 13, 13, 14, 14, 14, 14,
+    15, 15, 15, 15, 16, 16, 16, 16, 17, 17, 17, 17, 18, 18, 18, 18, 19, 19, 19, 19, 20, 20, 20, 20,
+    21, 21, 21, 21, 22, 22, 22, 22, 23, 23, 23, 23, 24, 24, 24, 24, 25, 25, 25, // 100
+    25, 25, 25, 25, 25, 26, 26, 26, 26, 27, 27, 27, 27, 28, 28, 28, 28, 29, 29, 29, 29, 30, 30, 30,
+    30, 31, 31, 31, 31, 32, 32, 32, 32, 33, 33, 33, 33, 34, 34, 34, 34, 35, 35, 35, 35, 36, 36, 36,
+    36, 37, 37, 37, 37, 38, 38, 38, 38, 39, 39, 39, 39, 40, 40, 40, 40, 41, 41, 41, 41, 42, 42, 42,
+    42, 43, 43, 43, 43, 44, 44, 44, 44, 45, 45, 45, 45, 46, 46, 46, 46, 47, 47, 47, 47, 48, 48, 48,
+    48, 49, 49, 49, // 200
+    49, 49, 49, 49, 49, 50, 50, 50, 50, 51, 51, 51, 51, 52, 52, 52, 52, 53, 53, 53, 53, 54, 54, 54,
+    54, 55, 55, 55, 55, 56, 56, 56, 56, 57, 57, 57, 57, 58, 58, 58, 58, 59, 59, 59, 59, 60, 60, 60,
+    60, 61, 61, 61, 61, 62, 62, 62, 62, 63, 63, 63, 63, 64, 64, 64, 64, 65, 65, 65, 65, 66, 66, 66,
+    66, 67, 67, 67, 67, 68, 68, 68, 68, 69, 69, 69, 69, 70, 70, 70, 70, 71, 71, 71, 71, 72, 72, 72,
+    72, 73, 73, 73, // 300
+    73, 73, 73, 73, 73, 74, 74, 74, 74, 75, 75, 75, 75, 76, 76, 76, 76, 77, 77, 77, 77, 78, 78, 78,
+    78, 79, 79, 79, 79, 80, 80, 80, 80, 81, 81, 81, 81, 82, 82, 82, 82, 83, 83, 83, 83, 84, 84, 84,
+    84, 85, 85, 85, 85, 86, 86, 86, 86, 87, 87, 87, 87, 88, 88, 88, 88, 89, 89, 89, 89, 90, 90, 90,
+    90, 91, 91, 91, 91, 92, 92, 92, 92, 93, 93, 93, 93, 94, 94, 94, 94, 95, 95, 95, 95, 96, 96, 96,
+    96, 97, 97, 97, 97, // 400+1
+];
+
+pub(super) fn cycle_to_yo(cycle: u32) -> (u32, u32) {
+    let (mut year_mod_400, mut ordinal0) = div_rem(cycle, 365);
+    let delta = u32::from(YEAR_DELTAS[year_mod_400 as usize]);
+    if ordinal0 < delta {
+        year_mod_400 -= 1;
+        ordinal0 += 365 - u32::from(YEAR_DELTAS[year_mod_400 as usize]);
+    } else {
+        ordinal0 -= delta;
+    }
+    (year_mod_400, ordinal0 + 1)
+}
+
+pub(super) fn yo_to_cycle(year_mod_400: u32, ordinal: u32) -> u32 {
+    year_mod_400 * 365 + u32::from(YEAR_DELTAS[year_mod_400 as usize]) + ordinal - 1
+}
+
+impl YearFlags {
+    #[allow(unreachable_pub)] // public as an alias for benchmarks only
+    #[doc(hidden)] // for benchmarks only
+    #[inline]
+    pub fn from_year(year: i32) -> YearFlags {
+        let year = mod_floor(year, 400);
+        YearFlags::from_year_mod_400(year)
+    }
+
+    #[inline]
+    pub(super) fn from_year_mod_400(year: i32) -> YearFlags {
+        YEAR_TO_FLAGS[year as usize]
+    }
+
+    // #[inline]
+    // pub(super) fn ndays(&self) -> u32 {
+    //     let YearFlags(flags) = *self;
+    //     366 - u32::from(flags >> 3)
+    // }
+
+    #[inline]
+    pub(super) fn isoweek_delta(&self) -> u32 {
+        let YearFlags(flags) = *self;
+        let mut delta = u32::from(flags) & 0b0111;
+        if delta < 3 {
+            delta += 7;
+        }
+        delta
+    }
+
+    #[inline]
+    pub(super) fn nisoweeks(&self) -> u32 {
+        let YearFlags(flags) = *self;
+        52 + ((0b0000_0100_0000_0110 >> flags as usize) & 1)
+    }
+}
+
+impl fmt::Debug for YearFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let YearFlags(flags) = *self;
+        match flags {
+            0o15 => "A".fmt(f),
+            0o05 => "AG".fmt(f),
+            0o14 => "B".fmt(f),
+            0o04 => "BA".fmt(f),
+            0o13 => "C".fmt(f),
+            0o03 => "CB".fmt(f),
+            0o12 => "D".fmt(f),
+            0o02 => "DC".fmt(f),
+            0o11 => "E".fmt(f),
+            0o01 => "ED".fmt(f),
+            0o10 => "F?".fmt(f),
+            0o00 => "FE?".fmt(f), // non-canonical
+            0o17 => "F".fmt(f),
+            0o07 => "FE".fmt(f),
+            0o16 => "G".fmt(f),
+            0o06 => "GF".fmt(f),
+            _ => write!(f, "YearFlags({})", flags),
+        }
+    }
+}
+
+pub(super) const MIN_OL: u32 = 1 << 1;
+pub(super) const MAX_OL: u32 = 366 << 1; // larger than the non-leap last day `(365 << 1) | 1`
+pub(super) const MAX_MDL: u32 = (12 << 6) | (31 << 1) | 1;
+
+const XX: i8 = -128;
+static MDL_TO_OL: [i8; MAX_MDL as usize + 1] = [
+    XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX,
+    XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX,
+    XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, XX, // 0
+    XX, XX, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
+    64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
+    64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, // 1
+    XX, XX, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66,
+    66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66,
+    66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, XX, XX, XX, XX, XX, // 2
+    XX, XX, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74,
+    72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74,
+    72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, // 3
+    XX, XX, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76,
+    74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76,
+    74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, XX, XX, // 4
+    XX, XX, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80,
+    78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80,
+    78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, // 5
+    XX, XX, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82,
+    80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82,
+    80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, XX, XX, // 6
+    XX, XX, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86,
+    84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86,
+    84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, // 7
+    XX, XX, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88,
+    86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88,
+    86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, // 8
+    XX, XX, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90,
+    88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90,
+    88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, XX, XX, // 9
+    XX, XX, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94,
+    92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94,
+    92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, // 10
+    XX, XX, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96,
+    94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96,
+    94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, XX, XX, // 11
+    XX, XX, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98,
+    100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100,
+    98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98,
+    100, // 12
+];
+
+static OL_TO_MDL: [u8; MAX_OL as usize + 1] = [
+    0, 0, // 0
+    64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
+    64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,
+    64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, // 1
+    66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66,
+    66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66, 66,
+    66, 66, 66, 66, 66, 66, 66, 66, 66, // 2
+    74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72,
+    74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72,
+    74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, 74, 72, // 3
+    76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74,
+    76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74,
+    76, 74, 76, 74, 76, 74, 76, 74, 76, 74, 76, 74, // 4
+    80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78,
+    80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78,
+    80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, 80, 78, // 5
+    82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80,
+    82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80,
+    82, 80, 82, 80, 82, 80, 82, 80, 82, 80, 82, 80, // 6
+    86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84,
+    86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84,
+    86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, 86, 84, // 7
+    88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86,
+    88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86,
+    88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, 88, 86, // 8
+    90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88,
+    90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88,
+    90, 88, 90, 88, 90, 88, 90, 88, 90, 88, 90, 88, // 9
+    94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92,
+    94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92,
+    94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, 94, 92, // 10
+    96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94,
+    96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94,
+    96, 94, 96, 94, 96, 94, 96, 94, 96, 94, 96, 94, // 11
+    100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100,
+    98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98,
+    100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100, 98, 100,
+    98, // 12
+];
+
+/// Ordinal (day of year) and year flags: `(ordinal << 4) | flags`.
+///
+/// The whole bits except for the least 3 bits are referred as `Ol` (ordinal and leap flag),
+/// which is an index to the `OL_TO_MDL` lookup table.
+#[derive(PartialEq, PartialOrd, Copy, Clone)]
+pub(super) struct Of(pub(crate) u32);
+
+impl Of {
+    #[inline]
+    fn clamp_ordinal(ordinal: u32) -> u32 {
+        if ordinal > 366 {
+            0
+        } else {
+            ordinal
+        }
+    }
+
+    #[inline]
+    pub(super) fn new(ordinal: u32, YearFlags(flags): YearFlags) -> Of {
+        let ordinal = Of::clamp_ordinal(ordinal);
+        Of((ordinal << 4) | u32::from(flags))
+    }
+
+    #[inline]
+    pub(super) fn from_mdf(Mdf(mdf): Mdf) -> Of {
+        let mdl = mdf >> 3;
+        match MDL_TO_OL.get(mdl as usize) {
+            Some(&v) => Of(mdf.wrapping_sub((i32::from(v) as u32 & 0x3ff) << 3)),
+            None => Of(0),
+        }
+    }
+
+    #[inline]
+    pub(super) fn valid(&self) -> bool {
+        let Of(of) = *self;
+        let ol = of >> 3;
+        MIN_OL <= ol && ol <= MAX_OL
+    }
+
+    #[inline]
+    pub(super) fn ordinal(&self) -> u32 {
+        let Of(of) = *self;
+        of >> 4
+    }
+
+    #[inline]
+    pub(super) fn with_ordinal(&self, ordinal: u32) -> Of {
+        let ordinal = Of::clamp_ordinal(ordinal);
+        let Of(of) = *self;
+        Of((of & 0b1111) | (ordinal << 4))
+    }
+
+    #[inline]
+    pub(super) fn flags(&self) -> YearFlags {
+        let Of(of) = *self;
+        YearFlags((of & 0b1111) as u8)
+    }
+
+    #[inline]
+    pub(super) fn weekday(&self) -> Weekday {
+        let Of(of) = *self;
+        Weekday::from_u32(((of >> 4) + (of & 0b111)) % 7).unwrap()
+    }
+
+    #[inline]
+    pub(super) fn isoweekdate_raw(&self) -> (u32, Weekday) {
+        // week ordinal = ordinal + delta
+        let Of(of) = *self;
+        let weekord = (of >> 4).wrapping_add(self.flags().isoweek_delta());
+        (weekord / 7, Weekday::from_u32(weekord % 7).unwrap())
+    }
+
+    #[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
+    #[inline]
+    pub(super) fn to_mdf(&self) -> Mdf {
+        Mdf::from_of(*self)
+    }
+}
+
+impl fmt::Debug for Of {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let Of(of) = *self;
+        write!(
+            f,
+            "Of(({} << 4) | {:#04o} /*{:?}*/)",
+            of >> 4,
+            of & 0b1111,
+            YearFlags((of & 0b1111) as u8)
+        )
+    }
+}
+
+/// Month, day of month and year flags: `(month << 9) | (day << 4) | flags`
+///
+/// The whole bits except for the least 3 bits are referred as `Mdl`
+/// (month, day of month and leap flag),
+/// which is an index to the `MDL_TO_OL` lookup table.
+#[derive(PartialEq, PartialOrd, Copy, Clone)]
+pub(super) struct Mdf(pub(super) u32);
+
+impl Mdf {
+    #[inline]
+    fn clamp_month(month: u32) -> u32 {
+        if month > 12 {
+            0
+        } else {
+            month
+        }
+    }
+
+    #[inline]
+    fn clamp_day(day: u32) -> u32 {
+        if day > 31 {
+            0
+        } else {
+            day
+        }
+    }
+
+    #[inline]
+    pub(super) fn new(month: u32, day: u32, YearFlags(flags): YearFlags) -> Mdf {
+        let month = Mdf::clamp_month(month);
+        let day = Mdf::clamp_day(day);
+        Mdf((month << 9) | (day << 4) | u32::from(flags))
+    }
+
+    #[inline]
+    pub(super) fn from_of(Of(of): Of) -> Mdf {
+        let ol = of >> 3;
+        match OL_TO_MDL.get(ol as usize) {
+            Some(&v) => Mdf(of + (u32::from(v) << 3)),
+            None => Mdf(0),
+        }
+    }
+
+    #[inline]
+    pub(super) fn month(&self) -> u32 {
+        let Mdf(mdf) = *self;
+        mdf >> 9
+    }
+
+    #[inline]
+    pub(super) fn with_month(&self, month: u32) -> Mdf {
+        let month = Mdf::clamp_month(month);
+        let Mdf(mdf) = *self;
+        Mdf((mdf & 0b1_1111_1111) | (month << 9))
+    }
+
+    #[inline]
+    pub(super) fn day(&self) -> u32 {
+        let Mdf(mdf) = *self;
+        (mdf >> 4) & 0b1_1111
+    }
+
+    #[inline]
+    pub(super) fn with_day(&self, day: u32) -> Mdf {
+        let day = Mdf::clamp_day(day);
+        let Mdf(mdf) = *self;
+        Mdf((mdf & !0b1_1111_0000) | (day << 4))
+    }
+
+    #[inline]
+    pub(super) fn with_flags(&self, YearFlags(flags): YearFlags) -> Mdf {
+        let Mdf(mdf) = *self;
+        Mdf((mdf & !0b1111) | u32::from(flags))
+    }
+
+    #[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
+    #[inline]
+    pub(super) fn to_of(&self) -> Of {
+        Of::from_mdf(*self)
+    }
+}
+
+impl fmt::Debug for Mdf {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let Mdf(mdf) = *self;
+        write!(
+            f,
+            "Mdf(({} << 9) | ({} << 4) | {:#04o} /*{:?}*/)",
+            mdf >> 9,
+            (mdf >> 4) & 0b1_1111,
+            mdf & 0b1111,
+            YearFlags((mdf & 0b1111) as u8)
+        )
+    }
+}
