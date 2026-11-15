@@ -53,6 +53,7 @@ mizan-mut mutate --help          # list all mutations
 | `arithmetic-identity` | Wrap integer literals with a multiplication identity (`N * 1`) |
 | `explicit-where` | Add an explicit `where` clause to a signature |
 | `explicit-where-to-type-params` | Move simple type bounds from a `where` clause into the type params |
+| `extraneous-unsafe` | Wrap statements inside function bodies in redundant `unsafe { ... }` blocks |
 | `rename-lifetime` | Rename lifetime parameters consistently |
 | `impl-trait-to-generic` | Convert `impl Trait` bounds into generic parameters |
 | `option-wrap` | Wrap expressions in a redundant `Some(...).unwrap()` |

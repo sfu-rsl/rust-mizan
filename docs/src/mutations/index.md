@@ -50,6 +50,7 @@ Structural transformations that leverage Rust syntax, implemented as AST transfo
 | `mizan-mut-arithmetic-identity` | Wrap integer literals with a multiplication identity (`N * 1`) |
 | `mizan-mut-explicit-where` | Add an explicit `where` clause to a signature |
 | `mizan-mut-explicit-where-to-type-params` | Move simple type bounds from a `where` clause into the type parameters |
+| `mizan-mut-extraneous-unsafe` | Wrap statements inside function bodies in redundant `unsafe { ... }` blocks |
 | `mizan-mut-rename-lifetime` | Rename lifetime parameters consistently |
 | `mizan-mut-impl-trait-to-generic` | Convert `impl Trait` bounds into generic parameters |
 | `mizan-mut-option-wrap` | Wrap expressions in a redundant `Some(...).unwrap()` |

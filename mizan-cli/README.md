@@ -155,6 +155,7 @@ Structural transformations that leverage Rust-specific syntax features.
 | `mizan-mut-arithmetic-identity` | Wrap integer literals with identity (e.g., `N * 1`)                             |
 | `mizan-mut-explicit-where`                | Adds explicit where to function signature                                       |
 | `mizan-mut-explicit-where-to-type-params` | Move Simple type bounds from explicit where to type params                      |
+| `mizan-mut-extraneous-unsafe`             | Wraps statements inside function bodies in redundant `unsafe { ... }` blocks    |
 | `mizan-mut-rename-lifetime`               | Rename lifetime parameter consistently                                          |
 | `mizan-mut-impl-trait-to-generic`         | Converts impl form Trait bounds into generic parameters                         |
 | `mizan-mut-option-wrap`                   | Wraps expressions in redundant `Some(...).unwrap()` calls                       |
