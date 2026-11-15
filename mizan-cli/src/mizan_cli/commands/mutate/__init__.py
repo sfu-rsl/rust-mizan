@@ -33,6 +33,9 @@ def cmd(ctx, mutations: List[str], seed: int):
         if not os.path.exists(required_file):
             logger.error(f"No {required_file} found")
             ctx.exit(1)
+        if os.path.isdir("mizan-mut"): 
+            logger.error("Run `mizan mutate` from a `mizan checkout` output folder, not from the repository root.")
+            ctx.exit(1)
 
     if "all" in mutations:
         selected_mutations = list(MUTATION_REGISTRY.keys())
