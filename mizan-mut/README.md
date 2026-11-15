@@ -52,8 +52,10 @@ mizan-mut mutate --help
 | `trait-bound-reorder`           | Randomly reorders trait bounds in where clauses                                 |
 | `use-reorder`                   | Randomly reorders items in use statements                                       |
 | `arithmetic-identity`           | Wraps integer literals with multiplication identity (N \* 1)                    |
+| `extraneous-unsafe`   | Adds extraneous `unsafe {...}` blocks around statements inside functions |
 | `explicit-where`                | Adds explicit where to function signature                                       |
 | `explicit-where-to-type-params` | Move Simple type bounds from explicit where to type params                      |
+| `extraneous-unsafe`             | Wraps statements inside function bodies in redundant `unsafe { ... }` blocks    |
 | `rename-lifetime`               | Rename lifetime parameter consistently                                          |
 | `impl-trait-to-generic`         | Converts impl form Trait bounds into generic parameters                         |
 | `option-wrap`                   | Wraps expressions in redundant `Some(...).unwrap()` calls                       |

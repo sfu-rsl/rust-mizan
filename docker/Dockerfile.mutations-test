@@ -67,6 +67,7 @@ MUTATIONS=(
     arithmetic-identity
     explicit-where
     explicit-where-to-type-params
+    extraneous-unsafe
     rename-lifetime
     impl-trait-to-generic
     option-wrap
@@ -75,6 +76,7 @@ MUTATIONS=(
     explicit-return
     unreachable-panic
     repeated-shadowing
+    extraneous-unsafe
 )
 
 declare -A RESULTS

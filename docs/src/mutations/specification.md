@@ -222,6 +222,29 @@ becomes
 fn longest<'__life0, '__life1>(x: &'__life0 str, y: &'__life1 str) -> &'__life0 str { ... }
 ```
 
+### `mizan-mut-extraneous-unsafe`
+Wrap expression statements (not `let` bindings) in redundant `unsafe { ... }` blocks. Which statements are wrapped is chosen at random; statements with attributes (such as `#[cfg(...)]`) and code inside macros or existing `unsafe` blocks are left alone.
+
+```rust
+fn foo(v: &mut Vec<i32>) {
+    v.push(1);
+    v.push(2);
+    println!("{}", v.len());
+}
+```
+becomes
+```rust
+fn foo(v: &mut Vec<i32>) {
+    unsafe {
+        v.push(1);
+    }
+    unsafe {
+        v.push(2);
+    }
+    println!("{}", v.len());
+}
+```
+
 ### `mizan-mut-impl-trait-to-generic`
 Convert `impl Trait` parameters into explicit generic parameters.
 
