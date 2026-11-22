@@ -30,7 +30,7 @@ authors:
   - family-names: Feng
     given-names: Xuan
   - family-names: Chang
-    given-names: Angel X.
+    given-names: Angel X
   - family-names: Sumner
     given-names: Nick
   - family-names: Ko
@@ -38,7 +38,7 @@ authors:
 url: "https://github.com/sfu-rsl/rust-mizan"
 repository-code: "https://github.com/sfu-rsl/rust-mizan"
 preferred-citation:
-  type: article
+  type: conference-paper
   title: "RustMizan: A Compilable, Contamination-Aware Benchmarking Framework for Rust Vulnerabilities"
   authors:
     - family-names: Elsayed
@@ -68,14 +68,11 @@ preferred-citation:
     - family-names: Feng
       given-names: Xuan
     - family-names: Chang
-      given-names: Angel X.
+      given-names: Angel X
     - family-names: Sumner
       given-names: Nick
     - family-names: Ko
       given-names: Steven Y.
+  collection-title: "The Fortieth Annual Conference on Neural Information Processing Systems Evaluations and Datasets Track"
   year: 2026
-  url: "https://arxiv.org/abs/2607.04729"
-  identifiers:
-    - type: other
-      value: "arXiv:2607.04729"
-      description: "arXiv preprint"
+  url: "https://openreview.net/forum?id=buiRmXBL93"
