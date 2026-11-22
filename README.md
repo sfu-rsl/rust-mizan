@@ -100,14 +100,12 @@ See the [contributing guide](https://sfu-rsl.github.io/rust-mizan/contributing/)
 ## Citation
 
 ```bibtex
-@misc{elsayed2026rustmizancompilablecontaminationawarebenchmarking,
-title={RustMizan: A Compilable, Contamination-Aware Benchmarking Framework for Rust Vulnerabilities},
-author={Tarek Elsayed and Shiping Yang and Eunsong Koh and Sanika Goyal and Vincent Huang and Paul Ngo and Nathan Young and Mohammad Omidvar Tehrani and Alvyn Kang and Arnell Kang and Zeyu Chen and Angélica Moreira and Xuan Feng and Angel X. Chang and Nick Sumner and Steven Y. Ko},
-year={2026},
-eprint={2607.04729},
-archivePrefix={arXiv},
-primaryClass={cs.CR},
-url={https://arxiv.org/abs/2607.04729},
+@inproceedings{elsayed2026rustmizan,
+  title     = {RustMizan: A Compilable, Contamination-Aware Benchmarking Framework for Rust Vulnerabilities},
+  author    = {Tarek Elsayed and Shiping Yang and Eunsong Koh and Sanika Goyal and Vincent Huang and Paul Ngo and Nathan Young and Mohammad Omidvar Tehrani and Alvyn Kang and Arnell Kang and Zeyu Chen and Ang{\'e}lica Moreira and Xuan Feng and Angel X Chang and Nick Sumner and Steven Y. Ko},
+  booktitle = {The Fortieth Annual Conference on Neural Information Processing Systems Evaluations and Datasets Track},
+  year      = {2026},
+  url       = {https://openreview.net/forum?id=buiRmXBL93}
 }
 ```
 
