@@ -22,6 +22,11 @@
 - [Submit leaderboard results](contributing/leaderboard.md)
 - [Update the analysis](contributing/analysis.md)
 
+# Updates
+
+- [Changelog](changelog/index.md)
+  - [inspect-ai 0.3.291 upgrade](changelog/inspect-ai-0.3.291.md)
+
 # Reference
 
 - [Limitations](limitations.md)
