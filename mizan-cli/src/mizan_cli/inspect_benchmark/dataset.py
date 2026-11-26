@@ -157,7 +157,7 @@ E.g., if the code has a vulnerable function `pub fn from(x: Vec<u8>) -> Body`, a
 
 The correct result should be `pub fn from(x: Vec<u8>) -> Body`.
 ## Output File 
-You must write this JSON object format to a `result.json` file in the current working directory. 
+You must write this JSON object format to a `results.json` file in the current working directory. 
 ## Examples
 Here are examples of what a possible expected output inside of your `results.json` file based on different crate input files. 
 #### Example 1 - Vulnerable Crate

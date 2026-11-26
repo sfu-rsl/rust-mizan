@@ -1,21 +1,22 @@
 #!/usr/bin/env python3
 
 from pathlib import Path
-from inspect_ai import eval
+from inspect_ai import eval, get_model
 
 from mizan_cli.inspect_benchmark import rustmizan, get_agent, supports 
 
 MODELS = [
     "anthropic/claude-sonnet-4-6",
-    # "openai/gpt-5.4",
-    # "google/gemini-3.1-pro-preview",
-    # get_model("openrouter/qwen/qwen3.6-plus", reasoning_enabled=False),
+    "openai/gpt-5.4",
+    "google/gemini-3.1-pro-preview",
+    get_model("openrouter/qwen/qwen3.6-plus", reasoning_enabled=False),
 ]
 
-AGENT = "claude_code"
-MESSAGE_LIMIT = 100     # Limit the number of messages the agent can send during evaluation, set to None for no limit
-TIME_LIMIT = 3600       # Time limit for each task run in seconds
-LIMIT = None            # Set to an integer to limit the number of samples evaluated
+# TODO: Make configurable from CLI args 
+AGENT = "codex_cli"
+MESSAGE_LIMIT = None     # Limit the number of messages the agent can send during evaluation, set to None for no limit
+TIME_LIMIT = None       # Time limit for each task run in seconds
+LIMIT = 1               # Set to an integer to limit the number of samples evaluated
 SAMPLE_IDS = None       # Set to a list of sample IDs to evaluate specific samples, e.g., ["sample-001", "sample-002"]
 
 DATASET_DIR = Path(__file__).resolve().parents[1] / "datasets"

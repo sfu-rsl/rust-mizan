@@ -1,32 +1,13 @@
-# from inspect_swe import claude_code
-# from .solver import react_agent 
-
-# NO_WEB = ["WebSearch", "WebFetch"]
-
-# AGENTS = {
-#     "react": (lambda: react_agent(), None), 
-#     "claude_code": (lambda: claude_code(disallowed_tools=NO_WEB), ("anthropic/"))
-# }
-
-# def get_agent(name): 
-#     return AGENTS[name][0]() 
-
-# def supports(name, model): 
-#     prefixes = AGENTS[name][1]
-#     return prefixes is None or str(model).startswith(prefixes)
-
 from dataclasses import dataclass, field
 from typing import Any, Callable 
 
 from inspect_ai.agent import Agent 
-from inspect_swe import claude_code
+from inspect_swe import claude_code, codex_cli
 
 from .solver import react_agent 
+from .prompts import ASSISTANT_PROMPT
 
 AgentFactory = Callable[[], Agent]
-
-CLAUDE_CODE_SYSTEM_PROMPT = """You are a security auditor analyzing Rust code for vulnerabilities.
-Focus on memory safety issues and follow the task instructions carefully."""
 
 @dataclass(frozen=True)
 class AgentSpec: 
@@ -48,10 +29,19 @@ AGENTS: dict[str, AgentSpec] = {
         description="Claude Code CLI", 
         factory=claude_code, 
         kwargs={
-            "system_prompt": (CLAUDE_CODE_SYSTEM_PROMPT), 
+            "system_prompt": ASSISTANT_PROMPT, 
             "disallowed_tools": ["WebSearch", "WebFetch"],
         },
         models=("anthropic/",),
+    ),
+    "codex_cli": AgentSpec(
+        description="CodexCLI", 
+        factory=codex_cli, 
+        kwargs={
+            "system_prompt": ASSISTANT_PROMPT, 
+            "web_search": "disabled",
+        },
+        models=("openai/",),
     )
 }
 
