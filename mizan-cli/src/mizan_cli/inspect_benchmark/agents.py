@@ -15,9 +15,12 @@ class AgentSpec:
     factory: Callable[..., Agent]
     kwargs: dict[str, Any] = field(default_factory=dict)
     models: tuple[str, ...] | None = None 
+    # Models to run when none are given. None means DEFAULT_MODELS in run.py.
+    default_models: tuple[str, ...] | None = None
 
-    def build(self) -> Agent: 
-        return self.factory(**self.kwargs)
+    def build(self, **overrides: Any) -> Agent: 
+        """Build the agent. `overrides` replace or add to the default kwargs."""
+        return self.factory(**{**self.kwargs, **overrides})
 
     def supports(self, model) -> bool: 
         return self.models is None or str(model).startswith(self.models)
@@ -30,18 +33,17 @@ AGENTS: dict[str, AgentSpec] = {
         factory=claude_code, 
         kwargs={
             "system_prompt": ASSISTANT_PROMPT, 
-            "disallowed_tools": ["WebSearch", "WebFetch"],
         },
         models=("anthropic/",),
     ),
     "codex_cli": AgentSpec(
-        description="CodexCLI", 
+        description="Codex CLI", 
         factory=codex_cli, 
         kwargs={
             "system_prompt": ASSISTANT_PROMPT, 
-            "web_search": "disabled",
         },
         models=("openai/",),
+        default_models=("openai/gpt-6.1-sol",),
     )
 }
 
@@ -51,8 +53,8 @@ def get_spec(name: str) -> AgentSpec:
        raise ValueError(f"Unknown agent {name!r}. Choose from: {', '.join(AGENTS)}")
     return AGENTS[name]
 
-def get_agent(name: str) -> Agent: 
-    return get_spec(name).build()
+def get_agent(name: str, **overrides: Any) -> Agent: 
+    return get_spec(name).build(**overrides)
 
 def supports(name: str, model) -> bool: 
     return get_spec(name).supports(model)
