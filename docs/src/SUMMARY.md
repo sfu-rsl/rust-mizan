@@ -19,6 +19,7 @@
 - [Overview](contributing/index.md)
 - [Add a vulnerability](contributing/vulnerabilities.md)
 - [Add a mutation](contributing/mutations.md)
+- [Add an agent](contributing/agents.md)
 - [Submit leaderboard results](contributing/leaderboard.md)
 - [Update the analysis](contributing/analysis.md)
 

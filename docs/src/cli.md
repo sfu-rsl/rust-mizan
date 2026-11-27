@@ -92,14 +92,74 @@ mizan evaluate prepare-dataset [OPTIONS]
 
 The parquet bundles each sample's files and ground truth, plus dataset metadata (rust version, tag, applied mutations). It is the only artifact the evaluation harness consumes. See [Evaluation](evaluation.md).
 
-## Running evaluations
+## `evaluate run`
 
-Use the [`run_eval.py`](https://github.com/sfu-rsl/rust-mizan/blob/master/mizan-cli/run_eval.py) script for full control over models, limits, and the agent scaffold:
+Run the benchmark on a prepared dataset with a chosen agent. Requires Docker and the API keys for the selected models.
+
+```bash
+mizan evaluate run [OPTIONS]
+```
+
+| Option | Short | Description | Default |
+| --- | --- | --- | --- |
+| `--dataset` | `-d` | Parquet file, e.g. from `prepare-dataset` (repeatable) | `datasets/mizan-vanilla.parquet` |
+| `--agent` | `-a` | Agent to evaluate: `react`, `claude_code`, or `codex_cli` | `react` |
+| `--agent-arg` | | Override an agent setting as `KEY=VALUE` (repeatable) | none |
+| `--model` | `-m` | Model to evaluate (repeatable) | the agent's default models, else the four paper models |
+| `--sample-id` | `-s` | Only run these sample IDs (repeatable) | all |
+| `--limit` | | Max samples per dataset | none |
+| `--message-limit` | | Max messages per sample, `0` for none | `100` |
+| `--time-limit` | | Seconds per sample, `0` for none | `3600` |
+| `--max-sandboxes` | | Max concurrent Docker sandboxes | `10` |
+| `--reasoning-effort` | | Reasoning effort passed to the model | `low` |
+| `--fail-on-error` | | Stop on the first sample error | `false` |
+
+| Agent | Supported models | Default models (no `--model`) | Settings Mizan sets |
+| --- | --- | --- | --- |
+| `react` | any | the four paper models | none (takes no `--agent-arg`) |
+| `claude_code` | `anthropic/` | `anthropic/claude-sonnet-4-6` | `system_prompt` |
+| `codex_cli` | `openai/` | `openai/gpt-6.1-sol` | `system_prompt` |
+
+- Unsupported models are skipped with a message.
+- Settings not listed above use the agent's inspect-swe defaults unless you pass them with `--agent-arg`.
+- `--agent-arg` values are parsed as JSON when possible, so lists and numbers work.
+- To change these defaults, edit the agent's entry in `AGENTS` (see [Add an agent](contributing/agents.md)).
+
+> **Note:** `--agent-arg` keys are the agent factory's own arguments, and Mizan passes them through unchanged. For the available arguments and their value formats, see the [inspect-swe docs](https://meridianlabs-ai.github.io/inspect_swe/) for `claude_code` and `codex_cli`. The `react` agent takes no `--agent-arg` settings.
+
+```bash
+# Same as run_eval.py's defaults: ReAct agent, all four models, bundled vanilla dataset
+mizan evaluate run
+
+# A dataset you prepared
+mizan evaluate run -d output/dataset.parquet
+
+# Claude Code on two samples
+mizan evaluate run -a claude_code -m anthropic/claude-sonnet-4-6 -s vuln-0001 -s vuln-0002
+
+# Codex CLI with web search turned off
+mizan evaluate run -a codex_cli --agent-arg web_search=disabled
+
+# Claude Code without web tools, at medium reasoning effort
+mizan evaluate run -a claude_code --agent-arg disallowed_tools='["WebSearch","WebFetch"]' --reasoning-effort medium
+```
+
+## `evaluate agents`
+
+List the available agents, the models each supports, and their default settings (the values `--agent-arg` overrides).
+
+```bash
+mizan evaluate agents
+```
+
+## Running evaluations from a script
+
+[`run_eval.py`](https://github.com/sfu-rsl/rust-mizan/blob/master/mizan-cli/run_eval.py) runs the same code as `evaluate run`, with its settings as constants at the top of the file:
 
 ```bash
 cd mizan-cli
-# Edit run_eval.py: dataset path, models, message/time limits
+# Edit run_eval.py: AGENT, AGENT_ARGS, MODELS, DATASET_PATHS, limits
 poetry run python run_eval.py
 ```
 
-The script exposes the full evaluation configuration, including the agent, which can be replaced with a custom implementation. See [Evaluation](evaluation.md).
+To add an agent, see [Add an agent](contributing/agents.md). See [Evaluation](evaluation.md).
